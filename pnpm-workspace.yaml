@@ -1,8 +1,37 @@
 packages:
-  - apps/*
+  - 'apps/*'
+  - 'libs/post/*'
+  - 'libs/shared/*'
+
+catalog:
+  # TRPC
+  # '@tanstack/react-query': ^5.69.0
+  # '@trpc/client': ^11.0.0
+  # '@trpc/tanstack-react-query': ^11.0.0
+  # '@trpc/server': ^11.0.0
+
+  # React & React Native
+  'react-native': '^0.79.5'
+
+  # NestJS
+  '@nestjs/common': '^11.0.0'
+  '@nestjs/core': '^11.0.0'
+  '@nestjs/platform-express': '^11.0.0'
+  '@nestjs/cqrs': '^11.0.3'
+  '@nestjs-cls/transactional': '^3.0.3'
+
+  # Zod and forms
+  zod: 3.24.3
+
+catalogs:
+  react19:
+    react: 19.0.0
+    react-dom: 19.0.0
+    '@types/react': '~19.0.14'
+    '@types/react-dom': ^19.0.4
 
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@swc/core'
-  - esbuild
-  - nx
+  - 'esbuild'
+  - 'nx'

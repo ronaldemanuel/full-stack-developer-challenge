@@ -1,0 +1,45 @@
+{
+  "name": "@nx-test/shared-domain",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "shared-domain",
+    "sourceRoot": "libs/shared/domain/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/shared/domain/dist",
+          "main": "libs/shared/domain/src/index.ts",
+          "tsConfig": "libs/shared/domain/tsconfig.lib.json",
+          "skipTypeCheck": true,
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nestjs/common": "catalog:",
+    "@nestjs/cqrs": "catalog:",
+    "@nestjs-cls/transactional": "catalog:",
+    "uuid": "^11.1.0",
+    "zod": "catalog:",
+    "@swc/helpers": "~0.5.11"
+  }
+}
