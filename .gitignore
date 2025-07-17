@@ -62,3 +62,7 @@ apps/mobile/ios/
 
 
 test-output
+
+# Next.js
+.next
+out
