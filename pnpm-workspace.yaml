@@ -1,2 +1,8 @@
-packages: 
-  - "apps/*"
+packages:
+  - apps/*
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - '@swc/core'
+  - esbuild
+  - nx

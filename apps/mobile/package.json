@@ -1,5 +1,23 @@
 {
   "name": "@nx-test/mobile",
   "version": "0.0.1",
-  "private": true
+  "private": true,
+  "scripts": {
+    "android": "expo run:android",
+    "ios": "expo run:ios"
+  },
+  "dependencies": {
+    "@testing-library/jest-native": "*",
+    "@testing-library/react-native": "*",
+    "metro-config": "*",
+    "react-native": "*",
+    "expo": "*",
+    "react-native-svg": "*",
+    "react-native-web": "*",
+    "expo-dev-client": "~5.2.4",
+    "react": "19.0.0",
+    "expo-modules-core": "*",
+    "expo-asset": "*",
+    "expo-font": "*"
+  }
 }
