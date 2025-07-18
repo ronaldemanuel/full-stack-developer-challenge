@@ -22,15 +22,6 @@
       "path": "./apps/web"
     },
     {
-      "path": "./apps/web-e2e"
-    },
-    {
-      "path": "./apps/web-e2e"
-    },
-    {
-      "path": "./libs/post/domain"
-    },
-    {
       "path": "./libs/shared/domain"
     }
   ]
