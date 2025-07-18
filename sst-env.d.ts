@@ -5,6 +5,13 @@
 
 declare module "sst" {
   export interface Resource {
+    "nx-ddd-vpc": {
+      "type": "sst.aws.Vpc"
+    }
+    "nx-ddd-web-app": {
+      "type": "sst.aws.Nextjs"
+      "url": string
+    }
   }
 }
 /// <reference path="sst-env.d.ts" />

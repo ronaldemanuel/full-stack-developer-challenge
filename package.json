@@ -4,11 +4,14 @@
   "license": "MIT",
   "scripts": {},
   "nx": {
+    "implicitDependencies": [
+      "web"
+    ],
     "targets": {
       "deploy": {
         "executor": "nx:run-commands",
         "dependsOn": [
-          "open-next-build"
+          "^open-next-build"
         ],
         "options": {
           "command": "sst deploy --stage {args.stage}",

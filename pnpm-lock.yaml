@@ -400,6 +400,9 @@ importers:
 
   tools/zoddd:
     dependencies:
+      '@nx/devkit':
+        specifier: 21.2.4
+        version: 21.2.4(nx@21.2.4(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.17))(@swc/types@0.1.23)(typescript@5.8.3))(@swc/core@1.5.29(@swc/helpers@0.5.17)))
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17
