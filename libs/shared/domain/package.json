@@ -1,5 +1,5 @@
 {
-  "name": "@nx-test/shared-domain",
+  "name": "@nx-ddd/shared-domain",
   "version": "0.0.1",
   "private": true,
   "type": "module",

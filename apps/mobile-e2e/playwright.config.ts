@@ -24,7 +24,7 @@ export default defineConfig({
   },
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'pnpm exec nx run @nx-test/mobile:serve',
+    command: 'pnpm exec nx run @nx-ddd/mobile:serve',
     url: 'http://localhost:4200',
     reuseExistingServer: true,
     cwd: workspaceRoot,

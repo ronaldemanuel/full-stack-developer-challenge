@@ -4,7 +4,7 @@ import type {
   SearchResultProps,
   SortDirection,
   // TODO: Replace with new import
-} from '@nx-test/validators';
+} from '@nx-ddd/validators';
 
 import type { Entity } from '../entities/entity.js';
 import type { IRepository } from './repository.contracts.js';

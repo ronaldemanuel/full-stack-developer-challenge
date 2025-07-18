@@ -1,10 +1,10 @@
 {
-  "name": "@nx-test/mobile-e2e",
+  "name": "@nx-ddd/mobile-e2e",
   "version": "0.0.1",
   "private": true,
   "nx": {
     "implicitDependencies": [
-      "@nx-test/mobile"
+      "@nx-ddd/mobile"
     ]
   }
 }

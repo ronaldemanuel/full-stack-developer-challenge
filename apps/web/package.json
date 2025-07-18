@@ -1,5 +1,5 @@
 {
-  "name": "@nx-test/web",
+  "name": "@nx-ddd/web",
   "version": "0.0.1",
   "private": true,
   "nx": {

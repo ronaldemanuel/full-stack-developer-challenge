@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: '@nx-test/mobile',
+  displayName: '@nx-ddd/mobile',
   resolver: '@nx/jest/plugins/resolver',
   preset: 'jest-expo',
   moduleFileExtensions: ['ts', 'js', 'html', 'tsx', 'jsx'],

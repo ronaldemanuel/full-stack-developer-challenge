@@ -1,5 +1,5 @@
 {
-  "name": "@nx-test/api",
+  "name": "@nx-ddd/api",
   "version": "0.0.1",
   "private": true,
   "nx": {
