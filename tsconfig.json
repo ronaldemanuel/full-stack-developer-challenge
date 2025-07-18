@@ -23,6 +23,21 @@
     },
     {
       "path": "./libs/shared/domain"
+    },
+    {
+      "path": "./libs/auth/infrastructure"
+    },
+    {
+      "path": "./libs/auth/application"
+    },
+    {
+      "path": "./libs/email/domain"
+    },
+    {
+      "path": "./libs/email/application"
+    },
+    {
+      "path": "./libs/email/infrastructure"
     }
   ]
 }
