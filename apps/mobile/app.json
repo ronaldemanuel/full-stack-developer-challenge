@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Mobile",
-    "slug": "nx-ddd_mobile",
+    "slug": "nx-ddd",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
