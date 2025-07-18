@@ -1,0 +1,69 @@
+{
+  "generators": {
+    "application": {
+      "factory": "./dist/generators/application/generator",
+      "schema": "./dist/generators/application/schema.json",
+      "description": "application generator"
+    },
+    "domain": {
+      "factory": "./dist/generators/domain/generator",
+      "schema": "./dist/generators/domain/schema.json",
+      "description": "domain generator"
+    },
+    "infrastructure": {
+      "factory": "./dist/generators/infrastructure/generator",
+      "schema": "./dist/generators/infrastructure/schema.json",
+      "description": "infrastructure generator"
+    },
+    "subdomain": {
+      "factory": "./dist/generators/subdomain/generator",
+      "schema": "./dist/generators/subdomain/schema.json",
+      "description": "subdomain generator"
+    },
+    "query": {
+      "factory": "./dist/generators/application/query/generator",
+      "schema": "./dist/generators/application/query/schema.json",
+      "description": "query generator"
+    },
+    "command": {
+      "factory": "./dist/generators/application/command/generator",
+      "schema": "./dist/generators/application/command/schema.json",
+      "description": "command generator"
+    },
+    "event": {
+      "factory": "./dist/generators/application/event/generator",
+      "schema": "./dist/generators/application/event/schema.json",
+      "description": "event generator"
+    },
+    "domain-repository": {
+      "factory": "./dist/generators/domain/repository/generator",
+      "schema": "./dist/generators/domain/repository/schema.json",
+      "description": "domain-repository generator"
+    },
+    "domain-entity": {
+      "factory": "./dist/generators/domain/entity/generator",
+      "schema": "./dist/generators/domain/entity/schema.json",
+      "description": "domain-entity generator"
+    },
+    "domain-event": {
+      "factory": "./dist/generators/domain/event/generator",
+      "schema": "./dist/generators/domain/event/schema.json",
+      "description": "domain-event generator"
+    },
+    "domain-exception": {
+      "factory": "./dist/generators/domain/exception/generator",
+      "schema": "./dist/generators/domain/exception/schema.json",
+      "description": "domain-exception generator"
+    },
+    "schema": {
+      "factory": "./dist/generators/schema/generator",
+      "schema": "./dist/generators/schema/schema.json",
+      "description": "schema generator"
+    },
+    "domain-value-object": {
+      "factory": "./dist/generators/domain/value-object/generator",
+      "schema": "./dist/generators/domain/value-object/schema.json",
+      "description": "domain-value-object generator"
+    }
+  }
+}

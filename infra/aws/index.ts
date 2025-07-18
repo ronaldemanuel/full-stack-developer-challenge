@@ -1,1 +1,1 @@
-export * from "./web-app";
+export * from './web-app';

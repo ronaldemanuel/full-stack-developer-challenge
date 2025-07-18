@@ -23,6 +23,9 @@
     },
     {
       "path": "./libs/shared/domain"
+    },
+    {
+      "path": "./tools/zoddd"
     }
   ]
 }
