@@ -1,12 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type {
-  SearchParamsProps,
-  SearchResultProps,
-  SortDirection,
-  // TODO: Replace with new import
-} from '@nx-ddd/validators';
 
 import type { Entity } from '../entities/entity.js';
+import type { SearchParamsProps } from '../validators/search.js';
+import type { SearchResultProps, SortDirection } from '../validators/sort.js';
 import type { IRepository } from './repository.contracts.js';
 
 export class SearchParams<Filter = string> {

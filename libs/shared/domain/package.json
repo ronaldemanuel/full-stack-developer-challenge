@@ -37,9 +37,9 @@
   "dependencies": {
     "@nestjs/common": "catalog:",
     "@nestjs/cqrs": "catalog:",
-    "@nestjs-cls/transactional": "catalog:",
     "uuid": "^11.1.0",
     "zod": "catalog:",
-    "@swc/helpers": "~0.5.11"
+    "@swc/helpers": "~0.5.11",
+    "sst": "3.17.10"
   }
 }
