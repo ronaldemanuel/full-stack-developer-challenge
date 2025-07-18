@@ -1,5 +1,5 @@
 {
-  "name": "@nx-ddd/shared-domain",
+  "name": "@nx-ddd/email-domain",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -16,8 +16,8 @@
     }
   },
   "nx": {
-    "name": "shared-domain",
-    "sourceRoot": "libs/shared/domain/src",
+    "name": "email-domain",
+    "sourceRoot": "libs/email/domain/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -25,9 +25,9 @@
           "{options.outputPath}"
         ],
         "options": {
-          "outputPath": "libs/shared/domain/dist",
-          "main": "libs/shared/domain/src/index.ts",
-          "tsConfig": "libs/shared/domain/tsconfig.lib.json",
+          "outputPath": "libs/email/domain/dist",
+          "main": "libs/email/domain/src/index.ts",
+          "tsConfig": "libs/email/domain/tsconfig.lib.json",
           "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
@@ -35,11 +35,7 @@
     }
   },
   "dependencies": {
-    "@nestjs/common": "catalog:",
-    "@nestjs/cqrs": "catalog:",
-    "uuid": "^11.1.0",
-    "zod": "catalog:",
     "@swc/helpers": "~0.5.11",
-    "sst": "3.17.10"
+    "zod": "catalog:"
   }
 }

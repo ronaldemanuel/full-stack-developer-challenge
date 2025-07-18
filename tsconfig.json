@@ -26,6 +26,21 @@
     },
     {
       "path": "./tools/zoddd"
+    },
+    {
+      "path": "./libs/auth/application"
+    },
+    {
+      "path": "./libs/email/domain"
+    },
+    {
+      "path": "./libs/email/application"
+    },
+    {
+      "path": "./libs/email/infrastructure"
+    },
+    {
+      "path": "./libs/auth/infrastructure"
     }
   ]
 }

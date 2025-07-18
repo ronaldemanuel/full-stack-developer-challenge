@@ -3,8 +3,8 @@ packages:
   - 'libs/post/*'
   - 'libs/shared/*'
   - 'tools/*'
-  - 'web'
-  - 'web-e2e'
+  - 'libs/auth/*'
+  - 'libs/email/*'
 catalog:
   react-native: '^0.79.5'
   '@nestjs/common': '^11.0.0'

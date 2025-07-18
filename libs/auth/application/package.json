@@ -1,5 +1,5 @@
 {
-  "name": "@nx-ddd/shared-domain",
+  "name": "@nx-ddd/auth-application",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -16,8 +16,8 @@
     }
   },
   "nx": {
-    "name": "shared-domain",
-    "sourceRoot": "libs/shared/domain/src",
+    "name": "auth-application",
+    "sourceRoot": "libs/auth/application/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -25,9 +25,9 @@
           "{options.outputPath}"
         ],
         "options": {
-          "outputPath": "libs/shared/domain/dist",
-          "main": "libs/shared/domain/src/index.ts",
-          "tsConfig": "libs/shared/domain/tsconfig.lib.json",
+          "outputPath": "libs/auth/application/dist",
+          "main": "libs/auth/application/src/index.ts",
+          "tsConfig": "libs/auth/application/tsconfig.lib.json",
           "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
@@ -35,11 +35,6 @@
     }
   },
   "dependencies": {
-    "@nestjs/common": "catalog:",
-    "@nestjs/cqrs": "catalog:",
-    "uuid": "^11.1.0",
-    "zod": "catalog:",
-    "@swc/helpers": "~0.5.11",
-    "sst": "3.17.10"
+    "@swc/helpers": "~0.5.11"
   }
 }

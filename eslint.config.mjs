@@ -18,6 +18,7 @@ export default [
       '**/test-output',
       '**/vite.config.*.timestamp*',
       '**/vitest.config.*.timestamp*',
+      '**/out-tsc',
     ],
   },
   {
@@ -50,6 +51,9 @@ export default [
       '**/*.mjs',
     ],
     // Override or add rules here
-    rules: {},
+    rules: {
+      '@typescript-eslint/consistent-type-imports': 'warn',
+      '@typescript-eslint/no-namespace': 'off',
+    },
   },
 ];
