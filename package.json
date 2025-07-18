@@ -3,6 +3,38 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {},
+  "nx": {
+    "targets": {
+      "deploy": {
+        "executor": "nx:run-commands",
+        "dependsOn": [
+          "open-next-build"
+        ],
+        "options": {
+          "command": "sst deploy --stage {args.stage}",
+          "forwardAllArgs": true
+        },
+        "defaultConfiguration": "dev",
+        "configurations": {
+          "production": {
+            "args": [
+              "--stage=production"
+            ]
+          },
+          "staging": {
+            "args": [
+              "--stage=staging"
+            ]
+          },
+          "dev": {
+            "args": [
+              "--stage=development"
+            ]
+          }
+        }
+      }
+    }
+  },
   "private": true,
   "dependencies": {
     "@expo/metro-config": "~0.20.17",

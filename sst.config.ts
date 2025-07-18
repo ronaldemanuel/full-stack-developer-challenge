@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/triple-slash-reference */
 /// <reference path="./.sst/platform/config.d.ts" />
+
 export default $config({
   app(input) {
+
+
     return {
       name: 'nx-ddd-template',
       removal: input?.stage === 'production' ? 'retain' : 'remove',
@@ -9,9 +12,8 @@ export default $config({
       home: 'aws',
       providers: {
         '@pulumiverse/vercel': {
-          version: '3.2.1',
-          apiToken: process.env.VERCEL_API_TOKEN,
-          teamId: process.env.VERCEL_TEAM_ID,
+          version: '1.15.0',
+          team: "lisbom-29525acd"
         },
         neon: {
           version: '0.9.0',
@@ -21,13 +23,22 @@ export default $config({
     };
   },
   async run() {
-    // const vercel = await import('./infra/vercel');
-    // return {
-    //   webAppUrl: vercel.webAppDeployment.url,
-    // };
-    const aws = await import('./infra/aws');
+      console.log({
+      VERCEL_API_TOKEN: process.env.VERCEL_API_TOKEN,
+      VERCEL_TEAM_ID: process.env.VERCEL_TEAM_ID,
+    })
+    let webAppUrl: $util.Output<string>;
+
+    if (process.env.NEXT_APPS_PROVIDER === 'vercel') {
+      const vercel = await import('./infra/vercel');
+      webAppUrl = vercel.webAppDeployment.url;
+    } else {
+      const aws = await import('./infra/aws');
+      webAppUrl = aws.webApp.url;
+    }
+
     return {
-      webAppUrl: aws.webApp.url,
+      webAppUrl,
     };
   },
 });
