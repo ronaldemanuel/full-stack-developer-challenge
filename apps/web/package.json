@@ -3,11 +3,58 @@
   "version": "0.0.1",
   "private": true,
   "nx": {
-    "name": "web"
+    "name": "web",
+    "targets": {
+      "open-next-build": {
+        "executor": "nx:run-commands",
+        "dependsOn": [
+          "build"
+        ],
+        "cache": true,
+        "outputs": [
+          "{projectRoot}/.open-next"
+        ],
+        "options": {
+          "cwd": "apps/web",
+          "command": "open-next build"
+        }
+      },
+      "deploy": {
+        "executor": "nx:run-commands",
+        "dependsOn": [
+          "open-next-build"
+        ],
+        "options": {
+          "command": "sst deploy --stage {args.stage}",
+          "forwardAllArgs": true
+        },
+        "defaultConfiguration": "dev",
+        "configurations": {
+          "production": {
+            "args": [
+              "--stage=production"
+            ]
+          },
+          "staging": {
+            "args": [
+              "--stage=staging"
+            ]
+          },
+          "dev": {
+            "args": [
+              "--stage=development"
+            ]
+          }
+        }
+      }
+    }
   },
   "dependencies": {
     "next": "~15.2.4",
     "react": "19.0.0",
     "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@opennextjs/aws": "^3.7.0"
   }
 }
