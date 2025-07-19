@@ -1,0 +1,54 @@
+{
+  "name": "@nx-ddd/shared-infrastructure",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "shared-infrastructure",
+    "sourceRoot": "libs/shared/infrastructure/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/shared/infrastructure/dist",
+          "main": "libs/shared/infrastructure/src/index.ts",
+          "tsConfig": "libs/shared/infrastructure/tsconfig.lib.json",
+          "skipTypeCheck": true,
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nx-ddd/auth-domain": "workspace:*",
+    "@nx-ddd/shared-domain": "workspace:*",
+    "@nx-ddd/shared-application": "workspace:*",
+    "@swc/helpers": "~0.5.11",
+    "@nestjs/cache-manager": "^3.0.1",
+    "serialize-javascript": "^6.0.2",
+    "@trpc/server": "catalog:",
+    "superjson": "catalog:",
+    "cache-manager": "^7.0.0",
+    "@nestjs/common": "catalog:",
+    "trpc-to-openapi": "^2.1.5",
+    "@nestjs/core": "catalog:"
+  },
+  "devDependencies": {
+    "@types/serialize-javascript": "^5.0.4"
+  }
+}

@@ -56,7 +56,6 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-cache/
 apps/mobile/android/
 apps/mobile/ios/
 

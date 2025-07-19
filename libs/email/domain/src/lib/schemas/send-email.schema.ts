@@ -5,7 +5,18 @@ export const emailTypesSchema = z.enum([
   'sendResetPassword',
   'sendMagicLink',
   'sendVerificationOTP',
+  'sendInvitationEmail',
 ]);
+
+const sendInvitationEmailPayloadSchema = z.object({
+  email: z.string(),
+  username: z.string().optional(),
+  invitedByUsername: z.string().optional(),
+  invitedByEmail: z.string().optional(),
+  teamName: z.string().optional(),
+  teamImage: z.string().optional(),
+  inviteLink: z.string().optional(),
+});
 
 export const sendVerificationEmailPayloadSchema = z.object({
   user: z.object({
@@ -29,12 +40,21 @@ export const sendVerificationOTPPayloadSchema = z.object({
 });
 
 export const sendEmailAbstractPayloadSchema = z.object({
-  subject: z.string(),
   to: z.string(),
-  body: z.string(),
 });
 
+export const renderEmailResponseSchema = z.object({
+  html: z.string(),
+  text: z.string(),
+});
+
+export type RenderEmailResponse = z.infer<typeof renderEmailResponseSchema>;
+
 export type EmailTypes = z.infer<typeof emailTypesSchema>;
+
+export type SendInvitationEmailPayload = z.infer<
+  typeof sendInvitationEmailPayloadSchema
+>;
 
 export type SendVerificationEmailPayload = z.infer<
   typeof sendVerificationEmailPayloadSchema
@@ -51,21 +71,20 @@ export type SendEmailAbstractPayload = z.infer<
   typeof sendEmailAbstractPayloadSchema
 >;
 
-export type SendEmailPayload<T extends EmailTypes> = SendEmailAbstractPayload &
-  T extends 'sendVerificationEmail'
-  ? {
-      data: SendVerificationEmailPayload;
-    }
-  : T extends 'sendResetPassword'
-  ? {
-      data: SendResetPasswordPayload;
-    }
-  : T extends 'sendMagicLink'
-  ? {
-      data: SendMagicLinkPayload;
-    }
-  : T extends 'sendVerificationOTP'
-  ? {
-      data: SendVerificationOTPPayload;
-    }
-  : never;
+export interface SendEmailPayload<T extends EmailTypes>
+  extends SendEmailAbstractPayload {
+  data: T extends 'sendVerificationEmail'
+    ? SendVerificationEmailPayload
+    : T extends 'sendResetPassword'
+    ? SendResetPasswordPayload
+    : T extends 'sendMagicLink'
+    ? SendMagicLinkPayload
+    : T extends 'sendVerificationOTP'
+    ? SendVerificationOTPPayload
+    : T extends 'sendInvitationEmail'
+    ? SendInvitationEmailPayload
+    : object;
+}
+
+export type SendEmailPayloadData<T extends EmailTypes> =
+  SendEmailPayload<T>['data'];

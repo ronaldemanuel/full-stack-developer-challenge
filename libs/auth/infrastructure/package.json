@@ -13,7 +13,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
-    }
+    },
+    "./env": "./src/env.ts"
   },
   "nx": {
     "name": "auth-infrastructure",
@@ -35,7 +36,14 @@
     }
   },
   "dependencies": {
+    "@react-email/components": "^0.3.2",
+    "@nx-ddd/auth-application": "workspace:*",
+    "@nx-ddd/auth-domain": "workspace:*",
+    "@nx-ddd/user-domain": "workspace:*",
+    "@nx-ddd/database-infrastructure": "workspace:*",
     "@swc/helpers": "~0.5.11",
-    "better-auth": "^1.2.12"
+    "better-auth": "^1.2.12",
+    "zod": "catalog:",
+    "@t3-oss/env-nextjs": "^0.13.6"
   }
 }

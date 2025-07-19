@@ -3,4 +3,5 @@ export * from './lib/entities/index.js';
 export * from './lib/errors/index.js';
 export * from './lib/factories/index.js';
 export * from './lib/repositories/index.js';
-export * from './lib/validators/index.js';
+export * from './lib/schemas/index.js';
+export * from './lib/constants/index.js';

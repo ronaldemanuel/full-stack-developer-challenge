@@ -1,0 +1,46 @@
+{
+  "name": "@nx-ddd/api-infrastructure",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "sourceRoot": "libs/api/infrastructure/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/api/infrastructure/dist",
+          "main": "libs/api/infrastructure/src/index.ts",
+          "tsConfig": "libs/api/infrastructure/tsconfig.lib.json",
+          "skipTypeCheck": true,
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@swc/helpers": "~0.5.11",
+    "@nx-ddd/shared-domain": "workspace:*",
+    "@nx-ddd/shared-application": "workspace:*",
+    "@nx-ddd/shared-infrastructure": "workspace:*",
+    "@nx-ddd/auth-infrastructure": "workspace:*",
+    "@nx-ddd/auth-application": "workspace:*",
+    "@nx-ddd/user-domain": "workspace:*",
+    "@nx-ddd/auth-domain": "workspace:*"
+  }
+}

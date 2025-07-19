@@ -4,6 +4,9 @@
     "jsx": "preserve",
     "noEmit": true,
     "emitDeclarationOnly": false,
+    "declaration": false,
+    "composite": false,
+    "declarationMap": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "lib": [

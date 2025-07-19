@@ -1,1 +1,1 @@
-export * from './lib/email-application.js';
+export * from './lib/events/index.js';

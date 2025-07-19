@@ -1,1 +1,1 @@
-export * from './lib/email-infrastructure';
+export * from './lib/services';
