@@ -35,18 +35,19 @@
     }
   },
   "dependencies": {
-    "@nx-ddd/auth-domain": "workspace:*",
-    "@nx-ddd/shared-domain": "workspace:*",
-    "@nx-ddd/shared-application": "workspace:*",
-    "@swc/helpers": "~0.5.11",
+    "@aws-sdk/client-sqs": "^3.848.0",
     "@nestjs/cache-manager": "^3.0.1",
-    "serialize-javascript": "^6.0.2",
-    "@trpc/server": "catalog:",
-    "superjson": "catalog:",
-    "cache-manager": "^7.0.0",
     "@nestjs/common": "catalog:",
-    "trpc-to-openapi": "^2.1.5",
-    "@nestjs/core": "catalog:"
+    "@nestjs/core": "catalog:",
+    "@nx-ddd/auth-domain": "workspace:*",
+    "@nx-ddd/shared-application": "workspace:*",
+    "@nx-ddd/shared-domain": "workspace:*",
+    "@swc/helpers": "~0.5.11",
+    "@trpc/server": "catalog:",
+    "cache-manager": "^7.0.0",
+    "serialize-javascript": "^6.0.2",
+    "superjson": "catalog:",
+    "trpc-to-openapi": "^2.1.5"
   },
   "devDependencies": {
     "@types/serialize-javascript": "^5.0.4"

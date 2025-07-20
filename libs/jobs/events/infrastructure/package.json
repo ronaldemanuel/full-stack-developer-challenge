@@ -1,5 +1,5 @@
 {
-  "name": "@nx-ddd/email-domain",
+  "name": "@nx-ddd/job-events-infra",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -16,8 +16,8 @@
     }
   },
   "nx": {
-    "name": "email-domain",
-    "sourceRoot": "libs/email/domain/src",
+    "name": "job-events-infra",
+    "sourceRoot": "libs/jobs/events/infrastructure/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -25,9 +25,9 @@
           "{options.outputPath}"
         ],
         "options": {
-          "outputPath": "libs/email/domain/dist",
-          "main": "libs/email/domain/src/index.ts",
-          "tsConfig": "libs/email/domain/tsconfig.lib.json",
+          "outputPath": "libs/jobs/events/infrastructure/dist",
+          "main": "libs/jobs/events/infrastructure/src/index.ts",
+          "tsConfig": "libs/jobs/events/infrastructure/tsconfig.lib.json",
           "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
@@ -35,11 +35,6 @@
     }
   },
   "dependencies": {
-    "@swc/helpers": "~0.5.11",
-    "@nx-ddd/shared-domain": "workspace:*",
-    "zod": "catalog:"
-  },
-  "devDependencies": {
-    "@nestjs-modules/mailer": "^2.0.2"
+    "@swc/helpers": "~0.5.11"
   }
 }

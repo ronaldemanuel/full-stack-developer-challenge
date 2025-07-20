@@ -8,6 +8,7 @@ packages:
   - 'libs/database/*'
   - 'libs/user/*'
   - 'libs/api/*'
+  - 'libs/jobs/events/*'
 catalog:
   '@tanstack/react-query': '^5.69.0'
   '@trpc/client': '^11.0.0'

@@ -9,6 +9,8 @@
     "declarationMap": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "lib": [
       "dom",
       "dom.iterable",

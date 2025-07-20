@@ -5,7 +5,7 @@ import { createTRPCContext } from '@nx-ddd/shared-infrastructure';
 
 import { appContext } from '@/lib/app-context';
 import { setCorsHeaders } from '@/lib/cors';
-import { NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export const OPTIONS = (req: Request) => {
   const response = new Response(null, {

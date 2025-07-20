@@ -56,6 +56,9 @@
     },
     {
       "path": "./libs/api/infrastructure"
+    },
+    {
+      "path": "./libs/jobs/events/infrastructure"
     }
   ]
 }
