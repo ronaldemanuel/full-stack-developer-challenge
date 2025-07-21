@@ -37,7 +37,9 @@
   "dependencies": {
     "@nx-ddd/job-events-domain": "workspace:*",
     "@nx-ddd/job-events-presentation": "workspace:*",
+    "@nx-ddd/email-infrastructure": "workspace:*",
     "@nestjs/microservices": "^11.1.5",
+    "@nestjs/cqrs": "catalog:",
     "@swc/helpers": "~0.5.11"
   }
 }

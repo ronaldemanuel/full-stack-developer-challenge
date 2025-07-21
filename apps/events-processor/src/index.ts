@@ -5,12 +5,15 @@ import type { Context, Handler, SQSEvent } from 'aws-lambda';
 
 const strategySubject = new ReplaySubject<SqsStrategy>();
 
-bootstrapSqs().then((strategy) => strategySubject.next(strategy));
-
 export const lambdaHandler: Handler = async (
   event: SQSEvent,
   context: Context
 ) => {
+  bootstrapSqs()
+    .then((strategy) => strategySubject.next(strategy))
+    .catch((error) => {
+      console.error('Error bootstrapping SQS strategy:', error);
+    });
   const strategy = await firstValueFrom(strategySubject);
 
   for (const record of event.Records) {

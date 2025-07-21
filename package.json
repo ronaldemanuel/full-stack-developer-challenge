@@ -5,16 +5,68 @@
   "scripts": {},
   "nx": {
     "implicitDependencies": [
-      "web"
+      "web",
+      "@nx-ddd/events-processor"
     ],
     "targets": {
       "deploy": {
         "executor": "nx:run-commands",
         "dependsOn": [
+          "^build",
           "^open-next-build"
         ],
         "options": {
           "command": "sst deploy --stage {args.stage}",
+          "forwardAllArgs": true
+        },
+        "defaultConfiguration": "dev",
+        "configurations": {
+          "production": {
+            "args": [
+              "--stage=production"
+            ]
+          },
+          "staging": {
+            "args": [
+              "--stage=staging"
+            ]
+          },
+          "dev": {
+            "args": [
+              "--stage=development"
+            ]
+          }
+        }
+      },
+      "refresh": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "sst refresh --stage {args.stage}",
+          "forwardAllArgs": true
+        },
+        "defaultConfiguration": "dev",
+        "configurations": {
+          "production": {
+            "args": [
+              "--stage=production"
+            ]
+          },
+          "staging": {
+            "args": [
+              "--stage=staging"
+            ]
+          },
+          "dev": {
+            "args": [
+              "--stage=development"
+            ]
+          }
+        }
+      },
+      "destroy": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "sst remove --stage {args.stage}",
           "forwardAllArgs": true
         },
         "defaultConfiguration": "dev",

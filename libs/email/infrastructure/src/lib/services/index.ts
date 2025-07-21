@@ -1,1 +1,1 @@
-export * from './email-render.service.js';
+export * from './react-email-render.service.js';

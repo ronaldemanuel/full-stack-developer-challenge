@@ -19,9 +19,10 @@
     "name": "email-infrastructure"
   },
   "dependencies": {
-    "@nx-ddd/email-domain": "workspace:*",
+    "@aws-sdk/client-sesv2": "^3.849.0",
+    "@nestjs-modules/mailer": "^2.0.2",
     "@nx-ddd/email-application": "workspace:*",
-    "@nx-ddd/shared-domain": "workspace:*",
-    "@nestjs-modules/mailer": "^2.0.2"
+    "@nx-ddd/email-domain": "workspace:*",
+    "@nx-ddd/shared-domain": "workspace:*"
   }
 }

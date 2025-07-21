@@ -5,8 +5,13 @@
 
 declare module "sst" {
   export interface Resource {
-    "nx-ddd-vpc": {
-      "type": "sst.aws.Vpc"
+    "MyBucket": {
+      "name": string
+      "type": "sst.aws.Bucket"
+    }
+    "app-queue": {
+      "type": "sst.aws.Queue"
+      "url": string
     }
     "nx-ddd-web-app": {
       "type": "sst.aws.Nextjs"

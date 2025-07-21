@@ -5,7 +5,7 @@ import type {
 } from '../schemas/send-email.schema.js';
 import type { EmailMap } from '../types/email-map.type.js';
 
-export namespace IEmailRenderService {
+export namespace EmailRenderService {
   export const TOKEN = 'EMAIL_RENDER_SERVICE';
 
   export type Output = Promise<ISendMailOptions>;

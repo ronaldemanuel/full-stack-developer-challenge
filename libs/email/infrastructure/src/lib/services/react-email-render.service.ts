@@ -1,7 +1,7 @@
 import type {
   EmailMap,
   EmailTypes,
-  IEmailRenderService,
+  EmailRenderService,
   SendEmailPayload,
 } from '@nx-ddd/email-domain';
 import { InvitationEmailTemplate } from '../data-objects/invitation-email-template';
@@ -11,7 +11,7 @@ import { VerificationEmailTemplate } from '../data-objects/verification-email-te
 import { VerificationOptEmailTemplate } from '../data-objects/verification-otp-email-template';
 import { env } from '../../env.mjs';
 
-export class EmailRenderService implements IEmailRenderService.Service {
+export class ReactEmailRenderService implements EmailRenderService.Service {
   emailMap: EmailMap = {
     sendVerificationEmail: new VerificationEmailTemplate(),
     sendMagicLink: new MagicLinkEmailTemplate(),
@@ -23,7 +23,7 @@ export class EmailRenderService implements IEmailRenderService.Service {
   async render<T extends EmailTypes>(
     id: T,
     data: SendEmailPayload<T>
-  ): IEmailRenderService.Output {
+  ): EmailRenderService.Output {
     const template = this.emailMap[id];
     const renderedEmail = await template.render(data.data);
 
