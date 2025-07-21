@@ -4,6 +4,18 @@
   "include": [],
   "references": [
     {
+      "path": "../../database/infrastructure"
+    },
+    {
+      "path": "../../user/domain"
+    },
+    {
+      "path": "../domain"
+    },
+    {
+      "path": "../application"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

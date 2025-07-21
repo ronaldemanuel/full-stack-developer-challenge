@@ -12,7 +12,26 @@
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],
-  "references": [],
+  "references": [
+    {
+      "path": "../../user/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../shared/infrastructure/tsconfig.lib.json"
+    },
+    {
+      "path": "../../shared/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../shared/application/tsconfig.lib.json"
+    },
+    {
+      "path": "../../auth/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../auth/application/tsconfig.lib.json"
+    }
+  ],
   "exclude": [
     "vite.config.ts",
     "vite.config.mts",
