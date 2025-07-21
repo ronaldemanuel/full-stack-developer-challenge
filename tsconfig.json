@@ -59,6 +59,12 @@
     },
     {
       "path": "./libs/jobs/events/infrastructure"
+    },
+    {
+      "path": "./libs/jobs/events/presentation"
+    },
+    {
+      "path": "./libs/jobs/events/domain"
     }
   ]
 }

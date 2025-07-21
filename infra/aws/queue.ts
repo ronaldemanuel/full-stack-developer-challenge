@@ -1,2 +1,3 @@
 export const appQueue = new sst.aws.Queue('app-queue');
-export const paymentQueue = new sst.aws.Queue('payment-queue');
+
+appQueue.subscribe('apps/events-processor/src/index.lambdaHandler');

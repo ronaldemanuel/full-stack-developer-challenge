@@ -1,0 +1,8 @@
+{
+  "name": "@nx-ddd/events-processor",
+  "private": true,
+  "dependencies": {
+    "@nx-ddd/job-events-infra": "workspace:*",
+    "rxjs": "^7.8.0"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "@nx-ddd/job-events-infra",
+  "name": "@nx-ddd/job-events-domain",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -16,8 +16,8 @@
     }
   },
   "nx": {
-    "name": "job-events-infra",
-    "sourceRoot": "libs/jobs/events/infrastructure/src",
+    "name": "job-events-domain",
+    "sourceRoot": "libs/jobs/events/domain/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -25,9 +25,9 @@
           "{options.outputPath}"
         ],
         "options": {
-          "outputPath": "libs/jobs/events/infrastructure/dist",
-          "main": "libs/jobs/events/infrastructure/src/index.ts",
-          "tsConfig": "libs/jobs/events/infrastructure/tsconfig.lib.json",
+          "outputPath": "libs/jobs/events/domain/dist",
+          "main": "libs/jobs/events/domain/src/index.ts",
+          "tsConfig": "libs/jobs/events/domain/tsconfig.lib.json",
           "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
@@ -35,9 +35,6 @@
     }
   },
   "dependencies": {
-    "@nx-ddd/job-events-domain": "workspace:*",
-    "@nx-ddd/job-events-presentation": "workspace:*",
-    "@nestjs/microservices": "^11.1.5",
     "@swc/helpers": "~0.5.11"
   }
 }
