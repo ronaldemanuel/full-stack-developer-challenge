@@ -2,6 +2,12 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
   "references": [
     {
       "path": "./apps/mobile-e2e"
@@ -11,9 +17,6 @@
     },
     {
       "path": "./apps/web-e2e"
-    },
-    {
-      "path": "./apps/web"
     },
     {
       "path": "./libs/shared/domain"
@@ -68,6 +71,12 @@
     },
     {
       "path": "./tools/tailwind"
+    },
+    {
+      "path": "./libs/ui/web"
+    },
+    {
+      "path": "./libs/ui/utils"
     }
   ]
 }

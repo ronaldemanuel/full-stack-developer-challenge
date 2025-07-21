@@ -4,6 +4,27 @@
   "include": [],
   "references": [
     {
+      "path": "../../user/domain"
+    },
+    {
+      "path": "../../shared/infrastructure"
+    },
+    {
+      "path": "../../shared/domain"
+    },
+    {
+      "path": "../../shared/application"
+    },
+    {
+      "path": "../../auth/infrastructure"
+    },
+    {
+      "path": "../../auth/domain"
+    },
+    {
+      "path": "../../auth/application"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

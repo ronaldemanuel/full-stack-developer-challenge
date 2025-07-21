@@ -3,6 +3,15 @@
   "include": [],
   "references": [
     {
+      "path": "../../shared/domain"
+    },
+    {
+      "path": "../application"
+    },
+    {
+      "path": "../domain"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

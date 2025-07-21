@@ -9,6 +9,9 @@ packages:
   - libs/user/*
   - libs/api/*
   - libs/jobs/events/*
+  - libs/ui/*
+
+ignore-workspace-root-check: true
 
 catalog:
   '@tanstack/react-query': '^5.69.0'

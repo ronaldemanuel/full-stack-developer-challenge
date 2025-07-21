@@ -52,5 +52,25 @@
     "eslint.config.js",
     "eslint.config.cjs",
     "eslint.config.mjs"
+  ],
+  "references": [
+    {
+      "path": "../../libs/ui/web"
+    },
+    {
+      "path": "../../tools/tailwind"
+    },
+    {
+      "path": "../../libs/shared/infrastructure"
+    },
+    {
+      "path": "../../libs/auth/infrastructure"
+    },
+    {
+      "path": "../../libs/auth/domain"
+    },
+    {
+      "path": "../../libs/api/infrastructure"
+    }
   ]
 }

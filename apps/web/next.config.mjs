@@ -24,6 +24,7 @@ const nextConfig = {
     '@nx-ddd/auth-infrastructure',
     '@nx-ddd/shared-infrastructure',
     '@nx-ddd/tailwind',
+    '@nx-ddd/ui',
 
     '@nestjs/core',
     '@nestjs/common',

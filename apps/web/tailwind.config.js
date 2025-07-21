@@ -12,8 +12,10 @@ const { web } = require('@nx-ddd/tailwind');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  presets: [web],
   content: [
     ...web.content,
+    '../../libs/ui/web/src/**/*.{ts,tsx}',
     //     ...createGlobPatternsForDependencies(__dirname)
   ],
 };
