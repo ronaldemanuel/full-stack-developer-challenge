@@ -50,7 +50,7 @@
     }
   },
   "dependencies": {
-    "@nx/devkit": "21.2.4",
+    "@nx/devkit": "21.3.1",
     "@swc/helpers": "~0.5.11"
   },
   "generators": "./generators.json"

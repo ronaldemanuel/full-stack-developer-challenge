@@ -5,7 +5,7 @@ import {
 } from '@nx-ddd/email-domain';
 import type { EventBus } from '@nestjs/cqrs';
 
-export namespace SendMagickLinkUseCase {
+export namespace SendMagicLinkUseCase {
   export type Input = SendMagicLinkPayload;
   export type Output = void;
 

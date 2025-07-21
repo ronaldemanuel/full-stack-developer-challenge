@@ -10,7 +10,7 @@ import {
 } from 'better-auth/plugins';
 import {
   SendInvitationEmailUseCase,
-  SendMagickLinkUseCase,
+  SendMagicLinkUseCase,
   SendResetPasswordUseCase,
   SendVerificationEmailUseCase,
 } from '@nx-ddd/auth-application';
@@ -30,16 +30,14 @@ const initAuth = (
   adapter: Adapter,
   sendVerificationEmailUseCase: SendVerificationEmailUseCase.UseCase,
   sendResetPasswordUseCase: SendResetPasswordUseCase.UseCase,
-  sendMagicLinkEmailUseCase: SendMagickLinkUseCase.UseCase,
+  sendMagicLinkEmailUseCase: SendMagicLinkUseCase.UseCase,
   sendInvitationEmailUseCase: SendInvitationEmailUseCase.UseCase
 ) => {
   return betterAuth({
     appName: 'Better Auth',
-    // TODO: inject the adapter
     database: adapter,
     emailVerification: {
       async sendVerificationEmail({ user, url, token }) {
-        // TODO: use a email provider
         return sendVerificationEmailUseCase.execute({
           user: {
             name: user.name,
@@ -97,6 +95,7 @@ const initAuth = (
       oAuthProxy(),
       nextCookies(),
       admin({
+        // cspell:disable-next-line
         adminUserIds: ['EXD5zjob2SD6CBWcEQ6OpLRHcyoUbnaB'],
       }),
     ],
@@ -112,7 +111,7 @@ export const BetterAuthFactory: FactoryProvider = {
     adapter: Adapter,
     sendVerificationEmailUseCase: SendVerificationEmailUseCase.UseCase,
     sendResetPasswordUseCase: SendResetPasswordUseCase.UseCase,
-    sendMagicLinkEmailUseCase: SendMagickLinkUseCase.UseCase,
+    sendMagicLinkEmailUseCase: SendMagicLinkUseCase.UseCase,
     sendInvitationEmailUseCase: SendInvitationEmailUseCase.UseCase
   ) => {
     return initAuth(
@@ -129,7 +128,7 @@ export const BetterAuthFactory: FactoryProvider = {
     BETTER_AUTH_DATABASE_ADAPTER_TOKEN,
     SendVerificationEmailUseCase.UseCase,
     SendResetPasswordUseCase.UseCase,
-    SendMagickLinkUseCase.UseCase,
+    SendMagicLinkUseCase.UseCase,
     SendInvitationEmailUseCase.UseCase,
   ],
 };

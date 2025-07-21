@@ -8,7 +8,6 @@ import type { ISendMailOptions, MailerService } from '@nestjs-modules/mailer';
 export class SendEmailHandler
   implements IEventHandler<SendEmailEvent<EmailTypes>>
 {
-  // TODO: implement nodemailer
   constructor(
     private readonly nodemailer: MailerService,
     private readonly renderEmailService: IEmailRenderService.Service

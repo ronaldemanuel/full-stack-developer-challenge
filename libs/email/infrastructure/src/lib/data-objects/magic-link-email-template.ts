@@ -1,15 +1,15 @@
 import type { RenderEmailResponse } from '@nx-ddd/email-domain';
 import { AbstractEmailTemplate } from '@nx-ddd/email-domain';
-import { renderMagickLinkEmail } from '../emails/magick-link-email';
+import { renderMagicLinkEmail } from '../emails/magic-link-email';
 import { appConfig } from '@nx-ddd/shared-domain';
 
-export class MagickLinkEmailTemplate extends AbstractEmailTemplate<'sendMagicLink'> {
+export class MagicLinkEmailTemplate extends AbstractEmailTemplate<'sendMagicLink'> {
   override render(data: {
     user: { name: string; email: string };
     url: string;
     token: string;
   }): Promise<RenderEmailResponse> {
-    return renderMagickLinkEmail({
+    return renderMagicLinkEmail({
       firstName: data.user.name,
       actionUrl: data.url,
       mailType: 'login',

@@ -1,5 +1,5 @@
 {
-  "name": "@nx-ddd/auth-infrastructure",
+  "name": "@nx-ddd/tailwind",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -13,12 +13,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
-    },
-    "./env": "./src/env.mjs"
+    }
   },
   "nx": {
-    "name": "auth-infrastructure",
-    "sourceRoot": "libs/auth/infrastructure/src",
+    "name": "tailwind",
+    "sourceRoot": "tools/tailwind/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -26,9 +25,9 @@
           "{options.outputPath}"
         ],
         "options": {
-          "outputPath": "libs/auth/infrastructure/dist",
-          "main": "libs/auth/infrastructure/src/index.ts",
-          "tsConfig": "libs/auth/infrastructure/tsconfig.lib.json",
+          "outputPath": "tools/tailwind/dist",
+          "main": "tools/tailwind/src/index.ts",
+          "tsConfig": "tools/tailwind/tsconfig.lib.json",
           "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
@@ -36,15 +35,7 @@
     }
   },
   "dependencies": {
-    "@react-email/components": "^0.3.2",
-    "@nx-ddd/auth-application": "workspace:*",
-    "@nx-ddd/auth-domain": "workspace:*",
-    "@nx-ddd/user-domain": "workspace:*",
-    "@nx-ddd/database-infrastructure": "workspace:*",
     "@swc/helpers": "~0.5.11",
-    "better-auth": "^1.2.12",
-    "zod": "catalog:",
-    "@t3-oss/env-nextjs": "^0.13.6"
+    "tailwindcss-animate": "^1.0.7"
   }
 }
-

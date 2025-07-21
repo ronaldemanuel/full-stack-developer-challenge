@@ -5,6 +5,90 @@
   "nx": {
     "name": "web",
     "targets": {
+      "build": {
+        "options": {
+          "cwd": "apps/web",
+          "tty": false,
+          "command": "next build"
+        },
+        "dependsOn": [
+          "^build"
+        ],
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "next"
+            ]
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/apps/web/.next/!(cache)/**/*",
+          "{workspaceRoot}/apps/web/.next/!(cache)"
+        ],
+        "executor": "nx:run-commands",
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "dev": {
+        "continuous": true,
+        "options": {
+          "cwd": "apps/web",
+          "command": "next dev"
+        },
+        "executor": "nx:run-commands",
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "options": {
+          "cwd": "apps/web",
+          "command": "next start"
+        },
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "configurations": {},
+        "parallelism": true
+      },
+      "start": {
+        "continuous": true,
+        "options": {
+          "cwd": "apps/web",
+          "command": "next start"
+        },
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "configurations": {},
+        "parallelism": true
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "pnpm exec nx watch --projects web --includeDependentProjects -- pnpm exec nx build-deps web"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
       "open-next-build": {
         "executor": "nx:run-commands",
         "dependsOn": [
@@ -29,6 +113,7 @@
     "jiti": "^2.4.2",
     "@nx-ddd/api-infrastructure": "workspace:*",
     "@nx-ddd/auth-domain": "workspace:*",
+    "@nx-ddd/auth-infrastructure": "workspace:*",
     "@nx-ddd/shared-infrastructure": "workspace:*"
   },
   "devDependencies": {
