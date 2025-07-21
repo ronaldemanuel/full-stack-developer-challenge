@@ -10,17 +10,17 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
+} from '@react-email/components';
 
 export interface MagicLinkEmailProps {
   actionUrl: string;
   firstName: string;
-  mailType: "login" | "register";
+  mailType: 'login' | 'register';
   siteName: string;
 }
 
 export const MagicLinkEmail = ({
-  firstName = "",
+  firstName = '',
   actionUrl,
   mailType,
   siteName,
@@ -34,24 +34,24 @@ export const MagicLinkEmail = ({
       <Body className="bg-white font-sans">
         <Container className="mx-auto py-5 pb-12">
           <Text className="text-base">
-            Hi{firstName ? ` ${firstName}` : ""},
+            Hi{firstName ? ` ${firstName}` : ''},
           </Text>
           <Text className="text-base">
-            Welcome to {siteName} ! Click the link below to{" "}
-            {mailType === "login" ? "sign in to" : "activate"} your account.
+            Welcome to {siteName} ! Click the link below to{' '}
+            {mailType === 'login' ? 'sign in to' : 'activate'} your account.
           </Text>
           <Section className="my-5 text-center">
             <Button
               className="inline-block rounded-md bg-zinc-900 px-4 py-2 text-base text-white no-underline"
               href={actionUrl}
             >
-              {mailType === "login" ? "Sign in" : "Activate Account"}
+              {mailType === 'login' ? 'Sign in' : 'Activate Account'}
             </Button>
           </Section>
           <Text className="text-base">
             This link expires in 24 hours and can only be used once.
           </Text>
-          {mailType === "login" ? (
+          {mailType === 'login' ? (
             <Text className="text-base">
               If you did not try to log into your account, you can safely ignore
               it.
@@ -67,7 +67,7 @@ export const MagicLinkEmail = ({
   </Html>
 );
 
-export async function renderMagickLinkEmail(props: MagicLinkEmailProps) {
+export async function renderMagicLinkEmail(props: MagicLinkEmailProps) {
   const [html, text] = await Promise.all([
     render(<MagicLinkEmail {...props} />),
     render(<MagicLinkEmail {...props} />, {

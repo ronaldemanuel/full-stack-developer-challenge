@@ -5,16 +5,16 @@ import type {
   SendEmailPayload,
 } from '@nx-ddd/email-domain';
 import { InvitationEmailTemplate } from '../data-objects/invitation-email-template';
-import { MagickLinkEmailTemplate } from '../data-objects/magick-link-email-template';
+import { MagicLinkEmailTemplate } from '../data-objects/magic-link-email-template';
 import { ResetPasswordEmailTemplate } from '../data-objects/reset-password-email-template';
 import { VerificationEmailTemplate } from '../data-objects/verification-email-template';
 import { VerificationOptEmailTemplate } from '../data-objects/verification-otp-email-template';
-import { emailEnv } from '../../env';
+import { env } from '../../env.mjs';
 
 export class EmailRenderService implements IEmailRenderService.Service {
   emailMap: EmailMap = {
     sendVerificationEmail: new VerificationEmailTemplate(),
-    sendMagicLink: new MagickLinkEmailTemplate(),
+    sendMagicLink: new MagicLinkEmailTemplate(),
     sendResetPassword: new ResetPasswordEmailTemplate(),
     sendVerificationOTP: new VerificationOptEmailTemplate(),
     sendInvitationEmail: new InvitationEmailTemplate(),
@@ -32,7 +32,7 @@ export class EmailRenderService implements IEmailRenderService.Service {
       to: data.to,
       html: renderedEmail.html,
       text: renderedEmail.text,
-      from: emailEnv().EMAIL_FROM,
+      from: env.EMAIL_FROM,
     };
   }
 }

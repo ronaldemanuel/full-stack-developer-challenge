@@ -1,4 +1,4 @@
-import { env } from '@/env';
+import { env } from '@/env.mjs';
 
 export const setCorsHeaders = (req: Request, res: Response) => {
   // Set CORS headers for the response

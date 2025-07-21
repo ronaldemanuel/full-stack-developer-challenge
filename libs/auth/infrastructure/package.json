@@ -14,7 +14,7 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./env": "./src/env.ts"
+    "./env": "./src/env.mjs"
   },
   "nx": {
     "name": "auth-infrastructure",
@@ -47,3 +47,4 @@
     "@t3-oss/env-nextjs": "^0.13.6"
   }
 }
+

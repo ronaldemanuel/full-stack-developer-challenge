@@ -384,6 +384,9 @@ importers:
       '@nx-ddd/auth-domain':
         specifier: workspace:*
         version: link:../../libs/auth/domain
+      '@nx-ddd/auth-infrastructure':
+        specifier: workspace:*
+        version: link:../../libs/auth/infrastructure
       '@nx-ddd/shared-infrastructure':
         specifier: workspace:*
         version: link:../../libs/shared/infrastructure

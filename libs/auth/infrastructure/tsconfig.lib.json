@@ -14,13 +14,13 @@
     "declarationMap": false,
     "declaration": false,
     "composite": false,
-    "types": [
-      "node"
-    ]
+    "types": ["node"],
+    "allowJs": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": [
-    "src/**/*.ts"
-  ],
+  "include": ["src/**/*.ts"],
   "references": [],
   "exclude": [
     "vite.config.ts",

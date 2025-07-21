@@ -11,7 +11,6 @@ export const BetterAuthDatabaseAdapterFactory: FactoryProvider = {
       provider: 'pg',
     });
   },
-  // TODO: inject the db
   inject: [DRIZZLE_TOKEN],
 };
 
@@ -22,6 +21,5 @@ export const BetterAuthDatabaseTestAdapterFactory: FactoryProvider = {
       provider: 'sqlite',
     });
   },
-  // TODO: inject the db
   inject: [],
 };
