@@ -59,6 +59,9 @@
     },
     {
       "path": "./libs/jobs/events/infrastructure"
+    },
+    {
+      "path": "./tools/tailwind"
     }
   ]
 }
