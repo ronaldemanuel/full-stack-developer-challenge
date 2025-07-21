@@ -1,6 +1,7 @@
 import type { FactoryProvider } from '@nestjs/common';
-import { type Adapter, betterAuth } from 'better-auth';
-import { BETTER_AUTH_DATABASE_ADAPTER_TOKEN } from './better-auth-database-adapter.factory.js';
+import type { Adapter } from 'better-auth';
+import { betterAuth } from 'better-auth';
+import { nextCookies } from 'better-auth/next-js';
 import {
   admin,
   magicLink,
@@ -8,13 +9,15 @@ import {
   oAuthProxy,
   organization,
 } from 'better-auth/plugins';
+
 import {
   SendInvitationEmailUseCase,
   SendMagicLinkUseCase,
   SendResetPasswordUseCase,
   SendVerificationEmailUseCase,
 } from '@nx-ddd/auth-application';
-import { nextCookies } from 'better-auth/next-js';
+
+import { BETTER_AUTH_DATABASE_ADAPTER_TOKEN } from './better-auth-database-adapter.factory.js';
 
 export const BETTER_AUTH_TOKEN = 'BETTER_AUTH';
 export const BETTER_AUTH_CONFIG_TOKEN = 'BETTER_AUTH_CONFIG';
@@ -25,13 +28,13 @@ export interface BetterAuthConfig {
   secret: string | undefined;
 }
 
-const initAuth = (
+export const initAuth = (
   config: BetterAuthConfig,
   adapter: Adapter,
   sendVerificationEmailUseCase: SendVerificationEmailUseCase.UseCase,
   sendResetPasswordUseCase: SendResetPasswordUseCase.UseCase,
   sendMagicLinkEmailUseCase: SendMagicLinkUseCase.UseCase,
-  sendInvitationEmailUseCase: SendInvitationEmailUseCase.UseCase
+  sendInvitationEmailUseCase: SendInvitationEmailUseCase.UseCase,
 ) => {
   return betterAuth({
     appName: 'Better Auth',
@@ -112,7 +115,7 @@ export const BetterAuthFactory: FactoryProvider = {
     sendVerificationEmailUseCase: SendVerificationEmailUseCase.UseCase,
     sendResetPasswordUseCase: SendResetPasswordUseCase.UseCase,
     sendMagicLinkEmailUseCase: SendMagicLinkUseCase.UseCase,
-    sendInvitationEmailUseCase: SendInvitationEmailUseCase.UseCase
+    sendInvitationEmailUseCase: SendInvitationEmailUseCase.UseCase,
   ) => {
     return initAuth(
       config,
@@ -120,7 +123,7 @@ export const BetterAuthFactory: FactoryProvider = {
       sendVerificationEmailUseCase,
       sendResetPasswordUseCase,
       sendMagicLinkEmailUseCase,
-      sendInvitationEmailUseCase
+      sendInvitationEmailUseCase,
     );
   },
   inject: [

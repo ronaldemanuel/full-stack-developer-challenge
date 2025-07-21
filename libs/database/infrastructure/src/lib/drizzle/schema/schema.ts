@@ -3,7 +3,7 @@ import { pgTable } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod/v4';
 
-export const Post = pgTable('post', (t) => ({
+export const post = pgTable('post', (t) => ({
   id: t.uuid().notNull().primaryKey().defaultRandom(),
   title: t.varchar({ length: 256 }).notNull(),
   content: t.text().notNull(),
@@ -13,7 +13,7 @@ export const Post = pgTable('post', (t) => ({
     .$onUpdateFn(() => sql`now()`),
 }));
 
-export const CreatePostSchema = createInsertSchema(Post, {
+export const createPostSchema = createInsertSchema(post, {
   title: z.string().max(256),
   content: z.string().max(256),
 }).omit({

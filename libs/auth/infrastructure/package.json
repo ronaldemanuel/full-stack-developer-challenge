@@ -32,6 +32,12 @@
           "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
+      },
+      "generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "pnpm dlx @better-auth/cli@latest generate --config libs/auth/infrastructure/src/lib/auth.ts --output libs/database/infrastructure/src/lib/drizzle/schema/auth-schema.ts -y"
+        }
       }
     }
   },

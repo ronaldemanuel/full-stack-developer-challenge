@@ -18,6 +18,9 @@
   "nx": {
     "name": "database-infrastructure",
     "sourceRoot": "libs/database/infrastructure/src",
+    "implicitDependencies": [
+      "auth-infrastructure"
+    ],
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -33,27 +36,38 @@
         }
       },
       "reset": {
-        "executor": "@nx/workspace:run-commands",
+        "executor": "nx:run-commands",
         "options": {
-          "command": "drizzle-kit reset"
+          "command": "drizzle-kit reset",
+          "cwd": "libs/database/infrastructure"
         }
       },
       "push": {
-        "executor": "@nx/workspace:run-commands",
+        "executor": "nx:run-commands",
         "options": {
-          "command": "drizzle-kit push"
+          "command": "drizzle-kit push",
+          "cwd": "libs/database/infrastructure"
         }
       },
       "migrate": {
-        "executor": "@nx/workspace:run-commands",
+        "executor": "nx:run-commands",
         "options": {
-          "command": "drizzle-kit migrate"
+          "command": "drizzle-kit migrate",
+          "cwd": "libs/database/infrastructure"
         }
       },
       "studio": {
-        "executor": "@nx/workspace:run-commands",
+        "executor": "nx:run-commands",
         "options": {
-          "command": "drizzle-kit studio"
+          "command": "drizzle-kit studio",
+          "cwd": "libs/database/infrastructure"
+        }
+      },
+      "generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "drizzle-kit generate",
+          "cwd": "libs/database/infrastructure"
         }
       }
     }
