@@ -1,6 +1,7 @@
 /// <reference types='vitest' />
 import * as path from 'path';
 import react from '@vitejs/plugin-react-swc';
+import { preserveDirectives } from 'rollup-plugin-preserve-directives';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
@@ -13,6 +14,7 @@ export default defineConfig(() => ({
       entryRoot: 'src',
       tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
     }),
+    preserveDirectives(),
   ],
   // Uncomment this if you are using workers.
   // worker: {
@@ -39,6 +41,9 @@ export default defineConfig(() => ({
     rollupOptions: {
       // External packages that should not be bundled into your library.
       external: ['react', 'react-dom', 'react/jsx-runtime'],
+      output: {
+        preserveModules: true,
+      },
     },
   },
   test: {

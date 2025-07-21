@@ -22,6 +22,7 @@
     "@nx-ddd/ui-utils": "workspace:*"
   },
   "devDependencies": {
-    "@nx-ddd/tailwind": "workspace:*"
+    "@nx-ddd/tailwind": "workspace:*",
+    "rollup-plugin-preserve-directives": "^0.4.0"
   }
 }
