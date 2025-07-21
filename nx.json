@@ -28,8 +28,7 @@
           "buildDepsName": "build-deps",
           "watchDepsName": "watch-deps"
         }
-      },
-      "exclude": ["libs/ui/utils/*"]
+      }
     },
     {
       "plugin": "@nx/expo/plugin",
@@ -112,7 +111,8 @@
         "typecheck": {
           "targetName": "typecheck"
         }
-      }
+      },
+      "exclude": ["libs/ui/utils/*"]
     }
   ],
   "targetDefaults": {

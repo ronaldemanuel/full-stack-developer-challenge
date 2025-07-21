@@ -758,7 +758,11 @@ importers:
         specifier: ^5.0.4
         version: 5.0.4
 
-  libs/ui/utils: {}
+  libs/ui/utils:
+    dependencies:
+      '@swc/helpers':
+        specifier: ~0.5.11
+        version: 0.5.17
 
   libs/ui/web:
     dependencies:
