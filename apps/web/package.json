@@ -106,17 +106,20 @@
     }
   },
   "dependencies": {
-    "next": "~15.2.4",
-    "react": "19.0.0",
-    "next-safe-action": "^7.10.8",
-    "react-dom": "19.0.0",
-    "jiti": "^2.4.2",
     "@nx-ddd/api-infrastructure": "workspace:*",
     "@nx-ddd/auth-domain": "workspace:*",
     "@nx-ddd/auth-infrastructure": "workspace:*",
+    "@nx-ddd/shared-domain": "workspace:*",
     "@nx-ddd/shared-infrastructure": "workspace:*",
     "@nx-ddd/tailwind": "workspace:*",
-    "@nx-ddd/ui": "workspace:*"
+    "@nx-ddd/ui": "workspace:*",
+    "@nx-ddd/ui-utils": "workspace:*",
+    "jiti": "^2.4.2",
+    "next": "~15.2.4",
+    "next-safe-action": "^7.10.8",
+    "next-themes": "^0.4.6",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "devDependencies": {
     "@opennextjs/aws": "^3.7.0"

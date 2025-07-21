@@ -453,6 +453,9 @@ importers:
       '@nx-ddd/auth-infrastructure':
         specifier: workspace:*
         version: link:../../libs/auth/infrastructure
+      '@nx-ddd/shared-domain':
+        specifier: workspace:*
+        version: link:../../libs/shared/domain
       '@nx-ddd/shared-infrastructure':
         specifier: workspace:*
         version: link:../../libs/shared/infrastructure
@@ -462,6 +465,9 @@ importers:
       '@nx-ddd/ui':
         specifier: workspace:*
         version: link:../../libs/ui/web
+      '@nx-ddd/ui-utils':
+        specifier: workspace:*
+        version: link:../../libs/ui/utils
       jiti:
         specifier: ^2.4.2
         version: 2.4.2
@@ -471,6 +477,9 @@ importers:
       next-safe-action:
         specifier: ^7.10.8
         version: 7.10.8(@sinclair/typebox@0.34.38)(next@15.2.5(@babel/core@7.28.0)(@playwright/test@1.54.1)(babel-plugin-macros@3.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.89.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(zod@3.25.76)
+      next-themes:
+        specifier: ^0.4.6
+        version: 0.4.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -11072,6 +11081,12 @@ packages:
         optional: true
       zod:
         optional: true
+
+  next-themes@0.4.6:
+    resolution: {integrity: sha512-pZvgD5L0IEvX5/9GWyHMf3m8BKiVQwsCMHfoFosXtXBMnaS0ZnIJ9ST4b4NqLVKDEm8QBxoNNGNaBv2JNF6XNA==}
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
 
   next@15.2.5:
     resolution: {integrity: sha512-LlqS8ljc7RWR3riUwxB5+14v7ULAa5EuLUyarD/sFgXPd6Hmmscg8DXcu9hDdh5atybrIDVBrFhjDpRIQo/4pQ==}
@@ -28075,6 +28090,11 @@ snapshots:
     optionalDependencies:
       '@sinclair/typebox': 0.34.38
       zod: 3.25.76
+
+  next-themes@0.4.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
 
   next@15.2.5(@babel/core@7.28.0)(@playwright/test@1.54.1)(babel-plugin-macros@3.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.89.2):
     dependencies:
