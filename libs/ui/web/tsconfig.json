@@ -6,10 +6,16 @@
       "path": "../utils"
     },
     {
+      "path": "../../../tools/tailwind"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.storybook.json"
     }
   ],
   "extends": "../../../tsconfig.base.json"

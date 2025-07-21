@@ -37,12 +37,19 @@
     "src/**/*.spec.jsx",
     "eslint.config.js",
     "eslint.config.cjs",
-    "eslint.config.mjs"
+    "eslint.config.mjs",
+    "**/*.stories.ts",
+    "**/*.stories.js",
+    "**/*.stories.jsx",
+    "**/*.stories.tsx"
   ],
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
       "path": "../utils/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../tools/tailwind/tsconfig.lib.json"
     }
   ]
 }

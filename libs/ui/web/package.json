@@ -20,5 +20,8 @@
   },
   "dependencies": {
     "@nx-ddd/ui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@nx-ddd/tailwind": "workspace:*"
   }
 }

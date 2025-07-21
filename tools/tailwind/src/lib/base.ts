@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss';
 
 export const base = {
   darkMode: ['class'],
-  content: ['./src/**/*.{ts,tsx}'],
+  content: ['./src/**/*!(*.stories|*.spec).{ts,tsx}'],
   theme: {
     extend: {
       colors: {
