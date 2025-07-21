@@ -114,7 +114,8 @@
     "@nx-ddd/api-infrastructure": "workspace:*",
     "@nx-ddd/auth-domain": "workspace:*",
     "@nx-ddd/auth-infrastructure": "workspace:*",
-    "@nx-ddd/shared-infrastructure": "workspace:*"
+    "@nx-ddd/shared-infrastructure": "workspace:*",
+    "@nx-ddd/tailwind": "workspace:*"
   },
   "devDependencies": {
     "@opennextjs/aws": "^3.7.0"

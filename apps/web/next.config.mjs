@@ -23,9 +23,12 @@ const nextConfig = {
     '@nx-ddd/auth-domain',
     '@nx-ddd/auth-infrastructure',
     '@nx-ddd/shared-infrastructure',
+    '@nx-ddd/tailwind',
 
     '@nestjs/core',
     '@nestjs/common',
+    '@nestjs/cache-manager',
+    '@nestjs/cqrs',
     '@react-email/components',
   ],
 };

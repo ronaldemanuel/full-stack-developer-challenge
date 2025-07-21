@@ -1,14 +1,15 @@
 packages:
-  - 'apps/*'
-  - 'libs/post/*'
-  - 'libs/shared/*'
-  - 'tools/*'
-  - 'libs/auth/*'
-  - 'libs/email/*'
-  - 'libs/database/*'
-  - 'libs/user/*'
-  - 'libs/api/*'
-  - 'libs/jobs/events/*'
+  - apps/*
+  - libs/post/*
+  - libs/shared/*
+  - tools/*
+  - libs/auth/*
+  - libs/email/*
+  - libs/database/*
+  - libs/user/*
+  - libs/api/*
+  - libs/jobs/events/*
+
 catalog:
   '@tanstack/react-query': '^5.69.0'
   '@trpc/client': '^11.0.0'
@@ -24,12 +25,13 @@ catalog:
   superjson: '2.2.2'
 catalogs:
   react19:
-    react: '19.0.0'
-    react-dom: '19.0.0'
-    '@types/react': '~19.0.14'
-    '@types/react-dom': '^19.0.4'
+    '@types/react': ^19.0.14
+    '@types/react-dom': ^19.1.6
+    react: ^19.0.0
+    react-dom: ^19.0.0
+
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@swc/core'
-  - 'esbuild'
-  - 'nx'
+  - esbuild
+  - nx
