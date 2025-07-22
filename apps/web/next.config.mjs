@@ -35,6 +35,7 @@ const nextConfig = {
     '@nestjs/common',
     '@nestjs/cache-manager',
     '@nestjs/cqrs',
+    '@nestjs/microservices',
     '@nestjs-modules/mailer',
     '@react-email/components',
   ],

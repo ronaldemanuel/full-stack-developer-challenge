@@ -5,7 +5,7 @@ import { z } from 'zod/v4';
 export const env = createEnv({
   server: {
     EMAIL_FROM: z.email(),
-    EMAIL_PROVIDER: z.enum(['aws', 'smtp']).default('smtp'),
+    EMAIL_PROVIDER: z.enum(['aws', 'smtp', 'local']).default('smtp'),
     EMAIL_SMTP_HOST: z.string().optional(),
     EMAIL_SMTP_PORT: z.coerce.number().optional(),
     EMAIL_SMTP_USER: z.string().optional(),

@@ -68,6 +68,7 @@ export const initAuth = (
           token,
         });
       },
+      requireEmailVerification: true,
     },
     plugins: [
       organization({
