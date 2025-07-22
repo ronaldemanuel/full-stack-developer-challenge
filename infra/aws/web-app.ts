@@ -1,6 +1,7 @@
 import { database, DATABASE_URL } from './database';
 import { appQueue } from './queue';
 import { bucket } from './storage';
+import { vpc } from './vpc';
 
 // $USD 0,20
 export const webApp = new sst.aws.Nextjs(`${$app.name}-web-app`, {
@@ -23,4 +24,5 @@ export const webApp = new sst.aws.Nextjs(`${$app.name}-web-app`, {
     BASE_URL: process.env.BASE_URL || '',
     NEXT_APPS_PROVIDER: 'aws',
   },
+  vpc,
 });
