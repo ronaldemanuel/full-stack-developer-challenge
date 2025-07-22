@@ -17,8 +17,6 @@ import {
   Users,
 } from 'lucide-react';
 
-// import { useTheme } from 'next-themes';
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -33,6 +31,8 @@ import {
   SheetTrigger,
 } from '@nx-ddd/ui';
 import { cn } from '@nx-ddd/ui-utils';
+
+import { UserButton } from './user-button';
 
 function useSegment(basePath: string) {
   const path = usePathname();
@@ -239,7 +239,6 @@ export default function SidebarLayout(props: {
   basePath: string;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  // const { resolvedTheme, setTheme } = useTheme();
 
   return (
     <div className="flex w-full">
@@ -287,12 +286,7 @@ export default function SidebarLayout(props: {
             </div>
           </div>
 
-          {/* TODO: Implement user button */}
-          {/* <UserButton */}
-          {/*   colorModeToggle={() => */}
-          {/*     setTheme(resolvedTheme === 'light' ? 'dark' : 'light') */}
-          {/*   } */}
-          {/* /> */}
+          <UserButton />
         </div>
         <div className="flex-grow">{props.children}</div>
       </div>

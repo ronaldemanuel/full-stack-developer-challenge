@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   // THIS IS NOT SECURE!
   // This is the recommended approach to optimistically redirect users
   // We recommend handling auth checks in each page/route
-  if (!sessionCookie) {
+  if (!sessionCookie && request.nextUrl.pathname.startsWith('/dashboard')) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
@@ -17,5 +17,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*'], // Specify the routes the middleware applies to
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'], // Specify the routes the middleware applies to
 };

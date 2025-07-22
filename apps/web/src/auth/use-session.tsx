@@ -6,7 +6,7 @@ type SessionData = NonNullable<
 
 type Session = SessionData['session'];
 
-type SessionUser = SessionData['user'];
+export type SessionUser = SessionData['user'];
 
 export interface UseSessionReturn {
   session: Session | null;
