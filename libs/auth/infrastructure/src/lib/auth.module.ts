@@ -5,6 +5,7 @@ import { Module } from '@nestjs/common';
 import {
   SendInvitationEmailUseCase,
   SendMagicLinkUseCase,
+  SendOTPEmailUseCase,
   SendResetPasswordUseCase,
   SendVerificationEmailUseCase,
 } from '@nx-ddd/auth-application';
@@ -29,6 +30,7 @@ export class AuthModule {
         SendResetPasswordUseCase.UseCase,
         SendMagicLinkUseCase.UseCase,
         SendInvitationEmailUseCase.UseCase,
+        SendOTPEmailUseCase.UseCase,
 
         {
           provide: BETTER_AUTH_CONFIG_TOKEN,

@@ -7,12 +7,15 @@ import {
   magicLink,
   multiSession,
   oAuthProxy,
+  oneTap,
   organization,
+  twoFactor,
 } from 'better-auth/plugins';
 
 import {
   SendInvitationEmailUseCase,
   SendMagicLinkUseCase,
+  SendOTPEmailUseCase,
   SendResetPasswordUseCase,
   SendVerificationEmailUseCase,
 } from '@nx-ddd/auth-application';
@@ -39,6 +42,7 @@ export const initAuth = (
   sendResetPasswordUseCase: SendResetPasswordUseCase.UseCase,
   sendMagicLinkEmailUseCase: SendMagicLinkUseCase.UseCase,
   sendInvitationEmailUseCase: SendInvitationEmailUseCase.UseCase,
+  sendOTPEmailUseCase: SendOTPEmailUseCase.UseCase,
 ) => {
   return betterAuth({
     appName: 'Better Auth',
@@ -99,6 +103,16 @@ export const initAuth = (
           });
         },
       }),
+      twoFactor({
+        otpOptions: {
+          async sendOTP({ user, otp }) {
+            await sendOTPEmailUseCase.execute({
+              email: user.email,
+              otp,
+            });
+          },
+        },
+      }),
       magicLink({
         async sendMagicLink({ email, token, url }) {
           return sendMagicLinkEmailUseCase.execute({
@@ -112,6 +126,7 @@ export const initAuth = (
         },
       }),
       multiSession(),
+      oneTap(),
       oAuthProxy(),
       nextCookies(),
       admin({
@@ -133,6 +148,7 @@ export const BetterAuthFactory: FactoryProvider = {
     sendResetPasswordUseCase: SendResetPasswordUseCase.UseCase,
     sendMagicLinkEmailUseCase: SendMagicLinkUseCase.UseCase,
     sendInvitationEmailUseCase: SendInvitationEmailUseCase.UseCase,
+    sendOTPEmailUseCase: SendOTPEmailUseCase.UseCase,
   ) => {
     return initAuth(
       config,
@@ -141,6 +157,7 @@ export const BetterAuthFactory: FactoryProvider = {
       sendResetPasswordUseCase,
       sendMagicLinkEmailUseCase,
       sendInvitationEmailUseCase,
+      sendOTPEmailUseCase,
     );
   },
   inject: [
@@ -150,5 +167,6 @@ export const BetterAuthFactory: FactoryProvider = {
     SendResetPasswordUseCase.UseCase,
     SendMagicLinkUseCase.UseCase,
     SendInvitationEmailUseCase.UseCase,
+    SendOTPEmailUseCase.UseCase,
   ],
 };

@@ -1,15 +1,17 @@
 import type {
   EmailMap,
-  EmailTypes,
   EmailRenderService,
+  EmailTypes,
   SendEmailPayload,
 } from '@nx-ddd/email-domain';
+
+import { env } from '../../env.mjs';
 import { InvitationEmailTemplate } from '../data-objects/invitation-email-template';
 import { MagicLinkEmailTemplate } from '../data-objects/magic-link-email-template';
+import { OTPEmailTemplate } from '../data-objects/otp-email-template';
 import { ResetPasswordEmailTemplate } from '../data-objects/reset-password-email-template';
 import { VerificationEmailTemplate } from '../data-objects/verification-email-template';
 import { VerificationOptEmailTemplate } from '../data-objects/verification-otp-email-template';
-import { env } from '../../env.mjs';
 
 export class ReactEmailRenderService implements EmailRenderService.Service {
   emailMap: EmailMap = {
@@ -18,11 +20,12 @@ export class ReactEmailRenderService implements EmailRenderService.Service {
     sendResetPassword: new ResetPasswordEmailTemplate(),
     sendVerificationOTP: new VerificationOptEmailTemplate(),
     sendInvitationEmail: new InvitationEmailTemplate(),
+    sendOTPEmail: new OTPEmailTemplate(),
   };
 
   async render<T extends EmailTypes>(
     id: T,
-    data: SendEmailPayload<T>
+    data: SendEmailPayload<T>,
   ): EmailRenderService.Output {
     const template = this.emailMap[id];
     const renderedEmail = await template.render(data.data);

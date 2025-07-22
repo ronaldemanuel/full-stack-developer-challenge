@@ -16,7 +16,10 @@ export namespace AuthService {
     getFirstOrganizationSlug(headers: Headers): Promise<string | null>;
     getFullOrganization(
       headers: Headers,
-      organizationSlug?: string,
+      query?: {
+        organizationId?: string;
+        organizationSlug?: string;
+      },
     ): Promise<ActiveOrganization | null>;
   }
 }

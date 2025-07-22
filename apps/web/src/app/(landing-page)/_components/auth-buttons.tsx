@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getSession } from '@/auth/server';
+import { ServerAuthService } from '@/auth/server';
 
 import { buttonVariants } from '@nx-ddd/ui';
 
@@ -22,7 +22,7 @@ function SignInSignUpButtons() {
 }
 
 export async function AuthButtons() {
-  const session = await getSession();
+  const session = await ServerAuthService.getSession();
 
   if (session) {
     return (

@@ -6,9 +6,10 @@ export const emailTypesSchema = z.enum([
   'sendMagicLink',
   'sendVerificationOTP',
   'sendInvitationEmail',
+  'sendOTPEmail',
 ]);
 
-const sendInvitationEmailPayloadSchema = z.object({
+export const sendInvitationEmailPayloadSchema = z.object({
   email: z.string(),
   username: z.string().optional(),
   invitedByUsername: z.string().optional(),
@@ -39,6 +40,11 @@ export const sendVerificationOTPPayloadSchema = z.object({
   // type: z.enum(['sign-in', 'email-verification', 'forget-password']),
 });
 
+export const sendOTPEmailPayloadSchema = z.object({
+  email: z.string(),
+  otp: z.string(),
+});
+
 export const sendEmailAbstractPayloadSchema = z.object({
   to: z.string(),
 });
@@ -66,24 +72,24 @@ export type SendMagicLinkPayload = z.infer<typeof sendMagicLinkPayloadSchema>;
 export type SendVerificationOTPPayload = z.infer<
   typeof sendVerificationOTPPayloadSchema
 >;
+export type SendOTPEmailPayload = z.infer<typeof sendOTPEmailPayloadSchema>;
 
 export type SendEmailAbstractPayload = z.infer<
   typeof sendEmailAbstractPayloadSchema
 >;
 
+interface PayLoadMap {
+  ['sendVerificationEmail']: SendVerificationEmailPayload;
+  ['sendResetPassword']: SendResetPasswordPayload;
+  ['sendMagicLink']: SendMagicLinkPayload;
+  ['sendVerificationOTP']: SendVerificationOTPPayload;
+  ['sendInvitationEmail']: SendInvitationEmailPayload;
+  ['sendOTPEmail']: SendOTPEmailPayload;
+}
+
 export interface SendEmailPayload<T extends EmailTypes>
   extends SendEmailAbstractPayload {
-  data: T extends 'sendVerificationEmail'
-    ? SendVerificationEmailPayload
-    : T extends 'sendResetPassword'
-    ? SendResetPasswordPayload
-    : T extends 'sendMagicLink'
-    ? SendMagicLinkPayload
-    : T extends 'sendVerificationOTP'
-    ? SendVerificationOTPPayload
-    : T extends 'sendInvitationEmail'
-    ? SendInvitationEmailPayload
-    : object;
+  data: T extends keyof PayLoadMap ? PayLoadMap[T] : object;
 }
 
 export type SendEmailPayloadData<T extends EmailTypes> =

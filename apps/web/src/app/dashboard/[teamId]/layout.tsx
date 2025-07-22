@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getOrganizationInfo } from '@/auth/server';
+import { ServerAuthService } from '@/auth/server';
 
 import SidebarLayout from './_components/sidebar-layout';
 
@@ -12,7 +12,9 @@ interface Props {
 
 export default async function Layout(props: Props) {
   const { teamId } = await props.params;
-  const organization = await getOrganizationInfo(teamId);
+  const organization = await ServerAuthService.getFullOrganization({
+    organizationSlug: teamId,
+  });
   const hasAccess = organization !== null;
 
   if (!hasAccess) {

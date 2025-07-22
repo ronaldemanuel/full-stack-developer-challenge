@@ -7,37 +7,57 @@ import { AuthService } from '@nx-ddd/auth-domain';
 
 import 'server-only';
 
-export const getSession = cache(async () =>
-  appContext
-    ?.get<AuthService.Service>(AuthService.TOKEN)
-    .getSession(await headers()),
-);
+export class ServerAuthService {
+  private static _service: AuthService.Service | null;
 
-export const getHandler = cache<() => AuthService.AuthHandler>(() => {
-  const authService = appContext?.get<AuthService.Service>(AuthService.TOKEN);
-  if (!authService) {
-    return async () => NextResponse.error();
+  private constructor() {
+    throw new Error('Static class');
   }
 
-  return authService.getHandler();
-});
+  private static get service() {
+    if (this._service === undefined) {
+      this._service =
+        appContext?.get<AuthService.Service>(AuthService.TOKEN) ?? null;
+    }
 
-export const getFirstOrganizationSlug = cache(async () => {
-  const authService = appContext?.get<AuthService.Service>(AuthService.TOKEN);
-  if (!authService) {
-    return null;
+    return this._service;
   }
 
-  return authService.getFirstOrganizationSlug(await headers());
-});
+  static getHandler = cache<() => AuthService.AuthHandler>(() => {
+    if (!this.service) return async () => NextResponse.error();
 
-export const getOrganizationInfo = cache(async (organizationSlug: string) => {
-  const authService = appContext?.get<AuthService.Service>(AuthService.TOKEN);
-  if (!authService) {
-    return null;
-  }
+    return this.service.getHandler();
+  });
 
-  return authService
-    .getOrganizationInfo(await headers(), organizationSlug)
-    .catch(() => null);
-});
+  static getSession = cache(async () => {
+    if (!this.service) return null;
+
+    return this.service.getSession(await headers());
+  });
+
+  static getSessionsList = cache(async () => {
+    if (!this.service) return [];
+
+    return this.service.getSessionsList(await headers());
+  });
+
+  static getDeviceSessionsList = cache(async () => {
+    if (!this.service) return [];
+
+    return this.service.getDeviceSessionsList(await headers());
+  });
+
+  static getFirstOrganizationSlug = cache(async () => {
+    if (!this.service) return null;
+
+    return this.service.getFirstOrganizationSlug(await headers());
+  });
+
+  static getFullOrganization = cache(
+    async (query?: { organizationId?: string; organizationSlug?: string }) => {
+      if (!this.service) return null;
+
+      return this.service.getFullOrganization(await headers(), query);
+    },
+  );
+}

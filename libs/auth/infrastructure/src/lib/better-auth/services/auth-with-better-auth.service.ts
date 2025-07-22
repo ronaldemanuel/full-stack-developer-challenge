@@ -1,6 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import type { AuthService, Organization, Session } from '@nx-ddd/auth-domain';
+import type {
+  ActiveOrganization,
+  AuthService,
+  Session,
+} from '@nx-ddd/auth-domain';
 
 import type { BetterAuth } from '../factories/better-auth.factory.js';
 import { BETTER_AUTH_TOKEN } from '../factories/better-auth.factory.js';
@@ -42,6 +46,13 @@ export class AuthWithBetterAuthService implements AuthService.Service {
       });
 
       activeOrganizationSlug = firstOrganizationId?.[0]?.slug ?? null;
+
+      await this.betterAuth.api.setActiveOrganization({
+        body: {
+          organizationId: firstOrganizationId?.[0]?.id,
+        },
+        headers,
+      });
     }
 
     return activeOrganizationSlug;
@@ -49,10 +60,10 @@ export class AuthWithBetterAuthService implements AuthService.Service {
 
   async getFullOrganization(
     headers: Headers,
-    organizationSlug: string,
-  ): Promise<Organization | null> {
+    query?: { organizationId?: string; organizationSlug?: string },
+  ): Promise<ActiveOrganization | null> {
     const organization = await this.betterAuth.api.getFullOrganization({
-      query: { organizationSlug },
+      query,
       headers,
     });
 

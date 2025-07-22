@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { authClient } from '@/auth/client';
 import { Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 import {
   Button,
@@ -23,7 +24,7 @@ export function SignIn() {
   // TODO: Implement hook form
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, _setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
   return (
@@ -83,12 +84,28 @@ export function SignIn() {
             className="w-full"
             disabled={loading}
             onClick={async () => {
-              await authClient.signIn.email({
-                email,
-                password,
-                rememberMe,
-                callbackURL: '/dashboard',
-              });
+              setLoading(true);
+              await authClient.signIn.email(
+                {
+                  email,
+                  password,
+                  rememberMe,
+                  callbackURL: '/dashboard',
+                },
+                {
+                  onRequest() {
+                    setLoading(true);
+                  },
+                  onError(context) {
+                    toast.error(context.error.message);
+                    setLoading(false);
+                  },
+                  onSuccess() {
+                    toast.success('Login successful');
+                    setLoading(false);
+                  },
+                },
+              );
             }}
           >
             {loading ? <Loader2 size={16} className="animate-spin" /> : 'Login'}
@@ -103,11 +120,17 @@ export function SignIn() {
             <Button
               variant="outline"
               className={cn('w-full gap-2')}
+              disabled={loading}
               onClick={async () => {
-                await authClient.signIn.social({
-                  provider: 'google',
-                  callbackURL: '/dashboard',
-                });
+                setLoading(true);
+                await authClient.signIn
+                  .social({
+                    provider: 'google',
+                    callbackURL: '/dashboard',
+                  })
+                  .finally(() => {
+                    setLoading(false);
+                  });
               }}
             >
               <svg
@@ -138,11 +161,17 @@ export function SignIn() {
             <Button
               variant="outline"
               className={cn('w-full gap-2')}
+              disabled={loading}
               onClick={async () => {
-                await authClient.signIn.social({
-                  provider: 'github',
-                  callbackURL: '/dashboard',
-                });
+                setLoading(true);
+                await authClient.signIn
+                  .social({
+                    provider: 'github',
+                    callbackURL: '/dashboard',
+                  })
+                  .finally(() => {
+                    setLoading(false);
+                  });
               }}
             >
               <svg
@@ -161,11 +190,17 @@ export function SignIn() {
             <Button
               variant="outline"
               className={cn('w-full gap-2')}
+              disabled={loading}
               onClick={async () => {
-                await authClient.signIn.social({
-                  provider: 'microsoft',
-                  callbackURL: '/dashboard',
-                });
+                setLoading(true);
+                await authClient.signIn
+                  .social({
+                    provider: 'microsoft',
+                    callbackURL: '/dashboard',
+                  })
+                  .finally(() => {
+                    setLoading(false);
+                  });
               }}
             >
               <svg

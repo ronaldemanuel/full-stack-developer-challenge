@@ -15,4 +15,5 @@ export const auth = initAuth(
   {} as any,
   {} as any,
   {} as any,
+  {} as any,
 );

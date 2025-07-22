@@ -8,6 +8,7 @@ export const userSchema = z.object({
   image: z.string().nullish(),
   createdAt: z.date(),
   updatedAt: z.date(),
+  twoFactorEnabled: z.boolean().nullish(),
   role: z.string().nullish(),
   banned: z.boolean().nullish(),
   banReason: z.string().nullish(),
