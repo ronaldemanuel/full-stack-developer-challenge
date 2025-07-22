@@ -25,6 +25,12 @@
       "path": "../../auth/application"
     },
     {
+      "path": "../../email/infrastructure"
+    },
+    {
+      "path": "../../database/infrastructure"
+    },
+    {
       "path": "./tsconfig.lib.json"
     },
     {

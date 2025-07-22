@@ -1,4 +1,5 @@
 import type { DynamicModule } from '@nestjs/common';
+import { env } from '@/env.mjs';
 import { Module } from '@nestjs/common';
 
 import {
@@ -8,10 +9,8 @@ import {
   SendVerificationEmailUseCase,
 } from '@nx-ddd/auth-application';
 import { AuthService } from '@nx-ddd/auth-domain';
-import { DatabaseModule } from '@nx-ddd/database-infrastructure';
 
 import type { BetterAuthConfig } from './better-auth/factories/better-auth.factory.js';
-import { env } from '../env.mjs';
 import { BetterAuthDatabaseAdapterFactory } from './better-auth/factories/better-auth-database-adapter.factory.js';
 import {
   BETTER_AUTH_CONFIG_TOKEN,
@@ -23,7 +22,7 @@ import { AuthWithBetterAuthService } from './better-auth/services/auth-with-bett
 export class AuthModule {
   static forBetterAuth(): DynamicModule {
     return {
-      imports: [DatabaseModule.forDrizzle()],
+      imports: [],
       module: AuthModule,
       providers: [
         SendVerificationEmailUseCase.UseCase,

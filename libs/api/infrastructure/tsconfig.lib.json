@@ -30,6 +30,12 @@
     },
     {
       "path": "../../auth/application/tsconfig.lib.json"
+    },
+    {
+      "path": "../../email/infrastructure/tsconfig.lib.json"
+    },
+    {
+      "path": "../../database/infrastructure/tsconfig.lib.json"
     }
   ],
   "exclude": [
