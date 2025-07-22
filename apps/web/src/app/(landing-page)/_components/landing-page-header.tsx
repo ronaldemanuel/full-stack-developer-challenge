@@ -25,7 +25,6 @@ function SignInSignUpButtons() {
   const app = {
     urls: {
       signIn: '/sign-in',
-      signUp: '/sign-up',
     },
   };
   return (
@@ -35,13 +34,6 @@ function SignInSignUpButtons() {
         className={buttonVariants({ variant: 'secondary' })}
       >
         Sign In
-      </Link>
-
-      <Link
-        href={app.urls.signUp}
-        className={buttonVariants({ variant: 'default' })}
-      >
-        Sign Up
       </Link>
     </>
   );

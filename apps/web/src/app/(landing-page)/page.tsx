@@ -9,7 +9,6 @@ export default async function IndexPage() {
   const stackServerApp = {
     urls: {
       signIn: '/sign-in',
-      signUp: '/sign-up',
     },
   };
 
@@ -21,7 +20,7 @@ export default async function IndexPage() {
         title="A Multi-tenant Next.js Starter Template"
         subtitle="Built for developers, by developers. Next.js + Shadcn UI + Stack Auth."
         primaryCtaText="Get Started"
-        primaryCtaLink={stackServerApp.urls.signUp}
+        primaryCtaLink={stackServerApp.urls.signIn}
         secondaryCtaText="GitHub"
         secondaryCtaLink="https://github.com/stack-auth/stack-template"
         credits={
@@ -142,7 +141,7 @@ export default async function IndexPage() {
               'No credit card required',
             ],
             buttonText: 'Get Started',
-            buttonHref: stackServerApp.urls.signUp,
+            buttonHref: stackServerApp.urls.signIn,
           },
           {
             title: 'Pro',
@@ -157,7 +156,7 @@ export default async function IndexPage() {
             ],
             buttonText: 'Upgrade to Pro',
             isPopular: true,
-            buttonHref: stackServerApp.urls.signUp,
+            buttonHref: stackServerApp.urls.signIn,
           },
           {
             title: 'Enterprise',
@@ -171,7 +170,7 @@ export default async function IndexPage() {
               'No credit card required',
             ],
             buttonText: 'Contact Us',
-            buttonHref: stackServerApp.urls.signUp,
+            buttonHref: stackServerApp.urls.signIn,
           },
         ]}
       />
