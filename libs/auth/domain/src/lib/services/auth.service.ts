@@ -8,5 +8,10 @@ export namespace AuthService {
   export interface Service {
     getSession(headers: Headers): Promise<Session | null>;
     getHandler(): AuthHandler;
+    getFirstOrganizationSlug(headers: Headers): Promise<string | null>;
+    getOrganizationInfo(
+      headers: Headers,
+      organizationSlug: string,
+    ): Promise<{ name: string; slug: string } | null>;
   }
 }

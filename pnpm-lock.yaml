@@ -21,6 +21,9 @@ catalogs:
     '@nestjs/platform-express':
       specifier: ^11.0.0
       version: 11.1.4
+    '@tanstack/react-query':
+      specifier: ^5.69.0
+      version: 5.83.0
     '@trpc/server':
       specifier: ^11.0.0
       version: 11.4.3
@@ -105,6 +108,9 @@ importers:
       '@shopify/react-native-skia':
         specifier: ^2.1.1
         version: 2.1.1(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(bufferutil@4.0.9)(react@19.0.0))(react@19.0.0)
+      '@tanstack/react-query':
+        specifier: 'catalog:'
+        version: 5.83.0(react@19.0.0)
       '@types/uuid':
         specifier: ^10.0.0
         version: 10.0.0
@@ -5885,6 +5891,14 @@ packages:
         optional: true
       zod:
         optional: true
+
+  '@tanstack/query-core@5.83.0':
+    resolution: {integrity: sha512-0M8dA+amXUkyz5cVUm/B+zSk3xkQAcuXuz5/Q/LveT4ots2rBpPTZOzd7yJa2Utsf8D2Upl5KyjhHRY+9lB/XA==}
+
+  '@tanstack/react-query@5.83.0':
+    resolution: {integrity: sha512-/XGYhZ3foc5H0VM2jLSD/NyBRIOK4q9kfeml4+0x2DlL6xVuAcVEW+hTlTapAmejObg0i3eNqhkr2dT+eciwoQ==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@testcontainers/postgresql@11.3.0':
     resolution: {integrity: sha512-eJCtHvYCMDYeTMvd8odvnt+tOVSsqdoQ6LM+RjM4e8pZtjZnLX6X4+ZVj11jFbz0GG15C2gos/FQdgab/ZMuCA==}
@@ -21634,6 +21648,13 @@ snapshots:
     optionalDependencies:
       typescript: 5.8.3
       zod: 3.25.76
+
+  '@tanstack/query-core@5.83.0': {}
+
+  '@tanstack/react-query@5.83.0(react@19.0.0)':
+    dependencies:
+      '@tanstack/query-core': 5.83.0
+      react: 19.0.0
 
   '@testcontainers/postgresql@11.3.0':
     dependencies:

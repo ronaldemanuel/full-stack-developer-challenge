@@ -21,3 +21,23 @@ export const getHandler = cache<() => AuthService.AuthHandler>(() => {
 
   return authService.getHandler();
 });
+
+export const getFirstOrganizationSlug = cache(async () => {
+  const authService = appContext?.get<AuthService.Service>(AuthService.TOKEN);
+  if (!authService) {
+    return null;
+  }
+
+  return authService.getFirstOrganizationSlug(await headers());
+});
+
+export const getOrganizationInfo = cache(async (organizationSlug: string) => {
+  const authService = appContext?.get<AuthService.Service>(AuthService.TOKEN);
+  if (!authService) {
+    return null;
+  }
+
+  return authService
+    .getOrganizationInfo(await headers(), organizationSlug)
+    .catch(() => null);
+});
