@@ -3,19 +3,15 @@
   "compilerOptions": {
     "outDir": "dist",
     "allowJs": true,
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "rootDir": "src",
     "jsx": "react-jsx",
     "noUnusedLocals": false,
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "experimentalDecorators": true
   },
-  "files": [
-    "../../node_modules/@nx/expo/typings/svg.d.ts"
-  ],
+  "files": ["../../node_modules/@nx/expo/typings/svg.d.ts"],
   "exclude": [
     "out-tsc",
     "dist",
@@ -35,10 +31,10 @@
     "eslint.config.cjs",
     "eslint.config.mjs"
   ],
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx"
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+  "references": [
+    {
+      "path": "../../libs/jobs/events/infrastructure/tsconfig.lib.json"
+    }
   ]
 }

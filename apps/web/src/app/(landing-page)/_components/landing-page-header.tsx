@@ -1,13 +1,12 @@
 'use client';
 
-import * as React from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import { useUser } from '@/auth/use-user';
 import { Logo } from '@/components/shared/logo';
 import { Menu, X } from 'lucide-react';
 
-import { Button, buttonVariants } from '@nx-ddd/ui';
+import { Button } from '@nx-ddd/ui';
 import { cn } from '@nx-ddd/ui-utils';
 
 import { ColorModeSwitcher } from './color-mode-switcher';
@@ -21,50 +20,11 @@ interface NavProps {
   }[];
 }
 
-function SignInSignUpButtons() {
-  const app = {
-    urls: {
-      signIn: '/sign-in',
-    },
-  };
-  return (
-    <>
-      <Link
-        href={app.urls.signIn}
-        className={buttonVariants({ variant: 'secondary' })}
-      >
-        Sign In
-      </Link>
-    </>
-  );
+interface MobileItemsProps extends NavProps {
+  authButtons?: React.ReactNode;
 }
 
-function AuthButtonsInner() {
-  const { user } = useUser();
-
-  if (user) {
-    return (
-      <Link
-        href="/dashboard"
-        className={buttonVariants({ variant: 'default' })}
-      >
-        Dashboard
-      </Link>
-    );
-  } else {
-    return <SignInSignUpButtons />;
-  }
-}
-
-function AuthButtons() {
-  return (
-    <React.Suspense fallback={<SignInSignUpButtons />}>
-      <AuthButtonsInner />
-    </React.Suspense>
-  );
-}
-
-function MobileItems(props: NavProps) {
+function MobileItems(props: MobileItemsProps) {
   return (
     <div className="animate-in slide-in-from-bottom-80 fixed inset-0 top-16 z-50 grid h-[calc(100vh-4rem)] grid-flow-row auto-rows-max overflow-auto p-6 pb-32 md:hidden">
       <div className="bg-popover text-popover-foreground relative z-20 grid gap-6 rounded-md p-4 shadow-md">
@@ -84,9 +44,7 @@ function MobileItems(props: NavProps) {
             </Link>
           ))}
 
-          <div className="mt-4 flex flex-col gap-2">
-            <AuthButtons />
-          </div>
+          <div className="mt-4 flex flex-col gap-2">{props.authButtons}</div>
         </nav>
       </div>
     </div>
@@ -119,8 +77,12 @@ function DesktopItems(props: NavProps) {
   );
 }
 
-export function LandingPageHeader(props: NavProps) {
-  const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false);
+interface LandingPageHeaderProps extends NavProps {
+  authButtons?: React.ReactNode;
+}
+
+export function LandingPageHeader(props: LandingPageHeaderProps) {
+  const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
 
   return (
     <header className="bg-background/80 fixed z-50 w-full px-4 backdrop-blur md:px-8">
@@ -151,7 +113,7 @@ export function LandingPageHeader(props: NavProps) {
         <div className="flex items-center gap-4">
           <ColorModeSwitcher />
           <nav className="hidden items-center gap-4 md:flex">
-            <AuthButtons />
+            {props.authButtons}
           </nav>
         </div>
       </div>
