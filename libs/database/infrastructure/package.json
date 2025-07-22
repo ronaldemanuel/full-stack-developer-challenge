@@ -18,9 +18,6 @@
   "nx": {
     "name": "database-infrastructure",
     "sourceRoot": "libs/database/infrastructure/src",
-    "implicitDependencies": [
-      "auth-infrastructure"
-    ],
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
