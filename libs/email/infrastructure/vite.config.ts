@@ -1,12 +1,12 @@
 /// <reference types='vitest' />
 import * as path from 'path';
-import react from '@vitejs/plugin-react-swc';
-import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
-import nodePolyfills from 'rollup-plugin-polyfill-node';
 import cjs from '@rollup/plugin-commonjs';
+import react from '@vitejs/plugin-react-swc';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
+import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
 export default defineConfig(() => ({
   root: __dirname,
@@ -44,12 +44,7 @@ export default defineConfig(() => ({
     rollupOptions: {
       // External packages that should not be bundled into your library.
       external: ['react', 'react-dom', 'react/jsx-runtime'],
-      plugins: [
-        nodePolyfills({
-          include: ['node_modules/**/*.js', '../../node_modules/**/*.js'],
-        }),
-        cjs(),
-      ],
+      plugins: [nodePolyfills(), cjs()],
     },
   },
   test: {

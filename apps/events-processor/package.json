@@ -32,6 +32,13 @@
             "minify": true
           }
         }
+      },
+      "preview": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node dist/main.cjs",
+          "cwd": "apps/events-processor"
+        }
       }
     }
   }
