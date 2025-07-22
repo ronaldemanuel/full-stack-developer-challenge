@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "ui-add": "pnpm dlx shadcn@latest add"
+    "ui-add": "pnpm dlx shadcn@latest add",
+    "live:dev": "sst dev --stage development",
+    "live:staging": "sst dev --stage staging",
+    "live:production": "sst dev --stage production"
   },
   "nx": {
     "implicitDependencies": [
@@ -44,6 +47,31 @@
         "executor": "nx:run-commands",
         "options": {
           "command": "sst refresh --stage {args.stage}",
+          "forwardAllArgs": true
+        },
+        "defaultConfiguration": "dev",
+        "configurations": {
+          "production": {
+            "args": [
+              "--stage=production"
+            ]
+          },
+          "staging": {
+            "args": [
+              "--stage=staging"
+            ]
+          },
+          "dev": {
+            "args": [
+              "--stage=development"
+            ]
+          }
+        }
+      },
+      "tunnel": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "sst tunnel --stage {args.stage}",
           "forwardAllArgs": true
         },
         "defaultConfiguration": "dev",

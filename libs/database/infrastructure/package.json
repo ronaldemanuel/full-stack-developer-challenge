@@ -34,29 +34,71 @@
       },
       "reset": {
         "executor": "nx:run-commands",
+        "staging": {
+          "command": "sst shell --target Drizzle --stage staging drizzle-kit push"
+        },
+        "dev": {
+          "command": "sst shell --target Drizzle --stage development drizzle-kit push"
+        },
+        "local": {
+          "command": "drizzle-kit push"
+        },
         "options": {
-          "command": "drizzle-kit reset",
           "cwd": "libs/database/infrastructure"
         }
       },
       "push": {
         "executor": "nx:run-commands",
+        "configurations": {
+          "staging": {
+            "command": "sst shell --target Drizzle --stage staging drizzle-kit push"
+          },
+          "dev": {
+            "command": "sst shell --target Drizzle --stage development drizzle-kit push"
+          },
+          "local": {
+            "command": "drizzle-kit push"
+          }
+        },
         "options": {
-          "command": "drizzle-kit push",
           "cwd": "libs/database/infrastructure"
         }
       },
       "migrate": {
         "executor": "nx:run-commands",
+        "configurations": {
+          "production": {
+            "command": "sst shell --target Drizzle --stage production drizzle-kit migrate"
+          },
+          "staging": {
+            "command": "sst shell --target Drizzle --stage staging drizzle-kit migrate"
+          },
+          "dev": {
+            "command": "sst shell --target Drizzle --stage development drizzle-kit migrate"
+          },
+          "local": {
+            "command": "drizzle-kit migrate"
+          }
+        },
         "options": {
-          "command": "drizzle-kit migrate",
           "cwd": "libs/database/infrastructure"
         }
       },
       "studio": {
         "executor": "nx:run-commands",
+        "defaultConfiguration": "local",
+        "configurations": {
+          "staging": {
+            "command": "sst shell --target Drizzle --stage staging drizzle-kit studio"
+          },
+          "dev": {
+            "command": "sst shell --target Drizzle --stage development drizzle-kit studio"
+          },
+          "local": {
+            "command": "drizzle-kit studio"
+          }
+        },
         "options": {
-          "command": "drizzle-kit studio",
           "cwd": "libs/database/infrastructure"
         }
       },

@@ -9,9 +9,21 @@ declare module "sst" {
       "name": string
       "type": "sst.aws.Bucket"
     }
+    "MyDatabase": {
+      "database": string
+      "host": string
+      "password": string
+      "port": number
+      "type": "sst.aws.Postgres"
+      "username": string
+    }
     "app-queue": {
       "type": "sst.aws.Queue"
       "url": string
+    }
+    "nx-ddd-vpc": {
+      "bastion": string
+      "type": "sst.aws.Vpc"
     }
     "nx-ddd-web-app": {
       "type": "sst.aws.Nextjs"
