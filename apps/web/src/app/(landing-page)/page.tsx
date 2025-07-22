@@ -6,34 +6,12 @@ import { Hero } from './_components/hero';
 import { PricingGrid } from './_components/pricing';
 
 export default async function IndexPage() {
-  // TODO: implement better auth
-  // const project = await stackServerApp.getProject();
   const stackServerApp = {
     urls: {
-      signIn: '/',
-      signUp: '/',
+      signIn: '/sign-in',
+      signUp: '/sign-up',
     },
   };
-  const project = {
-    config: {
-      clientTeamCreationEnabled: true,
-    },
-  };
-
-  if (!project.config.clientTeamCreationEnabled) {
-    return (
-      <div className="flex min-h-96 w-full items-center justify-center">
-        <div className="max-w-xl gap-4">
-          <p className="text-xl font-bold">Setup Required</p>
-          <p className="">
-            {
-              'To start using this project, please enable client-side team creation in the Stack Auth dashboard (Project > Team Settings). This message will disappear once the feature is enabled.'
-            }
-          </p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <>

@@ -54,6 +54,7 @@ export default [
     rules: {
       '@typescript-eslint/consistent-type-imports': 'warn',
       '@typescript-eslint/no-namespace': 'off',
+      '@typescript-eslint/consistent-type-definitions': 'error',
     },
   },
 ];

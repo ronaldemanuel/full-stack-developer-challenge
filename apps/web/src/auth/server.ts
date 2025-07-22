@@ -1,22 +1,22 @@
-import { appContext } from '@/lib/app-context';
-import { AuthService } from '@nx-ddd/auth-domain';
+import { cache } from 'react';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { cache } from 'react';
+import { appContext } from '@/lib/app-context';
+
+import { AuthService } from '@nx-ddd/auth-domain';
+
 import 'server-only';
 
 export const getSession = cache(async () =>
   appContext
     ?.get<AuthService.Service>(AuthService.TOKEN)
-    .getSession(await headers())
+    .getSession(await headers()),
 );
 
-export const getHandler = cache(() => {
+export const getHandler = cache<() => AuthService.AuthHandler>(() => {
   const authService = appContext?.get<AuthService.Service>(AuthService.TOKEN);
   if (!authService) {
-    return async () => {
-      NextResponse.json({});
-    };
+    return async () => NextResponse.error();
   }
 
   return authService.getHandler();

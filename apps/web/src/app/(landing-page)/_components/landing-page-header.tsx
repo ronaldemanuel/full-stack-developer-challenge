@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
+import { useUser } from '@/auth/use-user';
 import { Logo } from '@/components/shared/logo';
 import { Menu, X } from 'lucide-react';
 
@@ -21,12 +22,10 @@ interface NavProps {
 }
 
 function SignInSignUpButtons() {
-  // TODO: implement better auth
-  // const app = useStackApp();
   const app = {
     urls: {
-      signIn: '/',
-      signUp: '/',
+      signIn: '/sign-in',
+      signUp: '/sign-up',
     },
   };
   return (
@@ -49,9 +48,7 @@ function SignInSignUpButtons() {
 }
 
 function AuthButtonsInner() {
-  // TODO: implement better auth
-  // const user = useUser();
-  const user = null;
+  const { user } = useUser();
 
   if (user) {
     return (
