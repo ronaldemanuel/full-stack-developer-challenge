@@ -1,3 +1,4 @@
+import { AuthButtons } from './_components/auth-buttons';
 import { LandingPageFooter } from './_components/landing-page-footer';
 import { LandingPageHeader } from './_components/landing-page-header';
 
@@ -5,6 +6,7 @@ export default function Layout(props: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
       <LandingPageHeader
+        authButtons={<AuthButtons />}
         items={[
           { title: 'Home', href: '/' },
           { title: 'Features', href: '/#features' },

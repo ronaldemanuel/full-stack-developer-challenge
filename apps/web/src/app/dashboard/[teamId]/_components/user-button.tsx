@@ -2,6 +2,7 @@
 
 import type { SessionUser } from '@/auth/use-session';
 import { useMemo } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { authClient } from '@/auth/client';
 import { useUser } from '@/auth/use-user';
@@ -55,9 +56,11 @@ export function UserButton() {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <CircleUser className="size-4" />
-            Account settings
+          <DropdownMenuItem asChild>
+            <Link href="/user/settings">
+              <CircleUser className="size-4" />
+              Account settings
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
@@ -74,7 +77,7 @@ export function UserButton() {
               authClient.signOut({
                 fetchOptions: {
                   onSuccess() {
-                    router.push('/');
+                    router.replace('/');
                   },
                 },
               })
