@@ -10,8 +10,7 @@
     ".": {
       "development": "./src/index.ts",
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "default": "./dist/index.cjs"
     },
     "./env": "./src/env.mjs"
   },
@@ -29,6 +28,7 @@
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@rollup/plugin-commonjs": "^28.0.6",
-    "rollup-plugin-polyfill-node": "^0.13.0"
+    "rollup-plugin-polyfill-node": "^0.13.0",
+    "vite-plugin-node": "^7.0.0"
   }
 }

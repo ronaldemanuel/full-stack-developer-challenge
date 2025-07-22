@@ -1,13 +1,14 @@
+import type { Context, Handler, SQSEvent } from 'aws-lambda';
 import { firstValueFrom, ReplaySubject } from 'rxjs';
+
 import type { SqsStrategy } from '@nx-ddd/job-events-infra';
 import { bootstrapSqs } from '@nx-ddd/job-events-infra';
-import type { Context, Handler, SQSEvent } from 'aws-lambda';
 
 const strategySubject = new ReplaySubject<SqsStrategy>();
 
 export const lambdaHandler: Handler = async (
   event: SQSEvent,
-  context: Context
+  context: Context,
 ) => {
   bootstrapSqs()
     .then((strategy) => strategySubject.next(strategy))

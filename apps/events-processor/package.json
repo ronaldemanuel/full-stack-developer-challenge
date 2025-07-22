@@ -20,6 +20,7 @@
           "outputFileName": "main.js",
           "tsConfig": "apps/events-processor/tsconfig.app.json",
           "platform": "node",
+          "target": "es2022",
           "format": [
             "cjs"
           ]
@@ -43,4 +44,3 @@
     }
   }
 }
-

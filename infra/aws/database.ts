@@ -12,6 +12,8 @@ new sst.x.DevCommand('Drizzle', {
   link: [database],
   environment: {
     POSTGRES_URL: DATABASE_URL,
+    NX_DAEMON: 'false',
+    NX_TUI: 'false',
   },
   dev: {
     command: 'npx -y nx run database-infrastructure:studio',

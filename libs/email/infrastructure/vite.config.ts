@@ -7,6 +7,7 @@ import react from '@vitejs/plugin-react-swc';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+import { VitePluginNode } from 'vite-plugin-node';
 
 export default defineConfig(() => ({
   root: __dirname,
@@ -17,6 +18,24 @@ export default defineConfig(() => ({
       entryRoot: 'src',
       tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
     }),
+    ...VitePluginNode({
+      // Nodejs native Request adapter
+      // currently this plugin support 'express', 'nest', 'koa' and 'fastify' out of box,
+      // you can also pass a function if you are using other frameworks, see Custom Adapter section
+      adapter: 'nest',
+      // tell the plugin where is your project entry
+      appPath: './src/index.ts',
+      // Optional, default: 'viteNodeApp'
+      // the name of named export of you app from the appPath file
+      exportName: 'viteNodeApp',
+      // Optional, default: 'esbuild'
+      // The TypeScript compiler you want to use
+      // by default this plugin is using vite default ts compiler which is esbuild
+      // 'swc' compiler is supported to use as well for frameworks
+      // like Nestjs (esbuild dont support 'emitDecoratorMetadata' yet)
+      // you need to INSTALL `@swc/core` as dev dependency if you want to use swc
+      tsCompiler: 'esbuild',
+    }),
   ],
   // Uncomment this if you are using workers.
   // worker: {
@@ -24,38 +43,17 @@ export default defineConfig(() => ({
   // },
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode
-  build: {
-    outDir: './dist',
-    emptyOutDir: true,
-    reportCompressedSize: true,
-    commonjsOptions: {
-      transformMixedEsModules: true,
-      include: [],
-    },
-    lib: {
-      // Could also be a dictionary or array of multiple entry points.
-      entry: 'src/index.ts',
-      name: 'email-infrastructure',
-      fileName: 'index',
-      // Change this to the formats you want to support.
-      // Don't forget to update your package.json as well.
-      formats: ['es' as const],
-    },
-    rollupOptions: {
-      // External packages that should not be bundled into your library.
-      external: [
-        'react',
-        'react-dom',
-        'react/jsx-runtime',
-
-        '@nestjs/core',
-        '@nestjs/common',
-        '@nestjs/cache-manager',
-        '@nestjs/cqrs',
-        '@nestjs-modules/mailer',
-      ],
-      plugins: [nodePolyfills(), cjs()],
-    },
+  optimizeDeps: {
+    // Vite does not work well with optionnal dependencies,
+    // mark them as ignored for now
+    exclude: [
+      '@nestjs/microservices',
+      '@nestjs/websockets',
+      'cache-manager',
+      'class-transformer',
+      'class-validator',
+      'fastify-swagger',
+    ],
   },
   test: {
     watch: false,
@@ -68,39 +66,7 @@ export default defineConfig(() => ({
       provider: 'v8' as const,
     },
   },
-  resolve: {
-    alias: {
-      process: 'rollup-plugin-node-polyfills/polyfills/process-es6',
-      buffer: 'rollup-plugin-node-polyfills/polyfills/buffer-es6',
-      events: 'rollup-plugin-node-polyfills/polyfills/events',
-      util: 'rollup-plugin-node-polyfills/polyfills/util',
-      sys: 'util',
-      stream: 'rollup-plugin-node-polyfills/polyfills/stream',
-      _stream_duplex:
-        'rollup-plugin-node-polyfills/polyfills/readable-stream/duplex',
-      _stream_passthrough:
-        'rollup-plugin-node-polyfills/polyfills/readable-stream/passthrough',
-      _stream_readable:
-        'rollup-plugin-node-polyfills/polyfills/readable-stream/readable',
-      _stream_writable:
-        'rollup-plugin-node-polyfills/polyfills/readable-stream/writable',
-      _stream_transform:
-        'rollup-plugin-node-polyfills/polyfills/readable-stream/transform',
-    },
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      // Node.js global to browser globalThis
-      define: {
-        global: 'globalThis',
-      },
-      // Enable esbuild polyfill plugins
-      plugins: [
-        NodeGlobalsPolyfillPlugin({
-          process: true,
-        }),
-        NodeModulesPolyfillPlugin(),
-      ],
-    },
+  esbuild: {
+    target: 'es2022',
   },
 }));

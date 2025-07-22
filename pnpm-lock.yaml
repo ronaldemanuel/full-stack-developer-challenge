@@ -757,6 +757,9 @@ importers:
       rollup-plugin-polyfill-node:
         specifier: ^0.13.0
         version: 0.13.0(rollup@4.45.1)
+      vite-plugin-node:
+        specifier: ^7.0.0
+        version: 7.0.0(@swc/core@1.13.0(@swc/helpers@0.5.17))(vite@6.3.5(@types/node@20.19.8)(jiti@2.4.2)(less@4.1.3)(lightningcss@1.27.0)(sass-embedded@1.89.2)(sass@1.89.2)(stylus@0.64.0)(terser@5.43.1)(yaml@2.8.0))
 
   libs/jobs/events/domain:
     dependencies:
@@ -772,6 +775,12 @@ importers:
       '@nestjs/microservices':
         specifier: ^11.1.5
         version: 11.1.5(@grpc/grpc-js@1.13.4)(@nestjs/common@11.1.4(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/core@11.1.4)(cache-manager@7.0.1)(ioredis@5.6.1)(reflect-metadata@0.1.14)(rxjs@7.8.2)
+      '@nx-ddd/email-application':
+        specifier: workspace:*
+        version: link:../../../email/application
+      '@nx-ddd/email-domain':
+        specifier: workspace:*
+        version: link:../../../email/domain
       '@nx-ddd/email-infrastructure':
         specifier: workspace:*
         version: link:../../../email/infrastructure
@@ -4976,6 +4985,10 @@ packages:
       rollup:
         optional: true
 
+  '@rollup/pluginutils@4.2.1':
+    resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
+    engines: {node: '>= 8.0.0'}
+
   '@rollup/pluginutils@5.2.0':
     resolution: {integrity: sha512-qWJ2ZTbmumwiLFomfzTyt5Kng4hwPi9rwCYN4SHb6eaRU1KNO4ccxINHr/VhH4GgPlt1XfSTLX2LBTme8ne4Zw==}
     engines: {node: '>=14.0.0'}
@@ -8054,6 +8067,10 @@ packages:
 
   de-indent@1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
+
+  debounce@2.2.0:
+    resolution: {integrity: sha512-Xks6RUDLZFdz8LIdR6q0MTH44k7FikOmnh5xkSjMig6ch45afc8sjTjRQf3P6ax8dMgcQrYO/AR2RGWURrruqw==}
+    engines: {node: '>=18'}
 
   debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -14439,6 +14456,15 @@ packages:
       vite:
         optional: true
 
+  vite-plugin-node@7.0.0:
+    resolution: {integrity: sha512-FZqTHvCXUu+U8i6qMtlZCrEvlelUioEf6J4S77XHpZk73frveqKVot60W0hpbffv5OMECXYwP/LAiTGAOLN4/g==}
+    peerDependencies:
+      '@swc/core': ^1.7.26
+      vite: ^7.0.0
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+
   vite@6.3.5:
     resolution: {integrity: sha512-cZn6NDFE7wdTpINgs++ZJ4N49W2vRp8LCKrn3Ob1kYNtOo21vfDoaV5GzBfLU4MovSAB8uNRm4jgzVQZ+mBzPQ==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
@@ -20585,6 +20611,11 @@ snapshots:
     optionalDependencies:
       rollup: 4.45.1
 
+  '@rollup/pluginutils@4.2.1':
+    dependencies:
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+
   '@rollup/pluginutils@5.2.0(rollup@4.45.1)':
     dependencies:
       '@types/estree': 1.0.8
@@ -24242,6 +24273,8 @@ snapshots:
   dayjs@1.11.13: {}
 
   de-indent@1.0.2: {}
+
+  debounce@2.2.0: {}
 
   debug@2.6.9:
     dependencies:
@@ -32280,6 +32313,18 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
       - rollup
+      - supports-color
+
+  vite-plugin-node@7.0.0(@swc/core@1.13.0(@swc/helpers@0.5.17))(vite@6.3.5(@types/node@20.19.8)(jiti@2.4.2)(less@4.1.3)(lightningcss@1.27.0)(sass-embedded@1.89.2)(sass@1.89.2)(stylus@0.64.0)(terser@5.43.1)(yaml@2.8.0)):
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
+      chalk: 4.1.2
+      debounce: 2.2.0
+      debug: 4.4.1
+      vite: 6.3.5(@types/node@20.19.8)(jiti@2.4.2)(less@4.1.3)(lightningcss@1.27.0)(sass-embedded@1.89.2)(sass@1.89.2)(stylus@0.64.0)(terser@5.43.1)(yaml@2.8.0)
+    optionalDependencies:
+      '@swc/core': 1.13.0(@swc/helpers@0.5.17)
+    transitivePeerDependencies:
       - supports-color
 
   vite@6.3.5(@types/node@20.19.8)(jiti@2.4.2)(less@4.1.3)(lightningcss@1.27.0)(sass-embedded@1.89.2)(sass@1.89.2)(stylus@0.64.0)(terser@5.43.1)(yaml@2.8.0):

@@ -4,9 +4,9 @@
   "license": "MIT",
   "scripts": {
     "ui-add": "pnpm dlx shadcn@latest add",
-    "live:dev": "sst dev --stage development",
-    "live:staging": "sst dev --stage staging",
-    "live:production": "sst dev --stage production"
+    "live:dev": "NX_TUI=false sst dev --stage development",
+    "live:staging": "NX_TUI=false sst dev --stage staging",
+    "live:production": "NX_TUI=false sst dev --stage production"
   },
   "nx": {
     "name": "root",

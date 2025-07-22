@@ -26,6 +26,10 @@ export interface BetterAuthConfig {
   baseUrl: string;
   productionUrl: string;
   secret: string | undefined;
+  googleClientId: string | undefined;
+  googleClientSecret: string | undefined;
+  githubClientId: string | undefined;
+  githubClientSecret: string | undefined;
 }
 
 export const initAuth = (
@@ -69,6 +73,18 @@ export const initAuth = (
         });
       },
       requireEmailVerification: true,
+    },
+    socialProviders: {
+      google: {
+        clientId: config.googleClientId || '',
+        clientSecret: config.googleClientSecret || '',
+        enabled: config.googleClientId ? true : false,
+      },
+      github: {
+        clientId: config.githubClientId || '',
+        clientSecret: config.githubClientSecret || '',
+        enabled: config.githubClientId ? true : false,
+      },
     },
     plugins: [
       organization({

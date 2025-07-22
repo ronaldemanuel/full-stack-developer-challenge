@@ -52,7 +52,7 @@ import { ReactEmailRenderService } from './services';
       useClass: ReactEmailRenderService,
     },
     {
-      provide: SendEventEmailHandler,
+      provide: 'SendEventEmailHandler',
       useFactory: (
         mailerService: MailerService,
         emailRenderService: EmailRenderService.Service,
@@ -62,6 +62,6 @@ import { ReactEmailRenderService } from './services';
       inject: [MailerService, EmailRenderService.TOKEN],
     },
   ],
-  exports: [SendEventEmailHandler],
+  exports: ['SendEventEmailHandler'],
 })
 export class EmailModule {}

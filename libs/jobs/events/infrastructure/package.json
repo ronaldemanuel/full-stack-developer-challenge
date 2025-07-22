@@ -36,6 +36,8 @@
   },
   "dependencies": {
     "@nx-ddd/job-events-domain": "workspace:*",
+    "@nx-ddd/email-domain": "workspace:*",
+    "@nx-ddd/email-application": "workspace:*",
     "@nx-ddd/job-events-presentation": "workspace:*",
     "@nx-ddd/email-infrastructure": "workspace:*",
     "@nestjs/microservices": "^11.1.5",

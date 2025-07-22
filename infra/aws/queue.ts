@@ -1,3 +1,5 @@
+import path from 'path';
+
 import { DATABASE_URL } from './database';
 import { email } from './email';
 
@@ -7,22 +9,9 @@ const links = [email].filter(Boolean);
 
 // 0800 de gratis
 appQueue.subscribe({
-  handler: 'apps/events-processor/src/index.lambdaHandler',
+  handler: 'main.lambdaHandler',
   runtime: 'nodejs22.x',
-  nodejs: {
-    esbuild: {
-      external: [
-        'class-validator',
-        'class-transformer',
-        '@nestjs/websockets',
-        'kafkajs',
-        'mqtt',
-        'nats',
-        'amqplib',
-        'amqp-connection-manager',
-      ],
-    },
-  },
+  bundle: path.join(__dirname, '../../apps/events-processor/dist'),
   link: links,
   environment: {
     EMAIL_FROM: process.env.EMAIL_FROM || '',
