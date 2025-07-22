@@ -55,6 +55,9 @@
   ],
   "references": [
     {
+      "path": "../../libs/ui/utils"
+    },
+    {
       "path": "../../libs/ui/web"
     },
     {
@@ -62,6 +65,9 @@
     },
     {
       "path": "../../libs/shared/infrastructure"
+    },
+    {
+      "path": "../../libs/shared/domain"
     },
     {
       "path": "../../libs/auth/infrastructure"

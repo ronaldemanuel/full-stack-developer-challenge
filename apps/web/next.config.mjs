@@ -1,9 +1,10 @@
 //@ts-check
 
 import './src/env.mjs';
-import { composePlugins, withNx } from '@nx/next';
+
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { composePlugins, withNx } from '@nx/next';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -22,14 +23,19 @@ const nextConfig = {
     '@nx-ddd/api-infrastructure',
     '@nx-ddd/auth-domain',
     '@nx-ddd/auth-infrastructure',
+    '@nx-ddd/database-infrastructure',
+    '@nx-ddd/email-infrastructure',
+    '@nx-ddd/shared-domain',
     '@nx-ddd/shared-infrastructure',
     '@nx-ddd/tailwind',
     '@nx-ddd/ui',
+    '@nx-ddd/ui-utils',
 
     '@nestjs/core',
     '@nestjs/common',
     '@nestjs/cache-manager',
     '@nestjs/cqrs',
+    '@nestjs-modules/mailer',
     '@react-email/components',
   ],
 };

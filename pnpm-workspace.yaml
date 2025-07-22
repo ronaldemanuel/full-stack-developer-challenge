@@ -11,27 +11,30 @@ packages:
   - libs/jobs/events/*
   - libs/ui/*
 
-ignore-workspace-root-check: true
-
 catalog:
-  '@tanstack/react-query': '^5.69.0'
-  '@trpc/client': '^11.0.0'
-  '@trpc/tanstack-react-query': '^11.0.0'
-  '@trpc/server': '^11.0.0'
-  react-native: '^0.79.5'
-  '@nestjs/common': '^11.0.0'
-  '@nestjs/core': '^11.0.0'
-  '@nestjs/platform-express': '^11.0.0'
-  '@nestjs/cqrs': '^11.0.3'
-  '@nestjs-cls/transactional': '^3.0.3'
-  zod: '^3.25.49'
-  superjson: '2.2.2'
+  '@nestjs-cls/transactional': ^3.0.3
+  '@nestjs-cls/transactional-adapter-drizzle-orm': ^1.2.0
+  '@nestjs/common': ^11.0.0
+  '@nestjs/core': ^11.0.0
+  '@nestjs/cqrs': ^11.0.3
+  '@nestjs/platform-express': ^11.0.0
+  '@tanstack/react-query': ^5.69.0
+  '@trpc/client': ^11.0.0
+  '@trpc/server': ^11.0.0
+  '@trpc/tanstack-react-query': ^11.0.0
+  'nestjs-cls': ^6.0.1
+  react-native: ^0.79.5
+  superjson: 2.2.2
+  zod: 3.25.76
+
 catalogs:
   react19:
     '@types/react': ^19.0.14
     '@types/react-dom': ^19.1.6
     react: ^19.0.0
     react-dom: ^19.0.0
+
+ignore-workspace-root-check: true
 
 onlyBuiltDependencies:
   - '@parcel/watcher'
