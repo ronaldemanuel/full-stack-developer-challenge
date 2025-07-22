@@ -6,9 +6,10 @@
     "ui-add": "pnpm dlx shadcn@latest add"
   },
   "nx": {
+    "name": "root",
     "implicitDependencies": [
       "web",
-      "@nx-ddd/events-processor"
+      "events-processor"
     ],
     "targets": {
       "deploy": {

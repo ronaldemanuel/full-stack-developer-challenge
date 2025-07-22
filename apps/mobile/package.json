@@ -6,6 +6,9 @@
     "android": "expo run:android",
     "ios": "expo run:ios"
   },
+  "nx": {
+    "name": "mobile"
+  },
   "dependencies": {
     "@testing-library/jest-native": "*",
     "@testing-library/react-native": "*",

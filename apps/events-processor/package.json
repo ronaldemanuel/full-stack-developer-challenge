@@ -6,7 +6,7 @@
     "rxjs": "^7.8.0"
   },
   "nx": {
-    "name": "@nx-ddd/events-processor",
+    "name": "events-processor",
     "targets": {
       "build": {
         "executor": "@nx/esbuild:esbuild",
@@ -43,3 +43,4 @@
     }
   }
 }
+
