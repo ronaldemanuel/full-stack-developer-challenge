@@ -1,4 +1,5 @@
-import type { Session } from '../interfaces/session.interface.js';
+import type { ActiveOrganization } from '../schemas/active-organization.schema.js';
+import type { Session } from '../schemas/session.schema.js';
 
 export namespace AuthService {
   export const TOKEN = 'AUTH';
@@ -6,12 +7,16 @@ export namespace AuthService {
   export type AuthHandler = (req: Request) => Promise<Response>;
 
   export interface Service {
-    getSession(headers: Headers): Promise<Session | null>;
     getHandler(): AuthHandler;
+
+    getSession(headers: Headers): Promise<Session | null>;
+    getSessionsList(headers: Headers): Promise<Session['session'][]>;
+    getDeviceSessionsList(headers: Headers): Promise<Session[]>;
+
     getFirstOrganizationSlug(headers: Headers): Promise<string | null>;
-    getOrganizationInfo(
+    getFullOrganization(
       headers: Headers,
-      organizationSlug: string,
-    ): Promise<{ name: string; slug: string } | null>;
+      organizationSlug?: string,
+    ): Promise<ActiveOrganization | null>;
   }
 }

@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import type { AuthService, Session } from '@nx-ddd/auth-domain';
-import { UserEntity } from '@nx-ddd/user-domain';
+import type { AuthService, Organization, Session } from '@nx-ddd/auth-domain';
 
 import type { BetterAuth } from '../factories/better-auth.factory.js';
 import { BETTER_AUTH_TOKEN } from '../factories/better-auth.factory.js';
@@ -11,28 +10,23 @@ export class AuthWithBetterAuthService implements AuthService.Service {
   constructor(
     @Inject(BETTER_AUTH_TOKEN) private readonly betterAuth: BetterAuth,
   ) {}
-  async getSession(headers: Headers): Promise<Session | null> {
-    const session = await this.betterAuth.api.getSession({
-      headers,
-    });
-    if (!session) {
-      return null;
-    }
-    if (!session.session) {
-      return null;
-    }
 
-    const user = new UserEntity(session.user, session.user.id);
-
-    return {
-      expiresAt: session.session.expiresAt,
-      token: session.session.token,
-      user,
-    };
-  }
   getHandler(): (req: Request) => Promise<Response> {
     return this.betterAuth.handler;
   }
+
+  getSession(headers: Headers): Promise<Session | null> {
+    return this.betterAuth.api.getSession({ headers });
+  }
+
+  getSessionsList(headers: Headers): Promise<Session['session'][]> {
+    return this.betterAuth.api.listSessions({ headers });
+  }
+
+  getDeviceSessionsList(headers: Headers): Promise<Session[]> {
+    return this.betterAuth.api.listDeviceSessions({ headers });
+  }
+
   async getFirstOrganizationSlug(headers: Headers): Promise<string | null> {
     let activeOrganizationSlug: string | null = null;
 
@@ -53,10 +47,10 @@ export class AuthWithBetterAuthService implements AuthService.Service {
     return activeOrganizationSlug;
   }
 
-  async getOrganizationInfo(
+  async getFullOrganization(
     headers: Headers,
     organizationSlug: string,
-  ): Promise<{ name: string; slug: string } | null> {
+  ): Promise<Organization | null> {
     const organization = await this.betterAuth.api.getFullOrganization({
       query: { organizationSlug },
       headers,
@@ -64,6 +58,6 @@ export class AuthWithBetterAuthService implements AuthService.Service {
 
     if (!organization) return null;
 
-    return { name: organization.name, slug: organization.slug };
+    return organization;
   }
 }
