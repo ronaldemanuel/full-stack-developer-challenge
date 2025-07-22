@@ -11,12 +11,17 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "emitDeclarationOnly": false,
+    "noEmit": false,
     "declarationMap": false,
     "declaration": false,
     "composite": false,
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts"
+  ],
   "references": [
     {
       "path": "../../libs/jobs/events/infrastructure"

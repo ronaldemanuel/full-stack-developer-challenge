@@ -2,7 +2,7 @@ import type { RenderEmailResponse } from '@nx-ddd/email-domain';
 import { AbstractEmailTemplate } from '@nx-ddd/email-domain';
 
 export class VerificationEmailTemplate extends AbstractEmailTemplate<'sendVerificationEmail'> {
-  override render(data: {
+  render(data: {
     user: { name: string; email: string };
     url: string;
     token: string;
@@ -12,7 +12,7 @@ export class VerificationEmailTemplate extends AbstractEmailTemplate<'sendVerifi
       text: `Please verify your email address by clicking the following link: ${data.url}`,
     });
   }
-  override get subject(): string {
+  get subject(): string {
     return 'Verify your email address';
   }
 }

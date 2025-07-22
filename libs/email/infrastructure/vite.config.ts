@@ -1,8 +1,12 @@
 /// <reference types='vitest' />
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
-import dts from 'vite-plugin-dts';
 import * as path from 'path';
+import react from '@vitejs/plugin-react-swc';
+import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
+import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
+import cjs from '@rollup/plugin-commonjs';
 
 export default defineConfig(() => ({
   root: __dirname,
@@ -26,6 +30,7 @@ export default defineConfig(() => ({
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
+      include: [],
     },
     lib: {
       // Could also be a dictionary or array of multiple entry points.
@@ -39,6 +44,12 @@ export default defineConfig(() => ({
     rollupOptions: {
       // External packages that should not be bundled into your library.
       external: ['react', 'react-dom', 'react/jsx-runtime'],
+      plugins: [
+        nodePolyfills({
+          include: ['node_modules/**/*.js', '../../node_modules/**/*.js'],
+        }),
+        cjs(),
+      ],
     },
   },
   test: {
@@ -50,6 +61,41 @@ export default defineConfig(() => ({
     coverage: {
       reportsDirectory: './test-output/vitest/coverage',
       provider: 'v8' as const,
+    },
+  },
+  resolve: {
+    alias: {
+      process: 'rollup-plugin-node-polyfills/polyfills/process-es6',
+      buffer: 'rollup-plugin-node-polyfills/polyfills/buffer-es6',
+      events: 'rollup-plugin-node-polyfills/polyfills/events',
+      util: 'rollup-plugin-node-polyfills/polyfills/util',
+      sys: 'util',
+      stream: 'rollup-plugin-node-polyfills/polyfills/stream',
+      _stream_duplex:
+        'rollup-plugin-node-polyfills/polyfills/readable-stream/duplex',
+      _stream_passthrough:
+        'rollup-plugin-node-polyfills/polyfills/readable-stream/passthrough',
+      _stream_readable:
+        'rollup-plugin-node-polyfills/polyfills/readable-stream/readable',
+      _stream_writable:
+        'rollup-plugin-node-polyfills/polyfills/readable-stream/writable',
+      _stream_transform:
+        'rollup-plugin-node-polyfills/polyfills/readable-stream/transform',
+    },
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      // Node.js global to browser globalThis
+      define: {
+        global: 'globalThis',
+      },
+      // Enable esbuild polyfill plugins
+      plugins: [
+        NodeGlobalsPolyfillPlugin({
+          process: true,
+        }),
+        NodeModulesPolyfillPlugin(),
+      ],
     },
   },
 }));

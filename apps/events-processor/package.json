@@ -4,5 +4,35 @@
   "dependencies": {
     "@nx-ddd/job-events-infra": "workspace:*",
     "rxjs": "^7.8.0"
+  },
+  "nx": {
+    "name": "@nx-ddd/events-processor",
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "main": "apps/events-processor/src/index.ts",
+          "outputPath": "apps/events-processor/dist",
+          "outputFileName": "main.js",
+          "tsConfig": "apps/events-processor/tsconfig.app.json",
+          "platform": "node",
+          "format": [
+            "cjs"
+          ]
+        },
+        "configurations": {
+          "development": {
+            "minify": false
+          },
+          "production": {
+            "minify": true
+          }
+        }
+      }
+    }
   }
 }

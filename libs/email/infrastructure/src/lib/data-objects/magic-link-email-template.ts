@@ -1,10 +1,11 @@
 import type { RenderEmailResponse } from '@nx-ddd/email-domain';
 import { AbstractEmailTemplate } from '@nx-ddd/email-domain';
-import { renderMagicLinkEmail } from '../emails/magic-link-email';
 import { appConfig } from '@nx-ddd/shared-domain';
 
+import { renderMagicLinkEmail } from '../emails/magic-link-email';
+
 export class MagicLinkEmailTemplate extends AbstractEmailTemplate<'sendMagicLink'> {
-  override render(data: {
+  render(data: {
     user: { name: string; email: string };
     url: string;
     token: string;
@@ -16,7 +17,7 @@ export class MagicLinkEmailTemplate extends AbstractEmailTemplate<'sendMagicLink
       siteName: appConfig.name,
     });
   }
-  override get subject(): string {
+  get subject(): string {
     return `Login to your ${appConfig.name} account`;
   }
 }
