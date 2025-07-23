@@ -14,6 +14,7 @@ export const lambdaHandler: Handler = async (
     .then((strategy) => strategySubject.next(strategy))
     .catch((error) => {
       console.error('Error bootstrapping SQS strategy:', error);
+      throw error;
     });
   const strategy = await firstValueFrom(strategySubject);
 

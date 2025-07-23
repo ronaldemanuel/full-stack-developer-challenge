@@ -29,7 +29,6 @@ export function webApp(credentials: {
       AUTH_GOOGLE_SECRET: credentials.clientSecret,
       APP_QUEUE_URL: appQueue.url,
       NX_TUI: 'false',
-      NX_DAEMON: 'false',
     },
     vpc,
   });

@@ -24,5 +24,6 @@ appQueue.subscribe({
     POSTGRES_URL: DATABASE_URL,
     BASE_URL: process.env.BASE_URL || '',
     NEXT_APPS_PROVIDER: 'aws',
+    APP_QUEUE_URL: appQueue.url,
   },
 });
