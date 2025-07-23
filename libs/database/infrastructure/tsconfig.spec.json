@@ -28,5 +28,10 @@
     "src/**/*.spec.jsx",
     "src/**/*.d.ts",
     "src/lib/drizzle/types/drizzle.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    }
   ]
 }

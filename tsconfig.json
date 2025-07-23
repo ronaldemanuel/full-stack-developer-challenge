@@ -15,6 +15,77 @@
       "@/*": ["./*"]
     }
   },
+  "references": [
+    {
+      "path": "./apps/mobile-e2e"
+    },
+    {
+      "path": "./apps/mobile"
+    },
+    {
+      "path": "./apps/web-e2e"
+    },
+    {
+      "path": "./libs/shared/domain"
+    },
+    {
+      "path": "./tools/zoddd"
+    },
+    {
+      "path": "./libs/auth/application"
+    },
+    {
+      "path": "./libs/email/domain"
+    },
+    {
+      "path": "./libs/email/application"
+    },
+    {
+      "path": "./libs/email/infrastructure"
+    },
+    {
+      "path": "./libs/auth/infrastructure"
+    },
+    {
+      "path": "./libs/shared/application"
+    },
+    {
+      "path": "./libs/database/domain"
+    },
+    {
+      "path": "./libs/database/infrastructure"
+    },
+    {
+      "path": "./libs/shared/infrastructure"
+    },
+    {
+      "path": "./libs/auth/domain"
+    },
+    {
+      "path": "./libs/user/domain"
+    },
+    {
+      "path": "./libs/api/infrastructure"
+    },
+    {
+      "path": "./libs/jobs/events/infrastructure"
+    },
+    {
+      "path": "./libs/jobs/events/presentation"
+    },
+    {
+      "path": "./libs/jobs/events/domain"
+    },
+    {
+      "path": "./tools/tailwind"
+    },
+    {
+      "path": "./libs/ui/web"
+    },
+    {
+      "path": "./libs/ui/utils"
+    }
+  ],
   "ts-node": {
     "compilerOptions": {
       "module": "commonjs",

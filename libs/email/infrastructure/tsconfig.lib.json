@@ -46,5 +46,16 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/env.mjs"
+  ],
+  "references": [
+    {
+      "path": "../../shared/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../application/tsconfig.lib.json"
+    },
+    {
+      "path": "../domain/tsconfig.lib.json"
+    }
   ]
 }

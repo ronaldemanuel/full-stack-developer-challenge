@@ -15,9 +15,18 @@
     "declarationMap": false,
     "declaration": false,
     "composite": false,
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts"
+  ],
+  "references": [
+    {
+      "path": "../../libs/jobs/events/infrastructure"
+    }
+  ],
   "exclude": [
     "vite.config.ts",
     "vite.config.mts",
@@ -33,4 +42,3 @@
     "src/**/*.spec.jsx"
   ]
 }
-
