@@ -23,6 +23,7 @@ export default $config({
   },
   async run() {
     let webAppUrl: $util.Output<string>;
+    let queueUrl: $util.Output<string> | undefined;
     const google = await import('./infra/gcp');
 
     const googleAuthCredentials = google.createOauthClient();
@@ -33,6 +34,7 @@ export default $config({
       const aws = await import('./infra/aws');
       const webApp = aws.webApp(googleAuthCredentials);
       webAppUrl = webApp.url;
+      queueUrl = aws.appQueue.url;
     }
 
     const expo = await import('./infra/expo');
@@ -41,6 +43,7 @@ export default $config({
       webAppUrl,
       expoAppId: expo.app.id,
       googleAuthCredentials,
+      queueUrl,
     };
   },
 });

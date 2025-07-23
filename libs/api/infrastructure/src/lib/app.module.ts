@@ -1,7 +1,6 @@
 import { ClsPluginTransactional } from '@nestjs-cls/transactional';
 import { TransactionalAdapterDrizzleOrm } from '@nestjs-cls/transactional-adapter-drizzle-orm';
 import { Module } from '@nestjs/common';
-import { CqrsModule } from '@nestjs/cqrs';
 import { ClsModule } from 'nestjs-cls';
 
 import { AuthModule } from '@nx-ddd/auth-infrastructure';
@@ -11,12 +10,13 @@ import {
   DRIZZLE_TOKEN,
 } from '@nx-ddd/database-infrastructure';
 import { EmailModule } from '@nx-ddd/email-infrastructure';
+import { JobEventsProducerModule } from '@nx-ddd/job-events-infra';
 
 import { AppService } from './services/app.service.js';
 
 @Module({
   imports: [
-    CqrsModule.forRoot(),
+    JobEventsProducerModule.forAws(),
     AuthModule.forBetterAuth(),
     ClsModule.forRoot({
       global: true,

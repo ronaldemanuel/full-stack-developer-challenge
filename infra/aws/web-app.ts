@@ -27,6 +27,7 @@ export function webApp(credentials: {
       NEXT_APPS_PROVIDER: 'aws',
       AUTH_GOOGLE_ID: credentials.clientId,
       AUTH_GOOGLE_SECRET: credentials.clientSecret,
+      APP_QUEUE_URL: appQueue.url,
       NX_TUI: 'false',
       NX_DAEMON: 'false',
     },

@@ -4,9 +4,10 @@ import { vercel } from '@t3-oss/env-nextjs/presets-zod';
 import { z } from 'zod/v4';
 
 import { env as authEnv } from '@nx-ddd/auth-infrastructure/env';
+import { env as jobsEventsEnv } from '@nx-ddd/job-events-infra/env';
 
 export const env = createEnv({
-  extends: [authEnv, vercel()],
+  extends: [authEnv, jobsEventsEnv, vercel()],
   shared: {
     NODE_ENV: z
       .enum(['development', 'production', 'test'])
@@ -15,7 +16,7 @@ export const env = createEnv({
       .string()
       .optional()
       .default(
-        'http://localhost:3000, http://localhost:8082, http://localhost:8081'
+        'http://localhost:3000, http://localhost:8082, http://localhost:8081',
       )
       .transform((val) => val.split(',').map((val) => val.trim()))
       .pipe(z.array(z.string())),

@@ -109,6 +109,7 @@
     "@nx-ddd/api-infrastructure": "workspace:*",
     "@nx-ddd/auth-domain": "workspace:*",
     "@nx-ddd/auth-infrastructure": "workspace:*",
+    "@nx-ddd/job-events-infra": "workspace:*",
     "@nx-ddd/shared-domain": "workspace:*",
     "@nx-ddd/shared-infrastructure": "workspace:*",
     "@nx-ddd/tailwind": "workspace:*",

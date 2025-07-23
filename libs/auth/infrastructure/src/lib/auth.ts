@@ -7,7 +7,15 @@ import { initAuth } from './better-auth/factories/better-auth.factory.js';
 
 // HACK: Dummy auth for generating the schema
 export const auth = initAuth(
-  { baseUrl: '', productionUrl: '', secret: '' },
+  {
+    baseUrl: '',
+    productionUrl: '',
+    secret: '',
+    githubClientId: '',
+    githubClientSecret: '',
+    googleClientId: '',
+    googleClientSecret: '',
+  },
   drizzleAdapter(db, {
     provider: 'pg',
   }) as any,

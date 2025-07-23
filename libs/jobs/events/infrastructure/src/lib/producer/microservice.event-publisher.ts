@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
 import type { IEventPublisher } from '@nestjs/cqrs';
 import type { ClientProxy } from '@nestjs/microservices';
-import type { IEvent } from '@nx-ddd/job-events-domain';
+import { Injectable } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
+
+import type { IEvent } from '@nx-ddd/job-events-domain';
 
 @Injectable()
 export class MicroserviceEventPubSubBus implements IEventPublisher<IEvent> {
@@ -10,10 +11,10 @@ export class MicroserviceEventPubSubBus implements IEventPublisher<IEvent> {
 
   publish<TEvent extends IEvent>(event: TEvent, dispatcherContext?: unknown) {
     return firstValueFrom(
-      this.proxy.send(event.identifier, {
+      this.proxy.emit(event.identifier, {
         data: event,
         ctx: dispatcherContext,
-      })
+      }),
     );
   }
 }

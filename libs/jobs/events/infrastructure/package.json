@@ -13,7 +13,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
-    }
+    },
+    "./env": "./src/env.mjs"
   },
   "nx": {
     "name": "job-events-infra",
@@ -29,7 +30,14 @@
           "main": "libs/jobs/events/infrastructure/src/index.ts",
           "tsConfig": "libs/jobs/events/infrastructure/tsconfig.lib.json",
           "skipTypeCheck": true,
-          "stripLeadingPaths": true
+          "stripLeadingPaths": true,
+          "assets": [
+            {
+              "glob": "env.mjs",
+              "input": "libs/jobs/events/infrastructure/src",
+              "output": "."
+            }
+          ]
         }
       }
     }
@@ -42,6 +50,7 @@
     "@nx-ddd/email-infrastructure": "workspace:*",
     "@nestjs/microservices": "^11.1.5",
     "@nestjs/cqrs": "catalog:",
-    "@swc/helpers": "~0.5.11"
+    "@swc/helpers": "~0.5.11",
+    "@t3-oss/env-nextjs": "^0.13.6"
   }
 }

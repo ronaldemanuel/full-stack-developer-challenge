@@ -522,6 +522,9 @@ importers:
       '@nx-ddd/auth-infrastructure':
         specifier: workspace:*
         version: link:../../libs/auth/infrastructure
+      '@nx-ddd/job-events-infra':
+        specifier: workspace:*
+        version: link:../../libs/jobs/events/infrastructure
       '@nx-ddd/shared-domain':
         specifier: workspace:*
         version: link:../../libs/shared/domain
@@ -579,6 +582,9 @@ importers:
       '@nx-ddd/email-infrastructure':
         specifier: workspace:*
         version: link:../../email/infrastructure
+      '@nx-ddd/job-events-infra':
+        specifier: workspace:*
+        version: link:../../jobs/events/infrastructure
       '@nx-ddd/shared-application':
         specifier: workspace:*
         version: link:../../shared/application
@@ -808,6 +814,9 @@ importers:
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17
+      '@t3-oss/env-nextjs':
+        specifier: ^0.13.6
+        version: 0.13.8(typescript@5.8.3)(zod@4.0.5)
 
   libs/jobs/events/presentation:
     dependencies:
@@ -21755,12 +21764,24 @@ snapshots:
       typescript: 5.8.3
       zod: 3.25.76
 
+  '@t3-oss/env-core@0.13.8(typescript@5.8.3)(zod@4.0.5)':
+    optionalDependencies:
+      typescript: 5.8.3
+      zod: 4.0.5
+
   '@t3-oss/env-nextjs@0.13.8(typescript@5.8.3)(zod@3.25.76)':
     dependencies:
       '@t3-oss/env-core': 0.13.8(typescript@5.8.3)(zod@3.25.76)
     optionalDependencies:
       typescript: 5.8.3
       zod: 3.25.76
+
+  '@t3-oss/env-nextjs@0.13.8(typescript@5.8.3)(zod@4.0.5)':
+    dependencies:
+      '@t3-oss/env-core': 0.13.8(typescript@5.8.3)(zod@4.0.5)
+    optionalDependencies:
+      typescript: 5.8.3
+      zod: 4.0.5
 
   '@tanstack/query-core@5.83.0': {}
 

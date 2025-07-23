@@ -14,13 +14,19 @@
     "declarationMap": false,
     "declaration": false,
     "composite": false,
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "allowJs": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts"
+  ],
   "references": [
     {
       "path": "../../database/infrastructure/tsconfig.lib.json"

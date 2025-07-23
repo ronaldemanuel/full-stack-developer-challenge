@@ -1,20 +1,27 @@
+import type { IEventPublisher } from '@nestjs/cqrs';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import type { IEventPublisher } from '@nestjs/cqrs';
-import type { IEvent } from '@nx-ddd/job-events-domain';
-import { MicroserviceEventPubSubBus } from './microservice.event-publisher.js';
 import { ClientsModule } from '@nestjs/microservices';
-import { SQSClientProxy } from './aws/sqs-client.proxy.js';
 
-@Module({
-  imports: [
-    CqrsModule.forRootAsync({
-      useFactory(eventPublisher: IEventPublisher<IEvent>) {
+import type { IEvent } from '@nx-ddd/job-events-domain';
+
+import { SQSClientProxy } from './aws/sqs-client.proxy.js';
+import { MicroserviceEventPubSubBus } from './microservice.event-publisher.js';
+
+@Module({})
+export class JobEventsProducerModule {
+  static forAws() {
+    return CqrsModule.forRootAsync({
+      useFactory(sqs: SQSClientProxy) {
+        const eventPublisher = new MicroserviceEventPubSubBus(
+          sqs,
+        ) as IEventPublisher<IEvent>;
+
         return {
           eventPublisher,
         };
       },
-      inject: ['IEventPublisher'],
+      inject: ['SQS_CLIENT'],
       imports: [
         ClientsModule.register([
           {
@@ -23,16 +30,6 @@ import { SQSClientProxy } from './aws/sqs-client.proxy.js';
           },
         ]),
       ],
-      extraProviders: [
-        {
-          provide: 'IEventPublisher',
-          useFactory(sqs: SQSClientProxy) {
-            return new MicroserviceEventPubSubBus(sqs);
-          },
-          inject: ['SQS_CLIENT'],
-        },
-      ],
-    }),
-  ],
-})
-export class JobEventsProducerModule {}
+    });
+  }
+}

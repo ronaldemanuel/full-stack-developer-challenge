@@ -23,6 +23,7 @@ const nextConfig = {
     '@nx-ddd/api-infrastructure',
     '@nx-ddd/auth-domain',
     '@nx-ddd/auth-infrastructure',
+    '@nx-ddd/job-events-infra',
     '@nx-ddd/database-infrastructure',
     '@nx-ddd/email-infrastructure',
     '@nx-ddd/shared-domain',
