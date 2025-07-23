@@ -2,8 +2,7 @@
   "name": "@nx-ddd/events-processor",
   "private": true,
   "dependencies": {
-    "@nx-ddd/job-events-infra": "workspace:*",
-    "rxjs": "^7.8.0"
+    "@nx-ddd/job-events-infra": "workspace:*"
   },
   "nx": {
     "name": "events-processor",
@@ -21,8 +20,21 @@
           "tsConfig": "apps/events-processor/tsconfig.app.json",
           "platform": "node",
           "target": "es2022",
+          "bundle": true,
+          "thirdParty": true,
           "format": [
             "cjs"
+          ],
+          "external": [
+            "amqp-connection-manager",
+            "nats",
+            "kafkajs",
+            "mqtt",
+            "class-transformer",
+            "amqplib",
+            "class-validator",
+            "@nestjs/websockets",
+            "@nestjs/platform-express"
           ]
         },
         "configurations": {

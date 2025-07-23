@@ -466,9 +466,6 @@ importers:
       '@nx-ddd/job-events-infra':
         specifier: workspace:*
         version: link:../../libs/jobs/events/infrastructure
-      rxjs:
-        specifier: ^7.8.0
-        version: 7.8.2
 
   apps/mobile:
     dependencies:
