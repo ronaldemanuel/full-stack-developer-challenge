@@ -19,10 +19,10 @@ export const setCorsHeaders = (req: Request, res: Response) => {
   res.headers.set('Access-Control-Allow-Credentials', 'true');
   res.headers.set(
     'Access-Control-Allow-Methods',
-    'OPTIONS, GET, POST, PUT, PATCH, DELETE'
+    'OPTIONS, GET, POST, PUT, PATCH, DELETE',
   );
   res.headers.set(
     'Access-Control-Allow-Headers',
-    'trpc-accept, content-type, x-access-token, x-csrf-token, authorization, x-trpc-source, x-trpc-accept, x-trpc-method, x-trpc-path, x-trpc-headers, x-trpc-query'
+    'trpc-accept, content-type, x-access-token, x-csrf-token, authorization, x-trpc-source, x-trpc-accept, x-trpc-method, x-trpc-path, x-trpc-headers, x-trpc-query, platform',
   );
 };

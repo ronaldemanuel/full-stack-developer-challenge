@@ -22,11 +22,11 @@ export class SQSClientProxy extends ClientProxy {
   }
 
   async connect(): Promise<any> {
-    console.log('connect');
+    this.logger.log('connect');
   }
 
   async close() {
-    console.log('close');
+    this.logger.log('close');
   }
 
   async dispatchEvent(packet: ReadPacket<any>): Promise<any> {
@@ -59,8 +59,8 @@ export class SQSClientProxy extends ClientProxy {
     packet: ReadPacket<any>,
     callback: (packet: WritePacket<any>) => void,
   ): () => void {
-    console.log('message:', packet);
+    this.logger.log('message:', packet);
     //we wont be using this in event based microservices
-    return () => console.log('teardown');
+    return () => this.logger.log('teardown');
   }
 }

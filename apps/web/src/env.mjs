@@ -16,7 +16,7 @@ export const env = createEnv({
       .string()
       .optional()
       .default(
-        'http://localhost:3000, http://localhost:8082, http://localhost:8081',
+        'http://localhost:3000, http://localhost:8082, http://localhost:8081, nx-ddd://',
       )
       .transform((val) => val.split(',').map((val) => val.trim()))
       .pipe(z.array(z.string())),

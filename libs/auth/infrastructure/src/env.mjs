@@ -14,6 +14,14 @@ export const env = createEnv({
     AUTH_GOOGLE_SECRET: z.string().min(1).optional(),
     BASE_URL: z.string().min(1),
     NODE_ENV: z.enum(['development', 'production']).optional(),
+    CORS_ALLOWED_ORIGINS: z
+      .string()
+      .optional()
+      .default(
+        'http://localhost:3000, http://localhost:8082, http://localhost:8081, nx-ddd://',
+      )
+      .transform((val) => val.split(',').map((val) => val.trim()))
+      .pipe(z.array(z.string())),
   },
   experimental__runtimeEnv: {},
   skipValidation:

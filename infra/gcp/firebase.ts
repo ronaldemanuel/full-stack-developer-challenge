@@ -1,6 +1,5 @@
 // Substitua pelo ID real do seu projeto
 const project = gcp.config.project;
-console.log(`Project ID: ${project}`);
 
 // Habilitar APIs necessárias para o Firebase
 

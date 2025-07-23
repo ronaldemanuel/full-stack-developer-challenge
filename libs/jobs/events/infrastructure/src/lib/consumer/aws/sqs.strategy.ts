@@ -5,9 +5,9 @@ import { Server } from '@nestjs/microservices';
 export class SqsStrategy extends Server implements CustomTransportStrategy {
   override on<
     EventKey extends string = string,
-    EventCallback extends Function = Function
+    EventCallback extends Function = Function,
   >(event: EventKey, callback: EventCallback) {
-    console.log(`on event: ${event}`);
+    this.logger.log(`on event: ${event}`);
   }
 
   override unwrap<T>(): T {
@@ -17,7 +17,7 @@ export class SqsStrategy extends Server implements CustomTransportStrategy {
    * This method is triggered when you run "app.listen()".
    */
   async listen(callback: () => void) {
-    console.log('listen');
+    this.logger.log('listen');
     callback();
   }
 
@@ -25,6 +25,6 @@ export class SqsStrategy extends Server implements CustomTransportStrategy {
    * This method is triggered on application shutdown.
    */
   close() {
-    console.log('close');
+    this.logger.log('close');
   }
 }

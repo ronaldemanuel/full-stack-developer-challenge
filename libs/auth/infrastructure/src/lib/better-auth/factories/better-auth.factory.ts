@@ -1,5 +1,7 @@
 import type { FactoryProvider } from '@nestjs/common';
 import type { Adapter } from 'better-auth';
+import { env } from '@/env.mjs';
+import { expo } from '@better-auth/expo';
 import { betterAuth } from 'better-auth';
 import { nextCookies } from 'better-auth/next-js';
 import {
@@ -127,13 +129,25 @@ export const initAuth = (
       }),
       multiSession(),
       oneTap(),
-      oAuthProxy(),
+      oAuthProxy({
+        currentURL: config.baseUrl,
+        productionURL: config.productionUrl,
+      }),
+      expo({
+        overrideOrigin: true,
+      }) as any,
       nextCookies(),
       admin({
         // cspell:disable-next-line
         adminUserIds: ['EXD5zjob2SD6CBWcEQ6OpLRHcyoUbnaB'],
       }),
     ],
+    advanced: {
+      crossSubDomainCookies: {
+        enabled: true,
+      },
+    },
+    trustedOrigins: [...env.CORS_ALLOWED_ORIGINS],
   });
 };
 
