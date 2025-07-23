@@ -1,43 +1,5 @@
 {
   "extends": "../../../tsconfig.base.json",
   "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "../../user/domain"
-    },
-    {
-      "path": "../../shared/infrastructure"
-    },
-    {
-      "path": "../../shared/domain"
-    },
-    {
-      "path": "../../shared/application"
-    },
-    {
-      "path": "../../jobs/events/infrastructure"
-    },
-    {
-      "path": "../../auth/infrastructure"
-    },
-    {
-      "path": "../../auth/domain"
-    },
-    {
-      "path": "../../auth/application"
-    },
-    {
-      "path": "../../email/infrastructure"
-    },
-    {
-      "path": "../../database/infrastructure"
-    },
-    {
-      "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ]
+  "include": []
 }

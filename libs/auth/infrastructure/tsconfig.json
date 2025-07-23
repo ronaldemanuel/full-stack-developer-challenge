@@ -1,25 +1,5 @@
 {
   "extends": "../../../tsconfig.base.json",
   "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "../../database/infrastructure"
-    },
-    {
-      "path": "../../user/domain"
-    },
-    {
-      "path": "../domain"
-    },
-    {
-      "path": "../application"
-    },
-    {
-      "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ]
+  "include": []
 }

@@ -14,33 +14,13 @@
     "declarationMap": false,
     "declaration": false,
     "composite": false,
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "allowJs": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "references": [
-    {
-      "path": "../../database/infrastructure/tsconfig.lib.json"
-    },
-    {
-      "path": "../../user/domain/tsconfig.lib.json"
-    },
-    {
-      "path": "../domain/tsconfig.lib.json"
-    },
-    {
-      "path": "../application/tsconfig.lib.json"
-    }
-  ],
+  "include": ["src/**/*.ts"],
   "exclude": [
     "vite.config.ts",
     "vite.config.mts",
