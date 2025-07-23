@@ -25,8 +25,9 @@ export function webApp(credentials: {
       POSTGRES_URL: DATABASE_URL,
       BASE_URL: process.env.BASE_URL || '',
       NEXT_APPS_PROVIDER: 'aws',
-      AUTH_GOOGLE_ID: credentials.clientId,
-      AUTH_GOOGLE_SECRET: credentials.clientSecret,
+      AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID || credentials.clientId,
+      AUTH_GOOGLE_SECRET:
+        process.env.AUTH_GOOGLE_SECRET || credentials.clientSecret,
       APP_QUEUE_URL: appQueue.url,
       NX_TUI: 'false',
     },
