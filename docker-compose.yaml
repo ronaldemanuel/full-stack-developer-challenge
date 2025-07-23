@@ -47,8 +47,22 @@ services:
       - '${MAILHOG_DASHBOARD_PORT:-8025}:8025'
     networks:
       - sail
+  redis:
+    image: 'redis:6-alpine'
+    container_name: nx_ddd_redis
+    ports:
+      - '${REDIS_PORT:-6379}:6379'
+    volumes:
+      - 'sailredis:/data'
+    networks:
+      - sail
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      retries: 3
+      timeout: 5s
 networks:
   sail:
     driver: bridge
 volumes:
   sailpgsql:
+  sailredis:
