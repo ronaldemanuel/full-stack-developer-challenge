@@ -34,14 +34,17 @@
       },
       "reset": {
         "executor": "nx:run-commands",
-        "staging": {
-          "command": "sst shell --target Drizzle --stage staging drizzle-kit push"
-        },
-        "dev": {
-          "command": "sst shell --target Drizzle --stage development drizzle-kit push"
-        },
-        "local": {
-          "command": "drizzle-kit push"
+        "defaultConfiguration": "local",
+        "configurations": {
+          "staging": {
+            "command": "sst shell --target Drizzle --stage staging drizzle-kit push"
+          },
+          "dev": {
+            "command": "sst shell --target Drizzle --stage development drizzle-kit push"
+          },
+          "local": {
+            "command": "drizzle-kit push"
+          }
         },
         "options": {
           "cwd": "libs/database/infrastructure"
@@ -49,6 +52,7 @@
       },
       "push": {
         "executor": "nx:run-commands",
+        "defaultConfiguration": "local",
         "configurations": {
           "staging": {
             "command": "sst shell --target Drizzle --stage staging drizzle-kit push"
@@ -66,6 +70,7 @@
       },
       "migrate": {
         "executor": "nx:run-commands",
+        "defaultConfiguration": "local",
         "configurations": {
           "production": {
             "command": "sst shell --target Drizzle --stage production drizzle-kit migrate"

@@ -70,6 +70,9 @@
       "path": "../../libs/shared/domain"
     },
     {
+      "path": "../../libs/jobs/events/infrastructure"
+    },
+    {
       "path": "../../libs/auth/infrastructure"
     },
     {

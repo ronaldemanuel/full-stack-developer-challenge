@@ -21,6 +21,22 @@
     "react": "19.0.0",
     "expo-modules-core": "*",
     "expo-asset": "*",
-    "expo-font": "*"
+    "expo-font": "*",
+    "@better-auth/expo": "1.2.12",
+    "@legendapp/list": "^1.0.15",
+    "@tanstack/react-query": "catalog:",
+    "@trpc/client": "catalog:",
+    "@trpc/server": "catalog:",
+    "@trpc/tanstack-react-query": "catalog:",
+    "better-auth": "1.2.12",
+    "expo-system-ui": "~5.0.7",
+    "expo-web-browser": "14.1.6",
+    "expo-constants": "17.1.6",
+    "nativewind": "~4.1.23",
+    "react-native-gesture-handler": "~2.25.0",
+    "react-native-reanimated": "~3.18.0",
+    "react-native-safe-area-context": "~5.4.1",
+    "react-native-screens": "~4.11.1",
+    "superjson": "2.2.2"
   }
 }

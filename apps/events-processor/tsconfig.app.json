@@ -34,7 +34,7 @@
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
   "references": [
     {
-      "path": "../../libs/jobs/events/infrastructure/tsconfig.lib.json"
+      "path": "../../libs/jobs/events/infrastructure"
     }
   ]
 }

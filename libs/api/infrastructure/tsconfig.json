@@ -16,6 +16,9 @@
       "path": "../../shared/application"
     },
     {
+      "path": "../../jobs/events/infrastructure"
+    },
+    {
       "path": "../../auth/infrastructure"
     },
     {

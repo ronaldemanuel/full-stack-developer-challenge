@@ -10,6 +10,12 @@
       "path": "../presentation"
     },
     {
+      "path": "../../../email/application"
+    },
+    {
+      "path": "../../../email/domain"
+    },
+    {
       "path": "../domain"
     },
     {

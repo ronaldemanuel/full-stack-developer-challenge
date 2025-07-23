@@ -14,26 +14,25 @@
     "declarationMap": false,
     "declaration": false,
     "composite": false,
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "allowJs": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/env.mjs"
-  ],
+  "include": ["src/**/*.ts", "src/env.mjs"],
   "references": [
     {
       "path": "../../../email/infrastructure/tsconfig.lib.json"
     },
     {
       "path": "../presentation/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../email/application/tsconfig.lib.json"
+    },
+    {
+      "path": "../../../email/domain/tsconfig.lib.json"
     },
     {
       "path": "../domain/tsconfig.lib.json"
