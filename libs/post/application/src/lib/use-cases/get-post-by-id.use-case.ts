@@ -17,9 +17,8 @@ export namespace GetPostByIdUseCase {
     ) {}
 
     @Cacheable({
-      key: (input: Input) => `post:${input.id}`,
-      namespace: 'posts',
-      ttl: 60 * 60, // 1 hour
+      key: (input: Input) => `posts::${input.id}`,
+      ttl: 1000 * 60 * 60, // 1 hour
     })
     execute(input: Input): Output | Promise<Output> {
       return this.queryBus.execute<

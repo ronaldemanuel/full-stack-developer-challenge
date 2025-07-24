@@ -17,6 +17,8 @@ export class PostEntity extends Entity<PostProps> {
 
   static override create(props: PostProps): PostEntity {
     const post = super.create<PostEntity, PostProps>(props);
+    post.props.createdAt = post.props.createdAt ?? new Date();
+    post.props.updatedAt = post.props.updatedAt ?? new Date();
     post.apply(new PostCreatedEvent(post.toJSON()));
     return post;
   }

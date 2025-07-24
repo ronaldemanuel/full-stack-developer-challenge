@@ -2,6 +2,7 @@ import { Inject } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 
 import type { IUseCase } from '@nx-ddd/shared-application';
+import { CacheEvict } from '@nx-ddd/shared-application';
 
 import { DeletePostCommand } from '../commands/index.js';
 
@@ -15,6 +16,12 @@ export namespace DeletePostUseCase {
       private readonly commandBus: CommandBus,
     ) {}
 
+    @CacheEvict({
+      key: 'posts',
+    })
+    @CacheEvict({
+      key: (input: Input) => `posts::${input.id}`,
+    })
     execute(input: Input): Output | Promise<Output> {
       return this.commandBus.execute<
         DeletePostCommand.Input,

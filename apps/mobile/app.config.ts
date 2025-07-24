@@ -1,32 +1,32 @@
-import type { ConfigContext, ExpoConfig } from 'expo/config';
+import type { ConfigContext, ExpoConfig } from "expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: 'Mobile',
-  slug: 'mobile',
-  scheme: 'mobile',
-  version: '0.1.0',
-  orientation: 'portrait',
-  icon: './assets/icon-light.png',
-  userInterfaceStyle: 'automatic',
+  name: "expo",
+  slug: "expo",
+  scheme: "expo",
+  version: "0.1.0",
+  orientation: "portrait",
+  icon: "./assets/icon-light.png",
+  userInterfaceStyle: "automatic",
   updates: {
     fallbackToCacheTimeout: 0,
   },
   newArchEnabled: true,
-  assetBundlePatterns: ['**/*'],
+  assetBundlePatterns: ["**/*"],
   ios: {
-    bundleIdentifier: 'com.nxtemplate.mobile',
+    bundleIdentifier: "your.bundle.identifier",
     supportsTablet: true,
     icon: {
-      light: './assets/icon-light.png',
-      dark: './assets/icon-dark.png',
+      light: "./assets/icon-light.png",
+      dark: "./assets/icon-dark.png",
     },
   },
   android: {
-    package: 'com.nxtemplate.mobile',
+    package: "your.bundle.identifier",
     adaptiveIcon: {
-      foregroundImage: './assets/icon-light.png',
-      backgroundColor: '#1F104A',
+      foregroundImage: "./assets/icon-light.png",
+      backgroundColor: "#1F104A",
     },
     edgeToEdgeEnabled: true,
   },
@@ -40,17 +40,17 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     typedRoutes: true,
   },
   plugins: [
-    'expo-router',
-    'expo-secure-store',
-    'expo-web-browser',
+    "expo-router",
+    "expo-secure-store",
+    "expo-web-browser",
     [
-      'expo-splash-screen',
+      "expo-splash-screen",
       {
-        backgroundColor: '#E4E4E7',
-        image: './assets/icon-light.png',
+        backgroundColor: "#E4E4E7",
+        image: "./assets/icon-light.png",
         dark: {
-          backgroundColor: '#18181B',
-          image: './assets/icon-dark.png',
+          backgroundColor: "#18181B",
+          image: "./assets/icon-dark.png",
         },
       },
     ],
