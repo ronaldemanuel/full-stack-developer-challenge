@@ -95,9 +95,6 @@
       "path": "./libs/post/presentation"
     },
     {
-      "path": "./libs/api/presentation"
-    },
-    {
       "path": "./libs/post/application"
     },
     {
