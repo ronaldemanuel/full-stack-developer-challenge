@@ -1,7 +1,4 @@
-import React from 'react';
 import { Text, View } from 'react-native';
-
-import { cn } from '@nx-ddd/ui-utils';
 
 /* eslint-disable-next-line */
 export interface UiNativeProps {}

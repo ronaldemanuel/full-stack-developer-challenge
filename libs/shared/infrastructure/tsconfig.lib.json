@@ -7,16 +7,23 @@
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": true,
     "module": "nodenext",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "moduleResolution": "nodenext",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts"
+  ],
   "references": [
     {
       "path": "../domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../presentation/tsconfig.lib.json"
     },
     {
       "path": "../application/tsconfig.lib.json"

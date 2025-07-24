@@ -6,7 +6,9 @@
     "importHelpers": true,
     "isolatedModules": true,
     "incremental": true,
-    "lib": ["es2022"],
+    "lib": [
+      "es2022"
+    ],
     "module": "esnext",
     "moduleResolution": "bundler",
     "noEmitOnError": true,
@@ -17,9 +19,8 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["development"],
-    "paths": {
-      "@nx-ddd/ui-native": ["libs/ui/native/src/index.ts"]
-    }
+    "customConditions": [
+      "development"
+    ]
   }
 }

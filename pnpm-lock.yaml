@@ -222,6 +222,9 @@ importers:
       ua-parser-js:
         specifier: ^2.0.4
         version: 2.0.4(encoding@0.1.13)
+      validated-extendable:
+        specifier: ^7.3.0
+        version: 7.3.0(zod@3.25.76)
       zod:
         specifier: 'catalog:'
         version: 3.25.76
@@ -655,6 +658,9 @@ importers:
       '@nx-ddd/job-events-infra':
         specifier: workspace:*
         version: link:../../jobs/events/infrastructure
+      '@nx-ddd/post-infrastructure':
+        specifier: workspace:*
+        version: link:../../post/infrastructure
       '@nx-ddd/shared-application':
         specifier: workspace:*
         version: link:../../shared/application
@@ -667,6 +673,12 @@ importers:
       '@nx-ddd/user-domain':
         specifier: workspace:*
         version: link:../../user/domain
+      '@swc/helpers':
+        specifier: ~0.5.11
+        version: 0.5.17
+
+  libs/api/presentation:
+    dependencies:
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17
@@ -810,6 +822,9 @@ importers:
 
   libs/email/domain:
     dependencies:
+      '@nx-ddd/job-events-domain':
+        specifier: workspace:*
+        version: link:../../jobs/events/domain
       '@nx-ddd/shared-domain':
         specifier: workspace:*
         version: link:../../shared/domain
@@ -912,6 +927,72 @@ importers:
         specifier: ~0.5.11
         version: 0.5.17
 
+  libs/post/application:
+    dependencies:
+      '@nx-ddd/post-domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@nx-ddd/shared-application':
+        specifier: workspace:*
+        version: link:../../shared/application
+      '@nx-ddd/shared-domain':
+        specifier: workspace:*
+        version: link:../../shared/domain
+      '@swc/helpers':
+        specifier: ~0.5.11
+        version: 0.5.17
+
+  libs/post/domain:
+    dependencies:
+      '@nx-ddd/job-events-domain':
+        specifier: workspace:*
+        version: link:../../jobs/events/domain
+      '@nx-ddd/shared-domain':
+        specifier: workspace:*
+        version: link:../../shared/domain
+      '@swc/helpers':
+        specifier: ~0.5.11
+        version: 0.5.17
+
+  libs/post/infrastructure:
+    dependencies:
+      '@nx-ddd/database-infrastructure':
+        specifier: workspace:*
+        version: link:../../database/infrastructure
+      '@nx-ddd/post-application':
+        specifier: workspace:*
+        version: link:../application
+      '@nx-ddd/post-domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@nx-ddd/post-presentation':
+        specifier: workspace:*
+        version: link:../presentation
+      '@nx-ddd/shared-domain':
+        specifier: workspace:*
+        version: link:../../shared/domain
+      '@nx-ddd/shared-infrastructure':
+        specifier: workspace:*
+        version: link:../../shared/infrastructure
+      '@swc/helpers':
+        specifier: ~0.5.11
+        version: 0.5.17
+
+  libs/post/presentation:
+    dependencies:
+      '@nx-ddd/post-application':
+        specifier: workspace:*
+        version: link:../application
+      '@nx-ddd/post-domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@nx-ddd/shared-presentation':
+        specifier: workspace:*
+        version: link:../../shared/presentation
+      '@swc/helpers':
+        specifier: ~0.5.11
+        version: 0.5.17
+
   libs/shared/application:
     dependencies:
       '@nx-ddd/shared-domain':
@@ -959,18 +1040,33 @@ importers:
       '@nx-ddd/auth-domain':
         specifier: workspace:*
         version: link:../../auth/domain
+      '@nx-ddd/auth-infrastructure':
+        specifier: workspace:*
+        version: link:../../auth/infrastructure
+      '@nx-ddd/database-infrastructure':
+        specifier: workspace:*
+        version: link:../../database/infrastructure
+      '@nx-ddd/job-events-infra':
+        specifier: workspace:*
+        version: link:../../jobs/events/infrastructure
       '@nx-ddd/shared-application':
         specifier: workspace:*
         version: link:../application
       '@nx-ddd/shared-domain':
         specifier: workspace:*
         version: link:../domain
+      '@nx-ddd/shared-presentation':
+        specifier: workspace:*
+        version: link:../presentation
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17
       '@trpc/server':
         specifier: 'catalog:'
         version: 11.4.3(typescript@5.8.3)
+      bcryptjs:
+        specifier: ^3.0.2
+        version: 3.0.2
       cache-manager:
         specifier: ^7.0.0
         version: 7.0.1
@@ -987,6 +1083,21 @@ importers:
       '@types/serialize-javascript':
         specifier: ^5.0.4
         version: 5.0.4
+
+  libs/shared/presentation:
+    dependencies:
+      '@nx-ddd/auth-domain':
+        specifier: workspace:*
+        version: link:../../auth/domain
+      '@nx-ddd/shared-domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@swc/helpers':
+        specifier: ~0.5.11
+        version: 0.5.17
+      '@trpc/server':
+        specifier: 'catalog:'
+        version: 11.4.3(typescript@5.8.3)
 
   libs/ui/utils:
     dependencies:
@@ -7493,6 +7604,10 @@ packages:
 
   bcryptjs@2.4.3:
     resolution: {integrity: sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==}
+
+  bcryptjs@3.0.2:
+    resolution: {integrity: sha512-k38b3XOZKv60C4E2hVsXTolJWfkGRMbILBIe2IBITXciy5bOsTKot5kDrf3ZfufQtQOUN5mXceUEpU1rTl9Uog==}
+    hasBin: true
 
   better-auth@1.2.12:
     resolution: {integrity: sha512-YicCyjQ+lxb7YnnaCewrVOjj3nPVa0xcfrOJK7k5MLMX9Mt9UnJ8GYaVQNHOHLyVxl92qc3C758X1ihqAUzm4w==}
@@ -14846,6 +14961,11 @@ packages:
   validate-npm-package-name@5.0.1:
     resolution: {integrity: sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+
+  validated-extendable@7.3.0:
+    resolution: {integrity: sha512-OphJYKkDLq6OwVerzszD22+x9HaTXG3yZOSGX5133zh7xE0K8Ol0P6aFnAJAEQ0OerIafFGbcCj6FoXj/XWCDQ==}
+    peerDependencies:
+      zod: ^3.0.0
 
   validator@13.12.0:
     resolution: {integrity: sha512-c1Q0mCiPlgdTVVVIJIrBuxNicYE+t/7oKeI9MWLj3fh/uq2Pxh/3eeWbVZ4OcGW1TUf53At0njHw5SMdA3tmMg==}
@@ -24000,6 +24120,8 @@ snapshots:
       tweetnacl: 0.14.5
 
   bcryptjs@2.4.3: {}
+
+  bcryptjs@3.0.2: {}
 
   better-auth@1.2.12:
     dependencies:
@@ -33274,6 +33396,10 @@ snapshots:
     optional: true
 
   validate-npm-package-name@5.0.1: {}
+
+  validated-extendable@7.3.0(zod@3.25.76):
+    dependencies:
+      zod: 3.25.76
 
   validator@13.12.0: {}
 

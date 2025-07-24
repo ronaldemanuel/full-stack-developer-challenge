@@ -13,6 +13,12 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./drizzle/schema": {
+      "development": "./src/drizzle/schema.ts",
+      "types": "./dist/drizzle/schema.d.ts",
+      "import": "./dist/drizzle/schema.js",
+      "default": "./dist/drizzle/schema.js"
     }
   },
   "nx": {
@@ -28,6 +34,9 @@
           "outputPath": "libs/database/infrastructure/dist",
           "main": "libs/database/infrastructure/src/index.ts",
           "tsConfig": "libs/database/infrastructure/tsconfig.lib.json",
+          "additionalEntryPoints": [
+            "libs/database/infrastructure/src/drizzle/schema.ts"
+          ],
           "skipTypeCheck": true,
           "stripLeadingPaths": true
         }

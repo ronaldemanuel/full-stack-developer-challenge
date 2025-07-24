@@ -10,7 +10,7 @@ export abstract class Entity<
     Props = object,
     Json extends Required<{ id: string } & Props> = Required<
       { id: string } & Props
-    >
+    >,
   >
   extends AggregateRoot
   implements IEntity<Props>
@@ -33,7 +33,12 @@ export abstract class Entity<
       ...newProps,
     });
   }
-
+  static create<
+    T extends Entity<any, any>, // a instância que será retornada
+    P = any, // os props
+  >(this: new (props: P) => T, props: P): T {
+    return new this(props);
+  }
   toJSON(): Json {
     return {
       ...this.props,

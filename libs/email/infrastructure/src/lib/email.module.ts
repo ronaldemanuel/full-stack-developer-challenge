@@ -3,7 +3,7 @@ import { MailerModule, MailerService } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import nodemailer from 'nodemailer';
 
-import { SendEventEmailHandler } from '@nx-ddd/email-application';
+import { SendEmailEventHandler } from '@nx-ddd/email-application';
 import { EmailRenderService } from '@nx-ddd/email-domain';
 
 import { env } from '../env.mjs';
@@ -52,12 +52,15 @@ import { ReactEmailRenderService } from './services';
       useClass: ReactEmailRenderService,
     },
     {
-      provide: 'SendEventEmailHandler',
+      provide: SendEmailEventHandler.TOKEN,
       useFactory: (
         mailerService: MailerService,
         emailRenderService: EmailRenderService.Service,
       ) => {
-        return new SendEventEmailHandler(mailerService, emailRenderService);
+        return new SendEmailEventHandler.Handler(
+          mailerService,
+          emailRenderService,
+        );
       },
       inject: [MailerService, EmailRenderService.TOKEN],
     },

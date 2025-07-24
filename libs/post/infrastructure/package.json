@@ -1,0 +1,46 @@
+{
+  "name": "@nx-ddd/post-infrastructure",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "post-infrastructure",
+    "sourceRoot": "libs/post/infrastructure/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/post/infrastructure/dist",
+          "main": "libs/post/infrastructure/src/index.ts",
+          "tsConfig": "libs/post/infrastructure/tsconfig.lib.json",
+          "skipTypeCheck": true,
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@swc/helpers": "~0.5.11",
+    "@nx-ddd/shared-domain": "workspace:*",
+    "@nx-ddd/shared-infrastructure": "workspace:*",
+    "@nx-ddd/database-infrastructure": "workspace:*",
+    "@nx-ddd/post-domain": "workspace:*",
+    "@nx-ddd/post-application": "workspace:*",
+    "@nx-ddd/post-presentation": "workspace:*"
+  }
+}

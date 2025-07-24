@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../jobs/events/domain"
+    },
+    {
       "path": "../../shared/domain"
     },
     {

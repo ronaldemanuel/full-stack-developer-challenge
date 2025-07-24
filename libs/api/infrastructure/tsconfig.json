@@ -28,6 +28,9 @@
       "path": "../../auth/application"
     },
     {
+      "path": "../../post/infrastructure"
+    },
+    {
       "path": "../../email/infrastructure"
     },
     {

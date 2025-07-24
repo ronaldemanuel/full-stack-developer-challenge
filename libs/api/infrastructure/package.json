@@ -37,6 +37,7 @@
   "dependencies": {
     "@nx-ddd/database-infrastructure": "workspace:*",
     "@nx-ddd/email-infrastructure": "workspace:*",
+    "@nx-ddd/post-infrastructure": "workspace:*",
     "@nx-ddd/auth-application": "workspace:*",
     "@nx-ddd/auth-domain": "workspace:*",
     "@nx-ddd/auth-infrastructure": "workspace:*",

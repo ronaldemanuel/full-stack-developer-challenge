@@ -6,6 +6,7 @@ export enum EventQueues {
 
 export enum EventTypes {
   SEND_EMAIL = `${EventQueues.APP_QUEUE}/send-email`,
+  POST_CREATED = `${EventQueues.APP_QUEUE}/post-created`,
 }
 
 export type EventMap = Record<

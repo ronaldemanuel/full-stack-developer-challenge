@@ -37,6 +37,7 @@
   "dependencies": {
     "@swc/helpers": "~0.5.11",
     "@nx-ddd/shared-domain": "workspace:*",
+    "@nx-ddd/job-events-domain": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
