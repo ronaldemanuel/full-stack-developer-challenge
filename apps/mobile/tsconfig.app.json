@@ -4,15 +4,21 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": [
+        "./src/*"
+      ]
     },
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "rootDir": "src",
     "jsx": "react-jsx",
     "noUnusedLocals": false,
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo"
   },
-  "files": ["../../node_modules/@nx/expo/typings/svg.d.ts"],
+  "files": [
+    "../../node_modules/@nx/expo/typings/svg.d.ts"
+  ],
   "exclude": [
     "out-tsc",
     "dist",
@@ -32,7 +38,12 @@
     "eslint.config.cjs",
     "eslint.config.mjs"
   ],
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx"
+  ],
   "references": [
     {
       "path": "../../tools/tailwind/tsconfig.lib.json"
