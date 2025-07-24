@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { ServerAuthService } from '@/auth/server';
+import { OrganizationSwitcher } from '@/components/auth/organization-switcher';
 
 import SidebarLayout from './_components/sidebar-layout';
 
@@ -24,13 +25,7 @@ export default async function Layout(props: Props) {
   return (
     <SidebarLayout
       basePath={`/dashboard/${teamId}`}
-      // TODO: Implement selected team switcher
-      // sidebarTop={
-      //   <SelectedTeamSwitcher
-      //     selectedTeam={team}
-      //     urlMap={(team) => `/dashboard/${team.id}`}
-      //   />
-      // }
+      sidebarTop={<OrganizationSwitcher selectedOrganization={organization} />}
       baseBreadcrumb={[
         {
           title: organization.name,

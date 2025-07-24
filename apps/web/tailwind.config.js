@@ -18,4 +18,7 @@ module.exports = {
     '../../libs/ui/web/src/**/*.{ts,tsx}',
     //     ...createGlobPatternsForDependencies(__dirname)
   ],
+  theme: {
+    extend: {},
+  },
 };

@@ -1,20 +1,20 @@
 {
   "extends": "../../tsconfig.base.json",
   "files": [],
-  "include": [
-    "nativewind-env.d.ts",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ],
+  "include": ["nativewind-env.d.ts", ".expo/types/**/*.ts", "expo-env.d.ts"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./src/*"
-      ]
+      "~/*": ["./src/*"]
     }
   },
   "references": [
+    {
+      "path": "../../tools/tailwind"
+    },
+    {
+      "path": "../../libs/api/infrastructure"
+    },
     {
       "path": "./tsconfig.app.json"
     },

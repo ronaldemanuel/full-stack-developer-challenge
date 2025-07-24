@@ -17,9 +17,6 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["development"],
-    "paths": {
-      "@nx-ddd/ui-native": ["libs/ui/native/src/index.ts"]
-    }
+    "customConditions": ["development"]
   }
 }
