@@ -24,6 +24,7 @@ export default $config({
   async run() {
     let webAppUrl: $util.Output<string>;
     let queueUrl: $util.Output<string> | undefined;
+    let cdnUrl: $util.Output<string> | undefined;
     const google = await import('./infra/gcp');
 
     const googleAuthCredentials = google.createOauthClient();
@@ -35,6 +36,7 @@ export default $config({
       const webApp = aws.webApp(googleAuthCredentials);
       webAppUrl = webApp.url;
       queueUrl = aws.appQueue.url;
+      cdnUrl = webApp.nodes.cdn?.url;
     }
 
     const expo = await import('./infra/expo');
@@ -44,6 +46,7 @@ export default $config({
       expoAppId: expo.app.id,
       googleAuthCredentials,
       queueUrl,
+      cdnUrl,
     };
   },
 });

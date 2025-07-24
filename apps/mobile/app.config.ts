@@ -3,8 +3,8 @@ import type { ConfigContext, ExpoConfig } from 'expo/config';
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: 'Mobile',
-  slug: 'nx-ddd',
-  scheme: 'nx-ddd',
+  slug: 'mobile',
+  scheme: 'mobile',
   version: '0.1.0',
   orientation: 'portrait',
   icon: './assets/icon-light.png',
@@ -15,7 +15,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   newArchEnabled: true,
   assetBundlePatterns: ['**/*'],
   ios: {
-    bundleIdentifier: 'com.anonymous.nxtestmobile',
+    bundleIdentifier: 'com.nxtemplate.mobile',
     supportsTablet: true,
     icon: {
       light: './assets/icon-light.png',
@@ -23,7 +23,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
   },
   android: {
-    package: 'com.anonymous.nxtestmobile',
+    package: 'com.nxtemplate.mobile',
     adaptiveIcon: {
       foregroundImage: './assets/icon-light.png',
       backgroundColor: '#1F104A',

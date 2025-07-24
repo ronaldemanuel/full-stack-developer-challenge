@@ -29,6 +29,13 @@ declare module "sst" {
       "type": "sst.aws.Nextjs"
       "url": string
     }
+    "redis": {
+      "host": string
+      "password": string
+      "port": number
+      "type": "sst.aws.Redis"
+      "username": string
+    }
   }
 }
 /// <reference path="sst-env.d.ts" />

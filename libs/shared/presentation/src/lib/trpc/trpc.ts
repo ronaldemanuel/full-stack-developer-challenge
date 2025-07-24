@@ -6,7 +6,7 @@
  * tl;dr - this is where all the tRPC server stuff is created and plugged in.
  * The pieces you will need to use are documented accordingly near the end
  */
-import type { INestApplicationContext, Type } from '@nestjs/common';
+import type { INestApplicationContext } from '@nestjs/common';
 import type { Unwrap } from '@trpc/server/unstable-core-do-not-import';
 import type { OpenApiMeta } from 'trpc-to-openapi';
 import { Logger } from '@nestjs/common';

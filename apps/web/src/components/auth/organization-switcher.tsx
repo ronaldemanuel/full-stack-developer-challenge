@@ -96,8 +96,8 @@ function OrganizationSwitcherSuspended({
               heading={
                 <div className="flex items-center justify-between">
                   <p className="text-sm">Current</p>
-                  <Button variant="ghost" size="icon">
-                    <Link href={`/team/${selectedOrganization.slug}/settings`}>
+                  <Button variant="ghost" size="icon" asChild>
+                    <Link href="/user/profile">
                       <GearIcon className="size-4" />
                     </Link>
                   </Button>

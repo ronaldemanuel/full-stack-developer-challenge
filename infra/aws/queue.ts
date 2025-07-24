@@ -1,11 +1,12 @@
 import path from 'path';
 
+import { redis } from './cache';
 import { DATABASE_URL } from './database';
 import { email } from './email';
 
 export const appQueue = new sst.aws.Queue('app-queue');
 
-const links = [email].filter(Boolean);
+const links = [email, redis].filter(Boolean);
 
 // 0800 de gratis
 appQueue.subscribe({

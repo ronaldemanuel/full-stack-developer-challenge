@@ -6,6 +6,15 @@ settings:
 
 catalogs:
   default:
+    '@autoform/react':
+      specifier: ^4.0.0
+      version: 4.0.0
+    '@autoform/zod':
+      specifier: 4.0.0
+      version: 4.0.0
+    '@hookform/resolvers':
+      specifier: ^5.1.1
+      version: 5.1.1
     '@nestjs-cls/transactional-adapter-drizzle-orm':
       specifier: ^1.2.0
       version: 1.2.0
@@ -39,6 +48,9 @@ catalogs:
     next:
       specifier: ~15.4.2
       version: 15.4.2
+    react-hook-form:
+      specifier: ^7.61.1
+      version: 7.61.1
     superjson:
       specifier: 2.2.2
       version: 2.2.2
@@ -63,6 +75,12 @@ importers:
 
   .:
     dependencies:
+      '@autoform/react':
+        specifier: 'catalog:'
+        version: 4.0.0(@hookform/resolvers@5.1.1(react-hook-form@7.61.1(react@19.0.0)))(react-hook-form@7.61.1(react@19.0.0))(react@19.0.0)
+      '@autoform/zod':
+        specifier: 'catalog:'
+        version: 4.0.0(zod@3.25.76)
       '@expo/metro-config':
         specifier: ~0.20.17
         version: 0.20.17
@@ -70,8 +88,8 @@ importers:
         specifier: ~5.0.4
         version: 5.0.4(react-native@0.79.2(@babel/core@7.28.0)(@types/react@19.0.14)(bufferutil@4.0.9)(react@19.0.0))
       '@hookform/resolvers':
-        specifier: ^5.1.1
-        version: 5.1.1(react-hook-form@7.60.0(react@19.0.0))
+        specifier: 'catalog:'
+        version: 5.1.1(react-hook-form@7.61.1(react@19.0.0))
       '@nestjs-cls/transactional-adapter-drizzle-orm':
         specifier: 'catalog:'
         version: 1.2.0(@nestjs-cls/transactional@3.1.0(@nestjs/common@11.1.4(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/core@11.1.4)(nestjs-cls@6.0.1(@nestjs/common@11.1.4(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/core@11.1.4)(reflect-metadata@0.1.14)(rxjs@7.8.2))(reflect-metadata@0.1.14)(rxjs@7.8.2))(drizzle-orm@0.44.3(@prisma/client@6.12.0(typescript@5.8.3))(@types/pg@8.15.4)(@vercel/postgres@0.10.0)(kysely@0.28.3)(pg@8.16.3)(postgres@3.4.7))(nestjs-cls@6.0.1(@nestjs/common@11.1.4(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/core@11.1.4)(reflect-metadata@0.1.14)(rxjs@7.8.2))
@@ -181,8 +199,8 @@ importers:
         specifier: catalog:react19
         version: 19.0.0(react@19.0.0)
       react-hook-form:
-        specifier: ^7.60.0
-        version: 7.60.0(react@19.0.0)
+        specifier: 'catalog:'
+        version: 7.61.1(react@19.0.0)
       react-native:
         specifier: 0.79.2
         version: 0.79.2(@babel/core@7.28.0)(@types/react@19.0.14)(bufferutil@4.0.9)(react@19.0.0)
@@ -525,7 +543,7 @@ importers:
         version: 2.4.2
       expo-router:
         specifier: 5.0.7
-        version: 5.0.7(f5nv5ueum3vnnohm6ksrq7sfau)
+        version: 5.0.7(92a3e2ad72dea3355cee7654540057f2)
       expo-secure-store:
         specifier: 14.2.3
         version: 14.2.3(expo@53.0.19(@babel/core@7.28.0)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(bufferutil@4.0.9)(react@19.0.0)))(bufferutil@4.0.9)(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(bufferutil@4.0.9)(react@19.0.0))(react@19.0.0))
@@ -1028,6 +1046,9 @@ importers:
       '@aws-sdk/client-sqs':
         specifier: ^3.848.0
         version: 3.848.0
+      '@keyv/redis':
+        specifier: 4.4.0
+        version: 4.4.0(keyv@5.3.4)
       '@nestjs/cache-manager':
         specifier: ^3.0.1
         version: 3.0.1(@nestjs/common@11.1.4(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/core@11.1.4)(cache-manager@7.0.1)(keyv@5.3.4)(rxjs@7.8.2)
@@ -1070,6 +1091,12 @@ importers:
       cache-manager:
         specifier: ^7.0.0
         version: 7.0.1
+      cacheable:
+        specifier: ^1.10.0
+        version: 1.10.3
+      keyv:
+        specifier: 5.3.4
+        version: 5.3.4
       serialize-javascript:
         specifier: ^6.0.2
         version: 6.0.2
@@ -1242,6 +1269,21 @@ packages:
   '@ast-grep/napi@0.35.0':
     resolution: {integrity: sha512-3ucaaSxV6fxXoqHrE/rxAvP1THnDdY5jNzGlnvx+JvnY9C/dSRKc0jlRMRz59N3El572+/yNRUUpAV1T9aBJug==}
     engines: {node: '>= 10'}
+
+  '@autoform/core@3.0.0':
+    resolution: {integrity: sha512-wBBJgqhw2lDc8VCf4Om/ONZH7RyvaLoqkAcNaU+c8Qo+U5kfY7Fke1mltW6CV0njoWMLarQ+0ZKnWdPRulDpgA==}
+
+  '@autoform/react@4.0.0':
+    resolution: {integrity: sha512-OVYRY7u+KnNxEZY6RF4tOmKgO3R68Y0amqyourU9vrFL/mi/4bW/6mi6hkWK8HwHK6a8C7clSm73/4nGQPSuaw==}
+    peerDependencies:
+      '@hookform/resolvers': ^3.9.0
+      react: ^16.8.0 || ^17 || ^18 || ^19
+      react-hook-form: ^7
+
+  '@autoform/zod@4.0.0':
+    resolution: {integrity: sha512-Jy0OIKVRM2vLNuh02puHQug40QUCD3xiThkyar+E18WNFsqzTxC1Efl+dFFPYsa7FvFZFnUOkOwbTqHMCgqzYA==}
+    peerDependencies:
+      zod: ^3
 
   '@aws-crypto/crc32@5.2.0':
     resolution: {integrity: sha512-nLbCWqQNgUiwwtFsen1AdzAtvuLRsQS8rYgMuxCrdKf9kOssamGLuPwyTY9wyYblNr9+1XM8v6zoDTPPSIeANg==}
@@ -3532,8 +3574,17 @@ packages:
     peerDependencies:
       tslib: '2'
 
+  '@keyv/redis@4.4.0':
+    resolution: {integrity: sha512-n/KEj3S7crVkoykggqsMUtcjNGvjagGPlJYgO/r6m9hhGZfhp1txJElHxcdJ1ANi/LJoBuOSILj15g6HD2ucqQ==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      keyv: ^5.3.3
+
   '@keyv/serialize@1.0.3':
     resolution: {integrity: sha512-qnEovoOp5Np2JDGonIDL6Ayihw0RhnRh6vxPuHo4RDn1UOzwEo4AeIfpL6UGIrsceWrCMiVPgwRjbHu4vYFc3g==}
+
+  '@keyv/serialize@1.1.0':
+    resolution: {integrity: sha512-RlDgexML7Z63Q8BSaqhXdCYNBy/JQnqYIwxofUrNLGCblOMHp+xux2Q8nLMLlPpgHQPoU0Do8Z6btCpRBEqZ8g==}
 
   '@legendapp/list@1.1.4':
     resolution: {integrity: sha512-Q+eLlMilmV2F8/orcR+0XFq543Up3V06WXqG/lpGqowo5reSXsjVCo7dQWNpvU+1+stb87SeAHw9k130DKa+iw==}
@@ -5438,6 +5489,10 @@ packages:
 
   '@react-navigation/routers@7.4.1':
     resolution: {integrity: sha512-42mZrMzQ0LfKxUb5OHIurYrPYyRsXFLolucILrvm21f0O40Sw0Ufh1bnn/jRqnxZZu7wvpUGIGYM8nS9zVE1Aw==}
+
+  '@redis/client@1.6.1':
+    resolution: {integrity: sha512-/KCsg3xSlR+nCK8/8ZYSknYxvXHwubJrU82F3Lm1Fp6789VQ0/3RJKfsmRXjqfaTA++23CvC3hqmqe/2GEt6Kw==}
+    engines: {node: '>=14'}
 
   '@rolldown/pluginutils@1.0.0-beta.27':
     resolution: {integrity: sha512-+d0F4MKMCbeVUJwG96uQ4SgAznZNSq93I3V+9NHA4OpvqG8mRCpGdKmK8l/dl02h2CCDHwW2FqilnTyDcAnqjA==}
@@ -7966,6 +8021,9 @@ packages:
     resolution: {integrity: sha512-zkDT5WAF4hSSoUgyfg5tFIxz8XQK+25W/TLVojJTMKBaxevLBBtLxgqguAuVQB8PVW79FVjHcU+GJ9tVbDZ9mQ==}
     engines: {node: '>=14.16'}
 
+  cacheable@1.10.3:
+    resolution: {integrity: sha512-M6p10iJ/VT0wT7TLIGUnm958oVrU2cUK8pQAVU21Zu7h8rbk/PeRtRWrvHJBql97Bhzk3g1N6+2VKC+Rjxna9Q==}
+
   call-bind-apply-helpers@1.0.2:
     resolution: {integrity: sha512-Sp1ablJ0ivDkSzjcaJdxEunN5/XvksFJ2sMBFfq6x0ryhQV/2b/KwFe21cMpmHtPOSij8K99/wSfoEuTObmuMQ==}
     engines: {node: '>= 0.4'}
@@ -10012,6 +10070,10 @@ packages:
   fuzzysort@2.0.4:
     resolution: {integrity: sha512-Api1mJL+Ad7W7vnDZnWq5pGaXJjyencT+iKGia2PlHUcSsSzWwIQ3S1isiMpwpavjYtGd2FzhUIhnnhOULZgDw==}
 
+  generic-pool@3.9.0:
+    resolution: {integrity: sha512-hymDOu5B53XvN4QT9dBmZxPX4CWhBPPLguTZ9MMFeFa/Kg0xWVfylOVNlJji/E7yTZWFd/q9GO5TxDLq156D7g==}
+    engines: {node: '>= 4'}
+
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
@@ -10242,6 +10304,9 @@ packages:
   hono@4.7.4:
     resolution: {integrity: sha512-Pst8FuGqz3L7tFF+u9Pu70eI0xa5S3LPUmrNd5Jm8nTHze9FxLTK9Kaj5g/k4UcwuJSXTP65SyHOPLrffpcAJg==}
     engines: {node: '>=16.9.0'}
+
+  hookified@1.10.0:
+    resolution: {integrity: sha512-dJw0492Iddsj56U1JsSTm9E/0B/29a1AuoSLRAte8vQg/kaTGF3IgjEWT8c8yG4cC10+HisE1x5QAwR0Xwc+DA==}
 
   hosted-git-info@7.0.2:
     resolution: {integrity: sha512-puUZAUKT5m8Zzvs72XWy3HtvVbTWljRE66cP60bxJzAqf2DgICo7lYTY2IHUmLnNpjYvw5bvmoHvPc0QO2a62w==}
@@ -11235,6 +11300,9 @@ packages:
 
   keyv@5.3.4:
     resolution: {integrity: sha512-ypEvQvInNpUe+u+w8BIcPkQvEqXquyyibWE/1NB5T2BTzIpS5cGEV1LZskDzPSTvNAaT4+5FutvzlvnkxOSKlw==}
+
+  keyv@5.4.0:
+    resolution: {integrity: sha512-TMckyVjEoacG5IteUpUrOBsFORtheqziVyyY2dLUwg1jwTb8u48LX4TgmtogkNl9Y9unaEJ1luj10fGyjMGFOQ==}
 
   kill-port@1.6.1:
     resolution: {integrity: sha512-un0Y55cOM7JKGaLnGja28T38tDDop0AQ8N0KlAdyh+B1nmMoX8AnNmqPNZbS3mUMgiST51DCVqmbFT1gNJpVNw==}
@@ -13509,8 +13577,8 @@ packages:
     peerDependencies:
       react: '>=17.0.0'
 
-  react-hook-form@7.60.0:
-    resolution: {integrity: sha512-SBrYOvMbDB7cV8ZfNpaiLcgjH/a1c7aK0lK+aNigpf4xWLO8q+o4tcvVurv3c4EOyzn/3dCsYt4GKD42VvJ/+A==}
+  react-hook-form@7.61.1:
+    resolution: {integrity: sha512-2vbXUFDYgqEgM2RcXcAT2PwDW/80QARi+PKmHy5q2KhuKvOlG8iIYgf7eIlIANR5trW9fJbP4r5aub3a4egsew==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -16074,6 +16142,19 @@ snapshots:
       '@ast-grep/napi-win32-arm64-msvc': 0.35.0
       '@ast-grep/napi-win32-ia32-msvc': 0.35.0
       '@ast-grep/napi-win32-x64-msvc': 0.35.0
+
+  '@autoform/core@3.0.0': {}
+
+  '@autoform/react@4.0.0(@hookform/resolvers@5.1.1(react-hook-form@7.61.1(react@19.0.0)))(react-hook-form@7.61.1(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@autoform/core': 3.0.0
+      '@hookform/resolvers': 5.1.1(react-hook-form@7.61.1(react@19.0.0))
+      react: 19.0.0
+      react-hook-form: 7.61.1(react@19.0.0)
+
+  '@autoform/zod@4.0.0(zod@3.25.76)':
+    dependencies:
+      zod: 3.25.76
 
   '@aws-crypto/crc32@5.2.0':
     dependencies:
@@ -18850,10 +18931,10 @@ snapshots:
 
   '@hexagon/base64@1.1.28': {}
 
-  '@hookform/resolvers@5.1.1(react-hook-form@7.60.0(react@19.0.0))':
+  '@hookform/resolvers@5.1.1(react-hook-form@7.61.1(react@19.0.0))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.60.0(react@19.0.0)
+      react-hook-form: 7.61.1(react@19.0.0)
 
   '@humanfs/core@0.19.1': {}
 
@@ -19360,9 +19441,17 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
+  '@keyv/redis@4.4.0(keyv@5.3.4)':
+    dependencies:
+      '@redis/client': 1.6.1
+      cluster-key-slot: 1.1.2
+      keyv: 5.3.4
+
   '@keyv/serialize@1.0.3':
     dependencies:
       buffer: 6.0.3
+
+  '@keyv/serialize@1.1.0': {}
 
   '@legendapp/list@1.1.4(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(bufferutil@4.0.9)(react@19.0.0))(react@19.0.0)':
     dependencies:
@@ -21977,6 +22066,12 @@ snapshots:
   '@react-navigation/routers@7.4.1':
     dependencies:
       nanoid: 3.3.11
+
+  '@redis/client@1.6.1':
+    dependencies:
+      cluster-key-slot: 1.1.2
+      generic-pool: 3.9.0
+      yallist: 4.0.0
 
   '@rolldown/pluginutils@1.0.0-beta.27': {}
 
@@ -25062,6 +25157,11 @@ snapshots:
       normalize-url: 8.0.2
       responselike: 3.0.0
 
+  cacheable@1.10.3:
+    dependencies:
+      hookified: 1.10.0
+      keyv: 5.4.0
+
   call-bind-apply-helpers@1.0.2:
     dependencies:
       es-errors: 1.3.0
@@ -25277,8 +25377,7 @@ snapshots:
 
   clsx@2.1.1: {}
 
-  cluster-key-slot@1.1.2:
-    optional: true
+  cluster-key-slot@1.1.2: {}
 
   cmdk@1.1.1(@types/react-dom@19.1.6(@types/react@19.0.14))(@types/react@19.0.14)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
@@ -26904,7 +27003,7 @@ snapshots:
     dependencies:
       invariant: 2.2.4
 
-  expo-router@5.0.7(f5nv5ueum3vnnohm6ksrq7sfau):
+  expo-router@5.0.7(92a3e2ad72dea3355cee7654540057f2):
     dependencies:
       '@expo/metro-runtime': 5.0.4(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(bufferutil@4.0.9)(react@19.0.0))
       '@expo/server': 0.6.3
@@ -27523,6 +27622,8 @@ snapshots:
 
   fuzzysort@2.0.4: {}
 
+  generic-pool@3.9.0: {}
+
   gensync@1.0.0-beta.2: {}
 
   get-caller-file@2.0.5: {}
@@ -27800,6 +27901,8 @@ snapshots:
       parse-passwd: 1.0.0
 
   hono@4.7.4: {}
+
+  hookified@1.10.0: {}
 
   hosted-git-info@7.0.2:
     dependencies:
@@ -29267,6 +29370,10 @@ snapshots:
   keyv@5.3.4:
     dependencies:
       '@keyv/serialize': 1.0.3
+
+  keyv@5.4.0:
+    dependencies:
+      '@keyv/serialize': 1.1.0
 
   kill-port@1.6.1:
     dependencies:
@@ -32221,7 +32328,7 @@ snapshots:
     dependencies:
       react: 19.0.0
 
-  react-hook-form@7.60.0(react@19.0.0):
+  react-hook-form@7.61.1(react@19.0.0):
     dependencies:
       react: 19.0.0
 
