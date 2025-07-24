@@ -40,8 +40,6 @@ export class AuthModule {
             secret: env.AUTH_SECRET,
             googleClientId: env.AUTH_GOOGLE_ID,
             googleClientSecret: env.AUTH_GOOGLE_SECRET,
-            githubClientId: env.AUTH_GITHUB_ID,
-            githubClientSecret: env.AUTH_GITHUB_SECRET,
           } satisfies BetterAuthConfig,
         },
         BetterAuthDatabaseAdapterFactory,

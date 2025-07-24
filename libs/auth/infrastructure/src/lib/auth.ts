@@ -11,8 +11,6 @@ export const auth = initAuth(
     baseUrl: '',
     productionUrl: '',
     secret: '',
-    githubClientId: '',
-    githubClientSecret: '',
     googleClientId: '',
     googleClientSecret: '',
   },

@@ -32,8 +32,6 @@ export interface BetterAuthConfig {
   secret: string | undefined;
   googleClientId: string | undefined;
   googleClientSecret: string | undefined;
-  githubClientId: string | undefined;
-  githubClientSecret: string | undefined;
 }
 
 export const initAuth = (
@@ -85,11 +83,11 @@ export const initAuth = (
         clientSecret: config.googleClientSecret || '',
         enabled: config.googleClientId ? true : false,
       },
-      github: {
-        clientId: config.githubClientId || '',
-        clientSecret: config.githubClientSecret || '',
-        enabled: config.githubClientId ? true : false,
-      },
+      // github: {
+      //   clientId: config.githubClientId || '',
+      //   clientSecret: config.githubClientSecret || '',
+      //   enabled: config.githubClientId ? true : false,
+      // },
     },
     plugins: [
       organization({
