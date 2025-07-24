@@ -12,6 +12,9 @@ packages:
   - libs/ui/*
 
 catalog:
+  '@autoform/react': ^4.0.0
+  '@autoform/zod': 4.0.0
+  '@hookform/resolvers': ^5.1.1
   '@nestjs-cls/transactional': ^3.0.3
   '@nestjs-cls/transactional-adapter-drizzle-orm': ^1.2.0
   '@nestjs/common': ^11.0.0
@@ -22,8 +25,9 @@ catalog:
   '@trpc/client': ^11.0.0
   '@trpc/server': ^11.0.0
   '@trpc/tanstack-react-query': ^11.0.0
-  'nestjs-cls': ^6.0.1
+  nestjs-cls: ^6.0.1
   next: ~15.4.2
+  react-hook-form: ^7.61.1
   react-native: ^0.79.5
   superjson: 2.2.2
   zod: 3.25.76
@@ -38,6 +42,7 @@ catalogs:
 ignore-workspace-root-check: true
 
 onlyBuiltDependencies:
+  - '@nestjs/core'
   - '@parcel/watcher'
   - '@swc/core'
   - esbuild

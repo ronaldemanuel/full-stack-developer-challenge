@@ -86,9 +86,6 @@
       "path": "./libs/ui/utils"
     },
     {
-      "path": "./libs/ui/native"
-    },
-    {
       "path": "./libs/post/infrastructure"
     },
     {
