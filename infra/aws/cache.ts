@@ -1,5 +1,6 @@
 import { vpc } from './vpc';
 
+// $USD 12.00 per month
 export const redis = new sst.aws.Redis('redis', {
   vpc,
   dev: {

@@ -1,5 +1,6 @@
 import { redis, REDIS_URL } from './cache';
 import { database, DATABASE_URL } from './database';
+import { baseUrl, domain } from './domain';
 import { appQueue } from './queue';
 import { bucket } from './storage';
 import { vpc } from './vpc';
@@ -13,6 +14,11 @@ export function webApp(credentials: {
     dev: {
       command: 'npx -y nx run web:dev',
     },
+    domain: {
+      name: domain,
+      dns: false,
+      cert: process.env['DOMAIN_CERTIFICATE_ARN'] || '',
+    },
     path: 'apps/web',
     link: [bucket, appQueue, database, redis],
     environment: {
@@ -24,7 +30,7 @@ export function webApp(credentials: {
       EMAIL_SMTP_PASS: process.env.EMAIL_SMTP_PASS || '',
       AUTH_SECRET: process.env.AUTH_SECRET || '',
       POSTGRES_URL: DATABASE_URL,
-      BASE_URL: process.env.BASE_URL || '',
+      BASE_URL: baseUrl,
       NEXT_APPS_PROVIDER: 'aws',
       AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID || credentials.clientId,
       AUTH_GOOGLE_SECRET:
