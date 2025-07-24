@@ -6,86 +6,10 @@
  * tl;dr - this is where all the tRPC server stuff is created and plugged in.
  * The pieces you will need to use are documented accordingly near the end
  */
-import type { INestApplicationContext } from '@nestjs/common';
-import type { Unwrap } from '@trpc/server/unstable-core-do-not-import';
-import type { OpenApiMeta } from 'trpc-to-openapi';
-import { Logger } from '@nestjs/common';
-import { initTRPC } from '@trpc/server';
-import superjson from 'superjson';
-import { ZodError } from 'zod';
-
-import { AuthService } from '@nx-ddd/auth-domain';
-
-/**
- * 1. CONTEXT
- *
- * This section defines the "contexts" that are available in the backend API.
- *
- * These allow you to access things when processing a request, like the database, the session, etc.
- *
- * This helper generates the "internals" for a tRPC context. The API handler and RSC clients each
- * wrap this and provides the required context.
- *
- * @see https://trpc.io/docs/server/context
- */
-export const createTRPCContext = async (opts: {
-  headers: Headers;
-  appContext: INestApplicationContext | null;
-}) => {
-  const logger = new Logger('TRPC');
-  const { appContext } = opts;
-  if (!appContext) {
-    logger.error(
-      'No application context available. Ensure the app context is initialized.',
-    );
-    throw new Error('Application context is not initialized.');
-  }
-
-  const session = await appContext
-    .get<AuthService.Service>(AuthService.TOKEN)
-    .getSession(opts.headers);
-
-  const source = opts.headers.get('x-trpc-source') ?? 'unknown';
-  logger.log('>>> tRPC Request from ' + source + ' by ' + session?.user.email);
-  return {
-    session,
-    appContext: appContext,
-    logger,
-  };
-};
-
-export type ContextType = Unwrap<typeof createTRPCContext>;
-
-/**
- * 2. INITIALIZATION
- *
- * This is where the trpc api is initialized, connecting the context and
- * transformer
- */
-export const t = initTRPC
-  .meta<OpenApiMeta>()
-  .context<typeof createTRPCContext>()
-  .create({
-    transformer: superjson,
-    errorFormatter: ({ shape, error }) => ({
-      ...shape,
-      data: {
-        ...shape.data,
-        zodError:
-          error.cause instanceof ZodError ? error.cause.flatten() : null,
-      },
-    }),
-    sse: {
-      maxDurationMs: 5 * 60 * 1_000, // 5 minutes
-      ping: {
-        enabled: true,
-        intervalMs: 3_000,
-      },
-      client: {
-        reconnectAfterInactivityMs: 5_000,
-      },
-    },
-  });
+import {
+  createTRPCContext as originalContext,
+  t,
+} from '@nx-ddd/shared-presentation';
 
 /**
  * Create a server-side caller
@@ -105,3 +29,5 @@ export const createCallerFactory = t.createCallerFactory;
  * @see https://trpc.io/docs/router
  */
 export const createTRPCRouter = t.router;
+
+export const createTRPCContext = originalContext;

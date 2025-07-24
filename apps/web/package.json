@@ -114,6 +114,7 @@
     "@nx-ddd/shared-infrastructure": "workspace:*",
     "@nx-ddd/tailwind": "workspace:*",
     "@nx-ddd/ui": "workspace:*",
+    "trpc-ui": "^1.0.15",
     "@nx-ddd/ui-utils": "workspace:*",
     "jiti": "^2.4.2",
     "next": "catalog:",

@@ -43,6 +43,7 @@
     "@nx-ddd/auth-infrastructure": "workspace:*",
     "@nx-ddd/job-events-infra": "workspace:*",
     "@nx-ddd/shared-application": "workspace:*",
+    "@nx-ddd/shared-presentation": "workspace:*",
     "@nx-ddd/shared-domain": "workspace:*",
     "@nx-ddd/shared-infrastructure": "workspace:*",
     "@nx-ddd/user-domain": "workspace:*",

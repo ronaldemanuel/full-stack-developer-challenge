@@ -1,10 +1,10 @@
-import { ReactQueryProvider } from '@/lib/providers/react-query';
+import { TRPCReactProvider } from '@/trpc/react';
 import { ThemeProvider } from 'next-themes';
 
 export function Providers({ children }: React.PropsWithChildren) {
   return (
-    <ReactQueryProvider>
+    <TRPCReactProvider>
       <ThemeProvider attribute="class">{children}</ThemeProvider>
-    </ReactQueryProvider>
+    </TRPCReactProvider>
   );
 }

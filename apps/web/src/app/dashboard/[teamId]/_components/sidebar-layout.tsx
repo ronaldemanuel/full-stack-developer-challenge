@@ -4,18 +4,7 @@ import type { LucideIcon } from 'lucide-react';
 import { Fragment, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-  BadgePercent,
-  BarChart4,
-  Columns3,
-  Globe,
-  Locate,
-  Menu,
-  Settings2,
-  ShoppingBag,
-  ShoppingCart,
-  Users,
-} from 'lucide-react';
+import { FileSpreadsheet, Globe, Menu, Settings2 } from 'lucide-react';
 
 import {
   Breadcrumb,
@@ -174,49 +163,9 @@ const navigationItems: SidebarItem[] = [
     name: 'Management',
   },
   {
-    name: 'Products',
-    href: '/products',
-    icon: ShoppingBag,
-    type: 'item',
-  },
-  {
-    name: 'People',
-    href: '/people',
-    icon: Users,
-    type: 'item',
-  },
-  {
-    name: 'Segments',
-    href: '/segments',
-    icon: Columns3,
-    type: 'item',
-  },
-  {
-    name: 'Regions',
-    href: '/regions',
-    icon: Locate,
-    type: 'item',
-  },
-  {
-    type: 'label',
-    name: 'Monetization',
-  },
-  {
-    name: 'Revenue',
-    href: '/revenue',
-    icon: BarChart4,
-    type: 'item',
-  },
-  {
-    name: 'Orders',
-    href: '/orders',
-    icon: ShoppingCart,
-    type: 'item',
-  },
-  {
-    name: 'Discounts',
-    href: '/discounts',
-    icon: BadgePercent,
+    name: 'Posts',
+    href: '/posts',
+    icon: FileSpreadsheet,
     type: 'item',
   },
   {

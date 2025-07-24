@@ -1,15 +1,20 @@
-import type { INestApplicationContext } from "@nestjs/common";
+import type { INestApplicationContext } from '@nestjs/common';
 
-import { createCaller, createTRPCContext } from "../..";
+import {
+  createCallerFactory,
+  createTRPCContext,
+} from '@nx-ddd/shared-presentation';
 
-export async function createTestingCaller(appContext: INestApplicationContext) {
+export async function createTestingCaller<
+  T extends Parameters<typeof createCallerFactory>[0],
+>(router: T, appContext: INestApplicationContext) {
   const headers = new Headers();
-  headers.set("x-trpc-expo-auth", "Bearer " + "test");
+  headers.set('x-trpc-expo-auth', 'Bearer ' + 'test');
   const context = await createTRPCContext({
     headers: headers,
-    session: null,
     appContext: appContext,
   });
+  const createCaller = createCallerFactory(router);
   return createCaller(context);
 }
 

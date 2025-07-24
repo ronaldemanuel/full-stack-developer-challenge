@@ -1,12 +1,16 @@
 import { Injectable } from '@nestjs/common';
 
-import type { DrizzleDB } from '@nx-ddd/database-infrastructure';
+import type { DrizzleDB, SQL } from '@nx-ddd/database-infrastructure';
 import {
   asc,
+  count,
   desc,
   eq,
   getTableColumns,
   InjectDrizzle,
+  like,
+  or,
+  sql,
 } from '@nx-ddd/database-infrastructure';
 import { post } from '@nx-ddd/database-infrastructure/drizzle/schema';
 import { PostEntity, PostRepository } from '@nx-ddd/post-domain';
@@ -43,40 +47,54 @@ export class PostDrizzleRepository implements PostRepository.Repository {
     props: PostRepository.SearchParams,
   ): Promise<PostRepository.SearchResult> {
     const columns = getTableColumns(post);
-    const sortFieldKey = (props.sort || 'createdAt') as keyof typeof columns;
+    const sortFieldKey = (props.sort || post.createdAt) as keyof typeof columns;
     const sortField = post[sortFieldKey]!;
     const { filter, sort, page, perPage, sortDir } = props;
-    const query = this.db.query.post.findMany({
-      where: filter ? eq(post.title, filter) : undefined,
-      orderBy: sort
-        ? sortDir === 'asc'
-          ? asc(post[sortFieldKey]!)
-          : desc(sortField)
-        : undefined,
-      limit: perPage,
-      offset: (page - 1) * perPage,
+    let filterCondition: SQL | undefined;
+
+    if (filter) {
+      filterCondition = or(like(post.title, filter));
+    }
+
+    const orderBy = sort
+      ? sortDir === 'asc'
+        ? asc(post[sortFieldKey]!)
+        : desc(sortField)
+      : asc(post.createdAt);
+    const countWithQuery = this.db.$with('total').as(
+      this.db
+        .select({
+          count: count(post.id).as('count'),
+        })
+        .from(post)
+        .where(filterCondition),
+    );
+    const preQuery = this.db
+      .with(countWithQuery)
+      .select({
+        data: post,
+        total: countWithQuery.count,
+      })
+      .from(post)
+      .innerJoin(countWithQuery, sql`1=1`)
+      .where(filterCondition)
+      .limit(props.perPage)
+      .offset((props.page - 1) * props.perPage)
+      .orderBy(orderBy);
+    const query = await preQuery;
+    const total = query[0]?.total ?? 0;
+    const items = query.map((item) => {
+      return new PostEntity(item.data as any, item.data.id);
     });
 
-    // raw query to get total count
-    const totalCountQuery = await this.db
-      .select({ count: this.db.$count(post.id) })
-      .from(post)
-      .where(filter ? eq(post.title, filter) : undefined)
-      .then((result) => result[0]?.count || 0);
-
-    return query.then((posts) => {
-      const entities = posts.map(
-        (post) => new PostEntity(post as any, post.id),
-      );
-      return new PostRepository.SearchResult({
-        items: entities,
-        total: totalCountQuery,
-        currentPage: page,
-        perPage,
-        sort,
-        sortDir,
-        filter,
-      });
+    return new PostRepository.SearchResult({
+      items,
+      total,
+      currentPage: page,
+      perPage: perPage,
+      sort: sort,
+      sortDir: sortDir,
+      filter: filter,
     });
   }
 

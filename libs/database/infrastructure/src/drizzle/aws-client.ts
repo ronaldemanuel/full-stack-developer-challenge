@@ -7,4 +7,4 @@ const pool = new Pool({
   connectionString: process.env['POSTGRES_URL'],
 });
 
-export const awsDb = drizzle(pool, { schema });
+export const awsDb = drizzle(pool, { schema, casing: 'snake_case' });

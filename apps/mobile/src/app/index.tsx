@@ -10,7 +10,7 @@ import { trpc } from '~/utils/api';
 import { authClient } from '~/utils/auth';
 
 function PostCard(props: {
-  post: RouterOutputs['post']['all'][number];
+  post: RouterOutputs['post']['search']['items'][number];
   onDelete: () => void;
 }) {
   return (
@@ -49,7 +49,7 @@ function CreatePost() {
       async onSuccess() {
         setTitle('');
         setContent('');
-        await queryClient.invalidateQueries(trpc.post.all.queryFilter());
+        await queryClient.invalidateQueries(trpc.post.search.queryFilter());
       },
     }),
   );
@@ -125,12 +125,12 @@ function MobileAuth() {
 export default function Index() {
   const queryClient = useQueryClient();
 
-  const postQuery = useQuery(trpc.post.all.queryOptions());
+  const postQuery = useQuery(trpc.post.search.queryOptions({}));
 
   const deletePostMutation = useMutation(
     trpc.post.delete.mutationOptions({
       onSettled: () =>
-        queryClient.invalidateQueries(trpc.post.all.queryFilter()),
+        queryClient.invalidateQueries(trpc.post.search.queryFilter()),
     }),
   );
 
@@ -152,14 +152,18 @@ export default function Index() {
         </View>
 
         <LegendList
-          data={postQuery.data ?? []}
+          data={postQuery.data?.items ?? []}
           estimatedItemSize={20}
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={() => <View className="h-2" />}
           renderItem={(p) => (
             <PostCard
               post={p.item}
-              onDelete={() => deletePostMutation.mutate(p.item.id)}
+              onDelete={() =>
+                deletePostMutation.mutate({
+                  id: p.item.id,
+                })
+              }
             />
           )}
         />

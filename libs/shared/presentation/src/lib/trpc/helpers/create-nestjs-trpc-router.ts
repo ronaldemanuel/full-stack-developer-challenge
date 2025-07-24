@@ -6,10 +6,12 @@ import { adaptNestjsControllerToTrpcResolver } from './adapt-nestjs-controller-m
 
 export function createNestjsTrpcRouter<
   T extends Type<Record<string, any>>,
-  R extends TRPCRouterRecord
+  R extends TRPCRouterRecord,
 >(controller: T, builder: (resolver: NestResolver<T>, Module: Type<any>) => R) {
   return <M>(Module: Type<M>) => {
     const resolver = adaptNestjsControllerToTrpcResolver(Module, controller);
     return builder(resolver, Module);
   };
 }
+
+export type NestjsTrpcRouter = ReturnType<typeof createNestjsTrpcRouter>;
