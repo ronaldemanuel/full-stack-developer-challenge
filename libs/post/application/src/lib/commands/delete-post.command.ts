@@ -1,9 +1,9 @@
 import type { ICommandHandler } from '@nestjs/cqrs';
+import { Inject } from '@nestjs/common';
 import { CommandHandler } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
 import { PostRepository } from '@nx-ddd/post-domain';
-import { InjectRepository } from '@nx-ddd/shared-domain';
 
 import type { DeletePostInput } from '../schemas/commands.js';
 import { deletePostInputSchema } from '../schemas/commands.js';
@@ -20,7 +20,7 @@ export namespace DeletePostCommand {
   @CommandHandler(DeletePostCommand)
   export class Handler implements ICommandHandler<DeletePostCommand, Output> {
     constructor(
-      @InjectRepository(PostRepository.TOKEN)
+      @Inject(PostRepository.TOKEN)
       private readonly postRepository: PostRepository.Repository,
     ) {}
 

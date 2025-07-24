@@ -4,7 +4,6 @@ import { CommandHandler, EventPublisher } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
 import { PostEntity, PostRepository } from '@nx-ddd/post-domain';
-import { InjectRepository } from '@nx-ddd/shared-domain';
 
 import type { CreatePostInput } from '../schemas/commands.js';
 import { createPostInputSchema } from '../schemas/commands.js';
@@ -22,7 +21,7 @@ export namespace CreatePostCommand {
   @CommandHandler(CreatePostCommand)
   export class Handler implements ICommandHandler<CreatePostCommand, Output> {
     constructor(
-      @InjectRepository(PostRepository.TOKEN)
+      @Inject(PostRepository.TOKEN)
       private readonly postRepository: PostRepository.Repository,
       @Inject(EventPublisher)
       private readonly eventPublisher: EventPublisher,

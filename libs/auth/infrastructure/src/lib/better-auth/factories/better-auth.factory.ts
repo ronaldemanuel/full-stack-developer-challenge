@@ -1,7 +1,6 @@
 import type { FactoryProvider } from '@nestjs/common';
 import type { Adapter } from 'better-auth';
 import { env } from '@/env.mjs';
-import { expo } from '@better-auth/expo';
 import { betterAuth } from 'better-auth';
 import { nextCookies } from 'better-auth/next-js';
 import {
@@ -133,9 +132,6 @@ export const initAuth = (
         currentURL: config.baseUrl,
         productionURL: config.productionUrl,
       }),
-      expo({
-        overrideOrigin: true,
-      }) as any,
       nextCookies(),
       admin({
         // cspell:disable-next-line

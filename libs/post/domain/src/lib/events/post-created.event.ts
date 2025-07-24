@@ -3,7 +3,7 @@ import { Validated } from 'validated-extendable';
 import type { IEvent } from '@nx-ddd/job-events-domain';
 import { EventTypes } from '@nx-ddd/job-events-domain';
 
-import { postSchema } from '../schemas';
+import { postSchema } from '../schemas/index.js';
 
 export class PostCreatedEvent extends Validated(postSchema) implements IEvent {
   get identifier(): EventTypes {

@@ -1,7 +1,7 @@
 import { Controller, Inject } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
 
-import type { SendEventEmailHandler } from '@nx-ddd/email-application';
+import type { SendEmailEventHandler } from '@nx-ddd/email-application';
 import type { EmailTypes, SendEmailEvent } from '@nx-ddd/email-domain';
 import { EventTypes } from '@nx-ddd/job-events-domain';
 
@@ -9,7 +9,7 @@ import { EventTypes } from '@nx-ddd/job-events-domain';
 export class JobEventsController {
   // THESE GUYS MUST BE STRINGS
   @Inject('SendEventEmailHandler')
-  private readonly sendEmailHandler!: SendEventEmailHandler;
+  private readonly sendEmailHandler!: SendEmailEventHandler.Handler;
 
   // Controller logic goes here
   @EventPattern(EventTypes.SEND_EMAIL)

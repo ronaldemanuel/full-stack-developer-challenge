@@ -1,4 +1,5 @@
 import type { IQueryHandler } from '@nestjs/cqrs';
+import { Inject } from '@nestjs/common';
 import { QueryHandler } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
@@ -6,7 +7,6 @@ import type { PostEntity } from '@nx-ddd/post-domain';
 import type { PaginationOutput } from '@nx-ddd/shared-domain';
 import { PostRepository } from '@nx-ddd/post-domain';
 import { PaginationOutputMapper } from '@nx-ddd/shared-application';
-import { InjectRepository } from '@nx-ddd/shared-domain';
 
 import type { SearchPostsInput } from '../schemas/queries.js';
 import { searchPostsInputSchema } from '../schemas/queries.js';
@@ -24,7 +24,7 @@ export namespace SearchPostsQuery {
   @QueryHandler(SearchPostsQuery)
   export class Handler implements IQueryHandler<SearchPostsQuery, Output> {
     constructor(
-      @InjectRepository(PostRepository.TOKEN)
+      @Inject(PostRepository.TOKEN)
       private readonly postRepository: PostRepository.Repository,
     ) {}
 

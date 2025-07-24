@@ -1,10 +1,10 @@
 import type { IQueryHandler } from '@nestjs/cqrs';
+import { Inject } from '@nestjs/common';
 import { QueryHandler } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
 import type { PostEntity } from '@nx-ddd/post-domain';
 import { PostRepository } from '@nx-ddd/post-domain';
-import { InjectRepository } from '@nx-ddd/shared-domain';
 
 import type { GetPostByIdInput } from '../schemas/queries.js';
 import { getPostByIdInputSchema } from '../schemas/queries.js';
@@ -22,7 +22,7 @@ export namespace GetPostByIdQuery {
   @QueryHandler(GetPostByIdQuery)
   export class Handler implements IQueryHandler<GetPostByIdQuery, Output> {
     constructor(
-      @InjectRepository(PostRepository.TOKEN)
+      @Inject(PostRepository.TOKEN)
       private readonly postRepository: PostRepository.Repository,
     ) {}
 

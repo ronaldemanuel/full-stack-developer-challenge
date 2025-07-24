@@ -12,9 +12,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "references": [
@@ -89,6 +87,24 @@
     },
     {
       "path": "./libs/ui/native"
+    },
+    {
+      "path": "./libs/post/infrastructure"
+    },
+    {
+      "path": "./libs/shared/presentation"
+    },
+    {
+      "path": "./libs/post/presentation"
+    },
+    {
+      "path": "./libs/api/presentation"
+    },
+    {
+      "path": "./libs/post/application"
+    },
+    {
+      "path": "./libs/post/domain"
     }
   ],
   "ts-node": {
