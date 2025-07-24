@@ -205,5 +205,6 @@ export const PurchaseConfirmationEmail = ({ itemName, imageUrl }: { itemName: st
   </Html>
 );
 
+```
 <img width="320" height="293" alt="image" src="https://github.com/user-attachments/assets/f96bad28-7dbe-4e6d-9407-15c727eeb004" />
 
