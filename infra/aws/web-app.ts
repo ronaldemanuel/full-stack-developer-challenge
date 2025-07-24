@@ -1,3 +1,4 @@
+import { redis, REDIS_URL } from './cache';
 import { database, DATABASE_URL } from './database';
 import { appQueue } from './queue';
 import { bucket } from './storage';
@@ -13,7 +14,7 @@ export function webApp(credentials: {
       command: 'npx -y nx run web:dev',
     },
     path: 'apps/web',
-    link: [bucket, appQueue, database],
+    link: [bucket, appQueue, database, redis],
     environment: {
       EMAIL_FROM: process.env.EMAIL_FROM || '',
       EMAIL_PROVIDER: process.env.EMAIL_PROVIDER || '',
@@ -30,6 +31,7 @@ export function webApp(credentials: {
         process.env.AUTH_GOOGLE_SECRET || credentials.clientSecret,
       APP_QUEUE_URL: appQueue.url,
       NX_TUI: 'false',
+      REDIS_URL: REDIS_URL,
     },
     vpc,
   });

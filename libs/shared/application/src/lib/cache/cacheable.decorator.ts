@@ -30,7 +30,7 @@ export function Cacheable(options: CacheableRegisterOptions): MethodDecorator {
           cacheKey[0],
           // @ts-ignore
           () => originalMethod.apply(this, args),
-          options.ttl
+          options.ttl,
         );
       } as any,
     };
@@ -64,11 +64,11 @@ export function CacheEvict(
                 if (Array.isArray(cacheKey))
                   return Promise.all(
                     // @ts-ignore
-                    cacheKey.map((it) => getCacheManager().del(it))
+                    cacheKey.map((it) => getCacheManager().del(it)),
                   );
                 // @ts-ignore
                 return getCacheManager().del(cacheKey);
-              })
+              }),
             );
           } catch {}
         }

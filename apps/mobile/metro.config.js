@@ -23,6 +23,12 @@ const customConfig = {
   },
 };
 
+customConfig.resolver.unstable_conditionNames = [
+  'browser',
+  'require',
+  'react-native',
+];
+
 module.exports = withNxMetro(mergeConfig(defaultConfig, customConfig), {
   // Change this to true to see debugging info.
   // Useful if you have issues resolving modules

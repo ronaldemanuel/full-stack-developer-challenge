@@ -82,7 +82,7 @@ const pendingMethodCallMap = new Map<string, Promise<any>>();
 export async function cacheableHandle(
   key: string,
   method: () => Promise<any>,
-  ttl?: number
+  ttl?: number,
 ) {
   try {
     const cachedValue = await fetchCachedValue(key);
@@ -105,7 +105,7 @@ export async function cacheableHandle(
   await cacheManager?.set(
     key,
     value,
-    cacheManagerIsv5OrGreater ? ttl : ({ ttl: ttl } as any)
+    cacheManagerIsv5OrGreater ? ttl : ({ ttl: ttl } as any),
   );
   return value;
 }

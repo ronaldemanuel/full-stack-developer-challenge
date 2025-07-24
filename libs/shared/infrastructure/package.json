@@ -50,6 +50,9 @@
     "@trpc/server": "catalog:",
     "bcryptjs": "^3.0.2",
     "cache-manager": "^7.0.0",
+    "cacheable": "^1.10.0",
+    "keyv": "5.3.4",
+    "@keyv/redis": "4.4.0",
     "serialize-javascript": "^6.0.2",
     "superjson": "catalog:",
     "trpc-to-openapi": "^2.1.5"
