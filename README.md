@@ -1,6 +1,6 @@
 # 💼 Desafio Técnico: Inventário de RPG com Autenticação — estilo Skyrim
 
-Estamos desenvolvendo uma aplicação que simula um **inventário de RPG**, inspirado na experiência de jogos como **Skyrim**, com foco em boas práticas de arquitetura (**DDD**), autenticação moderna, **React Native**, **React Web** e um backend escalável com **NestJS + TRPC**.
+Estamos desenvolvendo uma aplicação que simula um **inventário de RPG**, inspirado na experiência de jogos como **Skyrim**, com foco em boas práticas de arquitetura (**DDD + CQRS**), autenticação moderna, **React Native**, **React Web** e um backend escalável com **NestJS + TRPC**.
 
 O sistema terá **duas interfaces principais**:
 
@@ -9,14 +9,18 @@ O sistema terá **duas interfaces principais**:
 
 ---
 
-## 🧱 Arquitetura Backend — NestJS + DDD
+## 🧱 Arquitetura Backend — NestJS + DDD + CQRS
 
-O backend deve ser implementado em **NestJS seguindo os princípios do DDD (Domain-Driven Design)**. A aplicação deve ser dividida de forma clara entre:
+O backend deve ser implementado em **NestJS seguindo os princípios do DDD (Domain-Driven Design)** e utilizando o padrão arquitetural **CQRS (Command Query Responsibility Segregation)** por meio da biblioteca [`@nestjs/cqrs`](https://docs.nestjs.com/recipes/cqrs).
 
-- **Camada de domínio**: entidades, agregados, repositórios, casos de uso.
-- **Camada de aplicação**: orquestração de fluxos, serviços de aplicação, DTOs.
-- **Camada de infraestrutura**: TRPC, providers externos, orquestradores, bancos, autenticação.
-- **Camada de interface**: endpoints TRPC, mapeamentos, handlers.
+A aplicação deve ser dividida de forma clara entre:
+
+- **Camada de domínio**: entidades, agregados, repositórios, eventos de domínio.
+- **Camada de aplicação**: casos de uso, comandos, queries, handlers, DTOs.
+- **Camada de infraestrutura**: TRPC, bancos de dados, autenticação, providers externos, integração com event bus.
+- **Camada de interface**: endpoints TRPC, controladores, mapeamentos.
+
+> O uso de **CQRS** permite separar comandos (ações que alteram o estado) de queries (leitura de dados), promovendo clareza, escalabilidade e testes mais previsíveis.
 
 ---
 
@@ -56,11 +60,12 @@ Utilizando:
 ### 🔧 Backend
 
 - **NestJS** com **DDD**.
+- Arquitetura baseada em **CQRS com `@nestjs/cqrs`**.
 - Integração com **@nestjs/trpc**.
 - **Drizzle ORM** com PostgreSQL.
 - Validação com **Zod-first**.
 - **EventBus desacoplado**, com **Inngest** como primeira implementação.
-- Casos de uso como `UserItemUseCase`.
+- Casos de uso como `UserItemUseCase`, com `UserItemCommand` e `UserItemQuery`.
 
 ### 📱 Frontend Mobile (React Native + Expo)
 
@@ -85,7 +90,7 @@ Utilizando:
 
 - Autenticação moderna com BetterAuth.
 - Confirmação de e-mail e recuperação de senha com Inngest.
-- Backend modular com NestJS + DDD.
+- Backend modular com NestJS + DDD + CQRS.
 - EventBus desacoplado e substituível (começando com Inngest).
 - Integração fullstack com **TRPC** e **Zod**.
 - Listagem de inventário com filtros e paginação.
@@ -97,5 +102,5 @@ Utilizando:
 
 ## 🎮 Resumo da Experiência
 
-> Imagine estar construindo o sistema de inventário de um jogo como **Skyrim**, mas com a robustez de um backend em **NestJS com DDD**, a flexibilidade do **React Native**, e a segurança de uma **autenticação moderna com BetterAuth**.  
+> Imagine estar construindo o sistema de inventário de um jogo como **Skyrim**, mas com a robustez de um backend em **NestJS com DDD + CQRS**, a flexibilidade do **React Native**, e a segurança de uma **autenticação moderna com BetterAuth**.  
 > Esse é o nosso objetivo: criar uma experiência rica, intuitiva e escalável tanto para jogadores quanto para administradores.
