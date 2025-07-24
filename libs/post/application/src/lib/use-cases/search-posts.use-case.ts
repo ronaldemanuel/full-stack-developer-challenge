@@ -17,10 +17,22 @@ export namespace SearchPostsUseCase {
     ) {}
 
     @Cacheable({
-      key: (input: Input) =>
-        `posts:search:${input.filter}:${input.page}:${input.perPage}:${input.sort}:${input.sortDir}`,
-      namespace: 'posts',
-      ttl: 60 * 60, // 1 hour
+      key: (input: Input) => {
+        if (
+          !input.filter ||
+          !input.page ||
+          !input.perPage ||
+          !input.sort ||
+          !input.sortDir
+        ) {
+          return 'posts';
+        }
+        if (input.page) {
+          return `posts::search::${input.page}`;
+        }
+        return '';
+      },
+      ttl: 1000 * 60 * 10, // 1 minute
     })
     execute(input: Input): Output | Promise<Output> {
       return this.queryBus.execute<

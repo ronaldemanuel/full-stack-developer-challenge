@@ -24,6 +24,14 @@ export function Cacheable(options: CacheableRegisterOptions): MethodDecorator {
           namespace: options.namespace,
           args,
         };
+        if (
+          options.key &&
+          ((typeof options.key === 'function' && !options.key(...args)) ||
+            options.key === '')
+        ) {
+          // @ts-ignore
+          return originalMethod.apply(this, args);
+        }
         const cacheKey = generateComposedKey(composeOptions);
         return cacheableHandle(
           // @ts-ignore
@@ -67,7 +75,7 @@ export function CacheEvict(
                     cacheKey.map((it) => getCacheManager().del(it)),
                   );
                 // @ts-ignore
-                return getCacheManager().del(cacheKey);
+                return getCacheManager()?.del(cacheKey);
               }),
             );
           } catch {}

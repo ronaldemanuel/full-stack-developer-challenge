@@ -1,40 +1,29 @@
-const { withNxMetro } = require('@nx/expo');
-const { getDefaultConfig } = require('expo/metro-config');
-const { mergeConfig } = require('metro-config');
-const { withNativeWind } = require('nativewind/metro');
+// Learn more: https://docs.expo.dev/guides/monorepos/
+const { getDefaultConfig } = require("expo/metro-config");
+const { FileStore } = require("metro-cache");
+const { withNativeWind } = require("nativewind/metro");
 
-const defaultConfig = getDefaultConfig(__dirname);
-const { assetExts, sourceExts } = defaultConfig.resolver;
+const path = require("node:path");
+
+const config = withTurborepoManagedCache(
+  withNativeWind(getDefaultConfig(__dirname), {
+    input: "./src/styles.css",
+    configPath: "./tailwind.config.ts",
+  }),
+);
+module.exports = config;
 
 /**
- * Metro configuration
- * https://reactnative.dev/docs/metro
+ * Move the Metro cache to the `.cache/metro` folder.
+ * If you have any environment variables, you can configure Turborepo to invalidate it when needed.
  *
- * @type {import('metro-config').MetroConfig}
+ * @see https://turborepo.com/docs/reference/configuration#env
+ * @param {import('expo/metro-config').MetroConfig} config
+ * @returns {import('expo/metro-config').MetroConfig}
  */
-const customConfig = {
-  cacheVersion: '@nx-ddd/mobile',
-  transformer: {
-    babelTransformerPath: require.resolve('react-native-svg-transformer'),
-  },
-  resolver: {
-    assetExts: assetExts.filter((ext) => ext !== 'svg'),
-    sourceExts: [...sourceExts, 'cjs', 'mjs', 'svg'],
-  },
-};
-
-customConfig.resolver.unstable_conditionNames = [
-  'browser',
-  'require',
-  'react-native',
-];
-
-module.exports = withNxMetro(mergeConfig(defaultConfig, customConfig), {
-  // Change this to true to see debugging info.
-  // Useful if you have issues resolving modules
-  debug: false,
-  // all the file extensions used for imports other than 'ts', 'tsx', 'js', 'jsx', 'json'
-  extensions: [],
-  // Specify folders to watch, in addition to Nx defaults (workspace libraries and node_modules)
-  watchFolders: [],
-}).then((config) => withNativeWind(config, { input: './src/styles.css' }));
+function withTurborepoManagedCache(config) {
+  config.cacheStores = [
+    new FileStore({ root: path.join(__dirname, ".cache/metro") }),
+  ];
+  return config;
+}

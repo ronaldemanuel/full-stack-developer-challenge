@@ -1,13 +1,29 @@
 {
   "extends": "../../tsconfig.base.json",
-  "files": [],
-  "include": ["nativewind-env.d.ts", ".expo/types/**/*.ts", "expo-env.d.ts"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
-    }
+      "~/*": [
+        "./src/*"
+      ]
+    },
+    "jsx": "react-native",
+    "checkJs": false,
+    "moduleSuffixes": [
+      ".ios",
+      ".android",
+      ".native",
+      ""
+    ]
   },
+  "include": [
+    "src",
+    "*.ts",
+    "*.js",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "nativewind-env.d.ts"
+  ],
   "references": [
     {
       "path": "../../tools/tailwind"
@@ -21,5 +37,8 @@
     {
       "path": "./tsconfig.spec.json"
     }
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }
