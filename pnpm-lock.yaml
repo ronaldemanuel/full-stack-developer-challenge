@@ -6,6 +6,15 @@ settings:
 
 catalogs:
   default:
+    '@autoform/react':
+      specifier: ^4.0.0
+      version: 4.0.0
+    '@autoform/zod':
+      specifier: 4.0.0
+      version: 4.0.0
+    '@hookform/resolvers':
+      specifier: ^5.1.1
+      version: 5.1.1
     '@nestjs-cls/transactional-adapter-drizzle-orm':
       specifier: ^1.2.0
       version: 1.2.0
@@ -39,6 +48,9 @@ catalogs:
     next:
       specifier: ~15.4.2
       version: 15.4.2
+    react-hook-form:
+      specifier: ^7.61.1
+      version: 7.61.1
     superjson:
       specifier: 2.2.2
       version: 2.2.2
@@ -63,6 +75,12 @@ importers:
 
   .:
     dependencies:
+      '@autoform/react':
+        specifier: 'catalog:'
+        version: 4.0.0(@hookform/resolvers@5.1.1(react-hook-form@7.61.1(react@19.0.0)))(react-hook-form@7.61.1(react@19.0.0))(react@19.0.0)
+      '@autoform/zod':
+        specifier: 'catalog:'
+        version: 4.0.0(zod@3.25.76)
       '@expo/metro-config':
         specifier: ~0.20.17
         version: 0.20.17
@@ -70,8 +88,8 @@ importers:
         specifier: ~5.0.4
         version: 5.0.4(react-native@0.79.2(@babel/core@7.28.0)(@types/react@19.0.14)(bufferutil@4.0.9)(react@19.0.0))
       '@hookform/resolvers':
-        specifier: ^5.1.1
-        version: 5.1.1(react-hook-form@7.60.0(react@19.0.0))
+        specifier: 'catalog:'
+        version: 5.1.1(react-hook-form@7.61.1(react@19.0.0))
       '@nestjs-cls/transactional-adapter-drizzle-orm':
         specifier: 'catalog:'
         version: 1.2.0(@nestjs-cls/transactional@3.1.0(@nestjs/common@11.1.4(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/core@11.1.4)(nestjs-cls@6.0.1(@nestjs/common@11.1.4(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/core@11.1.4)(reflect-metadata@0.1.14)(rxjs@7.8.2))(reflect-metadata@0.1.14)(rxjs@7.8.2))(drizzle-orm@0.44.3(@prisma/client@6.12.0(typescript@5.8.3))(@types/pg@8.15.4)(@vercel/postgres@0.10.0)(kysely@0.28.3)(pg@8.16.3)(postgres@3.4.7))(nestjs-cls@6.0.1(@nestjs/common@11.1.4(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/core@11.1.4)(reflect-metadata@0.1.14)(rxjs@7.8.2))
@@ -181,8 +199,8 @@ importers:
         specifier: catalog:react19
         version: 19.0.0(react@19.0.0)
       react-hook-form:
-        specifier: ^7.60.0
-        version: 7.60.0(react@19.0.0)
+        specifier: 'catalog:'
+        version: 7.61.1(react@19.0.0)
       react-native:
         specifier: 0.79.2
         version: 0.79.2(@babel/core@7.28.0)(@types/react@19.0.14)(bufferutil@4.0.9)(react@19.0.0)
@@ -525,7 +543,7 @@ importers:
         version: 2.4.2
       expo-router:
         specifier: 5.0.7
-        version: 5.0.7(f5nv5ueum3vnnohm6ksrq7sfau)
+        version: 5.0.7(92a3e2ad72dea3355cee7654540057f2)
       expo-secure-store:
         specifier: 14.2.3
         version: 14.2.3(expo@53.0.19(@babel/core@7.28.0)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(bufferutil@4.0.9)(react@19.0.0)))(bufferutil@4.0.9)(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(bufferutil@4.0.9)(react@19.0.0))(react@19.0.0))
@@ -1242,6 +1260,21 @@ packages:
   '@ast-grep/napi@0.35.0':
     resolution: {integrity: sha512-3ucaaSxV6fxXoqHrE/rxAvP1THnDdY5jNzGlnvx+JvnY9C/dSRKc0jlRMRz59N3El572+/yNRUUpAV1T9aBJug==}
     engines: {node: '>= 10'}
+
+  '@autoform/core@3.0.0':
+    resolution: {integrity: sha512-wBBJgqhw2lDc8VCf4Om/ONZH7RyvaLoqkAcNaU+c8Qo+U5kfY7Fke1mltW6CV0njoWMLarQ+0ZKnWdPRulDpgA==}
+
+  '@autoform/react@4.0.0':
+    resolution: {integrity: sha512-OVYRY7u+KnNxEZY6RF4tOmKgO3R68Y0amqyourU9vrFL/mi/4bW/6mi6hkWK8HwHK6a8C7clSm73/4nGQPSuaw==}
+    peerDependencies:
+      '@hookform/resolvers': ^3.9.0
+      react: ^16.8.0 || ^17 || ^18 || ^19
+      react-hook-form: ^7
+
+  '@autoform/zod@4.0.0':
+    resolution: {integrity: sha512-Jy0OIKVRM2vLNuh02puHQug40QUCD3xiThkyar+E18WNFsqzTxC1Efl+dFFPYsa7FvFZFnUOkOwbTqHMCgqzYA==}
+    peerDependencies:
+      zod: ^3
 
   '@aws-crypto/crc32@5.2.0':
     resolution: {integrity: sha512-nLbCWqQNgUiwwtFsen1AdzAtvuLRsQS8rYgMuxCrdKf9kOssamGLuPwyTY9wyYblNr9+1XM8v6zoDTPPSIeANg==}
@@ -13509,8 +13542,8 @@ packages:
     peerDependencies:
       react: '>=17.0.0'
 
-  react-hook-form@7.60.0:
-    resolution: {integrity: sha512-SBrYOvMbDB7cV8ZfNpaiLcgjH/a1c7aK0lK+aNigpf4xWLO8q+o4tcvVurv3c4EOyzn/3dCsYt4GKD42VvJ/+A==}
+  react-hook-form@7.61.1:
+    resolution: {integrity: sha512-2vbXUFDYgqEgM2RcXcAT2PwDW/80QARi+PKmHy5q2KhuKvOlG8iIYgf7eIlIANR5trW9fJbP4r5aub3a4egsew==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -16074,6 +16107,19 @@ snapshots:
       '@ast-grep/napi-win32-arm64-msvc': 0.35.0
       '@ast-grep/napi-win32-ia32-msvc': 0.35.0
       '@ast-grep/napi-win32-x64-msvc': 0.35.0
+
+  '@autoform/core@3.0.0': {}
+
+  '@autoform/react@4.0.0(@hookform/resolvers@5.1.1(react-hook-form@7.61.1(react@19.0.0)))(react-hook-form@7.61.1(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@autoform/core': 3.0.0
+      '@hookform/resolvers': 5.1.1(react-hook-form@7.61.1(react@19.0.0))
+      react: 19.0.0
+      react-hook-form: 7.61.1(react@19.0.0)
+
+  '@autoform/zod@4.0.0(zod@3.25.76)':
+    dependencies:
+      zod: 3.25.76
 
   '@aws-crypto/crc32@5.2.0':
     dependencies:
@@ -18850,10 +18896,10 @@ snapshots:
 
   '@hexagon/base64@1.1.28': {}
 
-  '@hookform/resolvers@5.1.1(react-hook-form@7.60.0(react@19.0.0))':
+  '@hookform/resolvers@5.1.1(react-hook-form@7.61.1(react@19.0.0))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.60.0(react@19.0.0)
+      react-hook-form: 7.61.1(react@19.0.0)
 
   '@humanfs/core@0.19.1': {}
 
@@ -26904,7 +26950,7 @@ snapshots:
     dependencies:
       invariant: 2.2.4
 
-  expo-router@5.0.7(f5nv5ueum3vnnohm6ksrq7sfau):
+  expo-router@5.0.7(92a3e2ad72dea3355cee7654540057f2):
     dependencies:
       '@expo/metro-runtime': 5.0.4(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.14)(bufferutil@4.0.9)(react@19.0.0))
       '@expo/server': 0.6.3
@@ -32221,7 +32267,7 @@ snapshots:
     dependencies:
       react: 19.0.0
 
-  react-hook-form@7.60.0(react@19.0.0):
+  react-hook-form@7.61.1(react@19.0.0):
     dependencies:
       react: 19.0.0
 
