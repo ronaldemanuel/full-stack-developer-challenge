@@ -12,6 +12,9 @@ export type IconPlace = 'sidebar';
 const icons = {
   sidebar: {
     dashboard: {
+      posts: lazy(() =>
+        import('lucide-react').then((m) => ({ default: m.FileSpreadsheet })),
+      ),
       overview: lazy(() =>
         import('lucide-react').then((m) => ({ default: m.Globe })),
       ),
