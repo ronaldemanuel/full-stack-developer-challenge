@@ -10,13 +10,9 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
+  "include": ["src/**/*.ts"],
   "exclude": [
     "vite.config.ts",
     "vite.config.mts",
@@ -32,6 +28,9 @@
     "src/**/*.spec.jsx"
   ],
   "references": [
+    {
+      "path": "../../post/domain/tsconfig.lib.json"
+    },
     {
       "path": "../domain/tsconfig.lib.json"
     },

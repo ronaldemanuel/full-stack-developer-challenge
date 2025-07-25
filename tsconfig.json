@@ -12,9 +12,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "references": [
@@ -98,6 +96,24 @@
     },
     {
       "path": "./libs/post/domain"
+    },
+    {
+      "path": "./libs/item/infrastructure"
+    },
+    {
+      "path": "./libs/user/infrastructure"
+    },
+    {
+      "path": "./libs/item/presentation"
+    },
+    {
+      "path": "./libs/item/application"
+    },
+    {
+      "path": "./libs/item/domain"
+    },
+    {
+      "path": "./tools/zoddd"
     }
   ],
   "ts-node": {

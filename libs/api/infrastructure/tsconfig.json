@@ -31,6 +31,9 @@
       "path": "../../auth/application"
     },
     {
+      "path": "../../user/infrastructure"
+    },
+    {
       "path": "../../post/infrastructure"
     },
     {
