@@ -52,49 +52,9 @@ const navigationItems: SidebarItem[] = [
     name: 'Management',
   },
   {
-    name: 'Products',
-    href: '/products',
-    iconPath: ['sidebar', 'dashboard', 'products'],
-    type: 'item',
-  },
-  {
-    name: 'People',
-    href: '/people',
-    iconPath: ['sidebar', 'dashboard', 'people'],
-    type: 'item',
-  },
-  {
-    name: 'Segments',
-    href: '/segments',
-    iconPath: ['sidebar', 'dashboard', 'segments'],
-    type: 'item',
-  },
-  {
-    name: 'Regions',
-    href: '/regions',
-    iconPath: ['sidebar', 'dashboard', 'regions'],
-    type: 'item',
-  },
-  {
-    type: 'label',
-    name: 'Monetization',
-  },
-  {
-    name: 'Revenue',
-    href: '/revenue',
-    iconPath: ['sidebar', 'dashboard', 'revenue'],
-    type: 'item',
-  },
-  {
-    name: 'Orders',
-    href: '/orders',
-    iconPath: ['sidebar', 'dashboard', 'orders'],
-    type: 'item',
-  },
-  {
-    name: 'Discounts',
-    href: '/discounts',
-    iconPath: ['sidebar', 'dashboard', 'discounts'],
+    name: 'Posts',
+    href: '/posts',
+    iconPath: ['sidebar', 'dashboard', 'posts'],
     type: 'item',
   },
   {

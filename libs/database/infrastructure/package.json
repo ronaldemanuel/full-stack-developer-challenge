@@ -118,6 +118,9 @@
       },
       "generate": {
         "executor": "nx:run-commands",
+        "dependsOn": [
+          "build"
+        ],
         "options": {
           "command": "drizzle-kit generate",
           "cwd": "libs/database/infrastructure"
@@ -127,6 +130,7 @@
   },
   "dependencies": {
     "@swc/helpers": "~0.5.11",
+    "@nx-ddd/database-application": "workspace:*",
     "@prisma/extension-accelerate": "^2.0.1",
     "@vercel/postgres": "^0.10.0",
     "drizzle-orm": "^0.44.1",

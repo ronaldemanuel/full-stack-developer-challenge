@@ -4,5 +4,5 @@ import type {
 } from '@trpc/server/unstable-core-do-not-import';
 
 export type inferProcedureBuilderResolverContext<
-  Procedure extends AnyProcedureBuilder
-> = inferProcedureBuilderResolverOptions<Procedure>['ctx'];
+  Procedure extends AnyProcedureBuilder,
+> = Omit<inferProcedureBuilderResolverOptions<Procedure>['ctx'], 'appContext'>;

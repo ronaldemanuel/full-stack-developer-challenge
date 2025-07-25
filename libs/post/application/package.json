@@ -38,6 +38,7 @@
     "@swc/helpers": "~0.5.11",
     "@nx-ddd/post-domain": "workspace:*",
     "@nx-ddd/shared-application": "workspace:*",
+    "@nx-ddd/database-application": "workspace:*",
     "@nx-ddd/shared-domain": "workspace:*"
   }
 }

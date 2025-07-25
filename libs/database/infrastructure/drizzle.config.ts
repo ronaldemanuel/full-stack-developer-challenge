@@ -7,7 +7,7 @@ if (!process.env.POSTGRES_URL) {
 const nonPoolingUrl = process.env.POSTGRES_URL.replace(':6543', ':5432');
 
 export default {
-  schema: './drizzle-schema.ts',
+  schema: './dist/drizzle/schema.js',
   dialect: 'postgresql',
   dbCredentials: { url: nonPoolingUrl },
   casing: 'snake_case',

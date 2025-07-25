@@ -1,4 +1,19 @@
+import { UserEntity } from '@nx-ddd/user-domain';
+
 import { PostEntity } from '../../post.entity.js';
+import { UserEntityPostRef } from '../../refs/user-entity-post.ref.js';
+
+const mockOwner = (id = '123e4567-e89b-12d3-a456-426614174000') => {
+  return UserEntityPostRef.cast(
+    UserEntity.create({
+      email: '',
+    }),
+    () => ({
+      createdPosts: [],
+      likes: [],
+    }),
+  );
+};
 
 describe('Post Entity', () => {
   describe('when creating a post entity', () => {
@@ -8,9 +23,10 @@ describe('Post Entity', () => {
         content: 'This is a test post content.',
         createdAt: new Date(),
         updatedAt: new Date(),
+        ownerId: '123e4567-e89b-12d3-a456-426614174000',
       };
 
-      const post = PostEntity.create(postProps);
+      const post = PostEntity.create(postProps, mockOwner());
 
       expect(post).toBeInstanceOf(PostEntity);
       expect(post.title).toBe('Test Post');
@@ -22,9 +38,10 @@ describe('Post Entity', () => {
         content: 'This is a test post content.',
         createdAt: new Date(),
         updatedAt: new Date(),
+        ownerId: '123e4567-e89b-12d3-a456-426614174000',
       };
 
-      expect(() => PostEntity.create(postProps)).toThrowError();
+      expect(() => PostEntity.create(postProps, mockOwner())).toThrowError();
     });
   });
   describe('when updating a post entity', () => {
@@ -34,9 +51,10 @@ describe('Post Entity', () => {
         content: 'Initial content.',
         createdAt: new Date(),
         updatedAt: new Date(),
+        ownerId: '123e4567-e89b-12d3-a456-426614174000',
       };
 
-      const post = PostEntity.create(postProps);
+      const post = PostEntity.create(postProps, mockOwner());
       const newProps = { title: 'Updated Title', content: 'Updated content.' };
 
       post.update(newProps);
@@ -52,7 +70,7 @@ describe('Post Entity', () => {
         updatedAt: new Date(),
       };
 
-      const post = PostEntity.create(postProps);
+      const post = PostEntity.create(postProps, mockOwner());
       const invalidProps = { title: 'A' }; // Invalid title
 
       expect(() => post.update(invalidProps)).toThrowError();

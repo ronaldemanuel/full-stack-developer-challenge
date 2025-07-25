@@ -1,6 +1,6 @@
 import { Entity } from '@nx-ddd/shared-domain';
 
-interface UserProps {
+export interface UserProps {
   email: string;
 }
 

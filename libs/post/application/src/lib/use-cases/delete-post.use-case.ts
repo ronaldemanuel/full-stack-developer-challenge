@@ -2,6 +2,7 @@ import { Inject } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 
 import type { IUseCase } from '@nx-ddd/shared-application';
+import { Transactional } from '@nx-ddd/database-application';
 import { CacheEvict } from '@nx-ddd/shared-application';
 
 import { DeletePostCommand } from '../commands/index.js';
@@ -22,6 +23,7 @@ export namespace DeletePostUseCase {
     @CacheEvict({
       key: (input: Input) => `posts::${input.id}`,
     })
+    @Transactional()
     execute(input: Input): Output | Promise<Output> {
       return this.commandBus.execute<
         DeletePostCommand.Input,
