@@ -8,6 +8,14 @@ export default class ChestEntity extends ApparelEntity {
     throw new Error('Method not implemented.');
   }
 
+  override get equipped(): boolean {
+    return this.character.equippedChest === this;
+  }
+
+  override set equipped(value: boolean) {
+    this.equipped = value;
+  }
+
   protected override applyEffect(character: UserItemRef): void {
     if (character.equippedChest === this) {
       this.equipped = false;

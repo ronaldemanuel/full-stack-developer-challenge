@@ -1,14 +1,25 @@
-import { Entity, ZodEntity } from '@nx-ddd/shared-domain';
+import { Entity } from '@nx-ddd/shared-domain';
 
 import type { UserItemRef } from '../refs/user-item.ref.js';
 import type { ItemProps } from '../schemas/item.schema.js';
 
 export type ItemIdentifier = 'apparel' | 'weapon' | 'consumable' | 'misc';
 
-// @ts-expect-error: Because of the override of the create method
-export abstract class ItemEntity extends Entity<ItemProps> {
+export interface ItemRelations {
+  character?: UserItemRef | undefined;
+}
+
+export abstract class ItemEntity<
+  T extends ItemProps = ItemProps,
+> extends Entity<T> {
+  private $relations: () => ItemRelations;
+
   protected abstract getIdentifier(): ItemIdentifier;
-  _character?: UserItemRef;
+
+  constructor(props: T, relations: () => ItemRelations, id?: string) {
+    super(props, id);
+    this.$relations = relations;
+  }
 
   get name() {
     return this.props.name ?? '';
@@ -23,28 +34,20 @@ export abstract class ItemEntity extends Entity<ItemProps> {
   }
 
   get character() {
-    if (!this._character) {
+    const character = this.$relations().character;
+    if (character === undefined) {
       throw new Error('This item has no character');
+    } else {
+      return character;
     }
-    return this._character;
   }
 
   set character(character: UserItemRef) {
-    if (!character) {
-      throw new Error('Character cannot be null or undefined');
-    }
-    this._character = character;
+    this.$relations().character = character;
   }
 
   use(): void {
     this.applyEffect(this.character);
-  }
-
-  static override create(props: ItemProps): ItemEntity {
-    const item = super.create<ItemEntity, ItemProps>(props);
-    item.props.createdAt = item.props.createdAt ?? new Date();
-    item.props.updatedAt = item.props.updatedAt ?? new Date();
-    return item;
   }
 
   protected abstract applyEffect(character: UserItemRef): void;

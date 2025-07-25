@@ -4,6 +4,14 @@ import type { ItemIdentifier } from '../abstract-item.entity.js';
 import { ApparelEntity } from './apparel.entity.js';
 
 export default class BootsEntity extends ApparelEntity {
+  override get equipped(): boolean {
+    return this.character?.equippedBoots === this;
+  }
+
+  override set equipped(value: boolean) {
+    this.equipped = value;
+  }
+
   protected override getIdentifier(): ItemIdentifier {
     throw new Error('Method not implemented.');
   }

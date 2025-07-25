@@ -3,6 +3,7 @@ import BootsEntity from '../../apparel/boots.entity.js';
 import ChestEntity from '../../apparel/chest.entity.js';
 import GlovesEntity from '../../apparel/gloves.entity.js';
 import HelmetEntity from '../../apparel/helmet.entity.js';
+import TwoHandedWeaponEntity from '../../weapon/two-handed-weapon.entity.js';
 
 describe('Items Entity', () => {
   let character: UserItemRef;
@@ -304,6 +305,120 @@ describe('Items Entity', () => {
 
         expect(character.equippedBoots).toBeNull();
         expect(boots.equipped).toBe(false);
+      });
+    });
+  });
+
+  describe('when use weapon item', () => {
+    describe('when the item is a two-handed weapon', () => {
+      it('should equip the selected weapon when both hands are empty', () => {
+        const itemProps = {
+          name: 'Test Weapon',
+          image: 'http://example.com/weapon.png',
+          stackNumber: 1,
+          equipped: false,
+        };
+
+        const weapon = TwoHandedWeaponEntity.create(itemProps);
+        weapon.character = character;
+
+        expect(character.leftHand).toBeNull();
+        expect(character.rightHand).toBeNull();
+
+        weapon.use();
+
+        expect(character.leftHand).toBe(weapon);
+        expect(character.rightHand).toBe(weapon);
+        expect(weapon.equipped).toBe(true);
+      });
+
+      it('should equip the selected weapon and unequip previous weapon when left hand are occupied', () => {
+        const equippedWeaponProps = {
+          name: 'Test Weapon',
+          image: 'http://example.com/weapon.png',
+          stackNumber: 1,
+          equipped: true,
+        };
+
+        const equippedWeapon = new TwoHandedWeaponEntity(equippedWeaponProps);
+        equippedWeapon.character = character;
+        character.leftHand = equippedWeapon;
+
+        expect(character.leftHand).toBe(equippedWeapon);
+        expect(character.rightHand).toBeNull();
+
+        const newWeaponProps = {
+          name: 'Test Weapon',
+          image: 'http://example.com/weapon.png',
+          stackNumber: 1,
+          equipped: false,
+        };
+
+        const newWeapon = new TwoHandedWeaponEntity(newWeaponProps);
+        newWeapon.character = character;
+
+        newWeapon.use();
+
+        expect(character.leftHand).toBe(newWeapon);
+        expect(character.rightHand).toBe(newWeapon);
+        expect(newWeapon.equipped).toBe(true);
+        expect(equippedWeapon.equipped).toBe(false);
+      });
+
+      it('should equip the selected weapon and unequip previous weapon when right hand are occupied', () => {
+        const equippedWeaponProps = {
+          name: 'Test Weapon',
+          image: 'http://example.com/weapon.png',
+          stackNumber: 1,
+          equipped: true,
+        };
+
+        const equippedWeapon = new TwoHandedWeaponEntity(equippedWeaponProps);
+        equippedWeapon.character = character;
+        character.rightHand = equippedWeapon;
+
+        expect(character.rightHand).toBe(equippedWeapon);
+        expect(character.leftHand).toBeNull();
+
+        const newWeaponProps = {
+          name: 'Test Weapon',
+          image: 'http://example.com/weapon.png',
+          stackNumber: 1,
+          equipped: false,
+        };
+
+        const newWeapon = new TwoHandedWeaponEntity(newWeaponProps);
+        newWeapon.character = character;
+
+        newWeapon.use();
+
+        expect(character.leftHand).toBe(newWeapon);
+        expect(character.rightHand).toBe(newWeapon);
+        expect(newWeapon.equipped).toBe(true);
+        expect(equippedWeapon.equipped).toBe(false);
+      });
+
+      it('should unequip the weapon if the item to be equipped itself', () => {
+        const itemProps = {
+          name: 'Test Weapon',
+          image: 'http://example.com/weapon.png',
+          stackNumber: 1,
+          equipped: true,
+        };
+
+        const weapon = new TwoHandedWeaponEntity(itemProps);
+        weapon.character = character;
+        character.leftHand = weapon;
+        character.rightHand = weapon;
+
+        expect(character.leftHand).toBe(weapon);
+        expect(character.rightHand).toBe(weapon);
+
+        weapon.use();
+
+        expect(character.leftHand).toBeNull();
+        expect(character.rightHand).toBeNull();
+        expect(weapon.equipped).toBe(false);
       });
     });
   });
