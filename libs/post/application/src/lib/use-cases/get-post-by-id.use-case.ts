@@ -1,13 +1,16 @@
 import { Inject } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 
+import type { UserEntityPostRef } from '@nx-ddd/post-domain';
 import type { IUseCase } from '@nx-ddd/shared-application';
 import { Cacheable } from '@nx-ddd/shared-application';
 
 import { GetPostByIdQuery } from '../queries/index.js';
 
 export namespace GetPostByIdUseCase {
-  export type Input = GetPostByIdQuery.Output;
+  export type Input = GetPostByIdQuery.Input & {
+    user?: UserEntityPostRef;
+  };
   export type Output = GetPostByIdQuery.Output;
 
   export class UseCase implements IUseCase<Input, Output> {
@@ -24,7 +27,7 @@ export namespace GetPostByIdUseCase {
       return this.queryBus.execute<
         GetPostByIdQuery.Input,
         GetPostByIdQuery.Output
-      >(GetPostByIdQuery.create(input));
+      >(GetPostByIdQuery.create(input, input.user));
     }
   }
 }

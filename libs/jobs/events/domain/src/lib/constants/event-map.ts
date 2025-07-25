@@ -13,7 +13,7 @@ export const eventsMap = {
   },
   'app-queue/post-created': {
     data: z.object({
-      id: z.string().uuid(),
+      id: z.string(),
       title: z.string().min(5).max(255),
       content: z.string().optional(),
       createdAt: z.date(),

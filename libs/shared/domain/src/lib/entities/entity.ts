@@ -1,7 +1,7 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { v4 as uuidV4 } from 'uuid';
 
-interface EntityProps {
+export interface EntityProps {
   id: string;
   createdAt: Date;
   updatedAt: Date;

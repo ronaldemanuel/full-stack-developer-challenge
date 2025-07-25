@@ -8,6 +8,7 @@ import {
   GetPostByIdUseCase,
   SearchPostsUseCase,
 } from './use-cases/index.js';
+import { ToggleLikeUseCase } from './use-cases/toggle-like.use-case.js';
 
 @Module({
   providers: [
@@ -17,12 +18,14 @@ import {
     DeletePostUseCase.UseCase,
     GetPostByIdUseCase.UseCase,
     SearchPostsUseCase.UseCase,
+    ToggleLikeUseCase.UseCase,
   ],
   exports: [
     CreatePostUseCase.UseCase,
     DeletePostUseCase.UseCase,
     GetPostByIdUseCase.UseCase,
     SearchPostsUseCase.UseCase,
+    ToggleLikeUseCase.UseCase,
   ],
 })
 export class PostApplicationModule {}

@@ -679,6 +679,9 @@ importers:
       '@nx-ddd/user-domain':
         specifier: workspace:*
         version: link:../../user/domain
+      '@nx-ddd/user-infrastructure':
+        specifier: workspace:*
+        version: link:../../user/infrastructure
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17
@@ -983,6 +986,9 @@ importers:
       '@nx-ddd/shared-infrastructure':
         specifier: workspace:*
         version: link:../../shared/infrastructure
+      '@nx-ddd/user-infrastructure':
+        specifier: workspace:*
+        version: link:../../user/infrastructure
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17
@@ -1144,6 +1150,24 @@ importers:
       '@nx-ddd/shared-domain':
         specifier: workspace:*
         version: link:../../shared/domain
+      '@swc/helpers':
+        specifier: ~0.5.11
+        version: 0.5.17
+
+  libs/user/infrastructure:
+    dependencies:
+      '@nx-ddd/database-infrastructure':
+        specifier: workspace:*
+        version: link:../../database/infrastructure
+      '@nx-ddd/shared-domain':
+        specifier: workspace:*
+        version: link:../../shared/domain
+      '@nx-ddd/shared-infrastructure':
+        specifier: workspace:*
+        version: link:../../shared/infrastructure
+      '@nx-ddd/user-domain':
+        specifier: workspace:*
+        version: link:../domain
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17

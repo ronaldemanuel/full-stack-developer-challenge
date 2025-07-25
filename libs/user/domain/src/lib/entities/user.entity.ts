@@ -1,10 +1,7 @@
-import type z from 'zod';
-
 import { Entity, ZodEntity } from '@nx-ddd/shared-domain';
 
+import type { UserProps } from '../schemas/user.schema.js';
 import { userPropsSchema } from '../schemas/user.schema.js';
-
-export type UserProps = z.infer<typeof userPropsSchema>;
 
 @ZodEntity(userPropsSchema)
 export class UserEntity extends Entity<UserProps> {

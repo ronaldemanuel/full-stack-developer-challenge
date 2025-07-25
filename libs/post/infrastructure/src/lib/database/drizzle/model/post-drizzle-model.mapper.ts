@@ -4,7 +4,7 @@ export class PostDrizzleModelMapper {
   static toEntity(data: any): PostEntity {
     const ownerEntity = new UserEntityPostRef(
       {
-        email: data.owner.email,
+        ...data.owner,
       },
       () => {
         return {
@@ -12,6 +12,7 @@ export class PostDrizzleModelMapper {
           createdPosts: [],
         };
       },
+      data.owner.id,
     );
     const postEntity = new PostEntity(
       {

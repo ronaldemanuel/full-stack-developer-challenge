@@ -5,8 +5,8 @@ import { postSchema } from './entity.schemas.js';
 export const postCreatedEventPropsSchema = postSchema;
 
 export const postLikedEventPropsSchema = z.object({
-  postId: z.string().uuid(),
-  userId: z.string().uuid(),
+  postId: z.string(),
+  userId: z.string(),
   date: z.date().optional(),
 });
 

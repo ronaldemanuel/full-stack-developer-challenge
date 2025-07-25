@@ -5,8 +5,13 @@ import type {
   DrizzleTX,
   SQL,
 } from '@nx-ddd/database-infrastructure';
-import type { PostEntity } from '@nx-ddd/post-domain';
+import type {
+  PostEntity,
+  UserEntityPostRef,
+  UserRepositoryPostRef,
+} from '@nx-ddd/post-domain';
 import {
+  and,
   asc,
   desc,
   eq,
@@ -15,10 +20,17 @@ import {
   InjectDrizzleTransaction,
   like,
   or,
+  sql,
 } from '@nx-ddd/database-infrastructure';
-import { post } from '@nx-ddd/database-infrastructure/drizzle/schema';
-import { PostRepository } from '@nx-ddd/post-domain';
-import { NotFoundError } from '@nx-ddd/shared-domain';
+import {
+  like as LikeEntity,
+  post,
+} from '@nx-ddd/database-infrastructure/drizzle/schema';
+import { PostLikedAggregate, PostRepository } from '@nx-ddd/post-domain';
+import {
+  NotFoundError,
+  RelationshipNotLoadedError,
+} from '@nx-ddd/shared-domain';
 
 import { PostDrizzleModelMapper } from '../model/post-drizzle-model.mapper.js';
 
@@ -31,10 +43,34 @@ export class PostDrizzleRepository implements PostRepository.Repository {
     @InjectDrizzleTransaction()
     private readonly tx: DrizzleTX,
   ) {}
-
-  findById(id: string): Promise<PostEntity> {
-    return this._get(id);
+  findById(id: string): Promise<PostEntity>;
+  findById(
+    id: string,
+    scopes: { likedByUserId: string },
+  ): Promise<PostLikedAggregate>;
+  findById(
+    id: string,
+    scopes?: { likedByUserId: string } | undefined,
+  ): Promise<PostEntity | PostLikedAggregate> {
+    return this._get(id, scopes);
   }
+  userRepository?: UserRepositoryPostRef.Repository | undefined;
+  async saveUser(user: UserEntityPostRef) {
+    if (!this.userRepository) {
+      throw new RelationshipNotLoadedError('User repository is not defined');
+    }
+    // generate a upsert query that toggles the likes of the user creating new likes if they don't exist and removing them if they do
+
+    const likes = user.likes.map((like) => ({
+      postId: like.post.id,
+      userId: user.id,
+    }));
+
+    await this.tx.delete(LikeEntity).where(eq(LikeEntity.userId, user.id));
+    if (likes.length)
+      await this.tx.insert(LikeEntity).values(likes).onConflictDoNothing();
+  }
+
   async findAll(): Promise<PostEntity[]> {
     return this.db.query.post
       .findMany()
@@ -77,7 +113,11 @@ export class PostDrizzleRepository implements PostRepository.Repository {
       with: {
         owner: {
           with: {
-            likes: true,
+            likes: {
+              with: {
+                post: true,
+              },
+            },
           },
         },
       },
@@ -98,7 +138,10 @@ export class PostDrizzleRepository implements PostRepository.Repository {
     });
   }
 
-  private async _get(id: string): Promise<PostEntity> {
+  private async _get(
+    id: string,
+    scopes?: { likedByUserId: string } | undefined,
+  ): Promise<PostEntity | PostLikedAggregate> {
     const data = await this.db.query.post.findFirst({
       where: eq(post.id, id),
       with: {
@@ -108,10 +151,36 @@ export class PostDrizzleRepository implements PostRepository.Repository {
           },
         },
       },
+      extras: {
+        // returns true if the post is liked by the user with the given id
+        metaLiked: scopes?.likedByUserId
+          ? sql<boolean>`EXISTS (
+              ${this.db
+                .select()
+                .from(LikeEntity)
+                .where(
+                  and(
+                    eq(LikeEntity.postId, id),
+                    eq(LikeEntity.userId, scopes.likedByUserId),
+                  ),
+                )}
+            )`.as('metaLiked')
+          : sql<boolean>`false`.as('metaLiked'),
+      },
     });
+
     if (!data) {
       throw new NotFoundError(`Post with id ${id} not found`);
     }
-    return PostDrizzleModelMapper.toEntity(data);
+    const response = PostDrizzleModelMapper.toEntity(data);
+
+    if (scopes?.likedByUserId) {
+      return PostLikedAggregate.create({
+        liked: data.metaLiked,
+        post: response,
+      });
+    }
+
+    return response;
   }
 }
