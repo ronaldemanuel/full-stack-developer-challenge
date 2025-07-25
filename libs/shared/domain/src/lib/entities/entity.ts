@@ -40,8 +40,8 @@ export abstract class Entity<
 
   static create<
     T extends Entity<any, any>, // a instância que será retornada
-    P = unknown, // os props
-  >(this: new <Prop extends P>(props: Prop) => T, props: P): T {
+    P = any, // os props
+  >(this: new (props: P) => T, props: P): T {
     return new this(props) as T;
   }
 

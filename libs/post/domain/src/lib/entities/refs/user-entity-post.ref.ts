@@ -1,9 +1,10 @@
 import type { UserProps } from '@nx-ddd/user-domain';
+import { RelationshipNotLoadedError } from '@nx-ddd/shared-domain';
 import { UserEntity } from '@nx-ddd/user-domain';
 
 import type { PostEntity } from '../post.entity.js';
 import { PostLikeRemoved } from '../../events/post-like-removed.event.js';
-import { PostLikedEvent } from '../../events/post-liked.event.js';
+import { PostLikedEvent } from '../../refs/post-liked.event.js';
 import { LikeEntity } from '../like.entity.js';
 
 export interface UserPostRefRelations {
@@ -12,24 +13,37 @@ export interface UserPostRefRelations {
 }
 
 export class UserEntityPostRef extends UserEntity {
-  private $relations: UserPostRefRelations;
+  private $relations: () => UserPostRefRelations;
 
-  constructor(props: UserProps, relations: UserPostRefRelations, id?: string) {
+  constructor(
+    props: UserProps,
+    relations: () => UserPostRefRelations = () => {
+      throw new RelationshipNotLoadedError('Relations not provided');
+    },
+    id?: string,
+  ) {
     super(props, id);
     this.$relations = relations;
   }
 
+  public get likes(): LikeEntity[] {
+    return this.$relations().likes;
+  }
+
   public get likedPosts(): PostEntity[] {
-    return this.$relations.likes.map((like) => like.post);
+    return this.likes.map((like) => like.post);
+  }
+
+  public get likesCount(): number {
+    return this.likes.length;
   }
 
   public toggleLike(post: PostEntity): void {
-    const existingLike = this.$relations.likes.find(
-      (like) => like.post.id === post.id,
-    );
+    const existingLike = this.likes.find((like) => like.post.id === post.id);
     if (existingLike) {
-      this.$relations.likes = this.$relations.likes.filter(
-        (like) => like.id !== existingLike.id,
+      this.likes.splice(
+        this.likes.findIndex((like) => like.id === existingLike.id),
+        1,
       );
       this.apply(
         new PostLikedEvent({
@@ -39,7 +53,7 @@ export class UserEntityPostRef extends UserEntity {
         }),
       );
     } else {
-      this.$relations.likes.push(LikeEntity.create(this, post));
+      this.likes.push(LikeEntity.create(this, post));
       this.apply(
         new PostLikeRemoved({
           userId: this.id,

@@ -1,20 +1,26 @@
 import { Injectable } from '@nestjs/common';
 
-import type { DrizzleDB, SQL } from '@nx-ddd/database-infrastructure';
+import type {
+  DrizzleDB,
+  DrizzleTX,
+  SQL,
+} from '@nx-ddd/database-infrastructure';
+import type { PostEntity } from '@nx-ddd/post-domain';
 import {
   asc,
-  count,
   desc,
   eq,
   getTableColumns,
   InjectDrizzle,
+  InjectDrizzleTransaction,
   like,
   or,
-  sql,
 } from '@nx-ddd/database-infrastructure';
 import { post } from '@nx-ddd/database-infrastructure/drizzle/schema';
-import { PostEntity, PostRepository } from '@nx-ddd/post-domain';
+import { PostRepository } from '@nx-ddd/post-domain';
 import { NotFoundError } from '@nx-ddd/shared-domain';
+
+import { PostDrizzleModelMapper } from '../model/post-drizzle-model.mapper.js';
 
 @Injectable()
 export class PostDrizzleRepository implements PostRepository.Repository {
@@ -22,6 +28,8 @@ export class PostDrizzleRepository implements PostRepository.Repository {
   constructor(
     @InjectDrizzle()
     private readonly db: DrizzleDB,
+    @InjectDrizzleTransaction()
+    private readonly tx: DrizzleTX,
   ) {}
 
   findById(id: string): Promise<PostEntity> {
@@ -30,15 +38,15 @@ export class PostDrizzleRepository implements PostRepository.Repository {
   async findAll(): Promise<PostEntity[]> {
     return this.db.query.post
       .findMany()
-      .then((posts) =>
-        posts.map((post) => new PostEntity(post as any, post.id)),
-      );
+      .then((posts) => posts.map(PostDrizzleModelMapper.toEntity));
   }
   async insert(entity: PostEntity): Promise<void> {
-    await this.db.insert(post).values(entity.toJSON());
+    await this.tx
+      .insert(post)
+      .values(PostDrizzleModelMapper.toPersistence(entity));
   }
   async delete(id: string): Promise<void> {
-    await this.db.delete(post).where(eq(post.id, id));
+    await this.tx.delete(post).where(eq(post.id, id));
   }
   update(entity: PostEntity): Promise<void> {
     throw new Error('Method not implemented.');
@@ -55,38 +63,30 @@ export class PostDrizzleRepository implements PostRepository.Repository {
     if (filter) {
       filterCondition = or(like(post.title, filter));
     }
-
     const orderBy = sort
       ? sortDir === 'asc'
         ? asc(post[sortFieldKey]!)
         : desc(sortField)
       : asc(post.createdAt);
-    const countWithQuery = this.db.$with('total').as(
-      this.db
-        .select({
-          count: count(post.id).as('count'),
-        })
-        .from(post)
-        .where(filterCondition),
-    );
-    const preQuery = this.db
-      .with(countWithQuery)
-      .select({
-        data: post,
-        total: countWithQuery.count,
-      })
-      .from(post)
-      .innerJoin(countWithQuery, sql`1=1`)
-      .where(filterCondition)
-      .limit(props.perPage)
-      .offset((props.page - 1) * props.perPage)
-      .orderBy(orderBy);
-    const query = await preQuery;
-    const total = query[0]?.total ?? 0;
-    const items = query.map((item) => {
-      return new PostEntity(item.data as any, item.data.id);
-    });
 
+    const data = await this.db.query.post.findMany({
+      where: filterCondition,
+      orderBy: orderBy,
+      limit: props.perPage,
+      offset: (props.page - 1) * props.perPage,
+      with: {
+        owner: {
+          with: {
+            likes: true,
+          },
+        },
+      },
+      extras: {
+        total: this.db.$count(post, filterCondition).as(`total`),
+      },
+    });
+    const items = data.map(PostDrizzleModelMapper.toEntity);
+    const total = data[0]?.total || 0;
     return new PostRepository.SearchResult({
       items,
       total,
@@ -101,10 +101,17 @@ export class PostDrizzleRepository implements PostRepository.Repository {
   private async _get(id: string): Promise<PostEntity> {
     const data = await this.db.query.post.findFirst({
       where: eq(post.id, id),
+      with: {
+        owner: {
+          with: {
+            likes: true,
+          },
+        },
+      },
     });
     if (!data) {
       throw new NotFoundError(`Post with id ${id} not found`);
     }
-    return new PostEntity(data as any, data.id);
+    return PostDrizzleModelMapper.toEntity(data);
   }
 }

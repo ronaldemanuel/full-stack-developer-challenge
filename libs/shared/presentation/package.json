@@ -38,6 +38,7 @@
     "@swc/helpers": "~0.5.11",
     "@nx-ddd/shared-domain": "workspace:*",
     "@nx-ddd/auth-domain": "workspace:*",
+    "@nx-ddd/user-domain": "workspace:*",
     "@trpc/server": "catalog:"
   }
 }

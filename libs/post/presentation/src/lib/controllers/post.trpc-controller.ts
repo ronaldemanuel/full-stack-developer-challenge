@@ -1,5 +1,6 @@
 import { Inject } from '@nestjs/common';
 
+import type { inferProcedureBuilderResolverContext } from '@nx-ddd/shared-presentation';
 import {
   createPostInputSchema,
   CreatePostUseCase,
@@ -10,8 +11,10 @@ import {
   searchPostsInputSchema,
   SearchPostsUseCase,
 } from '@nx-ddd/post-application';
+import { UserEntityPostRef } from '@nx-ddd/post-domain';
 import {
   createNestjsTrpcRouter,
+  Ctx,
   Input,
   protectedProcedure,
   publicProcedure,
@@ -50,9 +53,14 @@ export class PostTrpcController {
 
   create(
     @Input()
-    input: CreatePostUseCase.Input,
+    input: Omit<CreatePostUseCase.Input, 'user'>,
+    @Ctx()
+    ctx: inferProcedureBuilderResolverContext<typeof protectedProcedure>,
   ) {
-    return this.createPostUseCase.execute(input);
+    return this.createPostUseCase.execute({
+      ...input,
+      user: UserEntityPostRef.cast(ctx.session.user),
+    });
   }
 }
 

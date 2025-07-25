@@ -1,12 +1,24 @@
 import { Entity, ZodEntity } from '@nx-ddd/shared-domain';
 
 import type { PostProps } from '../schemas/entity.schemas.js';
+import type { UserEntityPostRef } from './refs/user-entity-post.ref.js';
 import { PostCreatedEvent } from '../events/post-created.event.js';
 import { postPropsSchema } from '../schemas/entity.schemas.js';
+
+interface PostRelations {
+  owner: UserEntityPostRef;
+}
 
 @ZodEntity(postPropsSchema)
 // @ts-expect-error: Because of the override of the create method
 export class PostEntity extends Entity<PostProps> {
+  private $relations: () => PostRelations;
+
+  constructor(props: PostProps, relations: () => PostRelations, id?: string) {
+    super(props, id);
+    this.$relations = relations;
+  }
+
   get content() {
     return this.props.content ?? '';
   }
@@ -15,9 +27,23 @@ export class PostEntity extends Entity<PostProps> {
     return this.props.title;
   }
 
-  static override create(props: PostProps): PostEntity {
-    const post = super.create<PostEntity, PostProps>(props);
-    console.log(post.toJSON());
+  get owner(): UserEntityPostRef {
+    return this.$relations().owner;
+  }
+
+  static override create(
+    props: Omit<PostProps, 'ownerId'>,
+    owner: UserEntityPostRef,
+  ): PostEntity {
+    const post = new PostEntity(
+      {
+        ...props,
+        ownerId: owner.id,
+      },
+      () => ({
+        owner,
+      }),
+    );
     post.apply(new PostCreatedEvent(post.toJSON()));
     return post;
   }

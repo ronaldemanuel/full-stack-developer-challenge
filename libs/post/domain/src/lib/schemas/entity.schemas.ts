@@ -1,9 +1,10 @@
 import z from 'zod';
 
 export const postSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string(),
   title: z.string().min(5).max(255),
   content: z.string().optional(),
+  ownerId: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
@@ -18,9 +19,9 @@ export const postPropsSchema = postSchema
   });
 
 export const likeSchema = z.object({
-  id: z.string().uuid(),
-  userId: z.string().uuid(),
-  postId: z.string().uuid(),
+  id: z.string(),
+  userId: z.string(),
+  postId: z.string(),
   createdAt: z.date(),
   updatedAt: z.date().optional(),
 });
