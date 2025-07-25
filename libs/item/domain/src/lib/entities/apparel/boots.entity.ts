@@ -9,15 +9,17 @@ export default class BootsEntity extends ApparelEntity {
   }
 
   protected override applyEffect(character: UserItemRef): void {
+    if (character.equippedBoots === this) {
+      this.equipped = false;
+      character.equippedBoots = null;
+      return;
+    }
+
     if (character.equippedBoots) {
       character.equippedBoots.equipped = false;
-
-      if (character.equippedBoots.id === this.id) {
-        character.equippedBoots = null;
-      } else {
-        this.equipped = true;
-        character.equippedBoots = this;
-      }
     }
+
+    this.equipped = true;
+    character.equippedBoots = this;
   }
 }

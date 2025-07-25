@@ -1,3 +1,3 @@
-import { EquippedItemsEntity } from '../equipped-items.entity.js';
+import { WearableItemsEntity } from '../wearable-items.entity.js';
 
-export abstract class ApparelEntity extends EquippedItemsEntity {}
+export abstract class ApparelEntity extends WearableItemsEntity {}

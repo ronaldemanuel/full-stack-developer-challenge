@@ -9,15 +9,17 @@ export default class ChestEntity extends ApparelEntity {
   }
 
   protected override applyEffect(character: UserItemRef): void {
+    if (character.equippedChest === this) {
+      this.equipped = false;
+      character.equippedChest = null;
+      return;
+    }
+
     if (character.equippedChest) {
       character.equippedChest.equipped = false;
-
-      if (character.equippedChest.id === this.id) {
-        character.equippedChest = null;
-      } else {
-        this.equipped = true;
-        character.equippedChest = this;
-      }
     }
+
+    this.equipped = true;
+    character.equippedChest = this;
   }
 }
