@@ -1,34 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { UserEntity } from '@nx-ddd/user-domain';
-
+import type { PostEntity } from '../../../post.entity.js';
 import { PostLikeRemoved } from '../../../../events/post-like-removed.event.js';
+import { PostEntityMockFactory } from '../../../../factories/post-entity-mock.factory.js';
+import { UserPostEntityRefFactory } from '../../../../factories/user-post-entity-ref.factory.js';
 import { PostLikedEvent } from '../../../../refs/post-liked.event.js';
 import { LikeEntity } from '../../../like.entity.js';
-import { PostEntity } from '../../../post.entity.js';
 import { UserEntityPostRef } from '../../user-entity-post.ref.js';
-
-// Mock implementation for testing
-const mockPostEntity = (
-  id = '123e4567-e89b-12d3-a456-426614174000',
-  owner: UserEntityPostRef,
-) => {
-  const post = new PostEntity(
-    {
-      title: 'Test Post',
-      content: 'This is a test post content.',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      ownerId: owner.id,
-    },
-    () => ({
-      owner: owner,
-    }),
-    id,
-  );
-
-  return post;
-};
 
 describe('UserEntityPostRef', () => {
   let userPostRef: UserEntityPostRef;
@@ -36,14 +14,25 @@ describe('UserEntityPostRef', () => {
 
   beforeEach(() => {
     // Setup basic user with empty relations
-    userPostRef = new UserEntityPostRef(
+    const likes: LikeEntity[] = [];
+    const createdPosts: PostEntity[] = [];
+
+    // Use UserPostEntityRefFactory to create the user
+    userPostRef = UserPostEntityRefFactory(
       { email: 'test@example.com' },
-      () => ({ likes: [], createdPosts: [] }),
+      { likes, createdPosts },
       '123e4567-e89b-12d3-a456-426614174001',
     );
 
-    // Create a test post
-    post = mockPostEntity(undefined, userPostRef);
+    // Create a test post using PostEntityMockFactory
+    post = PostEntityMockFactory(
+      {
+        title: 'Test Post',
+        content: 'This is a test post content.',
+      },
+      { owner: userPostRef },
+      '123e4567-e89b-12d3-a456-426614174000',
+    );
 
     // Spy on apply method to verify events
     vi.spyOn(userPostRef, 'apply');
@@ -52,14 +41,10 @@ describe('UserEntityPostRef', () => {
   describe('constructor', () => {
     it('should initialize correctly when casting from UserEntity', () => {
       const stub = { email: 'test@example.com', id: 'user-id-123' };
-      const ref = UserEntityPostRef.cast(
-        new UserEntity(
-          {
-            email: stub.email,
-          },
-          stub.id,
-        ),
-        () => ({ createdPosts: [], likes: [] }),
+      const ref = UserPostEntityRefFactory(
+        { email: stub.email },
+        { createdPosts: [], likes: [] },
+        stub.id,
       );
       expect(ref).toBeInstanceOf(UserEntityPostRef);
       expect(ref.id).toBe(stub.id);
@@ -76,10 +61,10 @@ describe('UserEntityPostRef', () => {
       // Create a like
       const like = LikeEntity.create(userPostRef, post);
 
-      // Add like to user
-      userPostRef = new UserEntityPostRef(
+      // Add like to user using factory
+      userPostRef = UserPostEntityRefFactory(
         { email: 'test@example.com' },
-        () => ({ likes: [like], createdPosts: [] }),
+        { likes: [like], createdPosts: [] },
         '123e4567-e89b-12d3-a456-426614174001',
       );
 
@@ -120,11 +105,12 @@ describe('UserEntityPostRef', () => {
     it('should remove a like when post is already liked', () => {
       // Create a like
       const like = LikeEntity.create(userPostRef, post);
+      const likes = [like];
 
-      // Setup user with existing like
-      userPostRef = new UserEntityPostRef(
+      // Setup user with existing like using factory
+      userPostRef = UserPostEntityRefFactory(
         { email: 'test@example.com' },
-        () => ({ likes: [like], createdPosts: [] }),
+        { likes: likes, createdPosts: [] },
         '123e4567-e89b-12d3-a456-426614174001',
       );
 
@@ -173,13 +159,21 @@ describe('UserEntityPostRef', () => {
     });
 
     it('should handle multiple liked posts correctly', () => {
-      const post1 = mockPostEntity(
+      const post1 = PostEntityMockFactory(
+        {
+          title: 'Test Post 1',
+          content: 'This is test post 1 content.',
+        },
+        { owner: userPostRef },
         '123e4567-e89b-12d3-a456-426614174100',
-        userPostRef,
       );
-      const post2 = mockPostEntity(
+      const post2 = PostEntityMockFactory(
+        {
+          title: 'Test Post 2',
+          content: 'This is test post 2 content.',
+        },
+        { owner: userPostRef },
         '123e4567-e89b-12d3-a456-426614174200',
-        userPostRef,
       );
 
       // Like multiple posts

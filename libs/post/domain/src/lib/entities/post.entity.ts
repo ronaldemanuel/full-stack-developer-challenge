@@ -5,7 +5,7 @@ import type { UserEntityPostRef } from './refs/user-entity-post.ref.js';
 import { PostCreatedEvent } from '../events/post-created.event.js';
 import { postPropsSchema } from '../schemas/entity.schemas.js';
 
-interface PostRelations {
+export interface PostRelations {
   owner: UserEntityPostRef;
 }
 
