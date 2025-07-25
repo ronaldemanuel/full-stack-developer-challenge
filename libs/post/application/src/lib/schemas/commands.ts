@@ -11,5 +11,11 @@ export const deletePostInputSchema = z.object({
   id: z.string(),
 });
 
+export const toggleLikeInputSchema = z.object({
+  postId: z.string(),
+  userId: z.string(),
+});
+
+export type ToggleLikeInput = z.infer<typeof toggleLikeInputSchema>;
 export type CreatePostInput = z.infer<typeof createPostInputSchema>;
 export type DeletePostInput = z.infer<typeof deletePostInputSchema>;

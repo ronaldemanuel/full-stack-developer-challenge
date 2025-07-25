@@ -1,6 +1,6 @@
 import { generateMock } from '@anatine/zod-mock';
 
-import type { UserProps } from '../entities/user.entity.js';
+import type { UserProps } from '../schemas/user.schema.js';
 import { UserEntity } from '../entities/user.entity.js';
 import { userSchema } from '../schemas/user.schema.js';
 

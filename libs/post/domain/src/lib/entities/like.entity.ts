@@ -11,19 +11,23 @@ interface LikeEntityRelations {
 
 // @ts-expect-error: Expect error because of overriding the create method
 export class LikeEntity extends Entity<LikeProps> {
-  private $relations: LikeEntityRelations;
+  private $relations: () => LikeEntityRelations;
 
-  constructor(props: LikeProps, relations: LikeEntityRelations, id?: string) {
+  constructor(
+    props: LikeProps,
+    relations: () => LikeEntityRelations,
+    id?: string,
+  ) {
     super(props, id);
     this.$relations = relations;
   }
 
   get user(): UserEntityPostRef {
-    return this.$relations.user;
+    return this.$relations().user;
   }
 
   get post(): PostEntity {
-    return this.$relations.post;
+    return this.$relations().post;
   }
 
   static override create(
@@ -35,9 +39,11 @@ export class LikeEntity extends Entity<LikeProps> {
         userId: user.id,
         postId: post.id,
       },
-      {
-        post: post,
-        user: user,
+      () => {
+        return {
+          user,
+          post,
+        };
       },
     );
   }

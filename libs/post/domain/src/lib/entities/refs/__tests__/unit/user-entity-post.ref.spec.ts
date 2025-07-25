@@ -2,9 +2,9 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { PostEntity } from '../../../post.entity.js';
 import { PostLikeRemoved } from '../../../../events/post-like-removed.event.js';
+import { PostLikedEvent } from '../../../../events/post-liked.event.js';
 import { PostEntityMockFactory } from '../../../../factories/post-entity-mock.factory.js';
 import { UserPostEntityRefFactory } from '../../../../factories/user-post-entity-ref.factory.js';
-import { PostLikedEvent } from '../../../../refs/post-liked.event.js';
 import { LikeEntity } from '../../../like.entity.js';
 import { UserEntityPostRef } from '../../user-entity-post.ref.js';
 

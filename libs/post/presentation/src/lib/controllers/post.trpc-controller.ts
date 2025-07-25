@@ -10,6 +10,8 @@ import {
   GetPostByIdUseCase,
   searchPostsInputSchema,
   SearchPostsUseCase,
+  toggleLikeInputSchema,
+  ToggleLikeUseCase,
 } from '@nx-ddd/post-application';
 import { UserEntityPostRef } from '@nx-ddd/post-domain';
 import {
@@ -20,6 +22,8 @@ import {
   publicProcedure,
 } from '@nx-ddd/shared-presentation';
 
+import { getPostByIdPresentationOutputSchema } from '../schemas/output.js';
+
 export class PostTrpcController {
   @Inject(CreatePostUseCase.UseCase)
   private readonly createPostUseCase!: CreatePostUseCase.UseCase;
@@ -29,6 +33,8 @@ export class PostTrpcController {
   private readonly searchPostsUseCase!: SearchPostsUseCase.UseCase;
   @Inject(DeletePostUseCase.UseCase)
   private readonly deletePostUseCase!: DeletePostUseCase.UseCase;
+  @Inject(ToggleLikeUseCase.UseCase)
+  private readonly toggleLikeUseCase!: ToggleLikeUseCase.UseCase;
 
   search(
     @Input()
@@ -37,11 +43,19 @@ export class PostTrpcController {
     return this.searchPostsUseCase.execute(input);
   }
 
-  getById(
+  async getById(
     @Input()
     input: GetPostByIdUseCase.Input,
+    @Ctx() ctx: inferProcedureBuilderResolverContext<typeof publicProcedure>,
   ) {
-    return this.getPostByIdUseCase.execute(input);
+    const data = await this.getPostByIdUseCase.execute({
+      ...input,
+      user:
+        ctx.session && ctx.session.user
+          ? UserEntityPostRef.cast(ctx.session?.user)
+          : undefined,
+    });
+    return data;
   }
 
   delete(
@@ -62,6 +76,18 @@ export class PostTrpcController {
       user: UserEntityPostRef.cast(ctx.session.user),
     });
   }
+
+  toggleLike(
+    @Input()
+    input: ToggleLikeUseCase.Input,
+    @Ctx()
+    ctx: inferProcedureBuilderResolverContext<typeof protectedProcedure>,
+  ) {
+    return this.toggleLikeUseCase.execute({
+      ...input,
+      user: UserEntityPostRef.cast(ctx.session.user),
+    });
+  }
 }
 
 export const postsRouter = createNestjsTrpcRouter(
@@ -73,6 +99,7 @@ export const postsRouter = createNestjsTrpcRouter(
         .query(adapter.adaptMethod('search')),
       getById: publicProcedure
         .input(getPostByIdInputSchema)
+        .output(getPostByIdPresentationOutputSchema)
         .query(adapter.adaptMethod('getById')),
       delete: protectedProcedure
         .input(deletePostInputSchema)
@@ -80,6 +107,13 @@ export const postsRouter = createNestjsTrpcRouter(
       create: protectedProcedure
         .input(createPostInputSchema)
         .mutation(adapter.adaptMethod('create')),
+      toggleLike: protectedProcedure
+        .input(
+          toggleLikeInputSchema.omit({
+            userId: true, // userId is derived from the session
+          }),
+        )
+        .mutation(adapter.adaptMethod('toggleLike')),
     };
   },
 );

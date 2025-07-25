@@ -15,6 +15,7 @@ import superjson from 'superjson';
 import { ZodError } from 'zod';
 
 import { AuthService } from '@nx-ddd/auth-domain';
+import { UserEntity } from '@nx-ddd/user-domain';
 
 /**
  * 1. CONTEXT
@@ -48,7 +49,17 @@ export const createTRPCContext = async (opts: {
   const source = opts.headers.get('x-trpc-source') ?? 'unknown';
   logger.log('>>> tRPC Request from ' + source + ' by ' + session?.user.email);
   return {
-    session,
+    session: session
+      ? {
+          ...session,
+          user: new UserEntity(
+            {
+              ...session.user,
+            },
+            session.user.id,
+          ),
+        }
+      : null,
     appContext: appContext,
     logger,
   };

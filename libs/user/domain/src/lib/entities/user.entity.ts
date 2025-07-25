@@ -1,8 +1,6 @@
 import { Entity } from '@nx-ddd/shared-domain';
 
-export interface UserProps {
-  email: string;
-}
+import type { UserProps } from '../schemas/user.schema.js';
 
 export class UserEntity extends Entity<UserProps> {
   get email(): string {

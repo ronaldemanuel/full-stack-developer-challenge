@@ -31,9 +31,6 @@
       "path": "./libs/shared/domain"
     },
     {
-      "path": "./tools/zoddd"
-    },
-    {
       "path": "./libs/auth/application"
     },
     {
@@ -52,7 +49,7 @@
       "path": "./libs/shared/application"
     },
     {
-      "path": "./libs/database/domain"
+      "path": "./libs/database/application"
     },
     {
       "path": "./libs/database/infrastructure"

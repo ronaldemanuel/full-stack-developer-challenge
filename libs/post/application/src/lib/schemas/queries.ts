@@ -1,5 +1,6 @@
 import z from 'zod';
 
+import { postSchema } from '@nx-ddd/post-domain';
 import { searchParamsPropsSchema } from '@nx-ddd/shared-domain';
 
 export const searchPostsFilterSchema = z.object({
@@ -15,6 +16,15 @@ export const getPostByIdInputSchema = z.object({
   id: z.string(),
 });
 
+export const getPostByIdOutputSchema = postSchema.extend({
+  meta: z
+    .object({
+      liked: z.boolean(),
+    })
+    .optional(),
+});
+
+export type GetPostByIdOutput = z.infer<typeof getPostByIdOutputSchema>;
 export type SearchPostsFilter = z.infer<typeof searchPostsFilterSchema>;
 export type SearchPostsInput = z.infer<typeof searchPostsInputSchema>;
 export type GetPostByIdInput = z.infer<typeof getPostByIdInputSchema>;

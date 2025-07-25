@@ -1,0 +1,58 @@
+import type { ICommandHandler } from '@nestjs/cqrs';
+import { Inject } from '@nestjs/common';
+import { CommandHandler, EventPublisher } from '@nestjs/cqrs';
+import { Validated } from 'validated-extendable';
+
+import { Transactional } from '@nx-ddd/database-application';
+import {
+  PostRepository,
+  UserEntityPostRef,
+  UserRepositoryPostRef,
+} from '@nx-ddd/post-domain';
+
+import type { ToggleLikeInput } from '../schemas/commands.js';
+import { toggleLikeInputSchema } from '../schemas/commands.js';
+
+export namespace ToggleLikeCommand {
+  export type Input = ToggleLikeInput;
+  export type Output = void;
+
+  class ToggleLikeCommand extends Validated(toggleLikeInputSchema) {}
+
+  export function create(data: Input) {
+    return new ToggleLikeCommand(data);
+  }
+
+  @CommandHandler(ToggleLikeCommand)
+  export class Handler implements ICommandHandler<ToggleLikeCommand, Output> {
+    constructor(
+      @Inject(PostRepository.TOKEN)
+      private readonly postRepository: PostRepository.Repository,
+      @Inject(EventPublisher)
+      private readonly eventPublisher: EventPublisher,
+      @Inject(UserRepositoryPostRef.TOKEN)
+      private userRepository: UserRepositoryPostRef.Repository,
+    ) {
+      userRepository.postRepository = this.postRepository;
+      postRepository.userRepository = userRepository;
+    }
+
+    @Transactional()
+    async execute(command: ToggleLikeCommand): Promise<Output> {
+      const user = this.eventPublisher.mergeObjectContext(
+        UserEntityPostRef.cast(
+          await this.userRepository.findById(command.userId),
+        ),
+      );
+      const post = this.eventPublisher.mergeObjectContext(
+        await this.postRepository.findById(command.postId),
+      );
+
+      user.toggleLike(post);
+
+      // Saves the user applying the cascaded changes
+      await this.postRepository.saveUser(user);
+      user.commit();
+    }
+  }
+}

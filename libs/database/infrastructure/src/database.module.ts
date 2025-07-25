@@ -50,7 +50,7 @@ export class DatabaseModule {
           global: true,
           plugins: [
             new ClsPluginTransactional({
-              connectionName: DRIZZLE_CONNECTION_NAME,
+              connectionName: DATABASE_CONNECTION_NAME,
               enableTransactionProxy: true,
               adapter: new TransactionalAdapterDrizzleOrm({
                 // the injection token of the Drizzle client instance

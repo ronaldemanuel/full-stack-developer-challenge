@@ -15,4 +15,15 @@ export const userSchema = z.object({
   banExpires: z.date().nullish(),
 });
 
+export const userPropsSchema = userSchema
+  .omit({
+    id: true,
+  })
+  .partial({
+    createdAt: true,
+    updatedAt: true,
+  });
+
+export type UserProps = z.infer<typeof userPropsSchema>;
+
 export type User = z.infer<typeof userSchema>;
