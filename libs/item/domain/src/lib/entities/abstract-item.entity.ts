@@ -1,4 +1,4 @@
-import { Entity } from '@nx-ddd/shared-domain';
+import { Entity, ZodEntity } from '@nx-ddd/shared-domain';
 
 import type { UserItemRef } from '../refs/user-item.ref.js';
 import type { ItemProps } from '../schemas/item.schema.js';
@@ -8,7 +8,7 @@ export type ItemIdentifier = 'apparel' | 'weapon' | 'consumable' | 'misc';
 // @ts-expect-error: Because of the override of the create method
 export abstract class ItemEntity extends Entity<ItemProps> {
   protected abstract getIdentifier(): ItemIdentifier;
-  protected _character?: UserItemRef;
+  _character?: UserItemRef;
 
   get name() {
     return this.props.name ?? '';
@@ -27,6 +27,13 @@ export abstract class ItemEntity extends Entity<ItemProps> {
       throw new Error('This item has no character');
     }
     return this._character;
+  }
+
+  set character(character: UserItemRef) {
+    if (!character) {
+      throw new Error('Character cannot be null or undefined');
+    }
+    this._character = character;
   }
 
   use(): void {

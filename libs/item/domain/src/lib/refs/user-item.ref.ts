@@ -20,10 +20,10 @@ export class UserItemRef extends UserEntity {
   leftHand: WeaponEntity | null = null;
   rightHand: WeaponEntity | null = null;
 
-  static override create(props: UserItemRefProps): UserItemRefProps {
-    const post = super.create<UserItemRef, UserItemRefProps>(props);
-    post.props.createdAt = post.props.createdAt ?? new Date();
-    post.props.updatedAt = post.props.updatedAt ?? new Date();
-    return post;
+  static override create(props: UserItemRefProps): UserItemRef {
+    const userItem = super.create<UserItemRef, UserItemRefProps>(props);
+    userItem.props.createdAt = userItem.props.createdAt ?? new Date();
+    userItem.props.updatedAt = userItem.props.updatedAt ?? new Date();
+    return userItem;
   }
 }

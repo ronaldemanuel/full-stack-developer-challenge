@@ -10,6 +10,7 @@ packages:
   - libs/api/*
   - libs/jobs/events/*
   - libs/ui/*
+  - libs/item/*
 
 catalog:
   '@autoform/react': ^4.0.0
