@@ -1,11 +1,42 @@
-import { Entity } from '@nx-ddd/shared-domain';
+import type z from 'zod';
 
-export interface UserProps {
-  email: string;
-}
+import { Entity, ZodEntity } from '@nx-ddd/shared-domain';
 
+import { userPropsSchema } from '../schemas/user.schema.js';
+
+export type UserProps = z.infer<typeof userPropsSchema>;
+
+@ZodEntity(userPropsSchema)
 export class UserEntity extends Entity<UserProps> {
+  constructor(props: UserProps, id?: string) {
+    super(props, id);
+  }
+
   get email(): string {
     return this.props.email;
+  }
+
+  get hpLevel(): number {
+    return this.props.hpLevel ?? 0;
+  }
+
+  set hpLevel(value: number) {
+    this.props.hpLevel = value;
+  }
+
+  get spLevel(): number {
+    return this.props.spLevel ?? 0;
+  }
+
+  set spLevel(value: number) {
+    this.props.spLevel = value;
+  }
+
+  get mpLevel(): number {
+    return this.props.mpLevel ?? 0;
+  }
+
+  set mpLevel(value: number) {
+    this.props.mpLevel = value;
   }
 }
