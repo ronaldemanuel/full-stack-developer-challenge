@@ -1,10 +1,11 @@
 import z from 'zod';
 
 export const itemSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string(),
   name: z.string().min(2).max(255),
   image: z.string().url(),
   stackNumber: z.number().int(),
+  characterId: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
