@@ -1,0 +1,43 @@
+{
+  "name": "@nx-ddd/item-domain",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "item-domain",
+    "sourceRoot": "libs/item/domain/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/item/domain/dist",
+          "main": "libs/item/domain/src/index.ts",
+          "tsConfig": "libs/item/domain/tsconfig.lib.json",
+          "skipTypeCheck": true,
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@swc/helpers": "~0.5.11",
+    "@nx-ddd/shared-domain": "workspace:*",
+    "@nx-ddd/job-events-domain": "workspace:*",
+    "@nx-ddd/user-domain": "workspace:*"
+  }
+}
