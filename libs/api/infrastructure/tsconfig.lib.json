@@ -23,6 +23,9 @@
       "path": "../../shared/domain/tsconfig.lib.json"
     },
     {
+      "path": "../../shared/presentation/tsconfig.lib.json"
+    },
+    {
       "path": "../../shared/application/tsconfig.lib.json"
     },
     {

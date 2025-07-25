@@ -13,6 +13,9 @@
       "path": "../../shared/domain"
     },
     {
+      "path": "../../shared/presentation"
+    },
+    {
       "path": "../../shared/application"
     },
     {
