@@ -1,7 +1,6 @@
 import type { FactoryProvider } from '@nestjs/common';
 import type { Adapter } from 'better-auth';
 import { env } from '@/env.mjs';
-import { expo } from '@better-auth/expo';
 import { betterAuth } from 'better-auth';
 import { nextCookies } from 'better-auth/next-js';
 import {
@@ -93,7 +92,6 @@ export const initAuth = (
       },
     },
     plugins: [
-      expo() as any,
       organization({
         async sendInvitationEmail(data) {
           sendInvitationEmailUseCase.execute({
@@ -134,11 +132,11 @@ export const initAuth = (
         currentURL: config.baseUrl,
         productionURL: config.productionUrl,
       }),
-      nextCookies(),
       admin({
         // cspell:disable-next-line
         adminUserIds: ['EXD5zjob2SD6CBWcEQ6OpLRHcyoUbnaB'],
       }),
+      nextCookies(),
     ],
     advanced: {
       crossSubDomainCookies: {

@@ -1,5 +1,5 @@
 {
-  "name": "@nx-ddd/database-domain",
+  "name": "@nx-ddd/database-application",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -16,8 +16,8 @@
     }
   },
   "nx": {
-    "name": "database-domain",
-    "sourceRoot": "libs/database/domain/src",
+    "name": "database-application",
+    "sourceRoot": "libs/database/application/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -25,9 +25,9 @@
           "{options.outputPath}"
         ],
         "options": {
-          "outputPath": "libs/database/domain/dist",
-          "main": "libs/database/domain/src/index.ts",
-          "tsConfig": "libs/database/domain/tsconfig.lib.json",
+          "outputPath": "libs/database/application/dist",
+          "main": "libs/database/application/src/index.ts",
+          "tsConfig": "libs/database/application/tsconfig.lib.json",
           "skipTypeCheck": true,
           "stripLeadingPaths": true
         }

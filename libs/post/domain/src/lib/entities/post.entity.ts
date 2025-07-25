@@ -1,8 +1,8 @@
 import { Entity, ZodEntity } from '@nx-ddd/shared-domain';
 
-import type { PostProps } from '../schemas/post.schema.js';
+import type { PostProps } from '../schemas/entity.schemas.js';
 import { PostCreatedEvent } from '../events/post-created.event.js';
-import { postPropsSchema } from '../schemas/post.schema.js';
+import { postPropsSchema } from '../schemas/entity.schemas.js';
 
 @ZodEntity(postPropsSchema)
 // @ts-expect-error: Because of the override of the create method
@@ -17,8 +17,7 @@ export class PostEntity extends Entity<PostProps> {
 
   static override create(props: PostProps): PostEntity {
     const post = super.create<PostEntity, PostProps>(props);
-    post.props.createdAt = post.props.createdAt ?? new Date();
-    post.props.updatedAt = post.props.updatedAt ?? new Date();
+    console.log(post.toJSON());
     post.apply(new PostCreatedEvent(post.toJSON()));
     return post;
   }

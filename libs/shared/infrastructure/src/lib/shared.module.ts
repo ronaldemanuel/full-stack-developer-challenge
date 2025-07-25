@@ -3,7 +3,6 @@ import { ClsPluginTransactional } from '@nestjs-cls/transactional';
 import { TransactionalAdapterDrizzleOrm } from '@nestjs-cls/transactional-adapter-drizzle-orm';
 import { CacheModule } from '@nestjs/cache-manager';
 import { Global, Module } from '@nestjs/common';
-import { CqrsModule } from '@nestjs/cqrs';
 import { CacheableMemory } from 'cacheable';
 import { ClsModule } from 'nestjs-cls';
 
@@ -24,8 +23,7 @@ import { BCryptHashService } from './hash/services/bcrypt-hash.service.js';
   imports: [
     DatabaseModule.forDrizzle(),
     AuthModule.forBetterAuth(),
-    CqrsModule.forRoot(),
-    // JobEventsProducerModule.forAws(),
+    JobEventsProducerModule.forAws(),
     CacheModule.registerAsync({
       isGlobal: true,
       useFactory: async () => {

@@ -17,5 +17,24 @@ export const postPropsSchema = postSchema
     updatedAt: true,
   });
 
+export const likeSchema = z.object({
+  id: z.string().uuid(),
+  userId: z.string().uuid(),
+  postId: z.string().uuid(),
+  createdAt: z.date(),
+  updatedAt: z.date().optional(),
+});
+
+export const likePropsSchema = likeSchema
+  .omit({
+    id: true,
+  })
+  .partial({
+    updatedAt: true,
+    createdAt: true,
+  });
+
 export type Post = z.infer<typeof postSchema>;
 export type PostProps = z.infer<typeof postPropsSchema>;
+export type Like = z.infer<typeof likeSchema>;
+export type LikeProps = z.infer<typeof likePropsSchema>;

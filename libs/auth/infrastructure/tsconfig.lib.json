@@ -6,6 +6,7 @@
     "outDir": "dist",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "module": "nodenext",
+    "target": "es2022",
     "moduleResolution": "nodenext",
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,

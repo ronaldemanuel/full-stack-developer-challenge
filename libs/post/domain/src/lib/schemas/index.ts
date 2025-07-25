@@ -1,1 +1,1 @@
-export * from './post.schema.js';
+export * from './entity.schemas.js';
