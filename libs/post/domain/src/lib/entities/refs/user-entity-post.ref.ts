@@ -102,12 +102,18 @@ export class UserEntityPostRef extends UserEntity {
       );
     });
 
-    casted.$relations = () => {
-      return {
-        likes: likes || [],
-        createdPosts: [],
+    const createdPosts: PostEntity[] = [];
+    try {
+      const probablyRelations = relations();
+      casted.$relations = () => probablyRelations;
+    } catch {
+      casted.$relations = () => {
+        return {
+          likes: likes,
+          createdPosts: createdPosts,
+        };
       };
-    };
+    }
 
     return casted;
   }

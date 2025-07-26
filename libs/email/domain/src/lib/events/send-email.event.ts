@@ -12,6 +12,6 @@ export class SendEmailEvent<T extends EmailTypes> implements IEvent {
     public readonly data: SendEmailPayload<T>,
   ) {}
   get identifier(): EventTypes {
-    return EventTypes.POST_CREATED;
+    return EventTypes.SEND_EMAIL;
   }
 }
