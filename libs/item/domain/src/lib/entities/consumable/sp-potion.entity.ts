@@ -9,7 +9,7 @@ export class SpPotionEntity extends ConsumableEntity {
   }
 
   protected override applyEffect(character: UserItemRef): void {
-    this.consume();
     character.spLevel += this.effectLevel;
+    this.removeItem(character);
   }
 }

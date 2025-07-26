@@ -9,7 +9,7 @@ export class MpPotionEntity extends ConsumableEntity {
   }
 
   protected override applyEffect(character: UserItemRef): void {
-    this.consume();
     character.mpLevel += this.effectLevel;
+    this.removeItem(character);
   }
 }
