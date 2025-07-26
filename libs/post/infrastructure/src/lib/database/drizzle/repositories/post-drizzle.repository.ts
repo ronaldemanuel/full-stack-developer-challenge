@@ -63,25 +63,39 @@ export class PostDrizzleRepository implements PostRepository.Repository {
     }
     // generate a upsert query that toggles the likes of the user creating new likes if they don't exist and removing them if they do
     await Promise.all([
-      this.tx.delete(LikeEntity).where(
-        inArray(
-          LikeEntity.id,
-          user.$watchedRelations.likes.getRemovedItems().map((like) => like.id),
-        ),
-      ),
-      this.tx
-        .insert(LikeEntity)
-        .values(
-          user.$watchedRelations.likes
-            .getNewItems()
-            .map((like) => LikeDrizzleModelMapper.toPersistence(like)),
-        ),
+      user.$watchedRelations.likes.getRemovedItems()
+        ? this.tx.delete(LikeEntity).where(
+            inArray(
+              LikeEntity.id,
+              user.$watchedRelations.likes
+                .getRemovedItems()
+                .map((like) => like.id),
+            ),
+          )
+        : undefined,
+      user.$watchedRelations.likes.getNewItems().length
+        ? this.tx
+            .insert(LikeEntity)
+            .values(
+              user.$watchedRelations.likes
+                .getNewItems()
+                .map((like) => LikeDrizzleModelMapper.toPersistence(like)),
+            )
+        : undefined,
     ]);
   }
 
   async findAll(): Promise<PostEntity[]> {
     return this.db.query.post
-      .findMany()
+      .findMany({
+        with: {
+          owner: {
+            with: {
+              likes: true,
+            },
+          },
+        },
+      })
       .then((posts) => posts.map(PostDrizzleModelMapper.toEntity));
   }
   async insert(entity: PostEntity): Promise<void> {
@@ -105,7 +119,7 @@ export class PostDrizzleRepository implements PostRepository.Repository {
     let filterCondition: SQL | undefined;
 
     if (filter) {
-      filterCondition = or(like(post.title, filter));
+      filterCondition = or(like(post.title, '%' + filter + '%'));
     }
     const orderBy = sort
       ? sortDir === 'asc'

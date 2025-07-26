@@ -7,7 +7,7 @@ import type { DrizzleDB } from '../client.js';
 // Determine the path to your migrations folder relative to this setup file
 const migrationsFolder = join(
   dirname(fileURLToPath(import.meta.url)),
-  '../drizzle'
+  '../../../drizzle',
 );
 
 export function dbMigrate(db: DrizzleDB) {

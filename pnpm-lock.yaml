@@ -974,6 +974,9 @@ importers:
 
   libs/post/infrastructure:
     dependencies:
+      '@nx-ddd/database-application':
+        specifier: workspace:*
+        version: link:../../database/application
       '@nx-ddd/database-infrastructure':
         specifier: workspace:*
         version: link:../../database/infrastructure
@@ -1067,6 +1070,9 @@ importers:
       '@nx-ddd/auth-infrastructure':
         specifier: workspace:*
         version: link:../../auth/infrastructure
+      '@nx-ddd/database-application':
+        specifier: workspace:*
+        version: link:../../database/application
       '@nx-ddd/database-infrastructure':
         specifier: workspace:*
         version: link:../../database/infrastructure
