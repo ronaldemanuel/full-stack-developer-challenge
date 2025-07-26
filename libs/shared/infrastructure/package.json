@@ -44,6 +44,7 @@
     "@nx-ddd/shared-domain": "workspace:*",
     "@nx-ddd/shared-presentation": "workspace:*",
     "@nx-ddd/database-infrastructure": "workspace:*",
+    "@nx-ddd/database-application": "workspace:*",
     "@nx-ddd/auth-infrastructure": "workspace:*",
     "@nx-ddd/job-events-infra": "workspace:*",
     "@swc/helpers": "~0.5.11",

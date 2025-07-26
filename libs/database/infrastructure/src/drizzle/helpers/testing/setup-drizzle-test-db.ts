@@ -2,13 +2,15 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 // cspell:words neondatabase postgre wsproxy
 import { neonConfig } from '@neondatabase/serverless';
+import { Logger } from '@nestjs/common';
 import { PostgreSqlContainer } from '@testcontainers/postgresql';
 import { createPool } from '@vercel/postgres';
 import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { reset } from 'drizzle-seed';
 import { GenericContainer, Network } from 'testcontainers';
-import * as schema from '../../schema.js';
+
 import type { DrizzleDB } from '../../client.js';
+import * as schema from '../../schema.js';
 import { dbMigrate } from '../migrate.js';
 
 export interface DrizzleTestDB {
@@ -38,7 +40,7 @@ export async function setupDrizzleTestDB(): Promise<DrizzleTestDB> {
   env.DB_PORT = pgContainer.getPort().toString();
 
   const pgProxyContainer = await new GenericContainer(
-    'ghcr.io/neondatabase/wsproxy:latest'
+    'ghcr.io/neondatabase/wsproxy:latest',
   )
     .withNetwork(containersNetwork)
     .withEnvironment({
@@ -63,6 +65,14 @@ export async function setupDrizzleTestDB(): Promise<DrizzleTestDB> {
     client: sql,
     schema,
     casing: 'snake_case',
+    logger: {
+      logQuery(query, params) {
+        Logger.debug(
+          `Executing query: ${query} with params: ${JSON.stringify(params)}`,
+          'DrizzleTestDB',
+        );
+      },
+    },
   }) as DrizzleDB;
 
   await dbMigrate(db);

@@ -34,6 +34,7 @@ export class DatabaseModule {
                 // the injection token of the Drizzle client instance
                 drizzleInstanceToken: DRIZZLE_TOKEN,
               }),
+              imports: [DatabaseModule],
             }),
           ],
         }),
@@ -56,6 +57,7 @@ export class DatabaseModule {
                 // the injection token of the Drizzle client instance
                 drizzleInstanceToken: DRIZZLE_TOKEN,
               }),
+              imports: [DatabaseModule],
             }),
           ],
         }),
@@ -67,6 +69,7 @@ export class DatabaseModule {
         },
       ],
       exports: [DRIZZLE_TOKEN],
+      global: true,
     };
   }
 }

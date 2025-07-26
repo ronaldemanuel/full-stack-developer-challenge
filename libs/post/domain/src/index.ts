@@ -3,3 +3,4 @@ export * from './lib/repositories/index.js';
 export * from './lib/schemas/index.js';
 export * from './lib/events/index.js';
 export * from './lib/aggregates/index.js';
+export * from './lib/factories/index.js';
