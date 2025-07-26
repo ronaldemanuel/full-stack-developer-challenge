@@ -16,6 +16,7 @@ import {
   desc,
   eq,
   getTableColumns,
+  inArray,
   InjectDrizzle,
   InjectDrizzleTransaction,
   like,
@@ -32,6 +33,7 @@ import {
   RelationshipNotLoadedError,
 } from '@nx-ddd/shared-domain';
 
+import { LikeDrizzleModelMapper } from '../model/like-drizzle-mode.mapper.js';
 import { PostDrizzleModelMapper } from '../model/post-drizzle-model.mapper.js';
 
 @Injectable()
@@ -60,15 +62,21 @@ export class PostDrizzleRepository implements PostRepository.Repository {
       throw new RelationshipNotLoadedError('User repository is not defined');
     }
     // generate a upsert query that toggles the likes of the user creating new likes if they don't exist and removing them if they do
-
-    const likes = user.likes.map((like) => ({
-      postId: like.post.id,
-      userId: user.id,
-    }));
-
-    await this.tx.delete(LikeEntity).where(eq(LikeEntity.userId, user.id));
-    if (likes.length)
-      await this.tx.insert(LikeEntity).values(likes).onConflictDoNothing();
+    await Promise.all([
+      this.tx.delete(LikeEntity).where(
+        inArray(
+          LikeEntity.id,
+          user.$watchedRelations.likes.getRemovedItems().map((like) => like.id),
+        ),
+      ),
+      this.tx
+        .insert(LikeEntity)
+        .values(
+          user.$watchedRelations.likes
+            .getNewItems()
+            .map((like) => LikeDrizzleModelMapper.toPersistence(like)),
+        ),
+    ]);
   }
 
   async findAll(): Promise<PostEntity[]> {

@@ -54,6 +54,12 @@ export abstract class Entity<
     return new this(props) as T;
   }
 
+  equals(entity: Entity): boolean {
+    if (this === entity) return true;
+    if (this._id !== entity.id) return false;
+    return this.props === entity.props;
+  }
+
   toJSON(): Json {
     return {
       ...this.props,

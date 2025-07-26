@@ -1,4 +1,4 @@
-import { RelationshipNotLoadedError } from '@nx-ddd/shared-domain';
+import { RelationshipNotLoadedError, WatchedList } from '@nx-ddd/shared-domain';
 import { UserEntity } from '@nx-ddd/user-domain';
 
 import type { UserPostRefProps } from '../../schemas/entity.schemas.js';
@@ -12,9 +12,15 @@ export interface UserPostRefRelations {
   createdPosts: PostEntity[];
 }
 
+export interface UserPostRefWatchedRelations {
+  likes: WatchedList<LikeEntity>;
+  createdPosts: WatchedList<PostEntity>;
+}
+
 // @ts-expect-error: Expect error because of the override of the cast method
 export class UserEntityPostRef extends UserEntity {
-  private $relations: () => UserPostRefRelations;
+  protected $relations: () => UserPostRefRelations;
+  public readonly $watchedRelations: UserPostRefWatchedRelations;
   protected override props: UserPostRefProps;
 
   constructor(
@@ -27,10 +33,14 @@ export class UserEntityPostRef extends UserEntity {
     super(props, id);
     this.props = props;
     this.$relations = relations;
+    this.$watchedRelations = {
+      likes: new WatchedList(relations().likes),
+      createdPosts: new WatchedList(relations().createdPosts),
+    };
   }
 
   public get likes(): LikeEntity[] {
-    return this.$relations().likes;
+    return this.$watchedRelations.likes.currentItems;
   }
 
   public get likedPosts(): PostEntity[] {
