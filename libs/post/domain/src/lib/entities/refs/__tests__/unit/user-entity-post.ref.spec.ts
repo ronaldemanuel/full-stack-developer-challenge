@@ -60,15 +60,17 @@ describe('UserEntityPostRef', () => {
     it('should return array of posts when likes exist', () => {
       // Create a like
       const like = LikeEntity.create(userPostRef, post);
+      const likes = [like];
+      const createdPosts: PostEntity[] = [post];
 
       // Add like to user using factory
       userPostRef = UserPostEntityRefFactory(
         { email: 'test@example.com' },
-        { likes: [like], createdPosts: [] },
+        { likes, createdPosts },
         '123e4567-e89b-12d3-a456-426614174001',
       );
 
-      expect(userPostRef.likedPosts).toEqual([post]);
+      expect(userPostRef.likedPosts).toEqual(createdPosts);
     });
   });
 

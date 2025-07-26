@@ -13,6 +13,9 @@
       "path": "../../shared/domain"
     },
     {
+      "path": "../../shared/presentation"
+    },
+    {
       "path": "../../shared/application"
     },
     {
@@ -26,6 +29,9 @@
     },
     {
       "path": "../../auth/application"
+    },
+    {
+      "path": "../../user/infrastructure"
     },
     {
       "path": "../../post/infrastructure"
