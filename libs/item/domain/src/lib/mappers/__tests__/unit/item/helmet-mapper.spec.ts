@@ -1,19 +1,21 @@
 import type { UserItemRef } from '../../../../refs/user-item.ref.js';
-import type { ItemProps } from '../../../../schemas/item.schema.js';
+import type { ApparelItemSchemaProps } from '../../../../schemas/apparel.schema.js';
 import HelmetEntity from '../../../../entities/apparel/helmet.entity.js';
 import { UserItemRefFactory } from '../../../../entities/factories/user-item-ref.factory.js';
 import { ItemMapper } from '../../../item.mapper.js';
 
 describe('Helmet Item Mapper', () => {
-  const mockCharacter: UserItemRef = UserItemRefFactory({ id: 'user-123' });
+  const mockCharacter: UserItemRef = UserItemRefFactory({}, {}, 'user-123');
 
-  const baseItem: ItemProps = {
+  const baseItem: ApparelItemSchemaProps = {
     id: 'dragonscale-helmet',
     name: 'Dragon Helmet',
     type: 'apparel',
     image:
       'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
-  } as ItemProps;
+    defenseValue: 31,
+    apparelType: 'helmet',
+  } as ApparelItemSchemaProps;
 
   it('should correctly map to HelmetEntity with character data', () => {
     const item = ItemMapper.toDomain(baseItem, mockCharacter);
@@ -21,9 +23,9 @@ describe('Helmet Item Mapper', () => {
     expect(item).toBeInstanceOf(HelmetEntity);
 
     if (item instanceof HelmetEntity) {
-      // expect(item.character.id).toBe('user-123');
+      expect(item.character.id).toBe('user-123');
       expect(item.equipped).toBe(false);
-      expect(item.defenseValue).toBe(0); // default value
+      expect(item.defenseValue).toBe(31);
       expect(item.apparelType).toBe('helmet');
       expect(item.name).toBe('Dragon Helmet');
       expect(item.image).toContain('Dragonscale_Helmet');

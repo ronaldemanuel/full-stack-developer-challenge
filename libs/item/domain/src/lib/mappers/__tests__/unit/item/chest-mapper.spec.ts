@@ -5,7 +5,7 @@ import { UserItemRefFactory } from '../../../../entities/factories/user-item-ref
 import { ItemMapper } from '../../../item.mapper.js';
 
 describe('ChestEntity - ItemMapper', () => {
-  const mockCharacter: UserItemRef = UserItemRefFactory({ id: 'user-123' });
+  const mockCharacter: UserItemRef = UserItemRefFactory({}, {}, 'user-123');
 
   const baseItem: ApparelItemSchemaProps = {
     id: 'dragonscale-armor',
@@ -23,6 +23,7 @@ describe('ChestEntity - ItemMapper', () => {
     expect(item).toBeInstanceOf(ChestEntity);
 
     if (item instanceof ChestEntity) {
+      expect(item.character.id).toBe('user-123');
       expect(item.equipped).toBe(false);
       expect(item.defenseValue).toBe(41);
       expect(item.apparelType).toBe('chest');
