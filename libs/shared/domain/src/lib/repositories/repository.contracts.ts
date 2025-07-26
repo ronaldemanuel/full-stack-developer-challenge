@@ -1,5 +1,13 @@
 import type { Entity } from '../entities/entity.js';
 
+export type IntersectRepositories<L, R> = {
+  [K in keyof (L & R)]: K extends keyof L
+    ? L[K]
+    : K extends keyof R
+      ? R[K]
+      : never;
+};
+
 export interface IReadableRepository<E extends Entity> {
   findById(id: string): Promise<E>;
   findAll(): Promise<E[]>;

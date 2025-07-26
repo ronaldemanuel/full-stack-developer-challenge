@@ -21,11 +21,20 @@ export abstract class Entity<
 {
   protected readonly _id: string;
   protected readonly props: Props;
+  protected readonly _createdAt: Date;
+  protected readonly _updatedAt: Date;
 
   constructor(props: Props, id?: string) {
     super();
     this.props = props;
     this._id = id ?? uuidV4();
+    if (!id) {
+      this._createdAt = new Date();
+      this._updatedAt = new Date();
+    } else {
+      this._createdAt = (props as any).createdAt ?? new Date();
+      this._updatedAt = (props as any).updatedAt ?? new Date();
+    }
   }
 
   get id() {
@@ -69,10 +78,10 @@ export abstract class Entity<
       entity,
     ) as S;
   }
-  protected get createdAt(): Date {
-    return (this.props as any).createdAt ?? new Date();
+  get createdAt(): Date {
+    return this._createdAt;
   }
-  protected get updatedAt(): Date {
-    return (this.props as any).updatedAt ?? new Date();
+  get updatedAt(): Date {
+    return this._updatedAt;
   }
 }
