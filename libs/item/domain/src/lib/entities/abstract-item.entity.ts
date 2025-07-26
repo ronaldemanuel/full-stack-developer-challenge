@@ -6,7 +6,7 @@ import type { ItemProps } from '../schemas/item.schema.js';
 export type ItemIdentifier = 'apparel' | 'weapon' | 'consumable' | 'misc';
 
 export interface ItemRelations {
-  character?: UserItemRef | undefined;
+  character?: UserItemRef;
 }
 
 export abstract class ItemEntity<
@@ -29,8 +29,8 @@ export abstract class ItemEntity<
     return this.props.image;
   }
 
-  get stackNumber() {
-    return this.props.stackNumber ?? 0;
+  get type() {
+    return this.props.type;
   }
 
   get character() {

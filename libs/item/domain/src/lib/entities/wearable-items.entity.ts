@@ -8,6 +8,4 @@ export abstract class WearableItemsEntity<
   T extends WearableItemsProps = WearableItemsProps,
 > extends ItemEntity<T> {
   abstract get equipped(): boolean;
-
-  abstract set equipped(value: boolean);
 }

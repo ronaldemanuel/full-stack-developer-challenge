@@ -10,19 +10,12 @@ export default class TwoHandedWeaponEntity extends WeaponEntity {
     );
   }
 
-  override set equipped(value: boolean) {
-    this.equipped = value;
-  }
-
   protected override getIdentifier(): ItemIdentifier {
     throw new Error('Method not implemented.');
   }
 
   protected override applyEffect(character: UserItemRef): void {
     if (character.leftHand != null && character.rightHand != null) {
-      character.leftHand.equipped = false;
-      character.rightHand.equipped = false;
-
       if (character.leftHand === this && character.rightHand === this) {
         character.leftHand = null;
         character.rightHand = null;
@@ -31,7 +24,6 @@ export default class TwoHandedWeaponEntity extends WeaponEntity {
       }
     }
 
-    this.equipped = true;
     character.leftHand = this;
     character.rightHand = this;
   }

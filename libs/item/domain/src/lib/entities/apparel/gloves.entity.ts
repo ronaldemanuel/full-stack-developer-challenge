@@ -15,26 +15,16 @@ export default class GlovesEntity extends ApparelEntity<GlovesProps> {
     return this.character?.equippedGloves === this;
   }
 
-  override set equipped(value: boolean) {
-    this.equipped = value;
-  }
-
   protected override getIdentifier(): ItemIdentifier {
     throw new Error('Method not implemented.');
   }
 
   protected override applyEffect(character: UserItemRef): void {
     if (character.equippedGloves === this) {
-      this.equipped = false;
       character.equippedGloves = null;
       return;
     }
 
-    if (character.equippedGloves) {
-      character.equippedGloves.equipped = false;
-    }
-
-    this.equipped = true;
     character.equippedGloves = this;
   }
 }

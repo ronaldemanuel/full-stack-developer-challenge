@@ -10,4 +10,8 @@ export abstract class ApparelEntity<
   get defenseValue(): number {
     return this.props.defenseValue;
   }
+
+  get apparelType(): 'helmet' | 'chest' | 'gloves' | 'boots' {
+    return this.props.apparelType;
+  }
 }
