@@ -1,5 +1,7 @@
 import type { ApparelItemSchemaProps } from '../schemas/apparel.schema.js';
+import type { ConsumableItemProps } from '../schemas/consumable.schema.js';
 import type { ItemProps } from '../schemas/item.schema.js';
+import type { WeaponItemProps } from '../schemas/weapon.schema.js';
 
 export const ITEMS = {
   'dragonscale-helmet': {
@@ -47,4 +49,88 @@ export const ITEMS = {
     type: 'apparel',
     apparelType: 'helmet',
   },
-} satisfies Record<string, ItemProps | ApparelItemSchemaProps>;
+  'leather-bracers': {
+    id: 'leather-bracers',
+    name: 'Leather Bracers',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/1/18/Leather_Bracers_%28Skyrim%29.png/revision/latest?cb=20180219152810',
+    defenseValue: 7,
+    type: 'apparel',
+    apparelType: 'gloves',
+  },
+  'leather-armor': {
+    id: 'leather-armor',
+    name: 'Leather Armor',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/e/e2/Leather_Armor_%28Armor_Piece%29.png/revision/latest?cb=20180219152808',
+    defenseValue: 26,
+    type: 'apparel',
+    apparelType: 'chest',
+  },
+  'leather-boots': {
+    id: 'leather-boots',
+    name: 'Leather Boots',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/e/e2/Leather_Armor_%28Armor_Piece%29.png/revision/latest?cb=20180219152808',
+    defenseValue: 7,
+    type: 'apparel',
+    apparelType: 'boots',
+  },
+  'daedric-battleaxe': {
+    id: 'daedric-battleaxe',
+    name: 'Daedric Battleaxe',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/6/64/Daedricbattleaxe.png/revision/latest?cb=20120305203756',
+    damageValue: 25,
+    type: 'weapon',
+    weaponType: 'two-hands',
+  },
+  'ebony-sword': {
+    id: 'ebony-sword',
+    name: 'Ebony Sword',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/d/d1/Ebonysword.png/revision/latest?cb=20120513000536',
+    damageValue: 13,
+    type: 'weapon',
+    weaponType: 'one-hand',
+  },
+  'iron-sword': {
+    id: 'iron-sword',
+    name: 'Iron Sword',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/c/c7/Iron_Sword.png/revision/latest?cb=20121012152339',
+    damageValue: 13,
+    type: 'weapon',
+    weaponType: 'one-hand',
+  },
+  'potion-of-health': {
+    id: 'potion-of-health',
+    name: 'Potion of Health',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/3/32/TESV_HealthPotion.png/revision/latest?cb=20131209201729',
+    effectValue: 67,
+    type: 'consumable',
+    consumableType: 'hp-potion',
+  },
+  'potion-of-enhanced-stamina': {
+    id: 'potion-of-enhanced-stamina',
+    name: 'Potion of Enhanced Stamina',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/5/57/Potion_of_Enhanced_Stamina.png/revision/latest?cb=20131213191733',
+    effectValue: 341,
+    type: 'consumable',
+    consumableType: 'sp-potion',
+  },
+  'potion-of-extra-magicka': {
+    id: 'potion-of-extra-magicka',
+    name: 'Potion of Extra Magicka',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/8/88/Potion_of_Extra_Magicka.png/revision/latest?cb=20131213190349',
+    effectValue: 58,
+    type: 'consumable',
+    consumableType: 'mp-potion',
+  },
+} satisfies Record<
+  string,
+  ItemProps | ApparelItemSchemaProps | WeaponItemProps | ConsumableItemProps
+>;
