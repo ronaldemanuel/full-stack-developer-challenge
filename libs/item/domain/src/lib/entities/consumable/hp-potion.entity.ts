@@ -9,7 +9,7 @@ export class HpPotionEntity extends ConsumableEntity {
   }
 
   protected override applyEffect(character: UserItemRef): void {
-    character.hpLevel += this.effectLevel;
+    character.hpLevel += this.effectValue;
     this.removeItem(character);
   }
 }
