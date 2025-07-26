@@ -11,19 +11,11 @@ export function UserItemRefFactory(
 ) {
   const data = UserEntityMockFactory(overrides, id);
 
-  console.log(data);
-
-  const user = UserItemRef.cast(
+  return UserItemRef.cast(
     data,
-    () => {
-      return {
-        inventory: relationOverrides.inventory ?? [],
-      };
-    },
+    () => ({
+      inventory: relationOverrides.inventory ?? [],
+    }),
     id,
   );
-
-  console.log(user);
-
-  return user;
 }

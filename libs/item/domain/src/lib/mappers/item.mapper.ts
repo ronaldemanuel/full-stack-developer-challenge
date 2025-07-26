@@ -24,9 +24,8 @@ export class ItemMapper {
       'dragonscale-armor': ChestEntity,
       'dragonscale-boots': BootsEntity,
       'dragonscale-gautlets': GlovesEntity,
+      'leather-helmet': HelmetEntity,
     };
-
-    console.log('ItemId', item.id);
 
     const ItemClass =
       item.id in classesMap && classesMap[item.id as keyof typeof ITEMS];
@@ -35,12 +34,6 @@ export class ItemMapper {
       throw new Error(`Item class not found for identifier: ${item.id}`);
     }
 
-    return new ItemClass(
-      {
-        ...item,
-      },
-      () => ({ character: character }),
-      item.id,
-    );
+    return new ItemClass(item, () => ({ character: character }), item.id);
   }
 }

@@ -1,21 +1,17 @@
 import z from 'zod';
 
-export const inventorySchema = z.object({
-  id: z.string(),
-  characterId: z.string(),
-  itemId: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date().optional(),
+export const inventoryPropsSchema = z.object({
+  amount: z.number(),
 });
 
-export const inventoryPropsSchema = inventorySchema
-  .omit({
-    id: true,
-  })
-  .partial({
-    updatedAt: true,
-    createdAt: true,
-  });
+export const userItemPropsSchema = inventoryPropsSchema.partial({
+  amount: true,
+});
 
-export type Inventory = z.infer<typeof inventorySchema>;
+export const userItemSchema = inventoryPropsSchema.extend({
+  characterId: z.string(),
+  itemId: z.string(),
+});
+
 export type InventoryProps = z.infer<typeof inventoryPropsSchema>;
+export type UserItemProps = z.infer<typeof userItemPropsSchema>;

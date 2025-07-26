@@ -38,4 +38,13 @@ export const ITEMS = {
     type: 'apparel',
     apparelType: 'boots',
   },
+  'leather-helmet': {
+    id: 'leather-helmet',
+    name: 'Leather Helmet',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/2/29/Leather_Helmet_%28Skyrim%29.png/revision/latest?cb=20180219153937',
+    defenseValue: 12,
+    type: 'apparel',
+    apparelType: 'helmet',
+  },
 } satisfies Record<string, ItemProps | ApparelItemSchemaProps>;

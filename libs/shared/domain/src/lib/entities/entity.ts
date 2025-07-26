@@ -64,7 +64,10 @@ export abstract class Entity<
     entity: T,
     ...args: RestArgs
   ): S {
-    return Object.assign(new this({} as P, ...args) as S, entity) as S;
+    return Object.assign(
+      new this((entity as any).props as P, ...args) as S,
+      entity,
+    ) as S;
   }
   protected get createdAt(): Date {
     return (this.props as any).createdAt ?? new Date();

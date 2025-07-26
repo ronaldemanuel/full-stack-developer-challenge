@@ -1,20 +1,19 @@
-import { Entity } from '@nx-ddd/shared-domain';
+import { Entity, RelationshipNotLoadedError } from '@nx-ddd/shared-domain';
 
 import type { UserItemRef } from '../refs/user-item.ref.js';
-import type { InventoryProps } from '../schemas/inventory.schema.js';
+import type { UserItemProps } from '../schemas/inventory.schema.js';
 import type { ItemEntity } from './abstract-item.entity.js';
 
-interface InventoryEntityRelations {
-  character: UserItemRef;
-  item: ItemEntity;
+export interface InventoryEntityRelations {
+  character?: UserItemRef;
+  item?: ItemEntity;
 }
 
-// @ts-expect-error: Expect error because of overriding the create method
-export class InventoryEntity extends Entity<InventoryProps> {
+export class InventoryEntity extends Entity<UserItemProps> {
   private $relations: InventoryEntityRelations;
 
   constructor(
-    props: InventoryProps,
+    props: UserItemProps,
     relations: InventoryEntityRelations,
     id?: string,
   ) {
@@ -22,27 +21,42 @@ export class InventoryEntity extends Entity<InventoryProps> {
     this.$relations = relations;
   }
 
+  get itemId(): string {
+    return this.item.id;
+  }
+
+  get characterId() {
+    if (!this.character) {
+      throw new RelationshipNotLoadedError('User not loaded');
+    }
+
+    return this.character.id;
+  }
+
   get character(): UserItemRef {
-    return this.$relations.character;
+    const character = this.$relations.character;
+    if (!character) {
+      throw new RelationshipNotLoadedError('User not loaded');
+    }
+    return character;
+  }
+
+  get amount() {
+    return this.props.amount ?? 0;
+  }
+
+  set amount(value: number) {
+    if (value < 0) {
+      throw new Error('Amount cannot be less than 0');
+    }
+    this.props.amount = value;
   }
 
   get item(): ItemEntity {
-    return this.$relations.item;
-  }
-
-  static override create(
-    character: UserItemRef,
-    item: ItemEntity,
-  ): InventoryEntity {
-    return new InventoryEntity(
-      {
-        characterId: character.id,
-        itemId: item.id,
-      },
-      {
-        item: item,
-        character: character,
-      },
-    );
+    const item = this.$relations.item;
+    if (!item) {
+      throw new RelationshipNotLoadedError('User not loaded');
+    }
+    return item;
   }
 }
