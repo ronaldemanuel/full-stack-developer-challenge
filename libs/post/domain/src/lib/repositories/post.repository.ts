@@ -25,7 +25,7 @@ export namespace PostRepository {
       SearchResult
     > {
     userRepository?: UserRepositoryPostRef.Repository;
-    saveUser: (user: UserEntityPostRef) => Promise<void>;
+    saveUser(user: UserEntityPostRef): Promise<void>;
     findById(id: string): Promise<PostEntity>;
     findById(
       id: string,
