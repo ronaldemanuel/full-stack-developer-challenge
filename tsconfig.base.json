@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "incremental": true,
+    "disableSourceOfProjectReferenceRedirect": true,
     "composite": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,

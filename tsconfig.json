@@ -92,6 +92,12 @@
     },
     {
       "path": "./apps/events-processor"
+    },
+    {
+      "path": "./apps/mobile-e2e"
+    },
+    {
+      "path": "./apps/mobile"
     }
   ],
   "ts-node": {

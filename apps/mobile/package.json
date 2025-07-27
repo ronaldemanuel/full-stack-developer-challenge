@@ -1,0 +1,46 @@
+{
+  "name": "@nx-ddd/mobile",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "mobile"
+  },
+  "dependencies": {
+    "@better-auth/expo": "catalog:expo",
+    "@expo/metro-config": "catalog:expo",
+    "@expo/metro-runtime": "catalog:expo",
+    "@legendapp/list": "catalog:react-native",
+    "@tanstack/react-query": "catalog:",
+    "@trpc/client": "catalog:trpc",
+    "@trpc/server": "catalog:trpc",
+    "@trpc/tanstack-react-query": "catalog:trpc",
+    "better-auth": "catalog:auth",
+    "expo": "catalog:expo",
+    "expo-constants": "catalog:expo",
+    "expo-dev-client": "catalog:expo",
+    "expo-linking": "catalog:expo",
+    "expo-router": "catalog:expo",
+    "expo-secure-store": "catalog:expo",
+    "expo-splash-screen": "catalog:expo",
+    "expo-status-bar": "catalog:expo",
+    "expo-system-ui": "catalog:expo",
+    "expo-web-browser": "catalog:expo",
+    "nativewind": "catalog:react-native",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19",
+    "react-native": "catalog:react-native",
+    "react-native-gesture-handler": "catalog:react-native",
+    "react-native-reanimated": "catalog:react-native",
+    "react-native-safe-area-context": "catalog:react-native",
+    "react-native-screens": "catalog:react-native",
+    "superjson": "catalog:trpc"
+  },
+  "devDependencies": {
+    "@nx-ddd/api-infrastructure": "workspace:*",
+    "@nx-ddd/tailwind": "workspace:*"
+  },
+  "scripts": {
+    "android": "expo run:android",
+    "ios": "expo run:ios"
+  }
+}

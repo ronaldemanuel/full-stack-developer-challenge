@@ -1,0 +1,61 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "baseUrl": ".",
+    "outDir": "dist",
+    "types": ["node"],
+    "jsx": "react-native",
+    "noUnusedLocals": false,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
+    "checkJs": false,
+    "allowJs": true,
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "moduleSuffixes": [".ios", ".android", ".native", ""]
+  },
+  "files": ["../../node_modules/@nx/expo/typings/svg.d.ts"],
+  "exclude": [
+    "out-tsc",
+    "dist",
+    "node_modules",
+    ".expo",
+    "build",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.test.tsx",
+    "**/*.spec.tsx",
+    "**/*.test.js",
+    "**/*.spec.js",
+    "**/*.test.jsx",
+    "**/*.spec.jsx",
+    "src/test-setup.ts",
+    "jest.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "eslint.config.js",
+    "eslint.config.cjs",
+    "eslint.config.mjs"
+  ],
+  "include": [
+    "src",
+    "*.ts",
+    "*.js",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "nativewind-env.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../libs/api/infrastructure/tsconfig.lib.json"
+    },
+    {
+      "path": "../../tools/tailwind/tsconfig.lib.json"
+    }
+  ]
+}
