@@ -7,22 +7,28 @@
       "path": "../../user/infrastructure"
     },
     {
-      "path": "../../database/application"
+      "path": "../../shared/infrastructure"
+    },
+    {
+      "path": "../../shared/domain"
     },
     {
       "path": "../presentation"
     },
     {
-      "path": "../application"
+      "path": "../domain"
     },
     {
-      "path": "../domain"
+      "path": "../application"
     },
     {
       "path": "../../database/infrastructure"
     },
     {
-      "path": "../../shared/domain"
+      "path": "../../database/application"
+    },
+    {
+      "path": "../../auth/domain"
     },
     {
       "path": "./tsconfig.lib.json"

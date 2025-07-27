@@ -1,9 +1,7 @@
-import { RelationshipNotLoadedError, WatchedList } from '@nx-ddd/shared-domain';
+import { WatchedList } from '@nx-ddd/shared-domain';
 import { UserEntity } from '@nx-ddd/user-domain';
 
 import type { UserPostRefProps } from '../../schemas/entity.schemas';
-import { PostLikeRemoved } from '../../events/post-like-removed.event';
-import { PostLikedEvent } from '../../events/post-liked.event';
 import { LikeEntity } from '../like.entity';
 import { PostEntity } from '../post.entity';
 
@@ -19,71 +17,51 @@ export interface UserPostRefWatchedRelations {
 
 // @ts-expect-error: Expect error because of the override of the cast method
 export class UserEntityPostRef extends UserEntity {
-  protected $relations: () => UserPostRefRelations;
-  private readonly _$watchedRelations: () => UserPostRefWatchedRelations;
+  private $relations: () => UserPostRefRelations;
+  private _likes: WatchedList<LikeEntity>;
+  private _createdPosts: WatchedList<PostEntity>;
   protected override props: UserPostRefProps;
 
   public get $watchedRelations(): UserPostRefWatchedRelations {
-    return this._$watchedRelations();
+    return {
+      likes: this._likes,
+      createdPosts: this._createdPosts,
+    };
   }
 
   constructor(
     props: UserPostRefProps,
-    relations: () => UserPostRefRelations = () => {
-      throw new RelationshipNotLoadedError('Relations not provided');
-    },
+    relations: () => UserPostRefRelations,
     id?: string,
   ) {
     super(props, id);
     this.props = props;
     this.$relations = relations.bind(this);
-    const likesWatchedList = new WatchedList(this.$relations().likes);
-    const createdPostsWatchedList = new WatchedList(
+    this._likes = new WatchedList<LikeEntity>(this.$relations().likes);
+    this._createdPosts = new WatchedList<PostEntity>(
       this.$relations().createdPosts,
     );
-    this._$watchedRelations = () => {
-      return {
-        likes: likesWatchedList,
-        createdPosts: createdPostsWatchedList,
-      };
-    };
   }
 
   public get likes(): LikeEntity[] {
-    return this.$watchedRelations.likes.currentItems;
+    return this._likes.getItems();
   }
 
   public get likedPosts(): PostEntity[] {
     return this.likes.map((like) => like.post);
   }
 
-  public get likesCount(): number {
-    return this.likes.length;
-  }
-
-  public toggleLike(post: PostEntity): void {
+  public togglePostLike(post: PostEntity): LikeEntity | null {
     const existingLike = this.likes.find((like) => like.post.id === post.id);
     if (existingLike) {
-      this.likes.splice(
-        this.likes.findIndex((like) => like.id === existingLike.id),
-        1,
-      );
-      this.apply(
-        new PostLikedEvent({
-          userId: this.id,
-          postId: post.id,
-          date: new Date(),
-        }),
-      );
+      post.removeLike(existingLike);
+      this._likes.remove(existingLike);
+      return null;
     } else {
-      this.likes.push(LikeEntity.create(this, post));
-      this.apply(
-        new PostLikeRemoved({
-          userId: this.id,
-          postId: post.id,
-          date: new Date(),
-        }),
-      );
+      const like = LikeEntity.create(this, post);
+      post.recieveLike(like);
+      this._likes.add(LikeEntity.create(this, post));
+      return like;
     }
   }
 
@@ -113,6 +91,7 @@ export class UserEntityPostRef extends UserEntity {
               },
               () => ({
                 owner: this,
+                likes: [],
               }),
               like.post!.id,
             );

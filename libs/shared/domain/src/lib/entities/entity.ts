@@ -56,9 +56,16 @@ export abstract class Entity<
   }
 
   equals(entity: Entity): boolean {
-    if (this === entity) return true;
-    if (this._id !== entity.id) return false;
-    return this.props === entity.props;
+    if (entity === null || entity === undefined) {
+      return false;
+    }
+    if (this === entity) {
+      return true;
+    }
+    if (!(entity instanceof Entity)) {
+      return false;
+    }
+    return this._id === entity._id;
   }
 
   toJSON(): Json {

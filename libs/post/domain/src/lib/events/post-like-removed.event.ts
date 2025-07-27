@@ -5,7 +5,7 @@ import { EventTypes } from '@nx-ddd/jobs-events-domain';
 
 import { postLikeRemovedPropsSchema } from '../schemas/event.schemas';
 
-export class PostLikeRemoved
+export class PostLikeRemovedEvent
   extends Validated(postLikeRemovedPropsSchema)
   implements IEvent
 {

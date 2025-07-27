@@ -17,22 +17,28 @@
       "path": "../../user/infrastructure/tsconfig.lib.json"
     },
     {
-      "path": "../../database/application/tsconfig.lib.json"
+      "path": "../../shared/infrastructure/tsconfig.lib.json"
+    },
+    {
+      "path": "../../shared/domain/tsconfig.lib.json"
     },
     {
       "path": "../presentation/tsconfig.lib.json"
     },
     {
-      "path": "../application/tsconfig.lib.json"
+      "path": "../domain/tsconfig.lib.json"
     },
     {
-      "path": "../domain/tsconfig.lib.json"
+      "path": "../application/tsconfig.lib.json"
     },
     {
       "path": "../../database/infrastructure/tsconfig.lib.json"
     },
     {
-      "path": "../../shared/domain/tsconfig.lib.json"
+      "path": "../../database/application/tsconfig.lib.json"
+    },
+    {
+      "path": "../../auth/domain/tsconfig.lib.json"
     }
   ],
   "exclude": [

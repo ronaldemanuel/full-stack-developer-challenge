@@ -22,6 +22,7 @@ export function PostEntityMockFactory(
     () => {
       return {
         owner: relationOverrides.owner ?? mockOwner,
+        likes: relationOverrides.likes ?? [],
       };
     },
     id,

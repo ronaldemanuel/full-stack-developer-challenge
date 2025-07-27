@@ -10,7 +10,11 @@ import type { DrizzleDB, DrizzleTX } from '@nx-ddd/database-infrastructure';
 import type { DrizzleTestDB } from '@nx-ddd/database-infrastructure/drizzle/operators';
 import type { UserRepositoryPostRef } from '@nx-ddd/post-domain';
 import { getDatabaseTransactionToken } from '@nx-ddd/database-application';
-import { DatabaseModule, DRIZZLE_TOKEN } from '@nx-ddd/database-infrastructure';
+import {
+  DatabaseModule,
+  DatabaseService,
+  DRIZZLE_TOKEN,
+} from '@nx-ddd/database-infrastructure';
 import {
   eq,
   setupDrizzleTestDB,
@@ -34,12 +38,15 @@ describe('PostDrizzleRepository', () => {
   let drizzleTestDB: DrizzleTestDB;
   let testModule: TestingModule;
   let postDrizzleRepository: PostRepository.Repository;
+  let databaseService: DatabaseService.Service;
 
   beforeAll(async () => {
     drizzleTestDB = await setupDrizzleTestDB();
+  });
 
+  beforeEach(async () => {
     testModule = await Test.createTestingModule({
-      imports: [DatabaseModule.forDrizzleTest(drizzleTestDB.db), UserModule],
+      imports: [DatabaseModule.forDrizzleTest(drizzleTestDB), UserModule],
       providers: [
         {
           provide: PostRepository.TOKEN,
@@ -54,14 +61,14 @@ describe('PostDrizzleRepository', () => {
     postDrizzleRepository = testModule.get<PostRepository.Repository>(
       PostRepository.TOKEN,
     );
-  });
-
-  beforeEach(async () => {
-    await drizzleTestDB.cleanTables();
+    databaseService = testModule.get<DatabaseService.Service>(
+      DatabaseService.TOKEN,
+    );
+    await databaseService.cleanTables();
   });
 
   afterAll(async () => {
-    await drizzleTestDB.teardown();
+    await databaseService.teardown();
     await testModule.close();
   });
 
@@ -287,6 +294,101 @@ describe('PostDrizzleRepository', () => {
     });
   });
 
+  describe('update', () => {
+    it('should update a post', async () => {
+      // Arrange
+      const userEntity = UserPostEntityRefFactory();
+      const postEntity = PostEntityMockFactory(
+        { ownerId: userEntity.id },
+        { owner: userEntity },
+      );
+
+      // Insert the user first
+      await drizzleTestDB.db.insert(userSchema).values({
+        ...userEntity.toJSON(),
+      });
+
+      await drizzleTestDB.db.insert(postSchema).values({
+        ...postEntity.toJSON(),
+        onwerId: userEntity.id,
+      });
+
+      // Update the post entity
+      const updatedTitle = 'Updated Title';
+      const updatedContent = 'Updated Content';
+      postEntity.update({ title: updatedTitle, content: updatedContent });
+
+      // Act
+      await postDrizzleRepository.update(postEntity);
+
+      // Assert
+      const updatedPost = await drizzleTestDB.db.query.post.findFirst({
+        where: eq(postSchema.id, postEntity.id),
+      });
+
+      expect(updatedPost).toBeDefined();
+      expect(updatedPost?.title).toBe(updatedTitle);
+      expect(updatedPost?.content).toBe(updatedContent);
+    });
+
+    it('should save user likes when updating a post with userRepository defined', async () => {
+      // Arrange
+      const mockUserRepository = {} as UserRepositoryPostRef.Repository;
+      (
+        postDrizzleRepository as unknown as {
+          userRepository: UserRepositoryPostRef.Repository;
+        }
+      ).userRepository = mockUserRepository;
+
+      const userEntity = UserPostEntityRefFactory();
+      const postEntity = PostEntityMockFactory(
+        { ownerId: userEntity.id },
+        { owner: userEntity },
+      );
+
+      // Insert the user first
+      await drizzleTestDB.db.insert(userSchema).values({
+        ...userEntity.toJSON(),
+      });
+
+      await drizzleTestDB.db.insert(postSchema).values({
+        ...postEntity.toJSON(),
+        onwerId: userEntity.id,
+      });
+
+      // Create a like entity that will be added
+      const likeEntity = userEntity.togglePostLike(postEntity)!;
+      // Add to user's likes
+      vi.spyOn(
+        userEntity.$watchedRelations.likes,
+        'getNewItems',
+      ).mockReturnValue([likeEntity]);
+
+      // Update the post entity
+      postEntity.update({ title: 'Updated With Likes' });
+
+      // Act
+      await postDrizzleRepository.update(postEntity);
+
+      // Assert
+      const updatedPost = await drizzleTestDB.db.query.post.findFirst({
+        where: eq(postSchema.id, postEntity.id),
+      });
+
+      expect(updatedPost).toBeDefined();
+      expect(updatedPost?.title).toBe('Updated With Likes');
+
+      // Check that the like was inserted into the database
+      const likeResults = await drizzleTestDB.db.query.like.findMany({
+        where: eq(likeSchema.userId, userEntity.id),
+      });
+
+      expect(likeResults).toHaveLength(1);
+      expect(likeResults[0].postId).toBe(postEntity.id);
+      expect(likeResults[0].userId).toBe(userEntity.id);
+    });
+  });
+
   describe('saveUser', () => {
     it('should throw error when userRepository is not defined', async () => {
       // Arrange
@@ -301,7 +403,11 @@ describe('PostDrizzleRepository', () => {
     it('should save user likes', async () => {
       // Arrange - Create a mock UserRepositoryPostRef
       const mockUserRepository = {} as UserRepositoryPostRef.Repository;
-      (postDrizzleRepository as any).userRepository = mockUserRepository;
+      (
+        postDrizzleRepository as unknown as {
+          userRepository: UserRepositoryPostRef.Repository;
+        }
+      ).userRepository = mockUserRepository;
 
       const userEntity = UserPostEntityRefFactory();
       const postEntity = PostEntityMockFactory(
@@ -344,7 +450,11 @@ describe('PostDrizzleRepository', () => {
     it('should remove user likes', async () => {
       // Arrange - Create a mock UserRepositoryPostRef
       const mockUserRepository = {} as UserRepositoryPostRef.Repository;
-      (postDrizzleRepository as any).userRepository = mockUserRepository;
+      (
+        postDrizzleRepository as unknown as {
+          userRepository: UserRepositoryPostRef.Repository;
+        }
+      ).userRepository = mockUserRepository;
 
       const userEntity = UserPostEntityRefFactory();
       const postEntity = PostEntityMockFactory(

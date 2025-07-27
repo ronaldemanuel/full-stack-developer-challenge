@@ -7,7 +7,8 @@
     "live:dev": "NX_TUI=false sst dev --stage development",
     "live:staging": "NX_TUI=false sst dev --stage staging",
     "live:production": "NX_TUI=false sst dev --stage production",
-    "typecheck:workspace": "nx run-many --target typecheck --all"
+    "typecheck:workspace": "nx run-many --target typecheck --all",
+    "tc": "nx run-many --target typecheck --all"
   },
   "nx": {
     "name": "root",

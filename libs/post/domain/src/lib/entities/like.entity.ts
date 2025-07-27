@@ -1,4 +1,4 @@
-import { Entity } from '@nx-ddd/shared-domain';
+import { Entity, RelationshipNotLoadedError } from '@nx-ddd/shared-domain';
 
 import type { LikeProps } from '../schemas/entity.schemas';
 import type { PostEntity } from './post.entity';
@@ -9,7 +9,6 @@ interface LikeEntityRelations {
   post: PostEntity;
 }
 
-// @ts-expect-error: Expect error because of overriding the create method
 export class LikeEntity extends Entity<LikeProps> {
   private $relations: () => LikeEntityRelations;
 
@@ -30,21 +29,37 @@ export class LikeEntity extends Entity<LikeProps> {
     return this.$relations().post;
   }
 
+  static override create(props: LikeProps): LikeEntity;
+  static override create(user: UserEntityPostRef, post: PostEntity): LikeEntity;
+
   static override create(
-    user: UserEntityPostRef,
-    post: PostEntity,
+    userOrProps: UserEntityPostRef | LikeProps,
+    post?: PostEntity,
   ): LikeEntity {
-    return new LikeEntity(
-      {
-        userId: user.id,
-        postId: post.id,
-      },
-      () => {
-        return {
-          user,
-          post,
-        };
-      },
-    );
+    if (post) {
+      const user = userOrProps as UserEntityPostRef;
+      return new LikeEntity(
+        {
+          userId: user.id,
+          postId: post.id,
+        },
+        () => {
+          return {
+            user,
+            post,
+          };
+        },
+        `${user.id}-${post.id}`,
+      );
+    } else {
+      const props = userOrProps as LikeProps;
+      return new LikeEntity(
+        props,
+        () => {
+          throw new RelationshipNotLoadedError('Relations not provided');
+        },
+        `${props.userId}-${props.postId}`,
+      );
+    }
   }
 }

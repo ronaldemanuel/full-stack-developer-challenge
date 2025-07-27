@@ -12,7 +12,7 @@ export const env = createEnv({
     AUTH_GOOGLE_ID: z.string().min(1).optional(),
     AUTH_GOOGLE_SECRET: z.string().min(1).optional(),
     BASE_URL: z.string().min(1),
-    NODE_ENV: z.enum(['development', 'production']).optional(),
+    NODE_ENV: z.enum(['development', 'production', 'test']).optional(),
     CORS_ALLOWED_ORIGINS: z
       .string()
       .optional()

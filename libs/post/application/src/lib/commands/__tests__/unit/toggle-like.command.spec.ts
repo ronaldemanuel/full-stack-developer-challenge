@@ -98,8 +98,8 @@ describe('ToggleLikeCommand', () => {
     const mockPost = PostEntityMockFactory();
 
     // Create spies on the user methods
-    const toggleLikeSpy = vi.spyOn(mockUser, 'toggleLike');
-    vi.spyOn(mockUser, 'commit');
+    const toggleLikeSpy = vi.spyOn(mockUser, 'togglePostLike');
+    vi.spyOn(mockPost, 'commit');
 
     // Mock repository methods
     vi.spyOn(userRepository, 'findById').mockResolvedValue(mockUser);
@@ -110,7 +110,7 @@ describe('ToggleLikeCommand', () => {
       return mockPost as any;
     });
 
-    vi.spyOn(postRepository, 'saveUser').mockResolvedValue(undefined);
+    vi.spyOn(postRepository, 'update').mockResolvedValue(undefined);
 
     const command = ToggleLikeCommand.create({
       userId: mockUser.id,
@@ -128,7 +128,7 @@ describe('ToggleLikeCommand', () => {
         id: mockPost.id,
       }),
     );
-    expect(postRepository.saveUser).toHaveBeenCalledWith(mockUser);
-    expect(mockUser.commit).toHaveBeenCalled();
+    expect(postRepository.update).toHaveBeenCalledWith(mockPost);
+    expect(mockPost.commit).toHaveBeenCalled();
   });
 });

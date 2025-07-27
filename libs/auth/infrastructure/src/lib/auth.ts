@@ -15,6 +15,7 @@ export const auth: any = initAuth(
     githubClientSecret: '',
     googleClientId: '',
     googleClientSecret: '',
+    allowedOrigins: [],
   },
   drizzleAdapter(db, {
     provider: 'pg',

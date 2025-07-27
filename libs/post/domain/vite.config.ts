@@ -8,6 +8,9 @@ export default defineConfig(() => ({
   // worker: {
   //  plugins: [ nxViteTsPaths() ],
   // },
+  esbuild: {
+    keepNames: true,
+  },
   test: {
     watch: false,
     globals: true,

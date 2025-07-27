@@ -12,7 +12,6 @@ import { createPostInputSchema } from '../schemas/commands';
 export namespace CreatePostCommand {
   export type Input = CreatePostInput;
   export type Output = void;
-
   class CreatePostCommand extends Validated(createPostInputSchema) {
     user: UserEntityPostRef;
     constructor(data: Input, user: UserEntityPostRef) {

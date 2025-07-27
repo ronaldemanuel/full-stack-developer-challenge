@@ -8,7 +8,7 @@ import { UserModule } from '@nx-ddd/user-infrastructure';
 import { AppService } from './services/app.service';
 
 @Module({
-  imports: [SharedModule, EmailModule, UserModule, PostModule],
+  imports: [SharedModule.forRoot(), EmailModule, UserModule, PostModule],
   providers: [AppService],
 })
 export class AppModule {}

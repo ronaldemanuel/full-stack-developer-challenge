@@ -21,7 +21,6 @@ import {
   SendVerificationEmailUseCase,
 } from '@nx-ddd/auth-application';
 
-import { env } from '../../../env';
 import { BETTER_AUTH_DATABASE_ADAPTER_TOKEN } from './better-auth-database-adapter.factory';
 
 export const BETTER_AUTH_TOKEN = 'BETTER_AUTH';
@@ -35,6 +34,7 @@ export interface BetterAuthConfig {
   googleClientSecret: string | undefined;
   githubClientId: string | undefined;
   githubClientSecret: string | undefined;
+  allowedOrigins: string[];
 }
 
 export function initAuth(
@@ -47,6 +47,7 @@ export function initAuth(
   sendOTPEmailUseCase: SendOTPEmailUseCase.UseCase,
 ): ReturnType<typeof betterAuth> {
   return betterAuth({
+    baseURL: config.baseUrl,
     appName: 'Better Auth',
     database: adapter,
     emailVerification: {
@@ -145,7 +146,7 @@ export function initAuth(
         enabled: true,
       },
     },
-    trustedOrigins: [...env.CORS_ALLOWED_ORIGINS],
+    trustedOrigins: config.allowedOrigins,
   });
 }
 

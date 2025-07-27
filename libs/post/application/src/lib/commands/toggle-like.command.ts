@@ -48,11 +48,11 @@ export namespace ToggleLikeCommand {
         await this.postRepository.findById(command.postId),
       );
 
-      user.toggleLike(post);
+      user.togglePostLike(post);
 
       // Saves the user applying the cascaded changes
-      await this.postRepository.saveUser(user);
-      user.commit();
+      await this.postRepository.update(post);
+      post.commit();
     }
   }
 }
