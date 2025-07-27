@@ -60,7 +60,8 @@
       "plugin": "@nx/jest/plugin",
       "options": {
         "targetName": "test"
-      }
+      },
+      "exclude": ["apps/events-processor-e2e/**/*"]
     },
     {
       "plugin": "@nx/vite/plugin",

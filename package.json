@@ -10,6 +10,10 @@
   },
   "nx": {
     "name": "root",
+    "implicitDependencies": [
+      "web",
+      "events-processor"
+    ],
     "targets": {
       "deploy": {
         "executor": "nx:run-commands",
@@ -140,6 +144,7 @@
     "@react-email/components": "catalog:",
     "@t3-oss/env-nextjs": "catalog:zod3",
     "@trpc/server": "catalog:trpc",
+    "axios": "^1.6.0",
     "better-auth": "catalog:auth",
     "cache-manager": "catalog:",
     "class-variance-authority": "catalog:",
