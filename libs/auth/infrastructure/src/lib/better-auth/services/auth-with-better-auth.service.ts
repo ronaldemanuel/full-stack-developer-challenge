@@ -6,8 +6,8 @@ import type {
   Session,
 } from '@nx-ddd/auth-domain';
 
-import type { BetterAuth } from '../factories/better-auth.factory.js';
-import { BETTER_AUTH_TOKEN } from '../factories/better-auth.factory.js';
+import type { BetterAuth } from '../factories/better-auth.factory';
+import { BETTER_AUTH_TOKEN } from '../factories/better-auth.factory';
 
 @Injectable()
 export class AuthWithBetterAuthService implements AuthService.Service {

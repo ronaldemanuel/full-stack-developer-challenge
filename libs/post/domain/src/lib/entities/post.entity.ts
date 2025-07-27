@@ -1,9 +1,9 @@
 import { Entity, ZodEntity } from '@nx-ddd/shared-domain';
 
-import type { PostProps } from '../schemas/entity.schemas.js';
-import type { UserEntityPostRef } from './refs/user-entity-post.ref.js';
-import { PostCreatedEvent } from '../events/post-created.event.js';
-import { postPropsSchema } from '../schemas/entity.schemas.js';
+import type { PostProps } from '../schemas/entity.schemas';
+import type { UserEntityPostRef } from './refs/user-entity-post.ref';
+import { PostCreatedEvent } from '../events/post-created.event';
+import { postPropsSchema } from '../schemas/entity.schemas';
 
 export interface PostRelations {
   owner: UserEntityPostRef;

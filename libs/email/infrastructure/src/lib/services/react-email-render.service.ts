@@ -5,7 +5,7 @@ import type {
   SendEmailPayload,
 } from '@nx-ddd/email-domain';
 
-import { env } from '../../env.mjs';
+import { env } from '../../env';
 import { InvitationEmailTemplate } from '../data-objects/invitation-email-template';
 import { MagicLinkEmailTemplate } from '../data-objects/magic-link-email-template';
 import { OTPEmailTemplate } from '../data-objects/otp-email-template';

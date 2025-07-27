@@ -6,19 +6,15 @@ import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
-import type {
-  DrizzleDB,
-  DrizzleTestDB,
-  DrizzleTX,
-} from '@nx-ddd/database-infrastructure';
+import type { DrizzleDB, DrizzleTX } from '@nx-ddd/database-infrastructure';
+import type { DrizzleTestDB } from '@nx-ddd/database-infrastructure/drizzle/operators';
 import type { UserRepositoryPostRef } from '@nx-ddd/post-domain';
 import { getDatabaseTransactionToken } from '@nx-ddd/database-application';
+import { DatabaseModule, DRIZZLE_TOKEN } from '@nx-ddd/database-infrastructure';
 import {
-  DatabaseModule,
-  DRIZZLE_TOKEN,
   eq,
   setupDrizzleTestDB,
-} from '@nx-ddd/database-infrastructure';
+} from '@nx-ddd/database-infrastructure/drizzle/operators';
 import {
   like as likeSchema,
   post as postSchema,
@@ -32,7 +28,7 @@ import {
 } from '@nx-ddd/post-domain';
 import { UserModule } from '@nx-ddd/user-infrastructure';
 
-import { PostDrizzleRepository } from '../../post-drizzle.repository.js';
+import { PostDrizzleRepository } from '../../post-drizzle.repository';
 
 describe('PostDrizzleRepository', () => {
   let drizzleTestDB: DrizzleTestDB;

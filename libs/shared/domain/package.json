@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "shared-domain",
-    "sourceRoot": "libs/shared/domain/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,18 +27,16 @@
           "outputPath": "libs/shared/domain/dist",
           "main": "libs/shared/domain/src/index.ts",
           "tsConfig": "libs/shared/domain/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
-    "@nestjs/common": "catalog:",
-    "@nestjs/cqrs": "catalog:",
-    "uuid": "^11.1.0",
-    "zod": "catalog:",
-    "@swc/helpers": "~0.5.11",
-    "sst": "3.17.10"
+    "zod": "catalog:zod3",
+    "@nestjs/common": "catalog:nestjs",
+    "@nestjs/cqrs": "catalog:nestjs",
+    "uuid": "catalog:",
+    "@swc/helpers": "~0.5.11"
   }
 }

@@ -1,13 +1,14 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist",
     "lib": ["dom", "es2022"],
+    "outDir": "dist",
     "types": [
       "node",
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts",
-      "vite/client"
+      "next",
+      "@nx/next/typings/image.d.ts"
     ],
     "rootDir": "src",
     "jsx": "react-jsx",

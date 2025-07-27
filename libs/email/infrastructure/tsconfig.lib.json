@@ -5,8 +5,7 @@
     "types": [
       "node",
       "@nx/react/typings/cssmodule.d.ts",
-      "@nx/react/typings/image.d.ts",
-      "vite/client"
+      "@nx/react/typings/image.d.ts"
     ],
     "rootDir": "src",
     "jsx": "react-jsx",
@@ -35,27 +34,18 @@
     "src/**/*.test.js",
     "src/**/*.spec.js",
     "src/**/*.test.jsx",
-    "src/**/*.spec.jsx",
-    "eslint.config.js",
-    "eslint.config.cjs",
-    "eslint.config.mjs"
+    "src/**/*.spec.jsx"
   ],
-  "include": [
-    "src/**/*.js",
-    "src/**/*.jsx",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/env.mjs"
-  ],
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
       "path": "../../shared/domain/tsconfig.lib.json"
     },
     {
-      "path": "../application/tsconfig.lib.json"
+      "path": "../domain/tsconfig.lib.json"
     },
     {
-      "path": "../domain/tsconfig.lib.json"
+      "path": "../application/tsconfig.lib.json"
     }
   ]
 }

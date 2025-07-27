@@ -1,11 +1,11 @@
-import type { Entity } from '../entities/entity.js';
-import type { IRepository } from './repository.contracts.js';
+import type { Entity } from '../entities/entity';
+import type { IRepository } from './repository.contracts';
 import type {
   ISearchable,
   SearchParams,
-} from './searchable-repository.contracts.js';
-import { InMemoryRepository } from './in-memory.repository.js';
-import { SearchResult } from './searchable-repository.contracts.js';
+} from './searchable-repository.contracts';
+import { InMemoryRepository } from './in-memory.repository';
+import { SearchResult } from './searchable-repository.contracts';
 
 export abstract class InMemorySearchableRepository<E extends Entity>
   extends InMemoryRepository<E>

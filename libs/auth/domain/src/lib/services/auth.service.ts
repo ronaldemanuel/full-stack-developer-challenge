@@ -1,5 +1,5 @@
-import type { ActiveOrganization } from '../schemas/active-organization.schema.js';
-import type { Session } from '../schemas/session.schema.js';
+import type { ActiveOrganization } from '../schemas/active-organization.schema';
+import type { Session } from '../schemas/session.schema';
 
 export namespace AuthService {
   export const TOKEN = 'AUTH';

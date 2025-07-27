@@ -1,2 +1,2 @@
-export * from './post-entity-mock.factory.js';
-export * from './user-post-entity-ref.factory.js';
+export * from './post-entity-mock.factory';
+export * from './user-post-entity-ref.factory';

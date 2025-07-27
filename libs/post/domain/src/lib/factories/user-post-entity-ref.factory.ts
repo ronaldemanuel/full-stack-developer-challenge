@@ -1,8 +1,8 @@
 import type { UserProps } from '@nx-ddd/user-domain';
 import { UserEntityMockFactory } from '@nx-ddd/user-domain';
 
-import type { UserPostRefRelations } from '../entities/index.js';
-import { UserEntityPostRef } from '../entities/index.js';
+import type { UserPostRefRelations } from '../entities/index';
+import { UserEntityPostRef } from '../entities/index';
 
 export function UserPostEntityRefFactory(
   overrides: Partial<UserProps> = {},

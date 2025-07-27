@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { Entity } from '../entities/entity.js';
-import type { SearchParamsProps } from '../schemas/search.js';
-import type { SearchResultProps, SortDirection } from '../schemas/sort.js';
-import type { IRepository } from './repository.contracts.js';
+import type { Entity } from '../entities/entity';
+import type { SearchParamsProps } from '../schemas/search';
+import type { SearchResultProps, SortDirection } from '../schemas/sort';
+import type { IRepository } from './repository.contracts';
 
 export class SearchParams<Filter = string> {
   protected _page!: number;

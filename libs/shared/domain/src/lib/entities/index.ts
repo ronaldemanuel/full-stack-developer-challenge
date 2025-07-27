@@ -1,2 +1,2 @@
-export * from './entity.js';
-export * from './watched-list.js';
+export * from './entity';
+export * from './watched-list';

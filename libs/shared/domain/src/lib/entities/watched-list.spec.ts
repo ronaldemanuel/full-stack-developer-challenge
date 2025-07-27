@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { Entity } from './entity.js';
-import { WatchedList } from './watched-list.js';
+import { Entity } from './entity';
+import { WatchedList } from './watched-list';
 
 class TestEntity extends Entity<object> {}
 

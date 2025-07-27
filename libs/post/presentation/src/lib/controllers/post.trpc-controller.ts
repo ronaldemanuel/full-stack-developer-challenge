@@ -22,7 +22,7 @@ import {
   publicProcedure,
 } from '@nx-ddd/shared-presentation';
 
-import { getPostByIdPresentationOutputSchema } from '../schemas/output.js';
+import { getPostByIdPresentationOutputSchema } from '../schemas/output';
 
 export class PostTrpcController {
   @Inject(CreatePostUseCase.UseCase)

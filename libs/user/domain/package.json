@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "user-domain",
-    "sourceRoot": "libs/user/domain/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,7 +27,6 @@
           "outputPath": "libs/user/domain/dist",
           "main": "libs/user/domain/src/index.ts",
           "tsConfig": "libs/user/domain/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
@@ -36,6 +34,10 @@
   },
   "dependencies": {
     "@nx-ddd/shared-domain": "workspace:*",
-    "@swc/helpers": "~0.5.11"
+    "@swc/helpers": "~0.5.11",
+    "zod": "catalog:zod3"
+  },
+  "devDependencies": {
+    "@anatine/zod-mock": "catalog:zod3"
   }
 }

@@ -6,8 +6,6 @@
     "outDir": "dist",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": true,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },
@@ -15,9 +13,6 @@
   "references": [
     {
       "path": "../../jobs/events/domain/tsconfig.lib.json"
-    },
-    {
-      "path": "../../shared/domain/tsconfig.lib.json"
     }
   ],
   "exclude": [

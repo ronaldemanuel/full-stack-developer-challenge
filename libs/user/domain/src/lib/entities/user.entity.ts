@@ -1,6 +1,6 @@
 import { Entity } from '@nx-ddd/shared-domain';
 
-import type { UserProps } from '../schemas/user.schema.js';
+import type { UserProps } from '../schemas/user.schema';
 
 export class UserEntity extends Entity<UserProps> {
   get email(): string {

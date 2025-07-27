@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "email-application",
-    "sourceRoot": "libs/email/application/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,19 +27,16 @@
           "outputPath": "libs/email/application/dist",
           "main": "libs/email/application/src/index.ts",
           "tsConfig": "libs/email/application/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
-    "@nestjs-modules/mailer": "^2.0.2",
+    "@nestjs-modules/mailer": "catalog:nestjs",
     "@nx-ddd/email-domain": "workspace:*",
-    "@swc/helpers": "~0.5.11",
-    "nodemailer": "^7.0.5"
-  },
-  "devDependencies": {
-    "@types/nodemailer": "^6.4.17"
+    "@nestjs/cqrs": "catalog:nestjs",
+    "@nestjs/common": "catalog:nestjs",
+    "@swc/helpers": "~0.5.11"
   }
 }

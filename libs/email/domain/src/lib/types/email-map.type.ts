@@ -1,5 +1,5 @@
-import type { AbstractEmailTemplate } from '../data-objects/email-template.js';
-import type { EmailTypes } from '../schemas/send-email.schema.js';
+import type { AbstractEmailTemplate } from '../data-objects/email-template';
+import type { EmailTypes } from '../schemas/send-email.schema';
 
 export type EmailMap = {
   [K in EmailTypes]: AbstractEmailTemplate<K>;

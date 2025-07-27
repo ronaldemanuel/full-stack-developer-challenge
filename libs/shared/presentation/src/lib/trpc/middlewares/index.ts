@@ -1,1 +1,1 @@
-export * from './timing.middleware.js';
+export * from './timing.middleware';

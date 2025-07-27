@@ -10,9 +10,6 @@
       "path": "../../auth/domain"
     },
     {
-      "path": "../domain"
-    },
-    {
       "path": "./tsconfig.lib.json"
     },
     {

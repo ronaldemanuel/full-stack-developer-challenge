@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "database-application",
-    "sourceRoot": "libs/database/application/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,7 +27,6 @@
           "outputPath": "libs/database/application/dist",
           "main": "libs/database/application/src/index.ts",
           "tsConfig": "libs/database/application/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }

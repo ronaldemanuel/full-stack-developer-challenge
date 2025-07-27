@@ -7,9 +7,6 @@
       "path": "../../database/infrastructure"
     },
     {
-      "path": "../../user/domain"
-    },
-    {
       "path": "../domain"
     },
     {

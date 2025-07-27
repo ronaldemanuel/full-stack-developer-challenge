@@ -17,10 +17,9 @@
   },
   "nx": {
     "name": "email-domain",
-    "sourceRoot": "libs/email/domain/src",
     "targets": {
       "build": {
-        "executor": "@nx/js:swc",
+        "executor": "@nx/esbuild:esbuild",
         "outputs": [
           "{options.outputPath}"
         ],
@@ -28,19 +27,20 @@
           "outputPath": "libs/email/domain/dist",
           "main": "libs/email/domain/src/index.ts",
           "tsConfig": "libs/email/domain/tsconfig.lib.json",
-          "skipTypeCheck": true,
-          "stripLeadingPaths": true
+          "format": [
+            "esm"
+          ],
+          "esbuildOptions": {
+            "keepNames": true
+          },
+          "declarationRootDir": "libs/email/domain/src"
         }
       }
     }
   },
   "dependencies": {
-    "@swc/helpers": "~0.5.11",
-    "@nx-ddd/shared-domain": "workspace:*",
-    "@nx-ddd/job-events-domain": "workspace:*",
-    "zod": "catalog:"
-  },
-  "devDependencies": {
-    "@nestjs-modules/mailer": "^2.0.2"
+    "@nx-ddd/jobs-events-domain": "workspace:*",
+    "zod": "catalog:zod3",
+    "@nestjs-modules/mailer": "catalog:nestjs"
   }
 }

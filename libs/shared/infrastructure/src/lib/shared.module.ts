@@ -5,13 +5,11 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { CacheableMemory } from 'cacheable';
 
 import { AuthModule } from '@nx-ddd/auth-infrastructure';
-import {
-  DatabaseModule
-} from '@nx-ddd/database-infrastructure';
+import { DatabaseModule } from '@nx-ddd/database-infrastructure';
 import { HashService } from '@nx-ddd/shared-domain';
 
-import { CacheableModule } from './cache/cacheable.module.js';
-import { BCryptHashService } from './hash/services/bcrypt-hash.service.js';
+import { CacheableModule } from './cache/cacheable.module';
+import { BCryptHashService } from './hash/services/bcrypt-hash.service';
 
 @Global()
 @Module({

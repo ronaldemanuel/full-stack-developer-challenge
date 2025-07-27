@@ -6,11 +6,8 @@ import { Validated } from 'validated-extendable';
 import type { UserEntityPostRef } from '@nx-ddd/post-domain';
 import { PostRepository } from '@nx-ddd/post-domain';
 
-import type {
-  GetPostByIdInput,
-  GetPostByIdOutput,
-} from '../schemas/queries.js';
-import { getPostByIdInputSchema } from '../schemas/queries.js';
+import type { GetPostByIdInput, GetPostByIdOutput } from '../schemas/queries';
+import { getPostByIdInputSchema } from '../schemas/queries';
 
 export namespace GetPostByIdQuery {
   export type Input = GetPostByIdInput;

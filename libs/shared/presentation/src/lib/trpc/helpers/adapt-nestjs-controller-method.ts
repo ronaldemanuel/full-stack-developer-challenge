@@ -2,7 +2,7 @@ import type { INestApplicationContext, Type } from '@nestjs/common';
 import type { ProcedureResolverOptions } from '@trpc/server/unstable-core-do-not-import';
 import { ContextIdFactory } from '@nestjs/core';
 
-import { createNestjsTrpcHandler } from './create-nestjs-trpc-handler.js';
+import { createNestjsTrpcHandler } from './create-nestjs-trpc-handler';
 
 export interface NestResolver<T extends Type<Record<string, any>>> {
   adaptMethod: <

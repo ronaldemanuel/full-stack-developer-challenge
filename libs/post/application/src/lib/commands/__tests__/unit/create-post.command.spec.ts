@@ -14,7 +14,7 @@ import {
   UserRepositoryPostRef,
 } from '@nx-ddd/post-domain';
 
-import { CreatePostCommand } from '../../create-post.command.js';
+import { CreatePostCommand } from '../../create-post.command';
 
 describe('CreatePostCommand', () => {
   let createPostCommand: CreatePostCommand.Handler;

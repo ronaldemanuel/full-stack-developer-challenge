@@ -1,6 +1,6 @@
 import z from 'zod';
 
-import { postSchema } from './entity.schemas.js';
+import { postSchema } from './entity.schemas';
 
 export const postCreatedEventPropsSchema = postSchema;
 

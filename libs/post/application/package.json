@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "post-application",
-    "sourceRoot": "libs/post/application/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,17 +27,23 @@
           "outputPath": "libs/post/application/dist",
           "main": "libs/post/application/src/index.ts",
           "tsConfig": "libs/post/application/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
-    "@swc/helpers": "~0.5.11",
+    "@nestjs/common": "catalog:nestjs",
+    "@nestjs/cqrs": "catalog:nestjs",
+    "@nx-ddd/database-application": "workspace:*",
     "@nx-ddd/post-domain": "workspace:*",
     "@nx-ddd/shared-application": "workspace:*",
-    "@nx-ddd/database-application": "workspace:*",
-    "@nx-ddd/shared-domain": "workspace:*"
+    "@nx-ddd/shared-domain": "workspace:*",
+    "@swc/helpers": "~0.5.11",
+    "validated-extendable": "catalog:",
+    "zod": "catalog:zod3"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "catalog:nestjs"
   }
 }

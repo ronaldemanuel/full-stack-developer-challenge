@@ -1,7 +1,5 @@
 import type { FactoryProvider } from '@nestjs/common';
 import type { Adapter } from 'better-auth';
-import { env } from '@/env.mjs';
-// import { expo } from '@better-auth/expo';
 import { betterAuth } from 'better-auth';
 import { nextCookies } from 'better-auth/next-js';
 import {
@@ -22,7 +20,8 @@ import {
   SendVerificationEmailUseCase,
 } from '@nx-ddd/auth-application';
 
-import { BETTER_AUTH_DATABASE_ADAPTER_TOKEN } from './better-auth-database-adapter.factory.js';
+import { env } from '../../../env';
+import { BETTER_AUTH_DATABASE_ADAPTER_TOKEN } from './better-auth-database-adapter.factory';
 
 export const BETTER_AUTH_TOKEN = 'BETTER_AUTH';
 export const BETTER_AUTH_CONFIG_TOKEN = 'BETTER_AUTH_CONFIG';
@@ -37,7 +36,7 @@ export interface BetterAuthConfig {
   githubClientSecret: string | undefined;
 }
 
-export const initAuth = (
+export function initAuth(
   config: BetterAuthConfig,
   adapter: Adapter,
   sendVerificationEmailUseCase: SendVerificationEmailUseCase.UseCase,
@@ -45,7 +44,7 @@ export const initAuth = (
   sendMagicLinkEmailUseCase: SendMagicLinkUseCase.UseCase,
   sendInvitationEmailUseCase: SendInvitationEmailUseCase.UseCase,
   sendOTPEmailUseCase: SendOTPEmailUseCase.UseCase,
-) => {
+): ReturnType<typeof betterAuth> {
   return betterAuth({
     appName: 'Better Auth',
     database: adapter,
@@ -93,10 +92,9 @@ export const initAuth = (
       },
     },
     plugins: [
-      // expo() as any,
       organization({
         async sendInvitationEmail(data) {
-          sendInvitationEmailUseCase.execute({
+          await sendInvitationEmailUseCase.execute({
             email: data.email,
             username: data.email,
             invitedByUsername: data.inviter.user.name,
@@ -147,9 +145,16 @@ export const initAuth = (
     },
     trustedOrigins: [...env.CORS_ALLOWED_ORIGINS],
   });
-};
+}
 
-export type BetterAuth = ReturnType<typeof initAuth>;
+export type BetterAuth = ReturnType<
+  typeof betterAuth<{
+    plugins: [
+      ReturnType<typeof organization<object>>,
+      ReturnType<typeof multiSession>,
+    ];
+  }>
+>;
 
 export const BetterAuthFactory: FactoryProvider = {
   provide: BETTER_AUTH_TOKEN,

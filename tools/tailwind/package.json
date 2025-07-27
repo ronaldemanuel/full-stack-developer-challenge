@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "tailwind",
-    "sourceRoot": "tools/tailwind/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,14 +27,14 @@
           "outputPath": "tools/tailwind/dist",
           "main": "tools/tailwind/src/index.ts",
           "tsConfig": "tools/tailwind/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
-    "@swc/helpers": "~0.5.11",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss": "catalog:tailwind3",
+    "tailwindcss-animate": "catalog:",
+    "@swc/helpers": "~0.5.11"
   }
 }

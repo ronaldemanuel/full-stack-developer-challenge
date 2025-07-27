@@ -1,8 +1,8 @@
 import { generateMock } from '@anatine/zod-mock';
 
-import type { UserProps } from '../schemas/user.schema.js';
-import { UserEntity } from '../entities/user.entity.js';
-import { userSchema } from '../schemas/user.schema.js';
+import type { UserProps } from '../schemas/user.schema';
+import { UserEntity } from '../entities/user.entity';
+import { userSchema } from '../schemas/user.schema';
 
 export function UserEntityMockFactory(
   overrides: Partial<UserProps> = {},

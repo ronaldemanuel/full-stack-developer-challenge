@@ -1,6 +1,6 @@
-import type { Entity } from '../entities/entity.js';
-import type { IRepository } from './repository.contracts.js';
-import { NotFoundError } from '../errors/not-found-error.js';
+import type { Entity } from '../entities/entity';
+import type { IRepository } from './repository.contracts';
+import { NotFoundError } from '../errors/not-found-error';
 
 export abstract class InMemoryRepository<E extends Entity>
   implements IRepository<E>

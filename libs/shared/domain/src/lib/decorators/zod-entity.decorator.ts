@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { z } from 'zod';
 
-import type { IEntity } from '../entities/entity.js';
+import type { IEntity } from '../entities/entity';
 
 export function ZodEntity<T extends z.ZodTypeAny>(schema: T) {
   type SchemaType = z.infer<T>;

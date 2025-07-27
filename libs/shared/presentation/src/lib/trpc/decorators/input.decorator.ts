@@ -1,4 +1,4 @@
-import { TRPCParamType } from '../enums/index.js';
-import { createTrpcParamDecorator } from '../utils/param-utils.js';
+import { TRPCParamType } from '../enums/index';
+import { createTrpcParamDecorator } from '../utils/param-utils';
 
 export const Input = createTrpcParamDecorator(TRPCParamType.INPUT);

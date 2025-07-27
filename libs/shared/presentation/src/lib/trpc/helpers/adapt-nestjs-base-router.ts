@@ -1,8 +1,8 @@
 import type { Type } from '@nestjs/common';
 import type { TRPCRouterRecord } from '@trpc/server';
 
-import type { NestjsTrpcRouter } from './create-nestjs-trpc-router.js';
-import { createTRPCRouter } from '../trpc.js';
+import type { NestjsTrpcRouter } from './create-nestjs-trpc-router';
+import { createTRPCRouter } from '../trpc';
 
 export function adaptNestjsBaseRouter<
   R extends Record<string, NestjsTrpcRouter>,

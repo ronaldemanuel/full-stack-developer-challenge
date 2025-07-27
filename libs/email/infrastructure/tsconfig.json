@@ -6,10 +6,10 @@
       "path": "../../shared/domain"
     },
     {
-      "path": "../application"
+      "path": "../domain"
     },
     {
-      "path": "../domain"
+      "path": "../application"
     },
     {
       "path": "./tsconfig.lib.json"

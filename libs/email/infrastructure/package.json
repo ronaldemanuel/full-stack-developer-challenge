@@ -8,27 +8,44 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "development": "./src/index.ts",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.cjs"
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts",
+      "development": "./src/index.ts"
     },
-    "./env": "./src/env.mjs"
+    "./env": {
+      "development": "./src/env.ts",
+      "types": "./dist/env.d.ts",
+      "import": "./dist/env.js",
+      "default": "./dist/env.js"
+    }
   },
   "nx": {
-    "name": "email-infrastructure"
+    "name": "email-infrastructure",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/email/infrastructure/dist",
+          "main": "libs/email/infrastructure/src/index.ts",
+          "tsConfig": "libs/email/infrastructure/tsconfig.lib.json",
+          "stripLeadingPaths": true
+        }
+      }
+    }
   },
   "dependencies": {
     "@aws-sdk/client-sesv2": "^3.849.0",
-    "@nestjs-modules/mailer": "^2.0.2",
     "@nx-ddd/email-application": "workspace:*",
     "@nx-ddd/email-domain": "workspace:*",
-    "@nx-ddd/shared-domain": "workspace:*"
+    "@nx-ddd/shared-domain": "workspace:*",
+    "@react-email/components": "catalog:",
+    "nodemailer": "^7.0.5"
   },
   "devDependencies": {
-    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
-    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
-    "@rollup/plugin-commonjs": "^28.0.6",
-    "rollup-plugin-polyfill-node": "^0.13.0",
-    "vite-plugin-node": "^7.0.0"
+    "@types/nodemailer": "^6.4.17"
   }
 }

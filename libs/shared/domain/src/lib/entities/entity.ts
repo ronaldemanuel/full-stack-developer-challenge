@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AggregateRoot } from '@nestjs/cqrs';
 import { v4 as uuidV4 } from 'uuid';
 

@@ -1,2 +1,2 @@
-export * from './app.constants.js';
-export * from './event-map.js';
+export * from './app.constants';
+export * from './event-map';

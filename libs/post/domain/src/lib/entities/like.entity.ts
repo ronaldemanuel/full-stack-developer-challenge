@@ -1,8 +1,8 @@
 import { Entity } from '@nx-ddd/shared-domain';
 
-import type { LikeProps } from '../schemas/entity.schemas.js';
-import type { PostEntity } from './post.entity.js';
-import type { UserEntityPostRef } from './refs/user-entity-post.ref.js';
+import type { LikeProps } from '../schemas/entity.schemas';
+import type { PostEntity } from './post.entity';
+import type { UserEntityPostRef } from './refs/user-entity-post.ref';
 
 interface LikeEntityRelations {
   user: UserEntityPostRef;

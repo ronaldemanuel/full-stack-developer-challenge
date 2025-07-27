@@ -12,7 +12,7 @@ import {
   PostRepository,
 } from '@nx-ddd/post-domain';
 
-import { DeletePostCommand } from '../../delete-post.command.js';
+import { DeletePostCommand } from '../../delete-post.command';
 
 describe('DeletePostCommand', () => {
   let deletePostCommand: DeletePostCommand.Handler;

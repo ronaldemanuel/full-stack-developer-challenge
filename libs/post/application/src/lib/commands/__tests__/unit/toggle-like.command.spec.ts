@@ -16,14 +16,13 @@ import { DATABASE_CONNECTION_NAME } from '@nx-ddd/database-application';
 import {
   PostEntityMockFactory,
   PostInMemoryRepository,
-  PostLikedAggregate,
   PostRepository,
   UserPostEntityRefFactory,
   UserPostRefInMemoryRepository,
   UserRepositoryPostRef,
 } from '@nx-ddd/post-domain';
 
-import { ToggleLikeCommand } from '../../toggle-like.command.js';
+import { ToggleLikeCommand } from '../../toggle-like.command';
 
 class StubAdapter implements TransactionalAdapter<any, any, any> {
   connectionToken?: any;

@@ -10,8 +10,8 @@ import {
   UserRepositoryPostRef,
 } from '@nx-ddd/post-domain';
 
-import type { ToggleLikeInput } from '../schemas/commands.js';
-import { toggleLikeInputSchema } from '../schemas/commands.js';
+import type { ToggleLikeInput } from '../schemas/commands';
+import { toggleLikeInputSchema } from '../schemas/commands';
 
 export namespace ToggleLikeCommand {
   export type Input = ToggleLikeInput;

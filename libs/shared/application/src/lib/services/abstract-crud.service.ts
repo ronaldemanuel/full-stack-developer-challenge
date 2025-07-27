@@ -4,7 +4,7 @@ import {
   type ISearchableRepository,
   type SearchParamsProps,
 } from '@nx-ddd/shared-domain';
-import { PaginationOutputMapper } from '../mappers/pagination-output.js';
+import { PaginationOutputMapper } from '../mappers/pagination-output';
 
 type MaybePromise<T> = T | Promise<T>;
 

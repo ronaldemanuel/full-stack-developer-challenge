@@ -1,1 +1,1 @@
-export * from './post.trpc-controller.js';
+export * from './post.trpc-controller';

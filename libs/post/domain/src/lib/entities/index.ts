@@ -1,3 +1,3 @@
-export * from './post.entity.js';
-export * from './refs/user-entity-post.ref.js';
-export * from './like.entity.js';
+export * from './post.entity';
+export * from './refs/user-entity-post.ref';
+export * from './like.entity';

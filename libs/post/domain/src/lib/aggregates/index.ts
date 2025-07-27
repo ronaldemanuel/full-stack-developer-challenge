@@ -1,1 +1,1 @@
-export * from './post-liked.aggregate.js';
+export * from './post-liked.aggregate';

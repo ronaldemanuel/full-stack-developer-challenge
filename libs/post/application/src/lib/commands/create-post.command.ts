@@ -6,8 +6,8 @@ import { Validated } from 'validated-extendable';
 import type { UserEntityPostRef } from '@nx-ddd/post-domain';
 import { PostEntity, PostRepository } from '@nx-ddd/post-domain';
 
-import type { CreatePostInput } from '../schemas/commands.js';
-import { createPostInputSchema } from '../schemas/commands.js';
+import type { CreatePostInput } from '../schemas/commands';
+import { createPostInputSchema } from '../schemas/commands';
 
 export namespace CreatePostCommand {
   export type Input = CreatePostInput;

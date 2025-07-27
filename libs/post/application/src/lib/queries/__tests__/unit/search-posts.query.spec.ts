@@ -12,7 +12,7 @@ import {
   PostRepository,
 } from '@nx-ddd/post-domain';
 
-import { SearchPostsQuery } from '../../search-posts.query.js';
+import { SearchPostsQuery } from '../../search-posts.query';
 
 describe('SearchPostsQuery', () => {
   let searchPostsQuery: SearchPostsQuery.Handler;

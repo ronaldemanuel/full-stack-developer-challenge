@@ -1,6 +1,6 @@
-import { PostEntityMockFactory } from '../../../factories/post-entity-mock.factory.js';
-import { UserPostEntityRefFactory } from '../../../factories/user-post-entity-ref.factory.js';
-import { PostEntity } from '../../post.entity.js';
+import { PostEntityMockFactory } from '../../../factories/post-entity-mock.factory';
+import { UserPostEntityRefFactory } from '../../../factories/user-post-entity-ref.factory';
+import { PostEntity } from '../../post.entity';
 
 describe('Post Entity', () => {
   describe('when creating a post entity', () => {

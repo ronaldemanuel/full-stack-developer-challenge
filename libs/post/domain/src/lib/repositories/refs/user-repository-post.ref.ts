@@ -1,9 +1,8 @@
-import type { UserEntityPostRef } from 'src/lib/entities/index.js';
-
 import type { IntersectRepositories, IRepository } from '@nx-ddd/shared-domain';
 import { UserRepository } from '@nx-ddd/user-domain';
 
-import type { PostRepository } from '../post.repository.js';
+import type { UserEntityPostRef } from '../../entities/refs/user-entity-post.ref';
+import type { PostRepository } from '../post.repository';
 
 export namespace UserRepositoryPostRef {
   export const TOKEN = UserRepository.TOKEN;

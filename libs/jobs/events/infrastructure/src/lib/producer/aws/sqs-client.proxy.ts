@@ -4,9 +4,9 @@ import { SendMessageCommand, SQSClient } from '@aws-sdk/client-sqs';
 import { Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 
-import type { EventQueues } from '@nx-ddd/job-events-domain';
+import type { EventQueues } from '@nx-ddd/jobs-events-domain';
 
-import { env } from '../../../env.mjs';
+import { env } from '../../../env';
 
 export class SQSClientProxy extends ClientProxy {
   private readonly client: SQSClient = new SQSClient({});
@@ -50,14 +50,14 @@ export class SQSClientProxy extends ClientProxy {
           event: packet.data,
           eventName, //this is the event name
         }),
-      }),
+      })
     );
     this.logger.log(`Event ${eventName} dispatched to queue: ${queueUrl}`);
   }
 
   publish(
     packet: ReadPacket<any>,
-    callback: (packet: WritePacket<any>) => void,
+    callback: (packet: WritePacket<any>) => void
   ): () => void {
     this.logger.log('message:', packet);
     //we wont be using this in event based microservices

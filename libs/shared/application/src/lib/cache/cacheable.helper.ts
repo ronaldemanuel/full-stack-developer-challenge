@@ -5,7 +5,7 @@ import serialize from 'serialize-javascript';
 import type {
   CacheEvictKeyBuilder,
   CacheKeyBuilder,
-} from './cacheable.interface.js';
+} from './cacheable.interface';
 
 let cacheManager: Cache | undefined;
 let cacheManagerIsv5OrGreater = false;

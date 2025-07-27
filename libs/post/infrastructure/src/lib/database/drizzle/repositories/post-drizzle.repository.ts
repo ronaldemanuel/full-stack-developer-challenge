@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common';
 
-import type {
-  DrizzleDB,
-  DrizzleTX,
-  SQL,
-} from '@nx-ddd/database-infrastructure';
+import type { DrizzleDB, DrizzleTX } from '@nx-ddd/database-infrastructure';
+import type { SQL } from '@nx-ddd/database-infrastructure/drizzle/operators';
 import type {
   PostEntity,
   UserEntityPostRef,
   UserRepositoryPostRef,
 } from '@nx-ddd/post-domain';
+import {
+  InjectDrizzle,
+  InjectDrizzleTransaction,
+} from '@nx-ddd/database-infrastructure';
 import {
   and,
   asc,
@@ -17,14 +18,12 @@ import {
   eq,
   getTableColumns,
   inArray,
-  InjectDrizzle,
-  InjectDrizzleTransaction,
   like,
   or,
   sql,
-} from '@nx-ddd/database-infrastructure';
+} from '@nx-ddd/database-infrastructure/drizzle/operators';
 import {
-  like as LikeEntity,
+  like as likeSchema,
   post,
 } from '@nx-ddd/database-infrastructure/drizzle/schema';
 import { PostLikedAggregate, PostRepository } from '@nx-ddd/post-domain';
@@ -33,8 +32,8 @@ import {
   RelationshipNotLoadedError,
 } from '@nx-ddd/shared-domain';
 
-import { LikeDrizzleModelMapper } from '../model/like-drizzle-mode.mapper.js';
-import { PostDrizzleModelMapper } from '../model/post-drizzle-model.mapper.js';
+import { LikeDrizzleModelMapper } from '../model/like-drizzle-model.mapper';
+import { PostDrizzleModelMapper } from '../model/post-drizzle-model.mapper';
 
 @Injectable()
 export class PostDrizzleRepository implements PostRepository.Repository {
@@ -64,9 +63,9 @@ export class PostDrizzleRepository implements PostRepository.Repository {
     // generate a upsert query that toggles the likes of the user creating new likes if they don't exist and removing them if they do
     await Promise.all([
       user.$watchedRelations.likes.getRemovedItems()
-        ? this.tx.delete(LikeEntity).where(
+        ? this.tx.delete(likeSchema).where(
             inArray(
-              LikeEntity.id,
+              likeSchema.id,
               user.$watchedRelations.likes
                 .getRemovedItems()
                 .map((like) => like.id),
@@ -75,7 +74,7 @@ export class PostDrizzleRepository implements PostRepository.Repository {
         : undefined,
       user.$watchedRelations.likes.getNewItems().length
         ? this.tx
-            .insert(LikeEntity)
+            .insert(likeSchema)
             .values(
               user.$watchedRelations.likes
                 .getNewItems()
@@ -179,11 +178,11 @@ export class PostDrizzleRepository implements PostRepository.Repository {
           ? sql<boolean>`EXISTS (
               ${this.db
                 .select()
-                .from(LikeEntity)
+                .from(likeSchema)
                 .where(
                   and(
-                    eq(LikeEntity.postId, id),
-                    eq(LikeEntity.userId, scopes.likedByUserId),
+                    eq(likeSchema.postId, id),
+                    eq(likeSchema.userId, scopes.likedByUserId),
                   ),
                 )}
             )`.as('metaLiked')

@@ -1,4 +1,4 @@
-import type { Entity } from '../entities/entity.js';
+import type { Entity } from '../entities/entity';
 
 export type IntersectRepositories<L, R> = {
   [K in keyof (L & R)]: K extends keyof L

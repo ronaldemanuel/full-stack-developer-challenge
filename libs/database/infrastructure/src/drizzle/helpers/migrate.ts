@@ -2,7 +2,7 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { migrate } from 'drizzle-orm/vercel-postgres/migrator';
 
-import type { DrizzleDB } from '../client.js';
+import type { DrizzleDB } from '../client';
 
 // Determine the path to your migrations folder relative to this setup file
 const migrationsFolder = join(

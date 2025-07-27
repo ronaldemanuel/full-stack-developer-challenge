@@ -1,5 +1,5 @@
 import type { DynamicModule } from '@nestjs/common';
-import { env } from '@/env.mjs';
+import { env } from '../env';
 import { Module } from '@nestjs/common';
 
 import {
@@ -11,13 +11,13 @@ import {
 } from '@nx-ddd/auth-application';
 import { AuthService } from '@nx-ddd/auth-domain';
 
-import type { BetterAuthConfig } from './better-auth/factories/better-auth.factory.js';
-import { BetterAuthDatabaseAdapterFactory } from './better-auth/factories/better-auth-database-adapter.factory.js';
+import type { BetterAuthConfig } from './better-auth/factories/better-auth.factory';
+import { BetterAuthDatabaseAdapterFactory } from './better-auth/factories/better-auth-database-adapter.factory';
 import {
   BETTER_AUTH_CONFIG_TOKEN,
   BetterAuthFactory,
-} from './better-auth/factories/better-auth.factory.js';
-import { AuthWithBetterAuthService } from './better-auth/services/auth-with-better-auth.service.js';
+} from './better-auth/factories/better-auth.factory';
+import { AuthWithBetterAuthService } from './better-auth/services/auth-with-better-auth.service';
 
 @Module({})
 export class AuthModule {

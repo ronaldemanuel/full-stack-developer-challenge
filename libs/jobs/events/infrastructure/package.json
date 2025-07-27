@@ -1,5 +1,5 @@
 {
-  "name": "@nx-ddd/job-events-infra",
+  "name": "@nx-ddd/jobs-events-infrastructure",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -14,11 +14,15 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./env": "./src/env.mjs"
+    "./env": {
+      "development": "./src/env.ts",
+      "types": "./dist/env.d.ts",
+      "import": "./dist/env.js",
+      "default": "./dist/env.js"
+    }
   },
   "nx": {
-    "name": "job-events-infra",
-    "sourceRoot": "libs/jobs/events/infrastructure/src",
+    "name": "jobs-events-infrastructure",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -29,28 +33,23 @@
           "outputPath": "libs/jobs/events/infrastructure/dist",
           "main": "libs/jobs/events/infrastructure/src/index.ts",
           "tsConfig": "libs/jobs/events/infrastructure/tsconfig.lib.json",
-          "skipTypeCheck": true,
-          "stripLeadingPaths": true,
-          "assets": [
-            {
-              "glob": "env.mjs",
-              "input": "libs/jobs/events/infrastructure/src",
-              "output": "."
-            }
-          ]
+          "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
-    "@nx-ddd/job-events-domain": "workspace:*",
-    "@nx-ddd/email-domain": "workspace:*",
-    "@nx-ddd/email-application": "workspace:*",
-    "@nx-ddd/job-events-presentation": "workspace:*",
+    "@aws-sdk/client-sqs": "^3.848.0",
+    "@nx-ddd/jobs-events-domain": "workspace:*",
+    "@nx-ddd/jobs-events-presentation": "workspace:*",
     "@nx-ddd/email-infrastructure": "workspace:*",
-    "@nestjs/microservices": "^11.1.5",
-    "@nestjs/cqrs": "catalog:",
-    "@swc/helpers": "~0.5.11",
-    "@t3-oss/env-nextjs": "^0.13.6"
+    "@t3-oss/env-nextjs": "catalog:zod3",
+    "zod": "catalog:zod3",
+    "@nestjs/microservices": "catalog:nestjs",
+    "@nestjs/core": "catalog:nestjs",
+    "@nestjs/common": "catalog:nestjs",
+    "@nestjs/cqrs": "catalog:nestjs",
+    "rxjs": "catalog:",
+    "@swc/helpers": "~0.5.11"
   }
 }

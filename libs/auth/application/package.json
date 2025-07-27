@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "auth-application",
-    "sourceRoot": "libs/auth/application/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,18 +27,18 @@
           "outputPath": "libs/auth/application/dist",
           "main": "libs/auth/application/src/index.ts",
           "tsConfig": "libs/auth/application/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
-    "@swc/helpers": "~0.5.11",
     "@nx-ddd/auth-domain": "workspace:*",
-    "@nx-ddd/shared-domain": "workspace:*",
     "@nx-ddd/shared-application": "workspace:*",
-    "@nx-ddd/email-application": "workspace:*",
-    "@nx-ddd/email-domain": "workspace:*"
+    "@nx-ddd/email-domain": "workspace:*",
+    "@nestjs/common": "catalog:nestjs",
+    "@nestjs/core": "catalog:nestjs",
+    "@nestjs/cqrs": "catalog:nestjs",
+    "@swc/helpers": "~0.5.11"
   }
 }

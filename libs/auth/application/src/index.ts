@@ -1,1 +1,1 @@
-export * from './lib/use-cases/index.js';
+export * from './lib/use-cases/index';

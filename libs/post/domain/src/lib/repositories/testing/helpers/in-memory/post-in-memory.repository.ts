@@ -1,10 +1,10 @@
 import { InMemorySearchableRepository } from '@nx-ddd/shared-domain';
 
-import type { UserEntityPostRef } from '../../../../entities/index.js';
-import type { PostEntity } from '../../../../entities/post.entity.js';
-import type { PostRepository } from '../../../../repositories/post.repository.js';
-import type { UserRepositoryPostRef } from '../../../../repositories/refs/user-repository-post.ref.js';
-import { PostLikedAggregate } from '../../../../aggregates/post-liked.aggregate.js';
+import type { UserEntityPostRef } from '../../../../entities/index';
+import type { PostEntity } from '../../../../entities/post.entity';
+import type { PostRepository } from '../../../../repositories/post.repository';
+import type { UserRepositoryPostRef } from '../../../../repositories/refs/user-repository-post.ref';
+import { PostLikedAggregate } from '../../../../aggregates/post-liked.aggregate';
 
 export class PostInMemoryRepository
   extends InMemorySearchableRepository<PostEntity>

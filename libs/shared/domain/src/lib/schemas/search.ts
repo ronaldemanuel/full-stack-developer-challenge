@@ -1,7 +1,7 @@
 import type { ZodSchema } from 'zod';
 import { z } from 'zod';
 
-import { sortDirectionSchema } from './sort.js';
+import { sortDirectionSchema } from './sort';
 
 export const searchParamsPropsSchema = <
   T extends ZodSchema | undefined = undefined,

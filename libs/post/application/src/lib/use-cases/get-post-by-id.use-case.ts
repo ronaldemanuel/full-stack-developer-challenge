@@ -5,7 +5,7 @@ import type { UserEntityPostRef } from '@nx-ddd/post-domain';
 import type { IUseCase } from '@nx-ddd/shared-application';
 import { Cacheable } from '@nx-ddd/shared-application';
 
-import { GetPostByIdQuery } from '../queries/index.js';
+import { GetPostByIdQuery } from '../queries/index';
 
 export namespace GetPostByIdUseCase {
   export type Input = GetPostByIdQuery.Input & {

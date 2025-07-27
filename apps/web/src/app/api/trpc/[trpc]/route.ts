@@ -1,7 +1,7 @@
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 
 import { appRouter } from '@nx-ddd/api-infrastructure';
-import { createTRPCContext } from '@nx-ddd/shared-infrastructure';
+import { createTRPCContext } from '@nx-ddd/shared-presentation';
 
 import { appContext } from '@/lib/app-context';
 import { setCorsHeaders } from '@/lib/cors';

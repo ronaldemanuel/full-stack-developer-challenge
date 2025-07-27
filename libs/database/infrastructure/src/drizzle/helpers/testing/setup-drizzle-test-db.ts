@@ -1,4 +1,3 @@
-/* eslint-disable turbo/no-undeclared-env-vars */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 // cspell:words neondatabase postgre wsproxy
 import { neonConfig } from '@neondatabase/serverless';
@@ -9,9 +8,9 @@ import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { reset } from 'drizzle-seed';
 import { GenericContainer, Network } from 'testcontainers';
 
-import type { DrizzleDB } from '../../client.js';
-import * as schema from '../../schema.js';
-import { dbMigrate } from '../migrate.js';
+import type { DrizzleDB } from '../../client';
+import * as schema from '../../schema';
+import { dbMigrate } from '../migrate';
 
 export interface DrizzleTestDB {
   db: DrizzleDB;

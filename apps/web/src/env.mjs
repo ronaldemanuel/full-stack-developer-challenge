@@ -4,7 +4,7 @@ import { vercel } from '@t3-oss/env-nextjs/presets-zod';
 import { z } from 'zod/v4';
 
 import { env as authEnv } from '@nx-ddd/auth-infrastructure/env';
-import { env as jobsEventsEnv } from '@nx-ddd/job-events-infra/env';
+import { env as jobsEventsEnv } from '@nx-ddd/jobs-events-infrastructure/env';
 
 export const env = createEnv({
   extends: [authEnv, jobsEventsEnv, vercel()],

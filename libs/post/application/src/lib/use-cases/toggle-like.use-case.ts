@@ -6,7 +6,7 @@ import type { IUseCase } from '@nx-ddd/shared-application';
 import { Transactional } from '@nx-ddd/database-application';
 import { CacheEvict } from '@nx-ddd/shared-application';
 
-import { ToggleLikeCommand } from '../commands/index.js';
+import { ToggleLikeCommand } from '../commands/toggle-like.command';
 
 export namespace ToggleLikeUseCase {
   export type Input = Omit<ToggleLikeCommand.Input, 'userId'> & {

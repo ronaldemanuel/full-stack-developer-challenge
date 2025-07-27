@@ -1,1 +1,1 @@
-export * from './infer-procedure-builder-resolver-context.js';
+export * from './infer-procedure-builder-resolver-context';

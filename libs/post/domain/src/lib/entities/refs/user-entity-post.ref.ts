@@ -1,11 +1,11 @@
 import { RelationshipNotLoadedError, WatchedList } from '@nx-ddd/shared-domain';
 import { UserEntity } from '@nx-ddd/user-domain';
 
-import type { UserPostRefProps } from '../../schemas/entity.schemas.js';
-import { PostLikeRemoved } from '../../events/post-like-removed.event.js';
-import { PostLikedEvent } from '../../events/post-liked.event.js';
-import { LikeEntity } from '../like.entity.js';
-import { PostEntity } from '../post.entity.js';
+import type { UserPostRefProps } from '../../schemas/entity.schemas';
+import { PostLikeRemoved } from '../../events/post-like-removed.event';
+import { PostLikedEvent } from '../../events/post-liked.event';
+import { LikeEntity } from '../like.entity';
+import { PostEntity } from '../post.entity';
 
 export interface UserPostRefRelations {
   likes: LikeEntity[];

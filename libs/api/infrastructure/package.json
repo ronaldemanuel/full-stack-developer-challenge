@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "api-infrastructure",
-    "sourceRoot": "libs/api/infrastructure/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,26 +27,20 @@
           "outputPath": "libs/api/infrastructure/dist",
           "main": "libs/api/infrastructure/src/index.ts",
           "tsConfig": "libs/api/infrastructure/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
-    "@nx-ddd/database-infrastructure": "workspace:*",
+    "@nestjs/common": "catalog:nestjs",
+    "@nestjs/core": "catalog:nestjs",
     "@nx-ddd/email-infrastructure": "workspace:*",
     "@nx-ddd/post-infrastructure": "workspace:*",
     "@nx-ddd/user-infrastructure": "workspace:*",
-    "@nx-ddd/auth-application": "workspace:*",
-    "@nx-ddd/auth-domain": "workspace:*",
-    "@nx-ddd/auth-infrastructure": "workspace:*",
-    "@nx-ddd/job-events-infra": "workspace:*",
-    "@nx-ddd/shared-application": "workspace:*",
-    "@nx-ddd/shared-presentation": "workspace:*",
-    "@nx-ddd/shared-domain": "workspace:*",
     "@nx-ddd/shared-infrastructure": "workspace:*",
-    "@nx-ddd/user-domain": "workspace:*",
-    "@swc/helpers": "~0.5.11"
+    "@nx-ddd/shared-presentation": "workspace:*",
+    "@swc/helpers": "~0.5.11",
+    "@trpc/server": "catalog:trpc"
   }
 }

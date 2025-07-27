@@ -4,6 +4,12 @@
   "include": [],
   "references": [
     {
+      "path": "../../user/infrastructure"
+    },
+    {
+      "path": "../../database/application"
+    },
+    {
       "path": "../presentation"
     },
     {
@@ -14,12 +20,6 @@
     },
     {
       "path": "../../database/infrastructure"
-    },
-    {
-      "path": "../../user/infrastructure"
-    },
-    {
-      "path": "../../shared/infrastructure"
     },
     {
       "path": "../../shared/domain"

@@ -9,8 +9,6 @@
       "node",
       "vitest"
     ],
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
     "forceConsistentCasingInFileNames": true
   },
   "include": [
@@ -26,8 +24,7 @@
     "src/**/*.spec.js",
     "src/**/*.test.jsx",
     "src/**/*.spec.jsx",
-    "src/**/*.d.ts",
-    "src/drizzle/types/drizzle.ts"
+    "src/**/*.d.ts"
   ],
   "references": [
     {

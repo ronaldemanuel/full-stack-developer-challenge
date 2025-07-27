@@ -6,10 +6,10 @@ import { ClsModule } from 'nestjs-cls';
 
 import { DATABASE_CONNECTION_NAME } from '@nx-ddd/database-application';
 
-import type { DrizzleDB } from './drizzle/index.js';
-import { awsDb } from './drizzle/aws-client.js';
-import { DRIZZLE_TOKEN } from './drizzle/constants/index.js';
-import { db } from './drizzle/index.js';
+import type { DrizzleDB } from './drizzle/index';
+import { awsDb } from './drizzle/aws-client';
+import { DRIZZLE_TOKEN } from './drizzle/constants/index';
+import { db } from './drizzle/index';
 
 @Global()
 @Module({})

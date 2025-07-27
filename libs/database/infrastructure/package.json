@@ -19,11 +19,16 @@
       "types": "./dist/drizzle/schema.d.ts",
       "import": "./dist/drizzle/schema.js",
       "default": "./dist/drizzle/schema.js"
+    },
+    "./drizzle/operators": {
+      "development": "./src/drizzle/operators.ts",
+      "types": "./dist/drizzle/operators.d.ts",
+      "import": "./dist/drizzle/operators.js",
+      "default": "./dist/drizzle/operators.js"
     }
   },
   "nx": {
     "name": "database-infrastructure",
-    "sourceRoot": "libs/database/infrastructure/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -34,10 +39,6 @@
           "outputPath": "libs/database/infrastructure/dist",
           "main": "libs/database/infrastructure/src/index.ts",
           "tsConfig": "libs/database/infrastructure/tsconfig.lib.json",
-          "additionalEntryPoints": [
-            "libs/database/infrastructure/src/drizzle/schema.ts"
-          ],
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       },
@@ -129,23 +130,16 @@
     }
   },
   "dependencies": {
-    "@swc/helpers": "~0.5.11",
+    "drizzle-orm": "catalog:drizzle",
+    "drizzle-seed": "catalog:drizzle",
+    "@nestjs-cls/transactional-adapter-drizzle-orm": "catalog:nestjs",
+    "@nestjs-cls/transactional": "catalog:nestjs",
+    "@nestjs/common": "catalog:nestjs",
     "@nx-ddd/database-application": "workspace:*",
-    "@prisma/extension-accelerate": "^2.0.1",
-    "@vercel/postgres": "^0.10.0",
-    "drizzle-orm": "^0.44.1",
-    "drizzle-zod": "^0.8.2",
-    "pg": "^8.16.0",
-    "@nestjs-cls/transactional": "^3.0.3",
-    "@nestjs-cls/transactional-adapter-drizzle-orm": "^1.1.20",
-    "postgres": "^3.4.7",
-    "zod": "catalog:"
-  },
-  "devDependencies": {
-    "@types/pg": "^8.11.14",
-    "drizzle-kit": "^0.31.1",
-    "@testcontainers/postgresql": "^11.0.3",
-    "testcontainers": "^11.0.3",
-    "drizzle-seed": "^0.3.1"
+    "pg": "catalog:drizzle",
+    "@swc/helpers": "~0.5.11",
+    "testcontainers": "catalog:drizzle",
+    "@testcontainers/postgresql": "catalog:drizzle",
+    "@vercel/postgres": "catalog:drizzle"
   }
 }
