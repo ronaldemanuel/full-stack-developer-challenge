@@ -22,11 +22,11 @@
       "path": "../../tools/tailwind"
     },
     {
-      "path": "../../libs/api/infrastructure"
+      "path": "../../libs/shared/domain"
     },
     {
-      "path": "./tsconfig.spec.json"
+      "path": "../../libs/api/infrastructure"
     }
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "src/**/*.spec.ts"]
 }

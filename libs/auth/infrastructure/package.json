@@ -49,6 +49,7 @@
     "@nx-ddd/auth-domain": "workspace:*",
     "@nx-ddd/database-infrastructure": "workspace:*",
     "@t3-oss/env-nextjs": "catalog:zod3",
+    "@better-auth/expo": "catalog:expo",
     "zod": "catalog:zod3",
     "@nestjs/common": "catalog:nestjs",
     "better-auth": "catalog:auth",

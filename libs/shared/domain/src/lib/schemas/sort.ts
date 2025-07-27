@@ -1,16 +1,13 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-export const sortDirectionSchema = z.enum(["asc", "desc"]);
+export const sortDirectionSchema = z.enum(['asc', 'desc']);
 
-export const searchResultPropsSchema = <
-  U extends string,
-  T extends Readonly<[U, ...U[]]>,
->({
+export const searchResultPropsSchema = <T, Filter = string>({
   filterSchema,
   itemSchema,
 }: {
-  itemSchema: z.AnyZodObject;
-  filterSchema: T;
+  itemSchema: z.ZodType<T>;
+  filterSchema?: z.ZodType<Filter>;
 }) =>
   z.object({
     items: z.array(itemSchema),
@@ -19,17 +16,11 @@ export const searchResultPropsSchema = <
     perPage: z.number(),
     sort: z.string().nullable(),
     sortDir: z.string().nullable(),
-    filter: (filterSchema ? z.enum(filterSchema) : z.string())
-      .optional()
-      .nullable(),
+    filter: (filterSchema ? filterSchema : z.string()).nullable(),
   });
 
 export type SortDirection = z.infer<typeof sortDirectionSchema>;
 
-export type SearchResultProps<E = object, Filter = string> = Omit<
-  z.infer<ReturnType<typeof searchResultPropsSchema>>,
-  "items"
-> & {
-  items: E[];
-  filter?: Filter | null;
-};
+export type SearchResultProps<E = object, Filter = string> = z.infer<
+  ReturnType<typeof searchResultPropsSchema<E, Filter>>
+>;

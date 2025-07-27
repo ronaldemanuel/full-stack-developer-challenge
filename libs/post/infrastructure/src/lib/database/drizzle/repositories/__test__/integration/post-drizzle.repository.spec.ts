@@ -323,12 +323,10 @@ describe('PostDrizzleRepository', () => {
       // Create a like entity that will be added
       const likeEntity = LikeEntity.create(userEntity, postEntity);
       // Add to user's likes
-      (userEntity as any).$watchedRelations = {
-        likes: {
-          getRemovedItems: () => [],
-          getNewItems: () => [likeEntity],
-        },
-      };
+      vi.spyOn(
+        userEntity.$watchedRelations.likes,
+        'getNewItems',
+      ).mockReturnValue([likeEntity]);
 
       // Act
       await postDrizzleRepository.saveUser(userEntity);

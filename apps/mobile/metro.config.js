@@ -3,10 +3,7 @@ const { getDefaultConfig } = require('@expo/metro-config');
 const { mergeConfig } = require('metro-config');
 const { withNativeWind } = require('nativewind/metro');
 
-const defaultConfig = withNativeWind(getDefaultConfig(__dirname), {
-  input: './src/styles.css',
-  configPath: './tailwind.config.js',
-});
+const defaultConfig = getDefaultConfig(__dirname);
 
 /**
  * Metro configuration
@@ -31,4 +28,9 @@ config.resolver.unstable_conditionNames = [
   'react-native',
 ];
 
-module.exports = withNxMetro(config);
+module.exports = withNxMetro(config).then((metroConfig) =>
+  withNativeWind(metroConfig, {
+    input: './src/styles.css',
+    configPath: './tailwind.config.js',
+  }),
+);

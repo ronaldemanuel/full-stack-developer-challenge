@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@nx-ddd/api-infrastructure": "workspace:*",
+    "@nx-ddd/shared-domain": "workspace:*",
     "@nx-ddd/tailwind": "workspace:*"
   },
   "scripts": {

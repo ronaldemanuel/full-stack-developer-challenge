@@ -20,8 +20,12 @@ export interface UserPostRefWatchedRelations {
 // @ts-expect-error: Expect error because of the override of the cast method
 export class UserEntityPostRef extends UserEntity {
   protected $relations: () => UserPostRefRelations;
-  public readonly $watchedRelations: UserPostRefWatchedRelations;
+  private readonly _$watchedRelations: () => UserPostRefWatchedRelations;
   protected override props: UserPostRefProps;
+
+  public get $watchedRelations(): UserPostRefWatchedRelations {
+    return this._$watchedRelations();
+  }
 
   constructor(
     props: UserPostRefProps,
@@ -32,10 +36,16 @@ export class UserEntityPostRef extends UserEntity {
   ) {
     super(props, id);
     this.props = props;
-    this.$relations = relations;
-    this.$watchedRelations = {
-      likes: new WatchedList(relations().likes),
-      createdPosts: new WatchedList(relations().createdPosts),
+    this.$relations = relations.bind(this);
+    const likesWatchedList = new WatchedList(this.$relations().likes);
+    const createdPostsWatchedList = new WatchedList(
+      this.$relations().createdPosts,
+    );
+    this._$watchedRelations = () => {
+      return {
+        likes: likesWatchedList,
+        createdPosts: createdPostsWatchedList,
+      };
     };
   }
 
@@ -85,53 +95,44 @@ export class UserEntityPostRef extends UserEntity {
     if (user instanceof UserEntityPostRef) {
       return user;
     }
-    const casted = super.cast<
+    return super.cast<
       UserPostRefProps,
       UserEntity,
       UserEntityPostRef,
       [() => UserPostRefRelations, id?: string]
-    >(user, (user as UserEntityPostRef).$relations || relations, id);
-    const likes = (casted.props.likes || []).map((like) => {
-      const post = new PostEntity(
-        {
-          ...like.post!,
-          ownerId: casted.id, // Ensure ownerId is set correctly
+    >(
+      user,
+      (user as UserEntityPostRef).$relations ||
+        relations ||
+        function (this: UserEntityPostRef) {
+          const likes = (this.props.likes || []).map((like) => {
+            const post = new PostEntity(
+              {
+                ...like.post!,
+                ownerId: this.id, // Ensure ownerId is set correctly
+              },
+              () => ({
+                owner: this,
+              }),
+              like.post!.id,
+            );
+
+            return new LikeEntity(
+              like,
+              () => ({
+                user: this,
+                post: post,
+              }),
+              like.id,
+            );
+          });
+          const createdPosts: PostEntity[] = [];
+          return {
+            likes,
+            createdPosts,
+          };
         },
-        () => ({
-          owner: casted,
-        }),
-        like.post!.id,
-      );
-
-      return new LikeEntity(
-        like,
-        () => ({
-          user: casted,
-          post: post,
-        }),
-        like.id,
-      );
-    });
-
-    const createdPosts: PostEntity[] = [];
-    try {
-      const probablyRelations = relations
-        ? relations()
-        : casted.$relations
-          ? casted.$relations()
-          : (() => {
-              throw new RelationshipNotLoadedError('Relations not provided');
-            })();
-      casted.$relations = () => probablyRelations;
-    } catch {
-      casted.$relations = () => {
-        return {
-          likes: likes,
-          createdPosts: createdPosts,
-        };
-      };
-    }
-
-    return casted;
+      id,
+    );
   }
 }

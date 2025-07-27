@@ -690,7 +690,7 @@ importers:
         version: 7.1.7(expo@53.0.20(@babel/core@7.28.0)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.0)(bufferutil@4.0.9)(react@19.0.0)))(bufferutil@4.0.9)(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.0)(bufferutil@4.0.9)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.0)(bufferutil@4.0.9)(react@19.0.0))(react@19.0.0)
       expo-router:
         specifier: catalog:expo
-        version: 5.1.4(38e418cceee90d7ca8b30978c984e3e4)
+        version: 5.1.4(o7vzqqsgvkxwkkcdkx44ivsuxe)
       expo-secure-store:
         specifier: catalog:expo
         version: 14.2.3(expo@53.0.20(@babel/core@7.28.0)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.0)(bufferutil@4.0.9)(react@19.0.0)))(bufferutil@4.0.9)(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.0)(bufferutil@4.0.9)(react@19.0.0))(react@19.0.0))
@@ -737,6 +737,9 @@ importers:
       '@nx-ddd/api-infrastructure':
         specifier: workspace:*
         version: link:../../libs/api/infrastructure
+      '@nx-ddd/shared-domain':
+        specifier: workspace:*
+        version: link:../../libs/shared/domain
       '@nx-ddd/tailwind':
         specifier: workspace:*
         version: link:../../tools/tailwind
@@ -876,6 +879,9 @@ importers:
 
   libs/auth/infrastructure:
     dependencies:
+      '@better-auth/expo':
+        specifier: catalog:expo
+        version: 1.3.4(better-auth@1.3.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       '@nestjs/common':
         specifier: catalog:nestjs
         version: 11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -23942,7 +23948,7 @@ snapshots:
     dependencies:
       invariant: 2.2.4
 
-  expo-router@5.1.4(38e418cceee90d7ca8b30978c984e3e4):
+  expo-router@5.1.4(o7vzqqsgvkxwkkcdkx44ivsuxe):
     dependencies:
       '@expo/metro-runtime': 5.0.4(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.0)(bufferutil@4.0.9)(react@19.0.0))
       '@expo/server': 0.6.3

@@ -1,5 +1,6 @@
 import type { FactoryProvider } from '@nestjs/common';
 import type { Adapter } from 'better-auth';
+import { expo } from '@better-auth/expo';
 import { betterAuth } from 'better-auth';
 import { nextCookies } from 'better-auth/next-js';
 import {
@@ -92,6 +93,7 @@ export function initAuth(
       },
     },
     plugins: [
+      expo(),
       organization({
         async sendInvitationEmail(data) {
           await sendInvitationEmailUseCase.execute({
