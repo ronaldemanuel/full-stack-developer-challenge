@@ -1,6 +1,6 @@
 {
   "name": "@nx-ddd/web",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "nx": {
     "name": "web",
@@ -17,6 +17,20 @@
         "executor": "nx:run-commands",
         "configurations": {},
         "parallelism": true
+      },
+      "open-next-build": {
+        "executor": "nx:run-commands",
+        "dependsOn": [
+          "build"
+        ],
+        "cache": true,
+        "outputs": [
+          "{projectRoot}/.open-next"
+        ],
+        "options": {
+          "cwd": "apps/web",
+          "command": "open-next build"
+        }
       }
     }
   },
@@ -41,5 +55,8 @@
     "react-qr-code": "catalog:",
     "trpc-ui": "catalog:trpc",
     "ua-parser-js": "catalog:"
+  },
+  "devDependencies": {
+    "@opennextjs/aws": "^3.7.0"
   }
 }

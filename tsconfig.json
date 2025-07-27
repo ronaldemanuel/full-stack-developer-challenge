@@ -98,6 +98,9 @@
     },
     {
       "path": "./apps/mobile"
+    },
+    {
+      "path": "./tsconfig.sst.json"
     }
   ],
   "ts-node": {

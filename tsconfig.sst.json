@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "include": [
+    "infra/**/*",
+    "sst.config.ts",
+    "libs/database/infrastructure/src/drizzle/aws-client.ts"
+  ]
+}
