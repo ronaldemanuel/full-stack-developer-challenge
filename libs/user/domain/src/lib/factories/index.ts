@@ -1,1 +1,1 @@
-export * from './user-entity-mock.factory.js';
+export * from './user-entity-mock.factory';

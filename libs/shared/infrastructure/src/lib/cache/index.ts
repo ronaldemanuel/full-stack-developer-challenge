@@ -1,1 +1,1 @@
-export * from './cacheable.module.js';
+export * from './cacheable.module';

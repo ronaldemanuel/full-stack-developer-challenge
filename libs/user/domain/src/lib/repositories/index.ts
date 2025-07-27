@@ -1,2 +1,2 @@
-export * from './user.repository.js';
-export * from './testing/helpers/in-memory/user-in-memory.repository.js';
+export * from './user.repository';
+export * from './testing/helpers/in-memory/user-in-memory.repository';

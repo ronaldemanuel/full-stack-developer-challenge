@@ -1,1 +1,1 @@
-export * from './send-email.handler.js';
+export * from './send-email.handler';

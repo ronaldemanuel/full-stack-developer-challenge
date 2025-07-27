@@ -1,10 +1,10 @@
 import type { PipeTransform, Type } from '@nestjs/common';
-import { isNil, isString } from '@nestjs/common/utils/shared.utils.js';
+import { isNil, isString } from '@nestjs/common/utils/shared.utils';
 
 import 'reflect-metadata';
 
-import type { TRPCParamType } from '../enums/index.js';
-import { PARAM_ARGS_METADATA } from '../constants/index.js';
+import type { TRPCParamType } from '../enums/index';
+import { PARAM_ARGS_METADATA } from '../constants/index';
 
 export type ParamData = object | string | number;
 export type ParamsMetadata = Record<

@@ -1,10 +1,10 @@
 import { generateMock } from '@anatine/zod-mock';
 
-import type { PostRelations } from '../entities/post.entity.js';
-import type { PostProps } from '../schemas/entity.schemas.js';
-import { PostEntity } from '../entities/post.entity.js';
-import { postSchema } from '../schemas/entity.schemas.js';
-import { UserPostEntityRefFactory } from './user-post-entity-ref.factory.js';
+import type { PostRelations } from '../entities/post.entity';
+import type { PostProps } from '../schemas/entity.schemas';
+import { PostEntity } from '../entities/post.entity';
+import { postSchema } from '../schemas/entity.schemas';
+import { UserPostEntityRefFactory } from './user-post-entity-ref.factory';
 
 export function PostEntityMockFactory(
   overrides: Partial<PostProps> = {},
@@ -22,6 +22,7 @@ export function PostEntityMockFactory(
     () => {
       return {
         owner: relationOverrides.owner ?? mockOwner,
+        likes: relationOverrides.likes ?? [],
       };
     },
     id,

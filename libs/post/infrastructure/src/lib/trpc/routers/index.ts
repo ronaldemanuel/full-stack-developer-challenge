@@ -1,1 +1,1 @@
-export * from './post.router.js';
+export * from './post.router';

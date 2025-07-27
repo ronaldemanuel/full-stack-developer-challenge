@@ -6,8 +6,8 @@ import nodemailer from 'nodemailer';
 import { SendEmailEventHandler } from '@nx-ddd/email-application';
 import { EmailRenderService } from '@nx-ddd/email-domain';
 
-import { env } from '../env.mjs';
-import { ReactEmailRenderService } from './services';
+import { env } from '../env';
+import { ReactEmailRenderService } from './services/index';
 
 @Module({
   imports: [

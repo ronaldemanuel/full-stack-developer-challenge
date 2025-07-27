@@ -4,9 +4,6 @@
     "jsx": "preserve",
     "noEmit": true,
     "emitDeclarationOnly": false,
-    "declaration": false,
-    "composite": false,
-    "declarationMap": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
@@ -15,8 +12,6 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "strict": true,
     "incremental": true,
     "plugins": [
       {
@@ -38,8 +33,7 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/env.mjs"
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "out-tsc",
@@ -62,6 +56,9 @@
     },
     {
       "path": "../../tools/tailwind"
+    },
+    {
+      "path": "../../libs/shared/presentation"
     },
     {
       "path": "../../libs/shared/infrastructure"

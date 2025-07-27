@@ -3,7 +3,7 @@ import type { ClientProxy } from '@nestjs/microservices';
 import { Injectable } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 
-import type { IEvent } from '@nx-ddd/job-events-domain';
+import type { IEvent } from '@nx-ddd/jobs-events-domain';
 
 @Injectable()
 export class MicroserviceEventPubSubBus implements IEventPublisher<IEvent> {

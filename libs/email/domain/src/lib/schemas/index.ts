@@ -1,1 +1,1 @@
-export * from './send-email.schema.js';
+export * from './send-email.schema';

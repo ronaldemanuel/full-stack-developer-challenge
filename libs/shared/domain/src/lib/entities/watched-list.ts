@@ -1,4 +1,4 @@
-import type { Entity } from './entity.js';
+import type { Entity } from './entity';
 
 export class WatchedList<T extends Entity> {
   public currentItems: T[];

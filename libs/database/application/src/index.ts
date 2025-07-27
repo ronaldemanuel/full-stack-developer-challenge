@@ -1,3 +1,3 @@
-export * from './lib/constants/index.js';
-export * from './lib/decorators/index.js';
-export * from './lib/helpers/index.js';
+export * from './lib/constants/index';
+export * from './lib/decorators/index';
+export * from './lib/helpers/index';

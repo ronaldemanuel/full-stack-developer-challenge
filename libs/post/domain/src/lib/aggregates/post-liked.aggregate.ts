@@ -1,4 +1,4 @@
-import type { PostEntity } from '../entities/index.js';
+import type { PostEntity } from '../entities/index';
 
 export class PostLikedAggregate {
   constructor(

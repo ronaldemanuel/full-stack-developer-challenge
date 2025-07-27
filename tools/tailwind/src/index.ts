@@ -1,3 +1,2 @@
-export * from './lib/web.js';
-export * from './lib/base.js';
-export * from './lib/native.js';
+export * from './lib/web';
+export * from './lib/native';

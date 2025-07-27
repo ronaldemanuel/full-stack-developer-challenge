@@ -1,13 +1,14 @@
 import { relations } from 'drizzle-orm';
 
-import { user } from './auth-schema.js';
-import { like, post } from './schema.js';
+import { user } from './auth-schema';
+import { like, post } from './schema';
 
-export const postRelations = relations(post, ({ one }) => ({
+export const postRelations = relations(post, ({ one, many }) => ({
   owner: one(user, {
     fields: [post.onwerId],
     references: [user.id],
   }),
+  likes: many(like),
 }));
 
 export const likeRelations = relations(like, ({ one }) => ({

@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { authClient } from '@/auth/client';
 import { ChevronDownIcon, PlusIcon } from '@radix-ui/react-icons';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Loader2, MailPlus } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 import { toast } from 'sonner';
 
 import type { ActiveOrganization, Session } from '@nx-ddd/auth-domain';

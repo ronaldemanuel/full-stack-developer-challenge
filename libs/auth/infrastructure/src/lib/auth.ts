@@ -2,17 +2,18 @@
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { db } from '../../../../database/infrastructure/src/drizzle/client.js';
-import { initAuth } from './better-auth/factories/better-auth.factory.js';
+import { db } from '../../../../database/infrastructure/src/drizzle/client';
+import { initAuth } from './better-auth/factories/better-auth.factory';
 
 // HACK: Dummy auth for generating the schema
-export const auth = initAuth(
+export const auth: any = initAuth(
   {
     baseUrl: '',
     productionUrl: '',
     secret: '',
     googleClientId: '',
     googleClientSecret: '',
+    allowedOrigins: [],
   },
   drizzleAdapter(db, {
     provider: 'pg',

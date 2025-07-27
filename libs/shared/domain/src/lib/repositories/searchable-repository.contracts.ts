@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { Entity } from '../entities/entity.js';
-import type { SearchParamsProps } from '../schemas/search.js';
-import type { SearchResultProps, SortDirection } from '../schemas/sort.js';
-import type { IRepository } from './repository.contracts.js';
+import type { Entity } from '../entities/entity';
+import type { SearchParamsProps } from '../schemas/search';
+import type { SearchResultProps, SortDirection } from '../schemas/sort';
+import type { IRepository } from './repository.contracts';
 
 export class SearchParams<Filter = string> {
   protected _page!: number;
@@ -85,13 +85,11 @@ export class SearchParams<Filter = string> {
 
   private set filter(value: Filter | null) {
     this._filter =
-      value === null || value === undefined || value === ''
-        ? null
-        : (`${value}` as any);
+      value === null || value === undefined || value === '' ? null : value;
   }
 }
 
-export class SearchResult<E extends Entity, Filter = string> {
+export class SearchResult<E extends Entity, Filter = string | null> {
   readonly items: E[];
   readonly total: number;
   readonly currentPage: number;
@@ -109,7 +107,7 @@ export class SearchResult<E extends Entity, Filter = string> {
     this.lastPage = Math.ceil(this.total / this.perPage);
     this.sort = props.sort ?? null;
     this.sortDir = props.sortDir ?? null;
-    this.filter = props.filter ?? null;
+    this.filter = (props.filter ?? null) as Filter | null;
   }
 
   toJSON(forceEntity = false) {
@@ -130,7 +128,7 @@ export interface ISearchable<
   E extends Entity,
   Filter = string,
   SearchInput = SearchParams<Filter>,
-  SearchOutput = SearchResult<E, Filter>
+  SearchOutput = SearchResult<E, Filter>,
 > {
   sortableFields: string[];
 
@@ -141,6 +139,6 @@ export interface ISearchableRepository<
   E extends Entity,
   Filter = string,
   SearchInput = SearchParams<Filter>,
-  SearchOutput = SearchResult<E, Filter>
+  SearchOutput = SearchResult<E, Filter>,
 > extends IRepository<E>,
     ISearchable<E, Filter, SearchInput, SearchOutput> {}

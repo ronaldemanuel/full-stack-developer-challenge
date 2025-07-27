@@ -1,6 +1,6 @@
 {
   "name": "@nx-ddd/post-presentation",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "post-presentation",
-    "sourceRoot": "libs/post/presentation/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,16 +27,16 @@
           "outputPath": "libs/post/presentation/dist",
           "main": "libs/post/presentation/src/index.ts",
           "tsConfig": "libs/post/presentation/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
-    "@swc/helpers": "~0.5.11",
     "@nx-ddd/post-domain": "workspace:*",
     "@nx-ddd/post-application": "workspace:*",
-    "@nx-ddd/shared-presentation": "workspace:*"
+    "@nx-ddd/shared-presentation": "workspace:*",
+    "@nestjs/common": "catalog:nestjs",
+    "@swc/helpers": "~0.5.11"
   }
 }

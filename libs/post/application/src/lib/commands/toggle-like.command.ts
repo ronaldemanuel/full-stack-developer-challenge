@@ -10,8 +10,8 @@ import {
   UserRepositoryPostRef,
 } from '@nx-ddd/post-domain';
 
-import type { ToggleLikeInput } from '../schemas/commands.js';
-import { toggleLikeInputSchema } from '../schemas/commands.js';
+import type { ToggleLikeInput } from '../schemas/commands';
+import { toggleLikeInputSchema } from '../schemas/commands';
 
 export namespace ToggleLikeCommand {
   export type Input = ToggleLikeInput;
@@ -48,11 +48,11 @@ export namespace ToggleLikeCommand {
         await this.postRepository.findById(command.postId),
       );
 
-      user.toggleLike(post);
+      user.togglePostLike(post);
 
       // Saves the user applying the cascaded changes
-      await this.postRepository.saveUser(user);
-      user.commit();
+      await this.postRepository.update(post);
+      post.commit();
     }
   }
 }

@@ -4,15 +4,6 @@
   "include": [],
   "references": [
     {
-      "path": "../../jobs/events/infrastructure"
-    },
-    {
-      "path": "../../auth/infrastructure"
-    },
-    {
-      "path": "../../database/infrastructure"
-    },
-    {
       "path": "../presentation"
     },
     {
@@ -20,6 +11,15 @@
     },
     {
       "path": "../application"
+    },
+    {
+      "path": "../../jobs/events/infrastructure"
+    },
+    {
+      "path": "../../database/infrastructure"
+    },
+    {
+      "path": "../../auth/infrastructure"
     },
     {
       "path": "../../auth/domain"

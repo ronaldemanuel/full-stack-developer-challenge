@@ -1,2 +1,2 @@
-export * from './protected.procedure.js';
-export * from './public.procedure.js';
+export * from './protected.procedure';
+export * from './public.procedure';

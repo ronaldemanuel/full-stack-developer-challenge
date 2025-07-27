@@ -4,7 +4,13 @@ import { createAuthClient } from 'better-auth/react';
 
 import { getBaseUrl } from './base-url';
 
-export const authClient = createAuthClient({
+type AuthClient = ReturnType<
+  typeof createAuthClient<{
+    plugins: [ReturnType<typeof expoClient>];
+  }>
+>;
+
+export const authClient: AuthClient = createAuthClient({
   baseURL: getBaseUrl(),
   plugins: [
     expoClient({

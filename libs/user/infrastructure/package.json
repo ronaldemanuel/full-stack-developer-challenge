@@ -1,6 +1,6 @@
 {
   "name": "@nx-ddd/user-infrastructure",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "user-infrastructure",
-    "sourceRoot": "libs/user/infrastructure/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,7 +27,6 @@
           "outputPath": "libs/user/infrastructure/dist",
           "main": "libs/user/infrastructure/src/index.ts",
           "tsConfig": "libs/user/infrastructure/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
@@ -36,6 +34,7 @@
   },
   "dependencies": {
     "@swc/helpers": "~0.5.11",
+    "@nx-ddd/post-domain": "workspace:*",
     "@nx-ddd/shared-domain": "workspace:*",
     "@nx-ddd/shared-infrastructure": "workspace:*",
     "@nx-ddd/database-infrastructure": "workspace:*",

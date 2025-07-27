@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 import animate from 'tailwindcss-animate';
-import { base } from './base.js';
+
+import { base } from './base';
 
 export const web = {
   darkMode: ['class'],

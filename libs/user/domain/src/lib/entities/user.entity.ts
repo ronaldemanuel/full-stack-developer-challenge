@@ -36,4 +36,8 @@ export class UserEntity extends Entity<UserProps> {
   set mpLevel(value: number) {
     this.props.mpLevel = value;
   }
+
+  get name(): string {
+    return this.props.name;
+  }
 }

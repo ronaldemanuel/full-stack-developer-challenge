@@ -1,4 +1,3 @@
-/* eslint-disable turbo/no-undeclared-env-vars */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 // cspell:words neondatabase postgre wsproxy
 import { neonConfig } from '@neondatabase/serverless';
@@ -6,18 +5,12 @@ import { Logger } from '@nestjs/common';
 import { PostgreSqlContainer } from '@testcontainers/postgresql';
 import { createPool } from '@vercel/postgres';
 import { drizzle } from 'drizzle-orm/vercel-postgres';
-import { reset } from 'drizzle-seed';
 import { GenericContainer, Network } from 'testcontainers';
 
-import type { DrizzleDB } from '../../client.js';
-import * as schema from '../../schema.js';
-import { dbMigrate } from '../migrate.js';
-
-export interface DrizzleTestDB {
-  db: DrizzleDB;
-  cleanTables: () => Promise<void>;
-  teardown: () => Promise<void>;
-}
+import type { DrizzleDB } from '../../client';
+import type { DrizzleTestDB } from './drizzle-test-db.interface';
+import * as schema from '../../schema';
+import { dbMigrate } from '../migrate';
 
 export async function setupDrizzleTestDB(): Promise<DrizzleTestDB> {
   const env = {
@@ -79,15 +72,8 @@ export async function setupDrizzleTestDB(): Promise<DrizzleTestDB> {
 
   return {
     db,
-    cleanTables: async () => {
-      await reset(db, schema);
-    },
-    teardown: async () => {
-      await db.$client.end();
-
-      await pgProxyContainer.stop();
-      await pgContainer.stop();
-      await containersNetwork.stop();
-    },
+    container: pgContainer,
+    network: containersNetwork,
+    proxyContainer: pgProxyContainer,
   };
 }

@@ -1,8 +1,9 @@
 {
-  "name": "web-e2e",
-  "version": "0.0.1",
+  "name": "@nx-ddd/web-e2e",
+  "version": "0.1.0",
   "private": true,
   "nx": {
+    "name": "web-e2e",
     "implicitDependencies": [
       "web"
     ]

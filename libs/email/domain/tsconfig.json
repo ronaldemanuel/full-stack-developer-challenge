@@ -7,9 +7,6 @@
       "path": "../../jobs/events/domain"
     },
     {
-      "path": "../../shared/domain"
-    },
-    {
       "path": "./tsconfig.lib.json"
     },
     {

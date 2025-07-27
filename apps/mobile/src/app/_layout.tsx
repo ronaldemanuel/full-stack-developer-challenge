@@ -2,7 +2,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
 
-import { queryClient } from "~/utils/api";
+import { queryClient } from "@/utils/api";
 
 import "../styles.css";
 

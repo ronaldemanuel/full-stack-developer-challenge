@@ -1,2 +1,2 @@
-export * from './lib/user.module.js';
-export * from './lib/database/index.js';
+export * from './lib/user.module';
+export * from './lib/database/index';

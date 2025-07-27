@@ -1,7 +1,7 @@
-import type { UserEntityPostRef } from 'src/lib/entities/index.js';
-import type { UserRepositoryPostRef } from 'src/lib/repositories/refs/user-repository-post.ref.js';
-
 import { InMemoryRepository } from '@nx-ddd/shared-domain';
+
+import type { UserEntityPostRef } from '../../../../entities/index';
+import type { UserRepositoryPostRef } from '../../../../repositories/refs/user-repository-post.ref';
 
 export class UserPostRefInMemoryRepository
   extends InMemoryRepository<UserEntityPostRef>

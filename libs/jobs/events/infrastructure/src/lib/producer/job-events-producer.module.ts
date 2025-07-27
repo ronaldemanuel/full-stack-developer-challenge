@@ -3,10 +3,10 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ClientsModule } from '@nestjs/microservices';
 
-import type { IEvent } from '@nx-ddd/job-events-domain';
+import type { IEvent } from '@nx-ddd/jobs-events-domain';
 
-import { SQSClientProxy } from './aws/sqs-client.proxy.js';
-import { MicroserviceEventPubSubBus } from './microservice.event-publisher.js';
+import { SQSClientProxy } from './aws/sqs-client.proxy';
+import { MicroserviceEventPubSubBus } from './microservice.event-publisher';
 
 @Module({})
 export class JobEventsProducerModule {

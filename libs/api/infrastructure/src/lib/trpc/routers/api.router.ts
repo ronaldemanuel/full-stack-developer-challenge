@@ -1,7 +1,7 @@
 // import { authRouter } from './router/auth';
 // import { postRouter } from './router/post';
 import { postsRouter } from '@nx-ddd/post-infrastructure';
-import { createTRPCRouter } from '@nx-ddd/shared-infrastructure';
+import { createTRPCRouter } from '@nx-ddd/shared-presentation';
 
 export const appRouter = createTRPCRouter({
   post: postsRouter,

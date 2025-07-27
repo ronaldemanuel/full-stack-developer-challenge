@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { Entity } from '../../../entities/entity.js';
-import { InMemorySearchableRepository } from '../../in-memory-searchable.repository.js';
+import { Entity } from '../../../entities/entity';
+import { InMemorySearchableRepository } from '../../in-memory-searchable.repository';
 import {
   SearchParams,
   SearchResult,
-} from '../../searchable-repository.contracts.js';
+} from '../../searchable-repository.contracts';
 
 interface StubEntityProps {
   name: string;

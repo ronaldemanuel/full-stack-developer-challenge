@@ -6,10 +6,8 @@
     "outDir": "dist",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": true,
-    "module": "nodenext",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "moduleResolution": "nodenext",
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },
@@ -19,13 +17,7 @@
       "path": "../../email/domain/tsconfig.lib.json"
     },
     {
-      "path": "../../email/application/tsconfig.lib.json"
-    },
-    {
       "path": "../../shared/application/tsconfig.lib.json"
-    },
-    {
-      "path": "../../shared/domain/tsconfig.lib.json"
     },
     {
       "path": "../domain/tsconfig.lib.json"

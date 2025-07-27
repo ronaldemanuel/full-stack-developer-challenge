@@ -1,2 +1,2 @@
-export * from './lib/services/index.js';
-export * from './lib/email.module.js';
+export * from './lib/services/index';
+export * from './lib/email.module';

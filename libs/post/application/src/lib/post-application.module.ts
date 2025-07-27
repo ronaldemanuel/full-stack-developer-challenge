@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 
-import { commands } from './commands/index.js';
-import { queries } from './queries/index.js';
+import { commands } from './commands/index';
+import { queries } from './queries/index';
 import {
   CreatePostUseCase,
   DeletePostUseCase,
   GetPostByIdUseCase,
   SearchPostsUseCase,
-} from './use-cases/index.js';
-import { ToggleLikeUseCase } from './use-cases/toggle-like.use-case.js';
+} from './use-cases/index';
+import { ToggleLikeUseCase } from './use-cases/toggle-like.use-case';
 
 @Module({
   providers: [

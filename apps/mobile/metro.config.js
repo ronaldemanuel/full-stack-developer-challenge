@@ -1,29 +1,36 @@
-// Learn more: https://docs.expo.dev/guides/monorepos/
-const { getDefaultConfig } = require("expo/metro-config");
-const { FileStore } = require("metro-cache");
-const { withNativeWind } = require("nativewind/metro");
+const { withNxMetro } = require('@nx/expo');
+const { getDefaultConfig } = require('@expo/metro-config');
+const { mergeConfig } = require('metro-config');
+const { withNativeWind } = require('nativewind/metro');
 
-const path = require("node:path");
-
-const config = withTurborepoManagedCache(
-  withNativeWind(getDefaultConfig(__dirname), {
-    input: "./src/styles.css",
-    configPath: "./tailwind.config.ts",
-  }),
-);
-module.exports = config;
+const defaultConfig = getDefaultConfig(__dirname);
 
 /**
- * Move the Metro cache to the `.cache/metro` folder.
- * If you have any environment variables, you can configure Turborepo to invalidate it when needed.
+ * Metro configuration
+ * https://reactnative.dev/docs/metro
  *
- * @see https://turborepo.com/docs/reference/configuration#env
- * @param {import('expo/metro-config').MetroConfig} config
- * @returns {import('expo/metro-config').MetroConfig}
+ * @type {import('metro-config').MetroConfig}
  */
-function withTurborepoManagedCache(config) {
-  config.cacheStores = [
-    new FileStore({ root: path.join(__dirname, ".cache/metro") }),
-  ];
-  return config;
-}
+const customConfig = {
+  cacheVersion: 'mobile',
+};
+
+const config = mergeConfig(defaultConfig, customConfig);
+
+// XXX: Resolve our exports in workspace packages
+// https://github.com/expo/expo/issues/26926
+config.resolver.unstable_enablePackageExports = true;
+
+// https://github.com/expo/expo/issues/26926
+config.resolver.unstable_conditionNames = [
+  'browser',
+  'require',
+  'react-native',
+];
+
+module.exports = withNxMetro(config).then((metroConfig) =>
+  withNativeWind(metroConfig, {
+    input: './src/styles.css',
+    configPath: './tailwind.config.js',
+  }),
+);

@@ -1,1 +1,1 @@
-export * from './pagination-output.js';
+export * from './pagination-output';

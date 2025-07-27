@@ -3,17 +3,17 @@ import { Inject } from '@nestjs/common';
 import { QueryHandler } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
-import type { PostEntity } from '@nx-ddd/post-domain';
+import type { Post } from '@nx-ddd/post-domain';
 import type { PaginationOutput } from '@nx-ddd/shared-domain';
 import { PostRepository } from '@nx-ddd/post-domain';
 import { PaginationOutputMapper } from '@nx-ddd/shared-application';
 
-import type { SearchPostsInput } from '../schemas/queries.js';
-import { searchPostsInputSchema } from '../schemas/queries.js';
+import type { SearchPostsInput } from '../schemas/queries';
+import { searchPostsInputSchema } from '../schemas/queries';
 
 export namespace SearchPostsQuery {
   export type Input = SearchPostsInput;
-  export type Output = PaginationOutput<PostEntity>;
+  export type Output = PaginationOutput<Post>;
 
   class SearchPostsQuery extends Validated(searchPostsInputSchema) {}
 
@@ -32,7 +32,7 @@ export namespace SearchPostsQuery {
       const searchParams = new PostRepository.SearchParams(query);
       const searchResult = await this.postRepository.search(searchParams);
       const paginationOutput = PaginationOutputMapper.toOutput(
-        searchResult.items,
+        searchResult.items.map((post) => post.toJSON()),
         searchResult,
       );
       return paginationOutput;

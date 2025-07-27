@@ -1,2 +1,2 @@
-export * from './lib/services/index.js';
-export * from './lib/schemas/index.js';
+export * from './lib/services/index';
+export * from './lib/schemas/index';

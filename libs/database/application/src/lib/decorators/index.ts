@@ -1,2 +1,2 @@
-export * from './transactional.decorator.js';
-export * from './inject-transaction.decorator.js';
+export * from './transactional.decorator';
+export * from './inject-transaction.decorator';

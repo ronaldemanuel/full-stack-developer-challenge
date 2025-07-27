@@ -1,6 +1,6 @@
 //@ts-check
 
-import './src/env.mjs';
+// import './src/env.mjs';
 
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -20,18 +20,7 @@ const nextConfig = {
     svgr: false,
   },
   serverExternalPackages: [
-    '@nx-ddd/api-infrastructure',
-    '@nx-ddd/auth-domain',
-    '@nx-ddd/auth-infrastructure',
-    '@nx-ddd/job-events-infra',
-    '@nx-ddd/database-infrastructure',
-    '@nx-ddd/email-infrastructure',
-    '@nx-ddd/shared-domain',
-    '@nx-ddd/shared-infrastructure',
-    '@nx-ddd/tailwind',
-    '@nx-ddd/ui',
-    '@nx-ddd/ui-utils',
-
+    'ssh2',
     '@nestjs/core',
     '@nestjs/common',
     '@nestjs/cache-manager',

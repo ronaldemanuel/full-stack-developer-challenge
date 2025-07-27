@@ -2,7 +2,6 @@
 
 // cspell:words cmdk
 import * as React from 'react';
-import { type DialogProps } from '@radix-ui/react-dialog';
 import { Command as CommandPrimitive } from 'cmdk';
 import { Search } from 'lucide-react';
 
@@ -24,6 +23,8 @@ const Command = React.forwardRef<
   />
 ));
 Command.displayName = CommandPrimitive.displayName;
+
+type DialogProps = React.ComponentProps<typeof Dialog>;
 
 const CommandDialog = ({ children, ...props }: DialogProps) => {
   return (

@@ -4,7 +4,7 @@ import { QueryBus } from '@nestjs/cqrs';
 import type { IUseCase } from '@nx-ddd/shared-application';
 import { Cacheable } from '@nx-ddd/shared-application';
 
-import { SearchPostsQuery } from '../queries/index.js';
+import { SearchPostsQuery } from '../queries/index';
 
 export namespace SearchPostsUseCase {
   export type Input = SearchPostsQuery.Input;

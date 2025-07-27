@@ -1,1 +1,1 @@
-export * from './event.interface.js';
+export * from './event.interface';

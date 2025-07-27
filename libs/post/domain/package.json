@@ -1,6 +1,6 @@
 {
   "name": "@nx-ddd/post-domain",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "post-domain",
-    "sourceRoot": "libs/post/domain/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,16 +27,17 @@
           "outputPath": "libs/post/domain/dist",
           "main": "libs/post/domain/src/index.ts",
           "tsConfig": "libs/post/domain/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
-    "@swc/helpers": "~0.5.11",
     "@nx-ddd/shared-domain": "workspace:*",
-    "@nx-ddd/job-events-domain": "workspace:*",
-    "@nx-ddd/user-domain": "workspace:*"
+    "@nx-ddd/jobs-events-domain": "workspace:*",
+    "@nx-ddd/user-domain": "workspace:*",
+    "validated-extendable": "catalog:",
+    "zod": "catalog:zod3",
+    "@swc/helpers": "~0.5.11"
   }
 }

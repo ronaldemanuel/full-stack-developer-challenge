@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const paginationOutputSchema = <T>(itemSchema: z.ZodType<T>) =>
   z.object({
@@ -9,9 +9,6 @@ export const paginationOutputSchema = <T>(itemSchema: z.ZodType<T>) =>
     perPage: z.number(),
   });
 
-export type PaginationOutput<Item> = Omit<
-  z.infer<ReturnType<typeof paginationOutputSchema>>,
-  "items"
-> & {
-  items: Item[];
-};
+export type PaginationOutput<Item> = z.infer<
+  ReturnType<typeof paginationOutputSchema<Item>>
+>;

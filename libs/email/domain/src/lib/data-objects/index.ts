@@ -1,1 +1,1 @@
-export * from './email-template.js';
+export * from './email-template';

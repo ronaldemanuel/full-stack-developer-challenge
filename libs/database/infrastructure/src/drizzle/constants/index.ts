@@ -1,1 +1,1 @@
-export const DRIZZLE_TOKEN = "DRIZZLE";
+export const DRIZZLE_TOKEN = 'DRIZZLE';

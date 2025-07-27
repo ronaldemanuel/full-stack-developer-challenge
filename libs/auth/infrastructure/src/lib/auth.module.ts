@@ -1,55 +1,46 @@
-import type { DynamicModule } from '@nestjs/common';
-import { env } from '@/env.mjs';
+import type { DynamicModule, Provider, Type } from '@nestjs/common';
 import { Module } from '@nestjs/common';
 
-import {
-  SendInvitationEmailUseCase,
-  SendMagicLinkUseCase,
-  SendOTPEmailUseCase,
-  SendResetPasswordUseCase,
-  SendVerificationEmailUseCase,
-} from '@nx-ddd/auth-application';
+import { AuthApplicationModule } from '@nx-ddd/auth-application';
 import { AuthService } from '@nx-ddd/auth-domain';
 
-import type { BetterAuthConfig } from './better-auth/factories/better-auth.factory.js';
-import { BetterAuthDatabaseAdapterFactory } from './better-auth/factories/better-auth-database-adapter.factory.js';
+import { BetterAuthDatabaseAdapterFactory } from './better-auth/factories/better-auth-database-adapter.factory';
 import {
-  BETTER_AUTH_CONFIG_TOKEN,
+  EnvVarsBetterAuthOptionsFactory,
+  MockBetterAuthOptionsFactory,
+} from './better-auth/factories/better-auth-options-factory';
+import { BetterAuthFactory } from './better-auth/factories/better-auth.factory';
+import { AuthWithBetterAuthService } from './better-auth/services/auth-with-better-auth.service';
+
+const providers: Provider[] = [
+  BetterAuthDatabaseAdapterFactory,
   BetterAuthFactory,
-} from './better-auth/factories/better-auth.factory.js';
-import { AuthWithBetterAuthService } from './better-auth/services/auth-with-better-auth.service.js';
+  {
+    provide: AuthService.TOKEN,
+    useClass: AuthWithBetterAuthService,
+  },
+];
+
+const imports: Array<Type | DynamicModule> = [AuthApplicationModule];
+
+const exported = [AuthService.TOKEN];
 
 @Module({})
 export class AuthModule {
   static forBetterAuth(): DynamicModule {
     return {
-      imports: [],
+      imports: imports,
       module: AuthModule,
-      providers: [
-        SendVerificationEmailUseCase.UseCase,
-        SendResetPasswordUseCase.UseCase,
-        SendMagicLinkUseCase.UseCase,
-        SendInvitationEmailUseCase.UseCase,
-        SendOTPEmailUseCase.UseCase,
-
-        {
-          provide: BETTER_AUTH_CONFIG_TOKEN,
-          useValue: {
-            baseUrl: env.BASE_URL,
-            productionUrl: env.BASE_URL,
-            secret: env.AUTH_SECRET,
-            googleClientId: env.AUTH_GOOGLE_ID,
-            googleClientSecret: env.AUTH_GOOGLE_SECRET,
-          } satisfies BetterAuthConfig,
-        },
-        BetterAuthDatabaseAdapterFactory,
-        BetterAuthFactory,
-        {
-          provide: AuthService.TOKEN,
-          useClass: AuthWithBetterAuthService,
-        },
-      ],
-      exports: [AuthService.TOKEN],
+      providers: [EnvVarsBetterAuthOptionsFactory, ...providers],
+      exports: exported,
+    };
+  }
+  static forBetterAuthTest(): DynamicModule {
+    return {
+      imports: imports,
+      module: AuthModule,
+      providers: [MockBetterAuthOptionsFactory, ...providers],
+      exports: exported,
     };
   }
 }

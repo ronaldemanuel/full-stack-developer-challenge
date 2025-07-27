@@ -1,1 +1,1 @@
-export * from './entity.schemas.js';
+export * from './entity.schemas';

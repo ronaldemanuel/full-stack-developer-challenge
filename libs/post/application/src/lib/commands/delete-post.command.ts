@@ -5,8 +5,8 @@ import { Validated } from 'validated-extendable';
 
 import { PostRepository } from '@nx-ddd/post-domain';
 
-import type { DeletePostInput } from '../schemas/commands.js';
-import { deletePostInputSchema } from '../schemas/commands.js';
+import type { DeletePostInput } from '../schemas/commands';
+import { deletePostInputSchema } from '../schemas/commands';
 
 export namespace DeletePostCommand {
   export type Input = DeletePostInput;

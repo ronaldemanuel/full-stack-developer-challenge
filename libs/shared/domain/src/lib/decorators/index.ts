@@ -1,2 +1,2 @@
-export * from './inject-repository.decorator.js';
-export * from './zod-entity.decorator.js';
+export * from './inject-repository.decorator';
+export * from './zod-entity.decorator';

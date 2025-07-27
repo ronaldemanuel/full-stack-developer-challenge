@@ -1,10 +1,10 @@
-import type { TOptionsFromAdapter } from '@nestjs-cls/transactional/dist/src/lib/interfaces.js';
+import type { TOptionsFromAdapter } from '@nestjs-cls/transactional/dist/src/lib/interfaces';
 import {
   Transactional as OriginalTransactional,
   Propagation,
 } from '@nestjs-cls/transactional';
 
-import { DATABASE_CONNECTION_NAME } from '../constants/index.js';
+import { DATABASE_CONNECTION_NAME } from '../constants/index';
 
 export function Transactional<T>(
   propagation?: Propagation,

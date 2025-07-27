@@ -8,6 +8,47 @@ export const database = new sst.aws.Postgres('MyDatabase', {
 
 export const DATABASE_URL = $interpolate`postgresql://${database.username}:${database.password}@${database.host}:${database.port}/${database.database}`;
 
+const migrator = new sst.aws.Function('DatabaseMigrator', {
+  handler: 'infra/aws/functions/migrator.handler',
+  link: [database],
+  vpc,
+  copyFiles: [
+    {
+      from: 'libs/database/infrastructure/drizzle',
+      to: './migrations',
+    },
+  ],
+  nodejs: {
+    esbuild: {
+      external: [
+        'amqp-connection-manager',
+        'ioredis',
+        'nats',
+        'kafkajs',
+        'mqtt',
+        'class-transformer',
+        'amqplib',
+        'class-validator',
+        '@nestjs/websockets',
+        '@nestjs/platform-express',
+        'ssh2',
+      ],
+    },
+  },
+  environment: {
+    POSTGRES_URL: DATABASE_URL,
+    NX_DAEMON: 'false',
+    NX_TUI: 'false',
+  },
+});
+
+if (!$dev) {
+  new aws.lambda.Invocation('DatabaseMigratorInvocation', {
+    input: Date.now().toString(),
+    functionName: migrator.name,
+  });
+}
+
 new sst.x.DevCommand('Drizzle', {
   link: [database],
   environment: {

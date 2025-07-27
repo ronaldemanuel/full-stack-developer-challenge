@@ -1,10 +1,10 @@
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 
-import type { AppRouter } from './trpc/routers/api.router.js';
-import { appRouter } from './trpc/routers/api.router.js';
+import type { AppRouter } from './trpc/routers/api.router';
+import { appRouter } from './trpc/routers/api.router';
 import { NestFactory } from '@nestjs/core';
 import { InternalDisabledLogger } from '@nx-ddd/shared-infrastructure';
-import { AppModule } from './app.module.js';
+import { AppModule } from './app.module';
 /**
  * Inference helpers for input types
  * @example

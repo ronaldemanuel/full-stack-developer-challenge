@@ -1,1 +1,1 @@
-export * from './inject-drizzle.decorator.js';
+export * from './inject-drizzle.decorator';

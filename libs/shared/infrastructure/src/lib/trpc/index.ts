@@ -1,5 +1,2 @@
-export {
-  createTRPCContext,
-  createCallerFactory,
-  createTRPCRouter,
-} from './trpc.js';
+export * from './types/trpc-crud.controller.interface';
+export * from './testing';

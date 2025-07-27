@@ -1,1 +1,1 @@
-export * from './get-database-transaction-token.js';
+export * from './get-database-transaction-token';

@@ -1,1 +1,1 @@
-export * from './job-events.controller.js';
+export * from './job-events.controller';
