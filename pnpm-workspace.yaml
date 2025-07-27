@@ -41,7 +41,7 @@ catalog:
 
 catalogs:
   auth:
-    better-auth: ^1.3.3
+    better-auth: ^1.3.4
   drizzle:
     '@testcontainers/postgresql': ^11.4.0
     '@types/pg': ^8.15.4
@@ -54,18 +54,18 @@ catalogs:
     testcontainers: ^11.4.0
   expo:
     '@better-auth/expo': ^1.3.4
-    '@expo/metro-config': ^0.20.17
+    '@expo/metro-config': ^0.20.14
     '@expo/metro-runtime': ~5.0.4
-    expo: 53.0.9
-    expo-constants: 17.1.6
-    expo-dev-client: 5.1.8
-    expo-linking: 7.1.5
-    expo-router: 5.0.7
+    expo: 53.0.20
+    expo-constants: 17.1.7
+    expo-dev-client: 5.2.4
+    expo-linking: 7.1.7
+    expo-router: 5.1.4
     expo-secure-store: 14.2.3
-    expo-splash-screen: 0.30.8
+    expo-splash-screen: 0.30.10
     expo-status-bar: 2.2.3
-    expo-system-ui: ~5.0.10
-    expo-web-browser: 14.1.6
+    expo-system-ui: ~5.0.7
+    expo-web-browser: 14.2.0
   nestjs:
     '@nestjs-cls/transactional': ^3.1.0
     '@nestjs-cls/transactional-adapter-drizzle-orm': ^1.2.0
@@ -86,9 +86,9 @@ catalogs:
     '@legendapp/list': ^1.1.4
     nativewind: ~4.1.23
     react-native: 0.79.5
-    react-native-gesture-handler: ~2.25.0
-    react-native-reanimated: ~3.18.0
-    react-native-safe-area-context: ~5.4.1
+    react-native-gesture-handler: ~2.24.0
+    react-native-reanimated: ~3.17.4
+    react-native-safe-area-context: ~5.4.0
     react-native-screens: ~4.11.1
   react19:
     '@types/react': ^19.0.14

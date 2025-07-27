@@ -8,7 +8,6 @@
   "dependencies": {
     "@better-auth/expo": "catalog:expo",
     "@expo/metro-config": "catalog:expo",
-    "@expo/metro-runtime": "catalog:expo",
     "@legendapp/list": "catalog:react-native",
     "@tanstack/react-query": "catalog:",
     "@trpc/client": "catalog:trpc",
@@ -42,5 +41,12 @@
   "scripts": {
     "android": "expo run:android",
     "ios": "expo run:ios"
+  },
+  "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "listUnknownPackages": false
+      }
+    }
   }
 }
