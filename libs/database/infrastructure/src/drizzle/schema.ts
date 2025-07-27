@@ -1,3 +1,3 @@
-export * from './schema/schema.js';
-export * from './schema/auth-schema.js';
-export * from './schema/relations.js';
+export * from './schema/schema';
+export * from './schema/auth-schema';
+export * from './schema/relations';

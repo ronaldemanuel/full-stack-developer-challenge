@@ -6,10 +6,13 @@ import { ClsModule } from 'nestjs-cls';
 
 import { DATABASE_CONNECTION_NAME } from '@nx-ddd/database-application';
 
-import type { DrizzleDB } from './drizzle/index.js';
-import { awsDb } from './drizzle/aws-client.js';
-import { DRIZZLE_TOKEN } from './drizzle/constants/index.js';
-import { db } from './drizzle/index.js';
+import type { DrizzleTestDB } from './drizzle/helpers';
+import { awsDb } from './drizzle/aws-client';
+import { DRIZZLE_TOKEN } from './drizzle/constants/index';
+import { db } from './drizzle/index';
+import { DrizzleDatabaseService } from './drizzle/services/drizzle-database.service';
+import { DrizzleTestDatabaseService } from './drizzle/services/drizzle-test-database.service';
+import { DatabaseService } from './services/database.service';
 
 @Global()
 @Module({})
@@ -21,6 +24,10 @@ export class DatabaseModule {
         {
           provide: DRIZZLE_TOKEN,
           useValue: process.env['NEXT_APPS_PROVIDER'] === 'aws' ? awsDb : db,
+        },
+        {
+          provide: DatabaseService.TOKEN,
+          useClass: DrizzleDatabaseService,
         },
       ],
       imports: [
@@ -43,7 +50,7 @@ export class DatabaseModule {
       global: true,
     };
   }
-  static forDrizzleTest(db: DrizzleDB): DynamicModule {
+  static forDrizzleTest(testDb: DrizzleTestDB): DynamicModule {
     return {
       module: DatabaseModule,
       imports: [
@@ -65,7 +72,11 @@ export class DatabaseModule {
       providers: [
         {
           provide: DRIZZLE_TOKEN,
-          useValue: db,
+          useValue: testDb.db,
+        },
+        {
+          provide: DatabaseService.TOKEN,
+          useValue: new DrizzleTestDatabaseService(testDb),
         },
       ],
       exports: [DRIZZLE_TOKEN],

@@ -7,7 +7,7 @@ import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query';
 
 import type { AppRouter } from '@nx-ddd/api-infrastructure';
 import { appRouter } from '@nx-ddd/api-infrastructure';
-import { createTRPCContext } from '@nx-ddd/shared-infrastructure';
+import { createTRPCContext } from '@nx-ddd/shared-presentation';
 
 import { createQueryClient } from './query-client';
 

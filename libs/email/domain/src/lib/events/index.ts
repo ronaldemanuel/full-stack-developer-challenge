@@ -1,1 +1,1 @@
-export * from './send-email.event.js';
+export * from './send-email.event';

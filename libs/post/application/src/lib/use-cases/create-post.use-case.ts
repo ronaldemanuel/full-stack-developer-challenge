@@ -6,7 +6,7 @@ import type { IUseCase } from '@nx-ddd/shared-application';
 import { Transactional } from '@nx-ddd/database-application';
 import { CacheEvict } from '@nx-ddd/shared-application';
 
-import { CreatePostCommand } from '../commands/index.js';
+import { CreatePostCommand } from '../commands/index';
 
 export namespace CreatePostUseCase {
   export type Input = CreatePostCommand.Input & {

@@ -8,8 +8,8 @@ import type { PaginationOutput } from '@nx-ddd/shared-domain';
 import { PostRepository } from '@nx-ddd/post-domain';
 import { PaginationOutputMapper } from '@nx-ddd/shared-application';
 
-import type { SearchPostsInput } from '../schemas/queries.js';
-import { searchPostsInputSchema } from '../schemas/queries.js';
+import type { SearchPostsInput } from '../schemas/queries';
+import { searchPostsInputSchema } from '../schemas/queries';
 
 export namespace SearchPostsQuery {
   export type Input = SearchPostsInput;

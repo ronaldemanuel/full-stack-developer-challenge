@@ -1,6 +1,6 @@
 {
   "name": "@nx-ddd/shared-presentation",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "shared-presentation",
-    "sourceRoot": "libs/shared/presentation/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,17 +27,21 @@
           "outputPath": "libs/shared/presentation/dist",
           "main": "libs/shared/presentation/src/index.ts",
           "tsConfig": "libs/shared/presentation/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
-    "@swc/helpers": "~0.5.11",
-    "@nx-ddd/shared-domain": "workspace:*",
     "@nx-ddd/auth-domain": "workspace:*",
     "@nx-ddd/user-domain": "workspace:*",
-    "@trpc/server": "catalog:"
+    "@nestjs/common": "catalog:nestjs",
+    "@trpc/server": "catalog:trpc",
+    "@nestjs/core": "catalog:nestjs",
+    "trpc-to-openapi": "catalog:trpc",
+    "superjson": "catalog:trpc",
+    "zod": "catalog:zod3",
+    "reflect-metadata": "0.2.2",
+    "@swc/helpers": "~0.5.11"
   }
 }

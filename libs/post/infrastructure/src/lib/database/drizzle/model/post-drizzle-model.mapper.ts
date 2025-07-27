@@ -1,4 +1,4 @@
-import { PostEntity, UserEntityPostRef } from '@nx-ddd/post-domain';
+import { LikeEntity, PostEntity, UserEntityPostRef } from '@nx-ddd/post-domain';
 
 export class PostDrizzleModelMapper {
   static toEntity(data: any): PostEntity {
@@ -14,6 +14,20 @@ export class PostDrizzleModelMapper {
       },
       data.owner.id,
     );
+    let likes: LikeEntity[] = [];
+    if (data.likes) {
+      likes = data.likes.map((like: any) => {
+        return new LikeEntity(
+          like,
+          () => ({
+            user: ownerEntity,
+            post: postEntity,
+          }),
+          like.id,
+        );
+      });
+    }
+
     const postEntity = new PostEntity(
       {
         title: data.title,
@@ -24,6 +38,7 @@ export class PostDrizzleModelMapper {
       },
       () => ({
         owner: ownerEntity,
+        likes,
       }),
       data.id,
     );
@@ -34,6 +49,7 @@ export class PostDrizzleModelMapper {
   static toPersistence(entity: PostEntity) {
     return {
       ...entity.toJSON(),
+      id: undefined,
       onwerId: entity.owner.id,
     };
   }

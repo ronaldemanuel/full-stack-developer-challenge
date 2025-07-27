@@ -1,12 +1,12 @@
 import type {
   CacheableRegisterOptions,
   CacheEvictRegisterOptions,
-} from './cacheable.interface.js';
+} from './cacheable.interface';
 import {
   cacheableHandle,
   generateComposedKey,
   getCacheManager,
-} from './cacheable.helper.js';
+} from './cacheable.helper';
 
 export function Cacheable(options: CacheableRegisterOptions): MethodDecorator {
   return function (_, propertyKey, descriptor) {

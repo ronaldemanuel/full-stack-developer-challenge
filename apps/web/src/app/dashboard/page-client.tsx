@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { authClient } from '@/auth/client';
-import { Label } from '@radix-ui/react-label';
+import { Label } from '@nx-ddd/ui';
 import { toast } from 'sonner';
 
 import { Button, Input } from '@nx-ddd/ui';

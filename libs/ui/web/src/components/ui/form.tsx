@@ -3,7 +3,7 @@
 import type { Label as LabelPrimitive } from 'radix-ui';
 import type { ControllerProps, FieldPath, FieldValues } from 'react-hook-form';
 import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot } from 'radix-ui';
 import { Controller, FormProvider, useFormContext } from 'react-hook-form';
 
 import { cn } from '@nx-ddd/ui-utils';
@@ -12,12 +12,12 @@ import { Label } from './label';
 
 const Form = FormProvider;
 
-type FormFieldContextValue<
+interface FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> = {
+> {
   name: TName;
-};
+}
 
 const FormFieldContext = React.createContext<FormFieldContextValue>(
   {} as FormFieldContextValue,
@@ -59,9 +59,9 @@ const useFormField = () => {
   };
 };
 
-type FormItemContextValue = {
+interface FormItemContextValue {
   id: string;
-};
+}
 
 const FormItemContext = React.createContext<FormItemContextValue>(
   {} as FormItemContextValue,
@@ -99,14 +99,14 @@ const FormLabel = React.forwardRef<
 FormLabel.displayName = 'FormLabel';
 
 const FormControl = React.forwardRef<
-  React.ComponentRef<typeof Slot>,
-  React.ComponentPropsWithoutRef<typeof Slot>
+  React.ComponentRef<typeof Slot.Slot>,
+  React.ComponentPropsWithoutRef<typeof Slot.Slot>
 >(({ ...props }, ref) => {
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
 
   return (
-    <Slot
+    <Slot.Slot
       ref={ref}
       id={formItemId}
       aria-describedby={

@@ -3,7 +3,7 @@ import { EventPattern } from '@nestjs/microservices';
 
 import type { SendEmailEventHandler } from '@nx-ddd/email-application';
 import type { EmailTypes, SendEmailEvent } from '@nx-ddd/email-domain';
-import { EventTypes } from '@nx-ddd/job-events-domain';
+import { EventTypes } from '@nx-ddd/jobs-events-domain';
 
 @Controller()
 export class JobEventsController {

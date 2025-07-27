@@ -1,6 +1,6 @@
 import type { Config } from 'tailwindcss';
 
-import { base } from './base.js';
+import { base } from './base';
 
 export const native = {
   content: base.content,

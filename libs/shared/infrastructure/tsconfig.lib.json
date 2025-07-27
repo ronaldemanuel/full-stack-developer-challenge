@@ -6,18 +6,15 @@
     "outDir": "dist",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": true,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+    "jsx": "react-jsx",
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],
   "references": [
-    {
-      "path": "../../database/infrastructure/tsconfig.lib.json"
-    },
     {
       "path": "../presentation/tsconfig.lib.json"
     },
@@ -26,6 +23,15 @@
     },
     {
       "path": "../application/tsconfig.lib.json"
+    },
+    {
+      "path": "../../jobs/events/infrastructure/tsconfig.lib.json"
+    },
+    {
+      "path": "../../database/infrastructure/tsconfig.lib.json"
+    },
+    {
+      "path": "../../auth/infrastructure/tsconfig.lib.json"
     },
     {
       "path": "../../auth/domain/tsconfig.lib.json"

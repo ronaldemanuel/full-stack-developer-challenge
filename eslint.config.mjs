@@ -1,14 +1,6 @@
 import nx from '@nx/eslint-plugin';
 
 export default [
-  {
-    files: ['**/*.json'],
-    // Override or add rules here
-    rules: {},
-    languageOptions: {
-      parser: await import('jsonc-eslint-parser'),
-    },
-  },
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
@@ -27,7 +19,7 @@ export default [
       '@nx/enforce-module-boundaries': [
         'error',
         {
-          enforceBuildableLibDependency: true,
+          enforceBuildableLibDependency: false,
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
             {

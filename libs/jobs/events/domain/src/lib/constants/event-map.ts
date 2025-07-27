@@ -1,6 +1,6 @@
 import z from 'zod';
 
-import type { EventMap } from '../types/event-map.js';
+import type { EventMap } from '../types/event-map';
 
 const sendEmailPayloadSchema = z.object({
   to: z.string().email(),

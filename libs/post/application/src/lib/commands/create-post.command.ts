@@ -6,13 +6,12 @@ import { Validated } from 'validated-extendable';
 import type { UserEntityPostRef } from '@nx-ddd/post-domain';
 import { PostEntity, PostRepository } from '@nx-ddd/post-domain';
 
-import type { CreatePostInput } from '../schemas/commands.js';
-import { createPostInputSchema } from '../schemas/commands.js';
+import type { CreatePostInput } from '../schemas/commands';
+import { createPostInputSchema } from '../schemas/commands';
 
 export namespace CreatePostCommand {
   export type Input = CreatePostInput;
   export type Output = void;
-
   class CreatePostCommand extends Validated(createPostInputSchema) {
     user: UserEntityPostRef;
     constructor(data: Input, user: UserEntityPostRef) {

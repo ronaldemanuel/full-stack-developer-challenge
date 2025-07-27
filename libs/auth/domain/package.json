@@ -1,6 +1,6 @@
 {
   "name": "@nx-ddd/auth-domain",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "auth-domain",
-    "sourceRoot": "libs/auth/domain/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,14 +27,14 @@
           "outputPath": "libs/auth/domain/dist",
           "main": "libs/auth/domain/src/index.ts",
           "tsConfig": "libs/auth/domain/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
-    "@swc/helpers": "~0.5.11",
-    "@nx-ddd/user-domain": "workspace:*"
+    "@nx-ddd/user-domain": "workspace:*",
+    "zod": "catalog:zod3",
+    "@swc/helpers": "~0.5.11"
   }
 }

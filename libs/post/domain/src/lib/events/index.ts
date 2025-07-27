@@ -1,1 +1,1 @@
-export * from './post-created.event.js';
+export * from './post-created.event';

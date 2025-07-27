@@ -2,40 +2,57 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [],
-  "include": [
-    "apps/**/*",
-    "libs/**/*",
-    "tools/**/*",
-    "infra/**/*",
-    "sst.config.ts"
-  ],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    }
-  },
   "references": [
     {
-      "path": "./apps/mobile-e2e"
-    },
-    {
-      "path": "./apps/mobile"
-    },
-    {
       "path": "./apps/web-e2e"
+    },
+    {
+      "path": "./apps/web"
+    },
+    {
+      "path": "./libs/ui/utils"
+    },
+    {
+      "path": "./tools/tailwind"
+    },
+    {
+      "path": "./libs/ui/web"
     },
     {
       "path": "./libs/shared/domain"
     },
     {
-      "path": "./libs/auth/application"
+      "path": "./libs/user/domain"
     },
     {
       "path": "./libs/email/domain"
     },
     {
+      "path": "./libs/auth/domain"
+    },
+    {
+      "path": "./libs/post/domain"
+    },
+    {
+      "path": "./libs/shared/application"
+    },
+    {
       "path": "./libs/email/application"
+    },
+    {
+      "path": "./libs/auth/application"
+    },
+    {
+      "path": "./libs/post/application"
+    },
+    {
+      "path": "./libs/shared/presentation"
+    },
+    {
+      "path": "./libs/post/presentation"
+    },
+    {
+      "path": "./libs/database/infrastructure"
     },
     {
       "path": "./libs/email/infrastructure"
@@ -44,25 +61,16 @@
       "path": "./libs/auth/infrastructure"
     },
     {
-      "path": "./libs/shared/application"
-    },
-    {
-      "path": "./libs/database/application"
-    },
-    {
-      "path": "./libs/database/infrastructure"
-    },
-    {
       "path": "./libs/shared/infrastructure"
     },
     {
-      "path": "./libs/auth/domain"
-    },
-    {
-      "path": "./libs/user/domain"
+      "path": "./libs/post/infrastructure"
     },
     {
       "path": "./libs/api/infrastructure"
+    },
+    {
+      "path": "./libs/database/application"
     },
     {
       "path": "./libs/jobs/events/infrastructure"
@@ -74,34 +82,25 @@
       "path": "./libs/jobs/events/domain"
     },
     {
-      "path": "./tools/tailwind"
-    },
-    {
-      "path": "./libs/ui/web"
-    },
-    {
-      "path": "./libs/ui/utils"
-    },
-    {
-      "path": "./libs/post/infrastructure"
-    },
-    {
-      "path": "./libs/shared/presentation"
-    },
-    {
-      "path": "./libs/post/presentation"
-    },
-    {
-      "path": "./libs/post/application"
-    },
-    {
-      "path": "./libs/post/domain"
+      "path": "./libs/user/infrastructure"
     },
     {
       "path": "./libs/user/infrastructure"
     },
     {
-      "path": "./tools/zoddd"
+      "path": "./apps/events-processor-e2e"
+    },
+    {
+      "path": "./apps/events-processor"
+    },
+    {
+      "path": "./apps/mobile-e2e"
+    },
+    {
+      "path": "./apps/mobile"
+    },
+    {
+      "path": "./tsconfig.sst.json"
     }
   ],
   "ts-node": {

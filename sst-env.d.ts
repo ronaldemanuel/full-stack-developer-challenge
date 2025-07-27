@@ -5,6 +5,10 @@
 
 declare module "sst" {
   export interface Resource {
+    "DatabaseMigrator": {
+      "name": string
+      "type": "sst.aws.Function"
+    }
     "MyBucket": {
       "name": string
       "type": "sst.aws.Bucket"

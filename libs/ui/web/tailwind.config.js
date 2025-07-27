@@ -4,4 +4,5 @@ import { web } from '@nx-ddd/tailwind';
 export default {
   presets: [web],
   content: web.content,
+  theme: {},
 };

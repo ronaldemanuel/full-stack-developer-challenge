@@ -5,34 +5,21 @@
     "rootDir": "src",
     "outDir": "dist",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "emitDeclarationOnly": true,
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "emitDeclarationOnly": false,
-    "declarationMap": false,
-    "declaration": false,
-    "composite": false,
-    "types": ["node"],
+    "jsx": "react-jsx",
     "allowJs": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "types": ["node"]
   },
-  "include": ["src/**/*.ts", "src/env.mjs"],
+  "include": ["src/**/*.ts"],
   "references": [
     {
       "path": "../../../email/infrastructure/tsconfig.lib.json"
     },
     {
       "path": "../presentation/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../email/application/tsconfig.lib.json"
-    },
-    {
-      "path": "../../../email/domain/tsconfig.lib.json"
     },
     {
       "path": "../domain/tsconfig.lib.json"

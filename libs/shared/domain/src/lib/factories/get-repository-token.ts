@@ -1,6 +1,6 @@
 import type { Type } from '@nestjs/common';
 
-import type { Entity } from '../entities/entity.js';
+import type { Entity } from '../entities/entity';
 
 export function getRepositoryToken<T extends Entity>(
   entity: Type<T> | string,

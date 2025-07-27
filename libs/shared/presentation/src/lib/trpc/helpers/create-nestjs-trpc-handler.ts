@@ -2,8 +2,8 @@ import type { INestApplicationContext, Type } from '@nestjs/common';
 import type { ContextId } from '@nestjs/core';
 import { ExternalContextCreator } from '@nestjs/core';
 
-import { PARAM_ARGS_METADATA } from '../constants/index.js';
-import { TRPCParamType } from '../enums/index.js';
+import { PARAM_ARGS_METADATA } from '../constants/index';
+import { TRPCParamType } from '../enums/index';
 
 export function createNestjsTrpcHandler<
   T extends Record<string, any>,

@@ -6,7 +6,7 @@ import { PostRepository } from '@nx-ddd/post-domain';
 import { PostTrpcController } from '@nx-ddd/post-presentation';
 import { UserModule } from '@nx-ddd/user-infrastructure';
 
-import { PostDrizzleRepository } from './database/drizzle/repositories/post-drizzle.repository.js';
+import { PostDrizzleRepository } from './database/drizzle/repositories/post-drizzle.repository';
 
 const providers: Provider[] = [
   {

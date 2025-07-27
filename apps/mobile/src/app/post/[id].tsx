@@ -2,7 +2,7 @@ import { Button, SafeAreaView, Text, View } from 'react-native';
 import { Stack, useGlobalSearchParams } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { trpc } from '~/utils/api';
+import { trpc } from '@/utils/api';
 
 export default function Post() {
   const { id } = useGlobalSearchParams();

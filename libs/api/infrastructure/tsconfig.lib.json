@@ -6,45 +6,29 @@
     "outDir": "dist",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": true,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
     "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "jsx": "react-jsx",
     "types": ["node"]
   },
   "include": ["src/**/*.ts"],
   "references": [
     {
-      "path": "../../user/domain/tsconfig.lib.json"
-    },
-    {
-      "path": "../../shared/infrastructure/tsconfig.lib.json"
-    },
-    {
-      "path": "../../shared/domain/tsconfig.lib.json"
+      "path": "../../user/infrastructure/tsconfig.lib.json"
     },
     {
       "path": "../../shared/presentation/tsconfig.lib.json"
     },
     {
-      "path": "../../shared/application/tsconfig.lib.json"
-    },
-    {
-      "path": "../../auth/domain/tsconfig.lib.json"
-    },
-    {
-      "path": "../../auth/application/tsconfig.lib.json"
-    },
-    {
-      "path": "../../user/infrastructure/tsconfig.lib.json"
+      "path": "../../shared/infrastructure/tsconfig.lib.json"
     },
     {
       "path": "../../post/infrastructure/tsconfig.lib.json"
     },
     {
       "path": "../../email/infrastructure/tsconfig.lib.json"
-    },
-    {
-      "path": "../../database/infrastructure/tsconfig.lib.json"
     }
   ],
   "exclude": [

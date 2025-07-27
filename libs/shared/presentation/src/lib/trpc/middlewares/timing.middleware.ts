@@ -1,4 +1,4 @@
-import { t } from '../trpc.js';
+import { t } from '../trpc';
 
 /**
  * Middleware for timing procedure execution and adding an articifial delay in development.

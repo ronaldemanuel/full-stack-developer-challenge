@@ -16,14 +16,13 @@ import { DATABASE_CONNECTION_NAME } from '@nx-ddd/database-application';
 import {
   PostEntityMockFactory,
   PostInMemoryRepository,
-  PostLikedAggregate,
   PostRepository,
   UserPostEntityRefFactory,
   UserPostRefInMemoryRepository,
   UserRepositoryPostRef,
 } from '@nx-ddd/post-domain';
 
-import { ToggleLikeCommand } from '../../toggle-like.command.js';
+import { ToggleLikeCommand } from '../../toggle-like.command';
 
 class StubAdapter implements TransactionalAdapter<any, any, any> {
   connectionToken?: any;
@@ -99,8 +98,8 @@ describe('ToggleLikeCommand', () => {
     const mockPost = PostEntityMockFactory();
 
     // Create spies on the user methods
-    const toggleLikeSpy = vi.spyOn(mockUser, 'toggleLike');
-    vi.spyOn(mockUser, 'commit');
+    const toggleLikeSpy = vi.spyOn(mockUser, 'togglePostLike');
+    vi.spyOn(mockPost, 'commit');
 
     // Mock repository methods
     vi.spyOn(userRepository, 'findById').mockResolvedValue(mockUser);
@@ -111,7 +110,7 @@ describe('ToggleLikeCommand', () => {
       return mockPost as any;
     });
 
-    vi.spyOn(postRepository, 'saveUser').mockResolvedValue(undefined);
+    vi.spyOn(postRepository, 'update').mockResolvedValue(undefined);
 
     const command = ToggleLikeCommand.create({
       userId: mockUser.id,
@@ -129,7 +128,7 @@ describe('ToggleLikeCommand', () => {
         id: mockPost.id,
       }),
     );
-    expect(postRepository.saveUser).toHaveBeenCalledWith(mockUser);
-    expect(mockUser.commit).toHaveBeenCalled();
+    expect(postRepository.update).toHaveBeenCalledWith(mockPost);
+    expect(mockPost.commit).toHaveBeenCalled();
   });
 });

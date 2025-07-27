@@ -5,10 +5,10 @@ import {
   getRepositoryToken,
 } from '@nx-ddd/shared-domain';
 
-import type { PostLikedAggregate } from '../aggregates/post-liked.aggregate.js';
-import type { UserEntityPostRef } from '../entities/index.js';
-import type { PostEntity } from '../entities/post.entity.js';
-import type { UserRepositoryPostRef } from './refs/user-repository-post.ref.js';
+import type { PostLikedAggregate } from '../aggregates/post-liked.aggregate';
+import type { UserEntityPostRef } from '../entities/index';
+import type { PostEntity } from '../entities/post.entity';
+import type { UserRepositoryPostRef } from './refs/user-repository-post.ref';
 
 export namespace PostRepository {
   export const TOKEN = getRepositoryToken('Post');

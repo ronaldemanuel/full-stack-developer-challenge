@@ -1,6 +1,6 @@
 {
   "name": "@nx-ddd/auth-infrastructure",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
@@ -14,11 +14,15 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./env": "./src/env.mjs"
+    "./env": {
+      "development": "./src/env.ts",
+      "types": "./dist/env.d.ts",
+      "import": "./dist/env.js",
+      "default": "./dist/env.js"
+    }
   },
   "nx": {
     "name": "auth-infrastructure",
-    "sourceRoot": "libs/auth/infrastructure/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -29,28 +33,26 @@
           "outputPath": "libs/auth/infrastructure/dist",
           "main": "libs/auth/infrastructure/src/index.ts",
           "tsConfig": "libs/auth/infrastructure/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       },
       "generate": {
         "executor": "nx:run-commands",
         "options": {
-          "command": "pnpm dlx @better-auth/cli@latest generate --config libs/auth/infrastructure/src/lib/auth.ts --output libs/database/infrastructure/src/lib/drizzle/schema/auth-schema.ts -y"
+          "command": "pnpm dlx @better-auth/cli@latest generate --config libs/auth/infrastructure/src/lib/auth.ts --output libs/database/infrastructure/src/drizzle/schema/auth-schema.ts -y"
         }
       }
     }
   },
   "dependencies": {
-    "@react-email/components": "^0.3.2",
-    "@better-auth/expo": "^1.3.3",
-    "better-auth": "^1.3.3",
     "@nx-ddd/auth-application": "workspace:*",
     "@nx-ddd/auth-domain": "workspace:*",
-    "@nx-ddd/user-domain": "workspace:*",
     "@nx-ddd/database-infrastructure": "workspace:*",
-    "@swc/helpers": "~0.5.11",
-    "zod": "catalog:",
-    "@t3-oss/env-nextjs": "^0.13.6"
+    "@t3-oss/env-nextjs": "catalog:zod3",
+    "@better-auth/expo": "catalog:expo",
+    "zod": "catalog:zod3",
+    "@nestjs/common": "catalog:nestjs",
+    "better-auth": "catalog:auth",
+    "@swc/helpers": "~0.5.11"
   }
 }

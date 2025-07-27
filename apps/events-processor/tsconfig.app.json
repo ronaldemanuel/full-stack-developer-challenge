@@ -2,39 +2,37 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "allowJs": true,
     "types": ["node"],
     "rootDir": "src",
-    "jsx": "react-jsx",
-    "noUnusedLocals": false,
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "jsx": "react-jsx"
   },
-  "files": ["../../node_modules/@nx/expo/typings/svg.d.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": [
     "out-tsc",
     "dist",
-    "**/*.test.ts",
-    "**/*.spec.ts",
-    "**/*.test.tsx",
-    "**/*.spec.tsx",
-    "**/*.test.js",
-    "**/*.spec.js",
-    "**/*.test.jsx",
-    "**/*.spec.jsx",
-    "src/test-setup.ts",
     "jest.config.ts",
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
     "eslint.config.js",
     "eslint.config.cjs",
-    "eslint.config.mjs"
+    "eslint.config.mjs",
+    "vite.config.ts",
+    "vite.config.mts",
+    "vitest.config.ts",
+    "vitest.config.mts",
+    "src/**/*.test.tsx",
+    "src/**/*.spec.tsx",
+    "src/**/*.test.js",
+    "src/**/*.spec.js",
+    "src/**/*.test.jsx",
+    "src/**/*.spec.jsx"
   ],
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
   "references": [
     {
-      "path": "../../libs/jobs/events/infrastructure"
+      "path": "../../libs/jobs/events/infrastructure/tsconfig.lib.json"
     }
   ]
 }

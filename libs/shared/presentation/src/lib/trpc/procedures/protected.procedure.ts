@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 
-import { timingMiddleware } from '../middlewares/timing.middleware.js';
-import { t } from '../trpc.js';
+import { timingMiddleware } from '../middlewares/timing.middleware';
+import { t } from '../trpc';
 
 /**
  * Protected (authenticated) procedure

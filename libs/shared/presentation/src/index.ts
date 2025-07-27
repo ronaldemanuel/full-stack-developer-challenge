@@ -1,1 +1,1 @@
-export * from './lib/trpc/index.js';
+export * from './lib/trpc/index';

@@ -1,30 +1,28 @@
 import { Injectable } from '@nestjs/common';
 
-import type {
-  DrizzleDB,
-  DrizzleTX,
-  SQL,
-} from '@nx-ddd/database-infrastructure';
+import type { DrizzleDB, DrizzleTX } from '@nx-ddd/database-infrastructure';
+import type { SQL } from '@nx-ddd/database-infrastructure/drizzle/operators';
 import type {
   PostEntity,
   UserEntityPostRef,
   UserRepositoryPostRef,
 } from '@nx-ddd/post-domain';
 import {
+  InjectDrizzle,
+  InjectDrizzleTransaction,
+} from '@nx-ddd/database-infrastructure';
+import {
   and,
   asc,
   desc,
   eq,
   getTableColumns,
-  inArray,
-  InjectDrizzle,
-  InjectDrizzleTransaction,
   like,
   or,
   sql,
-} from '@nx-ddd/database-infrastructure';
+} from '@nx-ddd/database-infrastructure/drizzle/operators';
 import {
-  like as LikeEntity,
+  like as likeSchema,
   post,
 } from '@nx-ddd/database-infrastructure/drizzle/schema';
 import { PostLikedAggregate, PostRepository } from '@nx-ddd/post-domain';
@@ -33,8 +31,8 @@ import {
   RelationshipNotLoadedError,
 } from '@nx-ddd/shared-domain';
 
-import { LikeDrizzleModelMapper } from '../model/like-drizzle-mode.mapper.js';
-import { PostDrizzleModelMapper } from '../model/post-drizzle-model.mapper.js';
+import { LikeDrizzleModelMapper } from '../model/like-drizzle-model.mapper';
+import { PostDrizzleModelMapper } from '../model/post-drizzle-model.mapper';
 
 @Injectable()
 export class PostDrizzleRepository implements PostRepository.Repository {
@@ -63,19 +61,23 @@ export class PostDrizzleRepository implements PostRepository.Repository {
     }
     // generate a upsert query that toggles the likes of the user creating new likes if they don't exist and removing them if they do
     await Promise.all([
-      user.$watchedRelations.likes.getRemovedItems()
-        ? this.tx.delete(LikeEntity).where(
-            inArray(
-              LikeEntity.id,
-              user.$watchedRelations.likes
-                .getRemovedItems()
-                .map((like) => like.id),
-            ),
+      user.$watchedRelations.likes.getRemovedItems().length
+        ? this.tx.execute(
+            sql`
+    DELETE FROM ${likeSchema}
+    WHERE (user_id, post_id) IN (
+      ${sql.join(
+        user.$watchedRelations.likes
+          .getRemovedItems()
+          .map((like) => sql`(${like.user.id}, ${like.post.id})`),
+        sql`, `,
+      )}
+    )`,
           )
         : undefined,
       user.$watchedRelations.likes.getNewItems().length
         ? this.tx
-            .insert(LikeEntity)
+            .insert(likeSchema)
             .values(
               user.$watchedRelations.likes
                 .getNewItems()
@@ -106,8 +108,37 @@ export class PostDrizzleRepository implements PostRepository.Repository {
   async delete(id: string): Promise<void> {
     await this.tx.delete(post).where(eq(post.id, id));
   }
-  update(entity: PostEntity): Promise<void> {
-    throw new Error('Method not implemented.');
+  async update(entity: PostEntity): Promise<void> {
+    await this.tx
+      .update(post)
+      .set(PostDrizzleModelMapper.toPersistence(entity));
+    if (this.userRepository) {
+      await Promise.all([
+        entity.$watchedRelations.likes.getRemovedItems().length
+          ? this.tx.execute(
+              sql`
+    DELETE FROM ${likeSchema}
+    WHERE (user_id, post_id) IN (
+      ${sql.join(
+        entity.$watchedRelations.likes
+          .getRemovedItems()
+          .map((like) => sql`(${like.user.id}, ${like.post.id})`),
+        sql`, `,
+      )}
+    )`,
+            )
+          : undefined,
+        entity.$watchedRelations.likes.getNewItems().length
+          ? this.tx
+              .insert(likeSchema)
+              .values(
+                entity.$watchedRelations.likes
+                  .getNewItems()
+                  .map((like) => LikeDrizzleModelMapper.toPersistence(like)),
+              )
+          : undefined,
+      ]);
+    }
   }
   async search(
     props: PostRepository.SearchParams,
@@ -133,15 +164,8 @@ export class PostDrizzleRepository implements PostRepository.Repository {
       limit: props.perPage,
       offset: (props.page - 1) * props.perPage,
       with: {
-        owner: {
-          with: {
-            likes: {
-              with: {
-                post: true,
-              },
-            },
-          },
-        },
+        owner: true,
+        likes: true,
       },
       extras: {
         total: this.db.$count(post, filterCondition).as(`total`),
@@ -167,11 +191,8 @@ export class PostDrizzleRepository implements PostRepository.Repository {
     const data = await this.db.query.post.findFirst({
       where: eq(post.id, id),
       with: {
-        owner: {
-          with: {
-            likes: true,
-          },
-        },
+        owner: true,
+        likes: true,
       },
       extras: {
         // returns true if the post is liked by the user with the given id
@@ -179,11 +200,11 @@ export class PostDrizzleRepository implements PostRepository.Repository {
           ? sql<boolean>`EXISTS (
               ${this.db
                 .select()
-                .from(LikeEntity)
+                .from(likeSchema)
                 .where(
                   and(
-                    eq(LikeEntity.postId, id),
-                    eq(LikeEntity.userId, scopes.likedByUserId),
+                    eq(likeSchema.postId, id),
+                    eq(likeSchema.userId, scopes.likedByUserId),
                   ),
                 )}
             )`.as('metaLiked')

@@ -2,7 +2,7 @@ import { Inject } from '@nestjs/common';
 
 import { InjectTransaction } from '@nx-ddd/database-application';
 
-import { DRIZZLE_TOKEN } from '../constants/index.js';
+import { DRIZZLE_TOKEN } from '../constants/index';
 
 export function InjectDrizzle() {
   return Inject(DRIZZLE_TOKEN);

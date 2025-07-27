@@ -4,43 +4,19 @@
   "include": [],
   "references": [
     {
-      "path": "../../user/domain"
-    },
-    {
-      "path": "../../shared/infrastructure"
-    },
-    {
-      "path": "../../shared/domain"
+      "path": "../../user/infrastructure"
     },
     {
       "path": "../../shared/presentation"
     },
     {
-      "path": "../../shared/application"
-    },
-    {
-      "path": "../../jobs/events/infrastructure"
-    },
-    {
-      "path": "../../auth/infrastructure"
-    },
-    {
-      "path": "../../auth/domain"
-    },
-    {
-      "path": "../../auth/application"
-    },
-    {
-      "path": "../../user/infrastructure"
+      "path": "../../shared/infrastructure"
     },
     {
       "path": "../../post/infrastructure"
     },
     {
       "path": "../../email/infrastructure"
-    },
-    {
-      "path": "../../database/infrastructure"
     },
     {
       "path": "./tsconfig.lib.json"

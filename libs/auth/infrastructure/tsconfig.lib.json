@@ -5,35 +5,20 @@
     "rootDir": "src",
     "outDir": "dist",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
-    "module": "nodenext",
-    "target": "es2022",
-    "moduleResolution": "nodenext",
+    "emitDeclarationOnly": true,
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "emitDeclarationOnly": false,
-    "declarationMap": false,
-    "declaration": false,
-    "composite": false,
-    "types": [
-      "node"
-    ],
     "allowJs": true,
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
+    "types": ["node"]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
+  "include": ["src/**/*.ts"],
   "references": [
     {
-      "path": "../../database/infrastructure/tsconfig.lib.json"
+      "path": "../../user/domain/tsconfig.lib.json"
     },
     {
-      "path": "../../user/domain/tsconfig.lib.json"
+      "path": "../../database/infrastructure/tsconfig.lib.json"
     },
     {
       "path": "../domain/tsconfig.lib.json"
@@ -43,6 +28,7 @@
     }
   ],
   "exclude": [
+    "src/lib/auth.ts",
     "vite.config.ts",
     "vite.config.mts",
     "vitest.config.ts",

@@ -1,10 +1,10 @@
-import { CreatePostCommand } from './create-post.command.js';
-import { DeletePostCommand } from './delete-post.command.js';
-import { ToggleLikeCommand } from './toggle-like.command.js';
+import { CreatePostCommand } from './create-post.command';
+import { DeletePostCommand } from './delete-post.command';
+import { ToggleLikeCommand } from './toggle-like.command';
 
-export * from './create-post.command.js';
-export * from './delete-post.command.js';
-export * from './toggle-like.command.js';
+export * from './create-post.command';
+export * from './delete-post.command';
+export * from './toggle-like.command';
 
 export const commands = [
   CreatePostCommand.Handler,

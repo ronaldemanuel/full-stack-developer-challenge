@@ -1,8 +1,8 @@
 import z from 'zod';
 
-import { invitationSchema } from './invitation.schema.js';
-import { memberSchema } from './member.schema.js';
-import { organizationSchema } from './organization.schema.js';
+import { invitationSchema } from './invitation.schema';
+import { memberSchema } from './member.schema';
+import { organizationSchema } from './organization.schema';
 
 export const activeOrganizationSchema = organizationSchema.extend({
   members: z.array(memberSchema),

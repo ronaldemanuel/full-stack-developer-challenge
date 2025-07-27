@@ -1,0 +1,27 @@
+{
+  "name": "@nx-ddd/events-processor-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "nx": {
+    "name": "events-processor-e2e",
+    "implicitDependencies": [
+      "events-processor"
+    ],
+    "targets": {
+      "e2e": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{projectRoot}/test-output/jest/coverage"
+        ],
+        "options": {
+          "jestConfig": "apps/events-processor-e2e/jest.config.ts",
+          "passWithNoTests": true
+        },
+        "dependsOn": [
+          "events-processor:build",
+          "events-processor:serve"
+        ]
+      }
+    }
+  }
+}

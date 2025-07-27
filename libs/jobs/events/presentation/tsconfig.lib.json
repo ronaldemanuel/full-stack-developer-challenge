@@ -8,8 +8,6 @@
     "emitDeclarationOnly": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },

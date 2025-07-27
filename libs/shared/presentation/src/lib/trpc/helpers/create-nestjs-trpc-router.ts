@@ -1,8 +1,8 @@
 import type { Type } from '@nestjs/common';
 import type { TRPCRouterRecord } from '@trpc/server';
 
-import type { NestResolver } from './adapt-nestjs-controller-method.js';
-import { adaptNestjsControllerToTrpcResolver } from './adapt-nestjs-controller-method.js';
+import type { NestResolver } from './adapt-nestjs-controller-method';
+import { adaptNestjsControllerToTrpcResolver } from './adapt-nestjs-controller-method';
 
 export function createNestjsTrpcRouter<
   T extends Type<Record<string, any>>,

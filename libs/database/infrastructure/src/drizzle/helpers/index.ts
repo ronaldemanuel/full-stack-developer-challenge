@@ -1,3 +1,4 @@
-export * from './migrate.js';
-export * from './operators.js';
-export * from './testing/setup-drizzle-test-db.js';
+export * from './migrate';
+export * from './operators';
+export * from './testing/setup-drizzle-test-db';
+export * from './testing/drizzle-test-db.interface';

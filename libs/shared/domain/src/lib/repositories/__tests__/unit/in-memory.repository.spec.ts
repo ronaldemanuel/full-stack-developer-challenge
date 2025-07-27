@@ -1,6 +1,6 @@
-import { Entity } from '../../../entities/entity.js';
-import { NotFoundError } from '../../../errors/not-found-error.js';
-import { InMemoryRepository } from '../../in-memory.repository.js';
+import { Entity } from '../../../entities/entity';
+import { NotFoundError } from '../../../errors/not-found-error';
+import { InMemoryRepository } from '../../in-memory.repository';
 
 interface StubEntityProps {
   name: string;

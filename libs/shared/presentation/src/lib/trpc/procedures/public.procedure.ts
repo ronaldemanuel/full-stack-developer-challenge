@@ -1,5 +1,5 @@
-import { timingMiddleware } from '../middlewares/timing.middleware.js';
-import { t } from '../trpc.js';
+import { timingMiddleware } from '../middlewares/timing.middleware';
+import { t } from '../trpc';
 
 /**
  * Public (unauthed) procedure

@@ -4,10 +4,10 @@
   "include": [],
   "references": [
     {
-      "path": "../../database/infrastructure"
+      "path": "../../user/domain"
     },
     {
-      "path": "../../user/domain"
+      "path": "../../database/infrastructure"
     },
     {
       "path": "../domain"

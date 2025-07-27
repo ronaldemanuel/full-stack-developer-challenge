@@ -1,6 +1,6 @@
 {
   "name": "@nx-ddd/ui-utils",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "ui-utils",
-    "sourceRoot": "libs/ui/utils/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,13 +27,14 @@
           "outputPath": "libs/ui/utils/dist",
           "main": "libs/ui/utils/src/index.ts",
           "tsConfig": "libs/ui/utils/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
+    "class-variance-authority": "catalog:",
+    "tailwind-merge": "catalog:tailwind3",
     "@swc/helpers": "~0.5.11"
   }
 }

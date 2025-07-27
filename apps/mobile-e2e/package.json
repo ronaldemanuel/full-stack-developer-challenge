@@ -1,9 +1,8 @@
 {
-  "name": "@nx-ddd/mobile-e2e",
-  "version": "0.0.1",
+  "name": "mobile-e2e",
+  "version": "0.1.0",
   "private": true,
   "nx": {
-    "name": "mobile-e2e",
     "implicitDependencies": [
       "mobile"
     ]

@@ -4,14 +4,14 @@ import type { DrizzleDB, DrizzleTX } from '@nx-ddd/database-infrastructure';
 import type { Entity, IRepository } from '@nx-ddd/shared-domain';
 import type { UserEntity, UserRepository } from '@nx-ddd/user-domain';
 import {
-  eq,
   InjectDrizzle,
   InjectDrizzleTransaction,
 } from '@nx-ddd/database-infrastructure';
+import { eq } from '@nx-ddd/database-infrastructure/drizzle/operators';
 import { user } from '@nx-ddd/database-infrastructure/drizzle/schema';
 import { NotFoundError } from '@nx-ddd/shared-domain';
 
-import { UserDrizzleModelMapper } from '../model/user-drizzle-model.mapper.js';
+import { UserDrizzleModelMapper } from '../model/user-drizzle-model.mapper';
 
 @Injectable()
 export class UserDrizzleRepository implements UserRepository.Repository {

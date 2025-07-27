@@ -1,91 +1,20 @@
 {
   "name": "@nx-ddd/web",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "nx": {
     "name": "web",
     "targets": {
-      "build": {
-        "options": {
-          "cwd": "apps/web",
-          "tty": false,
-          "command": "next build"
-        },
-        "dependsOn": [
-          "^build"
-        ],
-        "cache": true,
-        "inputs": [
-          "default",
-          "^production",
-          {
-            "externalDependencies": [
-              "next"
-            ]
-          }
-        ],
-        "outputs": [
-          "{workspaceRoot}/apps/web/.next/!(cache)/**/*",
-          "{workspaceRoot}/apps/web/.next/!(cache)"
-        ],
-        "executor": "nx:run-commands",
-        "configurations": {},
-        "parallelism": true
-      },
-      "build-deps": {
-        "dependsOn": [
-          "^build"
-        ],
-        "configurations": {},
-        "options": {},
-        "parallelism": true,
-        "executor": "nx:noop"
-      },
       "dev": {
         "continuous": true,
         "options": {
           "cwd": "apps/web",
-          "command": "next dev"
+          "command": "next dev --turbo"
         },
-        "executor": "nx:run-commands",
-        "configurations": {},
-        "parallelism": true
-      },
-      "serve-static": {
-        "continuous": true,
-        "options": {
-          "cwd": "apps/web",
-          "command": "next start"
-        },
-        "dependsOn": [
-          "build"
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
         ],
         "executor": "nx:run-commands",
-        "configurations": {},
-        "parallelism": true
-      },
-      "start": {
-        "continuous": true,
-        "options": {
-          "cwd": "apps/web",
-          "command": "next start"
-        },
-        "dependsOn": [
-          "build"
-        ],
-        "executor": "nx:run-commands",
-        "configurations": {},
-        "parallelism": true
-      },
-      "watch-deps": {
-        "continuous": true,
-        "dependsOn": [
-          "build-deps"
-        ],
-        "executor": "nx:run-commands",
-        "options": {
-          "command": "pnpm exec nx watch --projects web --includeDependentProjects -- pnpm exec nx build-deps web"
-        },
         "configurations": {},
         "parallelism": true
       },
@@ -109,19 +38,23 @@
     "@nx-ddd/api-infrastructure": "workspace:*",
     "@nx-ddd/auth-domain": "workspace:*",
     "@nx-ddd/auth-infrastructure": "workspace:*",
-    "@nx-ddd/job-events-infra": "workspace:*",
+    "@nx-ddd/jobs-events-infrastructure": "workspace:*",
     "@nx-ddd/shared-domain": "workspace:*",
     "@nx-ddd/shared-infrastructure": "workspace:*",
+    "@nx-ddd/shared-presentation": "workspace:*",
     "@nx-ddd/tailwind": "workspace:*",
     "@nx-ddd/ui": "workspace:*",
-    "trpc-ui": "^1.0.15",
     "@nx-ddd/ui-utils": "workspace:*",
-    "jiti": "^2.4.2",
-    "next": "catalog:",
-    "next-safe-action": "^7.10.8",
-    "next-themes": "^0.4.6",
-    "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "@tanstack/react-query": "catalog:",
+    "@trpc/client": "catalog:trpc",
+    "@trpc/tanstack-react-query": "catalog:trpc",
+    "next": "catalog:next",
+    "next-safe-action": "catalog:next",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19",
+    "react-qr-code": "catalog:",
+    "trpc-ui": "catalog:trpc",
+    "ua-parser-js": "catalog:"
   },
   "devDependencies": {
     "@opennextjs/aws": "^3.7.0"

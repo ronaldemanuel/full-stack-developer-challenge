@@ -1,6 +1,6 @@
 {
   "name": "@nx-ddd/shared-application",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "shared-application",
-    "sourceRoot": "libs/shared/application/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,14 +27,15 @@
           "outputPath": "libs/shared/application/dist",
           "main": "libs/shared/application/src/index.ts",
           "tsConfig": "libs/shared/application/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
-    "@swc/helpers": "~0.5.11",
-    "@nx-ddd/shared-domain": "workspace:*"
+    "@nx-ddd/shared-domain": "workspace:*",
+    "cache-manager": "catalog:",
+    "serialize-javascript": "catalog:",
+    "@swc/helpers": "~0.5.11"
   }
 }

@@ -1,8 +1,6 @@
-import { LikeEntity } from 'node_modules/@nx-ddd/post-domain/src/lib/entities/like.entity.js';
+import { LikeEntity, UserEntityPostRef } from '@nx-ddd/post-domain';
 
-import { UserEntityPostRef } from '@nx-ddd/post-domain';
-
-import { PostDrizzleModelMapper } from './post-drizzle-model.mapper.js';
+import { PostDrizzleModelMapper } from './post-drizzle-model.mapper';
 
 export class UserEntityPostRefModelMapper {
   static toEntity(data: any): UserEntityPostRef {

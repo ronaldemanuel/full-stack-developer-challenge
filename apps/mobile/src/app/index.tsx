@@ -1,13 +1,12 @@
+import type { RouterOutputs } from '@/utils/api';
 import React, { useState } from 'react';
 import { Button, Pressable, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, Stack } from 'expo-router';
+import { trpc } from '@/utils/api';
+import { authClient } from '@/utils/auth';
 import { LegendList } from '@legendapp/list';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-
-import type { RouterOutputs } from '~/utils/api';
-import { trpc } from '~/utils/api';
-import { authClient } from '~/utils/auth';
 
 function PostCard(props: {
   post: RouterOutputs['post']['search']['items'][number];

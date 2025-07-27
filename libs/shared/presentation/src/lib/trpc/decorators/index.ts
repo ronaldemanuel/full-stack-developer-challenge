@@ -1,2 +1,2 @@
-export * from './ctx.decorator.js';
-export * from './input.decorator.js';
+export * from './ctx.decorator';
+export * from './input.decorator';

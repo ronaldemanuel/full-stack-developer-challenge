@@ -1,1 +1,1 @@
-export * from './payment-not-approved-error.js';
+export * from './payment-not-approved-error';

@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 
 import { UserRepository } from '@nx-ddd/user-domain';
 
-import { UserDrizzleRepository } from './database/drizzle/repositories/user-drizzle.repository.js';
+import { UserDrizzleRepository } from './database/drizzle/repositories/user-drizzle.repository';
 
 const providers: Provider[] = [
   {

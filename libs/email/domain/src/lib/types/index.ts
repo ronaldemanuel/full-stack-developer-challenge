@@ -1,1 +1,1 @@
-export * from './email-map.type.js';
+export * from './email-map.type';

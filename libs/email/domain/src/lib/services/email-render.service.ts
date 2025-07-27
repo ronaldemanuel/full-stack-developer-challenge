@@ -2,8 +2,8 @@ import type { ISendMailOptions } from '@nestjs-modules/mailer';
 import type {
   EmailTypes,
   SendEmailPayload,
-} from '../schemas/send-email.schema.js';
-import type { EmailMap } from '../types/email-map.type.js';
+} from '../schemas/send-email.schema';
+import type { EmailMap } from '../types/email-map.type';
 
 export namespace EmailRenderService {
   export const TOKEN = 'EMAIL_RENDER_SERVICE';

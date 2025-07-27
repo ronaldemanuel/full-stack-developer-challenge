@@ -7,13 +7,7 @@
       "path": "../../email/domain"
     },
     {
-      "path": "../../email/application"
-    },
-    {
       "path": "../../shared/application"
-    },
-    {
-      "path": "../../shared/domain"
     },
     {
       "path": "../domain"
