@@ -79,17 +79,18 @@ export class UserEntityPostRef extends UserEntity {
 
   static override cast(
     user: UserEntity,
-    relations: () => UserPostRefRelations = () => {
-      throw new RelationshipNotLoadedError('Relations not provided');
-    },
+    relations?: () => UserPostRefRelations,
     id?: string,
   ): UserEntityPostRef {
+    if (user instanceof UserEntityPostRef) {
+      return user;
+    }
     const casted = super.cast<
       UserPostRefProps,
       UserEntity,
       UserEntityPostRef,
       [() => UserPostRefRelations, id?: string]
-    >(user, relations, id);
+    >(user, (user as UserEntityPostRef).$relations || relations, id);
     const likes = (casted.props.likes || []).map((like) => {
       const post = new PostEntity(
         {
@@ -114,7 +115,13 @@ export class UserEntityPostRef extends UserEntity {
 
     const createdPosts: PostEntity[] = [];
     try {
-      const probablyRelations = relations();
+      const probablyRelations = relations
+        ? relations()
+        : casted.$relations
+          ? casted.$relations()
+          : (() => {
+              throw new RelationshipNotLoadedError('Relations not provided');
+            })();
       casted.$relations = () => probablyRelations;
     } catch {
       casted.$relations = () => {

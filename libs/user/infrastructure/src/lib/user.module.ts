@@ -1,7 +1,7 @@
 import type { Provider } from '@nestjs/common';
 import { Module } from '@nestjs/common';
 
-import { UserRepository } from '@nx-ddd/post-domain';
+import { UserRepository } from '@nx-ddd/user-domain';
 
 import { UserDrizzleRepository } from './database/drizzle/repositories/user-drizzle.repository.js';
 
