@@ -38,6 +38,8 @@
     "@nx-ddd/user-domain": "workspace:*",
     "validated-extendable": "catalog:",
     "zod": "catalog:zod3",
-    "@swc/helpers": "~0.5.11"
+    "@swc/helpers": "~0.5.11",
+    "@nestjs/common": "catalog:nestjs",
+    "@anatine/zod-mock": "catalog:zod3"
   }
 }

@@ -34,18 +34,18 @@
   },
   "dependencies": {
     "@nestjs/common": "catalog:nestjs",
-    "@nx-ddd/auth-domain": "workspace:*",
-    "@nx-ddd/database-application": "workspace:*",
     "@nx-ddd/database-infrastructure": "workspace:*",
     "@nx-ddd/post-application": "workspace:*",
     "@nx-ddd/post-domain": "workspace:*",
     "@nx-ddd/post-presentation": "workspace:*",
     "@nx-ddd/shared-domain": "workspace:*",
-    "@nx-ddd/shared-infrastructure": "workspace:*",
     "@nx-ddd/user-infrastructure": "workspace:*",
     "@swc/helpers": "~0.5.11"
   },
   "devDependencies": {
+    "@nx-ddd/auth-domain": "workspace:*",
+    "@nx-ddd/database-application": "workspace:*",
+    "@nx-ddd/shared-infrastructure": "workspace:*",
     "unplugin-swc": "^1.5.5",
     "vite-plugin-node": "^7.0.0"
   }

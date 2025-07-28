@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from '@nx-ddd/ui';
 
-type PricingCardProps = {
+interface PricingCardProps {
   title: string;
   price: string;
   description: string;
@@ -20,7 +20,7 @@ type PricingCardProps = {
   buttonText: string;
   buttonHref: string;
   isPopular?: boolean;
-};
+}
 
 export function PricingCard(props: PricingCardProps) {
   return (

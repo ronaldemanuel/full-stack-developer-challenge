@@ -1,6 +1,22 @@
 import nx from '@nx/eslint-plugin';
 
 export default [
+  {
+    files: ['**/*.json'],
+    // Override or add rules here
+    rules: {
+      '@nx/dependency-checks': [
+        'error',
+        {
+          ignoredFiles: ['{projectRoot}/sst-env.d.ts'],
+          ignoredDependencies: ['@neondatabase/serverless'],
+        },
+      ],
+    },
+    languageOptions: {
+      parser: await import('jsonc-eslint-parser'),
+    },
+  },
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],

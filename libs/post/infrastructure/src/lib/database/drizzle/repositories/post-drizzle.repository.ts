@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
 import type { DrizzleDB, DrizzleTX } from '@nx-ddd/database-infrastructure';
-import type { SQL } from '@nx-ddd/database-infrastructure/drizzle/operators';
+import type {
+  getTableColumns,
+  SQL,
+} from '@nx-ddd/database-infrastructure/drizzle/operators';
 import type {
   PostEntity,
   UserEntityPostRef,
@@ -16,7 +19,6 @@ import {
   asc,
   desc,
   eq,
-  getTableColumns,
   like,
   or,
   sql,
@@ -143,9 +145,9 @@ export class PostDrizzleRepository implements PostRepository.Repository {
   async search(
     props: PostRepository.SearchParams,
   ): Promise<PostRepository.SearchResult> {
-    const columns = getTableColumns(post);
-    const sortFieldKey = (props.sort || post.createdAt) as keyof typeof columns;
-    const sortField = post[sortFieldKey]!;
+    type PostColumns = ReturnType<typeof getTableColumns<typeof post>>;
+    const sortFieldKey = (props.sort || post.createdAt) as keyof PostColumns;
+    const sortField = post[sortFieldKey];
     const { filter, sort, page, perPage, sortDir } = props;
     let filterCondition: SQL | undefined;
 
@@ -154,7 +156,7 @@ export class PostDrizzleRepository implements PostRepository.Repository {
     }
     const orderBy = sort
       ? sortDir === 'asc'
-        ? asc(post[sortFieldKey]!)
+        ? asc(post[sortFieldKey])
         : desc(sortField)
       : asc(post.createdAt);
 

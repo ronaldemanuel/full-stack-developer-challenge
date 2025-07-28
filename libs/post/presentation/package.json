@@ -37,6 +37,7 @@
     "@nx-ddd/post-application": "workspace:*",
     "@nx-ddd/shared-presentation": "workspace:*",
     "@nestjs/common": "catalog:nestjs",
-    "@swc/helpers": "~0.5.11"
+    "@swc/helpers": "~0.5.11",
+    "zod": "catalog:zod3"
   }
 }
