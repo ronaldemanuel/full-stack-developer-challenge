@@ -118,7 +118,7 @@ export class UserItemRef extends UserEntity {
       return;
     }
 
-    this.inventory.push(
+    this._inventory.add(
       InventoryItemMapper.toDomain(
         {
           amount: 1,
@@ -152,7 +152,7 @@ export class UserItemRef extends UserEntity {
 
   static override cast(
     user: UserEntity,
-    relations: () => UserItemRefRelations,
+    relations?: () => UserItemRefRelations,
     id?: string,
   ): UserItemRef {
     if (user instanceof UserItemRef) {
@@ -164,11 +164,11 @@ export class UserItemRef extends UserEntity {
       UserEntity,
       UserItemRef,
       [() => UserItemRefRelations, id?: string]
-    >(user, relations, id);
+    >(user, (user as UserItemRef).$relations || relations, id);
 
     const inventory: InventoryItemEntity[] = [];
     try {
-      const probablyRelations = relations();
+      const probablyRelations = (user as UserItemRef).$relations();
       casted.$relations = () => probablyRelations;
     } catch {
       casted.$relations = () => {
