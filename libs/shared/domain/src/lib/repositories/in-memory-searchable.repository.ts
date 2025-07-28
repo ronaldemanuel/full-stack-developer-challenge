@@ -7,14 +7,17 @@ import type {
 import { InMemoryRepository } from './in-memory.repository';
 import { SearchResult } from './searchable-repository.contracts';
 
-export abstract class InMemorySearchableRepository<E extends Entity>
+export abstract class InMemorySearchableRepository<
+    E extends Entity,
+    Filter = string,
+  >
   extends InMemoryRepository<E>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  implements IRepository<E>, ISearchable<E, any, any>
+  implements IRepository<E>, ISearchable<E, Filter, any>
 {
   sortableFields: string[] = [];
 
-  async search(props: SearchParams): Promise<SearchResult<E>> {
+  async search(props: SearchParams<Filter>): Promise<SearchResult<E, Filter>> {
     const itemsFiltered = await this.applyFilter(this.items, props.filter);
     const itemsSorted = await this.applySort(
       itemsFiltered,
@@ -26,7 +29,7 @@ export abstract class InMemorySearchableRepository<E extends Entity>
       props.page,
       props.perPage,
     );
-    return new SearchResult({
+    return new SearchResult<E, Filter>({
       items: itemsPaginated,
       total: itemsFiltered.length,
       currentPage: props.page,
@@ -39,7 +42,7 @@ export abstract class InMemorySearchableRepository<E extends Entity>
 
   protected abstract applyFilter(
     items: E[],
-    filter: string | null,
+    filter: Filter | null,
   ): Promise<E[]>;
 
   protected async applySort(
