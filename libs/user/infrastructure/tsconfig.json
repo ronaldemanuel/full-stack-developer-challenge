@@ -4,16 +4,10 @@
   "include": [],
   "references": [
     {
-      "path": "../../post/domain"
-    },
-    {
       "path": "../domain"
     },
     {
       "path": "../../database/infrastructure"
-    },
-    {
-      "path": "../../shared/infrastructure"
     },
     {
       "path": "../../shared/domain"

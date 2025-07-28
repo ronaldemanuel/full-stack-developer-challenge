@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
 //sns-strategy.ts
 import type { CustomTransportStrategy } from '@nestjs/microservices';
 import { Server } from '@nestjs/microservices';
@@ -6,7 +7,8 @@ export class SqsStrategy extends Server implements CustomTransportStrategy {
   override on<
     EventKey extends string = string,
     EventCallback extends Function = Function,
-  >(event: EventKey, callback: EventCallback) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  >(event: EventKey, _callback: EventCallback) {
     this.logger.log(`on event: ${event}`);
   }
 

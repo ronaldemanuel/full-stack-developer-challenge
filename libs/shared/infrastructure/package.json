@@ -47,9 +47,7 @@
     "@nestjs/common": "catalog:nestjs",
     "cache-manager": "catalog:",
     "@nestjs/cache-manager": "catalog:nestjs",
-    "@nestjs-cls/transactional": "catalog:nestjs",
-    "@nestjs-cls/transactional-adapter-drizzle-orm": "catalog:nestjs",
-    "nestjs-cls": "catalog:nestjs",
-    "@swc/helpers": "~0.5.11"
+    "@swc/helpers": "~0.5.11",
+    "@trpc/server": "catalog:trpc"
   }
 }

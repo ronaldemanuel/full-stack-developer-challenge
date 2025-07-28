@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 //sns-client-proxy.ts
 import type { ReadPacket, WritePacket } from '@nestjs/microservices';
 import { SendMessageCommand, SQSClient } from '@aws-sdk/client-sqs';
@@ -21,7 +22,7 @@ export class SQSClientProxy extends ClientProxy {
     return this.client as T;
   }
 
-  async connect(): Promise<any> {
+  async connect(): Promise<void> {
     this.logger.log('connect');
   }
 
@@ -50,14 +51,15 @@ export class SQSClientProxy extends ClientProxy {
           event: packet.data,
           eventName, //this is the event name
         }),
-      })
+      }),
     );
     this.logger.log(`Event ${eventName} dispatched to queue: ${queueUrl}`);
   }
 
   publish(
     packet: ReadPacket<any>,
-    callback: (packet: WritePacket<any>) => void
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _callback: (packet: WritePacket<any>) => void,
   ): () => void {
     this.logger.log('message:', packet);
     //we wont be using this in event based microservices

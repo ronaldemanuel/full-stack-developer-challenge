@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createHash } from 'crypto';
 import type { Cache } from 'cache-manager';
 import serialize from 'serialize-javascript';
@@ -69,6 +70,7 @@ async function fetchCachedValue(key: string) {
   let value;
   try {
     value = await pendingCachePromise;
+    // eslint-disable-next-line no-useless-catch
   } catch (e) {
     throw e;
   } finally {
@@ -87,7 +89,9 @@ export async function cacheableHandle(
   try {
     const cachedValue = await fetchCachedValue(key);
     if (cachedValue !== undefined && cachedValue !== null) return cachedValue;
-  } catch {}
+  } catch {
+    //
+  }
   let pendingMethodCallPromise = pendingMethodCallMap.get(key);
   if (!pendingMethodCallPromise) {
     pendingMethodCallPromise = method();
@@ -96,6 +100,7 @@ export async function cacheableHandle(
   let value;
   try {
     value = await pendingMethodCallPromise;
+    // eslint-disable-next-line no-useless-catch
   } catch (e) {
     throw e;
   } finally {

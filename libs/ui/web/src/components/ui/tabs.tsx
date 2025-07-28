@@ -5,11 +5,11 @@ import { motion } from 'motion/react';
 
 import { cn } from '@nx-ddd/ui-utils';
 
-type Tab = {
+interface Tab {
   title: string;
   value: string;
   content?: React.ReactNode;
-};
+}
 
 export const Tabs = ({
   tabs: propTabs,

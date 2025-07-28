@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type CacheKeyBuilder = (...args: any[]) => string;
 
 export interface CacheableRegisterOptions {

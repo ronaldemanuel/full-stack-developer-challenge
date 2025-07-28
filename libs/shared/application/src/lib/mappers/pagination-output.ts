@@ -1,9 +1,9 @@
 import type { Entity, PaginationOutput } from '@nx-ddd/shared-domain';
 
 export class PaginationOutputMapper {
-  static toOutput<Item = any>(
+  static toOutput<Item>(
     items: Item[],
-    result: PaginationOutput<Entity>
+    result: PaginationOutput<Entity>,
   ): PaginationOutput<Item> {
     return {
       items,

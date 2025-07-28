@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { LikeEntity, PostEntity, UserEntityPostRef } from '@nx-ddd/post-domain';
 
 export class PostDrizzleModelMapper {
