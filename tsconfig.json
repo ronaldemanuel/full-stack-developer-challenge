@@ -88,9 +88,6 @@
       "path": "./libs/item/infrastructure"
     },
     {
-      "path": "./libs/user/infrastructure"
-    },
-    {
       "path": "./libs/item/presentation"
     },
     {
@@ -98,9 +95,6 @@
     },
     {
       "path": "./libs/item/domain"
-    },
-    {
-      "path": "./tools/zoddd"
     },
     {
       "path": "./apps/events-processor-e2e"
@@ -113,9 +107,6 @@
     },
     {
       "path": "./apps/mobile"
-    },
-    {
-      "path": "./tsconfig.sst.json"
     }
   ],
   "ts-node": {
