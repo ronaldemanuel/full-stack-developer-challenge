@@ -1,13 +1,13 @@
-import type { InventoryEntityRelations } from '../entities/inventory.entity.js';
+import type { InventoryEntityRelations } from '../entities/inventory-item.entity.js';
 import type { UserItemProps } from '../schemas/inventory.schema.js';
-import { InventoryEntity } from '../entities/inventory.entity.js';
+import { InventoryItemEntity } from '../entities/inventory-item.entity.js';
 
-export class InventoryMapper {
+export class InventoryItemMapper {
   static toDomain(
     { amount }: UserItemProps,
     relations: InventoryEntityRelations,
   ) {
-    const inventoryItem = new InventoryEntity(
+    const inventoryItem = new InventoryItemEntity(
       { amount: amount ?? 0 },
       {
         item: relations.item,
@@ -17,13 +17,4 @@ export class InventoryMapper {
 
     return inventoryItem;
   }
-
-  // static toPresentation(inventoryItem: InventoryItemEntity): ItemSchema {
-  //   return {
-  //     ...inventoryItem.item.toJSON(),
-  //     meta: {
-  //       amount: inventoryItem.amount,
-  //     },
-  //   };
-  // }
 }

@@ -9,7 +9,7 @@ export interface InventoryEntityRelations {
   item?: ItemEntity;
 }
 
-export class InventoryEntity extends Entity<UserItemProps> {
+export class InventoryItemEntity extends Entity<UserItemProps> {
   private $relations: InventoryEntityRelations;
 
   constructor(

@@ -1,8 +1,9 @@
 import type { UserItemRefRelations } from 'src/lib/refs/user-item.ref.js';
 import type { UserItemRefProps } from 'src/lib/schemas/user-item-ref.schema.js';
-import { UserItemRef } from 'src/lib/refs/user-item.ref.js';
 
 import { UserEntityMockFactory } from '@nx-ddd/user-domain';
+
+import { UserItemRef } from '../../refs/user-item.ref.js';
 
 export function UserItemRefFactory(
   overrides: Partial<UserItemRefProps> = {},

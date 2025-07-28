@@ -1,10 +1,10 @@
 import type { UserItemRef } from 'src/lib/refs/user-item.ref.js';
 import type z from 'zod';
-import { apparelItemPropsSchema } from 'src/lib/schemas/apparel.schema.js';
 
 import { ZodEntity } from '@nx-ddd/shared-domain';
 
 import type { ItemIdentifier } from '../abstract-item.entity.js';
+import { apparelItemPropsSchema } from '../../schemas/apparel.schema.js';
 import { ApparelEntity } from './apparel.entity.js';
 
 type GlovesProps = z.infer<typeof apparelItemPropsSchema>;
