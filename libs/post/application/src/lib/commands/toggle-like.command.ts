@@ -4,11 +4,8 @@ import { CommandHandler, EventPublisher } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
 import { Transactional } from '@nx-ddd/database-application';
-import {
-  PostRepository,
-  UserEntityPostRef,
-  UserRepositoryPostRef,
-} from '@nx-ddd/post-domain';
+import { PostRepository, UserEntityPostRef } from '@nx-ddd/post-domain';
+import { UserRepository } from '@nx-ddd/user-domain';
 
 import type { ToggleLikeInput } from '../schemas/commands';
 import { toggleLikeInputSchema } from '../schemas/commands';
@@ -30,10 +27,9 @@ export namespace ToggleLikeCommand {
       private readonly postRepository: PostRepository.Repository,
       @Inject(EventPublisher)
       private readonly eventPublisher: EventPublisher,
-      @Inject(UserRepositoryPostRef.TOKEN)
-      private userRepository: UserRepositoryPostRef.Repository,
+      @Inject(UserRepository.TOKEN)
+      private userRepository: UserRepository.Repository,
     ) {
-      userRepository.postRepository = this.postRepository;
       postRepository.userRepository = userRepository;
     }
 

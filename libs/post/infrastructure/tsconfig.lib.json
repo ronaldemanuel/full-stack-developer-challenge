@@ -17,7 +17,7 @@
       "path": "../../user/infrastructure/tsconfig.lib.json"
     },
     {
-      "path": "../../shared/infrastructure/tsconfig.lib.json"
+      "path": "../../user/domain/tsconfig.lib.json"
     },
     {
       "path": "../../shared/domain/tsconfig.lib.json"
@@ -33,6 +33,9 @@
     },
     {
       "path": "../../database/infrastructure/tsconfig.lib.json"
+    },
+    {
+      "path": "../../shared/infrastructure/tsconfig.lib.json"
     },
     {
       "path": "../../database/application/tsconfig.lib.json"

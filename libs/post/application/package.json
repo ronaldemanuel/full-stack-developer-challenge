@@ -39,6 +39,7 @@
     "@nx-ddd/post-domain": "workspace:*",
     "@nx-ddd/shared-application": "workspace:*",
     "@nx-ddd/shared-domain": "workspace:*",
+    "@nx-ddd/user-domain": "workspace:^",
     "@swc/helpers": "~0.5.11",
     "validated-extendable": "catalog:",
     "zod": "catalog:zod3"

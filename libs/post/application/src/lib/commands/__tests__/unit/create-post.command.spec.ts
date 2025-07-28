@@ -10,9 +10,8 @@ import {
   PostInMemoryRepository,
   PostRepository,
   UserPostEntityRefFactory,
-  UserPostRefInMemoryRepository,
-  UserRepositoryPostRef,
 } from '@nx-ddd/post-domain';
+import { UserInMemoryRepository, UserRepository } from '@nx-ddd/user-domain';
 
 import { CreatePostCommand } from '../../create-post.command';
 
@@ -31,8 +30,8 @@ describe('CreatePostCommand', () => {
           useClass: PostInMemoryRepository,
         },
         {
-          provide: UserRepositoryPostRef.TOKEN,
-          useClass: UserPostRefInMemoryRepository,
+          provide: UserRepository.TOKEN,
+          useClass: UserInMemoryRepository,
         },
       ],
     }).compile();

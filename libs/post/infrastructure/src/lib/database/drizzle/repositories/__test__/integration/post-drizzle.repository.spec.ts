@@ -8,7 +8,7 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
 import type { DrizzleDB, DrizzleTX } from '@nx-ddd/database-infrastructure';
 import type { DrizzleTestDB } from '@nx-ddd/database-infrastructure/drizzle/operators';
-import type { UserRepositoryPostRef } from '@nx-ddd/post-domain';
+import type { UserRepository } from '@nx-ddd/user-domain';
 import { getDatabaseTransactionToken } from '@nx-ddd/database-application';
 import {
   DatabaseModule,
@@ -332,10 +332,10 @@ describe('PostDrizzleRepository', () => {
 
     it('should save user likes when updating a post with userRepository defined', async () => {
       // Arrange
-      const mockUserRepository = {} as UserRepositoryPostRef.Repository;
+      const mockUserRepository = {} as UserRepository.Repository;
       (
         postDrizzleRepository as unknown as {
-          userRepository: UserRepositoryPostRef.Repository;
+          userRepository: UserRepository.Repository;
         }
       ).userRepository = mockUserRepository;
 
@@ -397,16 +397,16 @@ describe('PostDrizzleRepository', () => {
 
       // Act & Assert
       await expect(
-        postDrizzleRepository.saveUser(userEntity),
+        postDrizzleRepository.updateUserRef(userEntity),
       ).rejects.toThrowError('User repository is not defined');
     });
 
     it('should save user likes', async () => {
-      // Arrange - Create a mock UserRepositoryPostRef
-      const mockUserRepository = {} as UserRepositoryPostRef.Repository;
+      // Arrange - Create a mock UserRepository
+      const mockUserRepository = {} as UserRepository.Repository;
       (
         postDrizzleRepository as unknown as {
-          userRepository: UserRepositoryPostRef.Repository;
+          userRepository: UserRepository.Repository;
         }
       ).userRepository = mockUserRepository;
 
@@ -436,7 +436,7 @@ describe('PostDrizzleRepository', () => {
       ).mockReturnValue([likeEntity]);
 
       // Act
-      await postDrizzleRepository.saveUser(userEntity);
+      await postDrizzleRepository.updateUserRef(userEntity);
 
       // Assert - Check that the like was inserted into the database
       const results = await drizzleTestDB.db.query.like.findMany({
@@ -449,11 +449,11 @@ describe('PostDrizzleRepository', () => {
     });
 
     it('should remove user likes', async () => {
-      // Arrange - Create a mock UserRepositoryPostRef
-      const mockUserRepository = {} as UserRepositoryPostRef.Repository;
+      // Arrange - Create a mock UserRepository
+      const mockUserRepository = {} as UserRepository.Repository;
       (
         postDrizzleRepository as unknown as {
-          userRepository: UserRepositoryPostRef.Repository;
+          userRepository: UserRepository.Repository;
         }
       ).userRepository = mockUserRepository;
 
@@ -491,7 +491,7 @@ describe('PostDrizzleRepository', () => {
       likesSpy.mockReturnValue([like]);
 
       // Act
-      await postDrizzleRepository.saveUser(userEntity);
+      await postDrizzleRepository.updateUserRef(userEntity);
 
       // Assert - Check that the like was removed from the database
       const results = await drizzleTestDB.db.query.like.findMany({
