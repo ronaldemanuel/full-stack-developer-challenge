@@ -1,4 +1,4 @@
-import type { IReadableRepository, IRepository } from '@nx-ddd/shared-domain';
+import type { IRepository } from '@nx-ddd/shared-domain';
 import type { UserRepository } from '@nx-ddd/user-domain';
 import { getRepositoryToken } from '@nx-ddd/shared-domain';
 
@@ -11,5 +11,6 @@ export namespace ItemRepository {
     userRepository?: UserRepository.Repository;
 
     findById(id: string): Promise<ItemEntity>;
+    findByUserId(userId: string): Promise<ItemEntity[]>;
   }
 }

@@ -1,7 +1,5 @@
-import { GetPostByIdQuery } from './get-post-by-id.query.js';
-import { SearchPostsQuery } from './search-posts.query.js';
+import { GetUserInventoryQuery } from './get-user-inventory.query.js';
 
-export * from './get-post-by-id.query.js';
-export * from './search-posts.query.js';
+export * from './get-user-inventory.query.js';
 
-export const queries = [GetPostByIdQuery.Handler, SearchPostsQuery.Handler];
+export const queries = [GetUserInventoryQuery.Handler];

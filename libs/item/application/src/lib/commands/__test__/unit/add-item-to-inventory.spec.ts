@@ -10,7 +10,6 @@ import { ClsModule } from 'nestjs-cls';
 import type { ItemProps } from '@nx-ddd/item-domain';
 import { DATABASE_CONNECTION_NAME } from '@nx-ddd/database-application';
 import {
-  InventoryItemMapper,
   ItemInMemoryRepository,
   ItemMapper,
   ItemRepository,

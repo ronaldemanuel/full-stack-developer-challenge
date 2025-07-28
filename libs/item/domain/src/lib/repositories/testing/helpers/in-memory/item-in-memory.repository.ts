@@ -10,4 +10,11 @@ export class ItemInMemoryRepository
   implements ItemRepository.Repository
 {
   userRepository?: UserRepository.Repository | undefined;
+
+  findByUserId(userId: string): Promise<ItemEntity[]> {
+    console.log('UserId: *****', userId);
+
+    const items = this.items.filter((item) => item.character?.id === userId);
+    return Promise.resolve(items);
+  }
 }

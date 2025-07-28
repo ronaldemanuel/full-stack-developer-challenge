@@ -17,8 +17,8 @@ export namespace UseItemCommand {
 
   class UseItemCommand extends Validated(useItemInputSchema) {}
 
-  export function create(data: Input) {
-    return new UseItemCommand(data);
+  export function create(input: Input) {
+    return new UseItemCommand(input);
   }
 
   @CommandHandler(UseItemCommand)

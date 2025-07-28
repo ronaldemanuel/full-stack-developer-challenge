@@ -1031,6 +1031,9 @@ importers:
       '@nestjs/common':
         specifier: catalog:nestjs
         version: 11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/cqrs':
+        specifier: catalog:nestjs
+        version: 11.0.3(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nx-ddd/database-application':
         specifier: workspace:*
         version: link:../../database/application
@@ -1049,6 +1052,10 @@ importers:
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17
+    devDependencies:
+      '@nestjs/testing':
+        specifier: catalog:nestjs
+        version: 11.1.5(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(@nestjs/microservices@11.1.5)
 
   libs/item/domain:
     dependencies:
