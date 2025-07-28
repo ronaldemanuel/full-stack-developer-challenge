@@ -5,11 +5,8 @@ import type {
   getTableColumns,
   SQL,
 } from '@nx-ddd/database-infrastructure/drizzle/operators';
-import type {
-  PostEntity,
-  UserEntityPostRef,
-  UserRepositoryPostRef,
-} from '@nx-ddd/post-domain';
+import type { PostEntity, UserEntityPostRef } from '@nx-ddd/post-domain';
+import type { UserRepository } from '@nx-ddd/user-domain';
 import {
   InjectDrizzle,
   InjectDrizzleTransaction,
@@ -56,8 +53,8 @@ export class PostDrizzleRepository implements PostRepository.Repository {
   ): Promise<PostEntity | PostLikedAggregate> {
     return this._get(id, scopes);
   }
-  userRepository?: UserRepositoryPostRef.Repository | undefined;
-  async saveUser(user: UserEntityPostRef) {
+  userRepository?: UserRepository.Repository | undefined;
+  async updateUserRef(user: UserEntityPostRef) {
     if (!this.userRepository) {
       throw new RelationshipNotLoadedError('User repository is not defined');
     }

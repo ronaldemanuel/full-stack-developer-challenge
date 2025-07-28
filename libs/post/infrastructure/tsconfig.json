@@ -7,7 +7,7 @@
       "path": "../../user/infrastructure"
     },
     {
-      "path": "../../shared/infrastructure"
+      "path": "../../user/domain"
     },
     {
       "path": "../../shared/domain"
@@ -23,6 +23,9 @@
     },
     {
       "path": "../../database/infrastructure"
+    },
+    {
+      "path": "../../shared/infrastructure"
     },
     {
       "path": "../../database/application"

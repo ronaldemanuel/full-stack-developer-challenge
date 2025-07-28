@@ -1,4 +1,5 @@
 import type { ISearchableRepository } from '@nx-ddd/shared-domain';
+import type { UserRepository } from '@nx-ddd/user-domain';
 import {
   SearchParams as DefaultSearchParams,
   SearchResult as DefaultSearchResults,
@@ -8,7 +9,6 @@ import {
 import type { PostLikedAggregate } from '../aggregates/post-liked.aggregate';
 import type { UserEntityPostRef } from '../entities/index';
 import type { PostEntity } from '../entities/post.entity';
-import type { UserRepositoryPostRef } from './refs/user-repository-post.ref';
 
 export namespace PostRepository {
   export const TOKEN = getRepositoryToken('Post');
@@ -24,8 +24,8 @@ export namespace PostRepository {
       SearchParams,
       SearchResult
     > {
-    userRepository?: UserRepositoryPostRef.Repository;
-    saveUser(user: UserEntityPostRef): Promise<void>;
+    userRepository?: UserRepository.Repository;
+    updateUserRef(user: UserEntityPostRef): Promise<void>;
     findById(id: string): Promise<PostEntity>;
     findById(
       id: string,

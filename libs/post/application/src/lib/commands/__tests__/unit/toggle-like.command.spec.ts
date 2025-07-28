@@ -18,9 +18,8 @@ import {
   PostInMemoryRepository,
   PostRepository,
   UserPostEntityRefFactory,
-  UserPostRefInMemoryRepository,
-  UserRepositoryPostRef,
 } from '@nx-ddd/post-domain';
+import { UserInMemoryRepository, UserRepository } from '@nx-ddd/user-domain';
 
 import { ToggleLikeCommand } from '../../toggle-like.command';
 
@@ -46,7 +45,7 @@ class StubAdapter implements TransactionalAdapter<any, any, any> {
 describe('ToggleLikeCommand', () => {
   let toggleLikeCommand: ToggleLikeCommand.Handler;
   let postRepository: PostRepository.Repository;
-  let userRepository: UserRepositoryPostRef.Repository;
+  let userRepository: UserRepository.Repository;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -71,8 +70,8 @@ describe('ToggleLikeCommand', () => {
           useClass: PostInMemoryRepository,
         },
         {
-          provide: UserRepositoryPostRef.TOKEN,
-          useClass: UserPostRefInMemoryRepository,
+          provide: UserRepository.TOKEN,
+          useClass: UserInMemoryRepository,
         },
       ],
     }).compile();
@@ -83,8 +82,8 @@ describe('ToggleLikeCommand', () => {
     postRepository = moduleRef.get<PostRepository.Repository>(
       PostRepository.TOKEN,
     );
-    userRepository = moduleRef.get<UserRepositoryPostRef.Repository>(
-      UserRepositoryPostRef.TOKEN,
+    userRepository = moduleRef.get<UserRepository.Repository>(
+      UserRepository.TOKEN,
     );
   });
 

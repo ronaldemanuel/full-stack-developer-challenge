@@ -693,7 +693,7 @@ importers:
         version: 7.1.7(expo@53.0.20(@babel/core@7.28.0)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.0)(bufferutil@4.0.9)(react@19.0.0)))(bufferutil@4.0.9)(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.0)(bufferutil@4.0.9)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.0)(bufferutil@4.0.9)(react@19.0.0))(react@19.0.0)
       expo-router:
         specifier: catalog:expo
-        version: 5.1.4(38e418cceee90d7ca8b30978c984e3e4)
+        version: 5.1.4(o7vzqqsgvkxwkkcdkx44ivsuxe)
       expo-secure-store:
         specifier: catalog:expo
         version: 14.2.3(expo@53.0.20(@babel/core@7.28.0)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.0)(bufferutil@4.0.9)(react@19.0.0)))(bufferutil@4.0.9)(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.0)(bufferutil@4.0.9)(react@19.0.0))(react@19.0.0))
@@ -1187,6 +1187,9 @@ importers:
       '@nx-ddd/shared-domain':
         specifier: workspace:*
         version: link:../../shared/domain
+      '@nx-ddd/user-domain':
+        specifier: workspace:^
+        version: link:../../user/domain
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17
@@ -1248,6 +1251,9 @@ importers:
       '@nx-ddd/shared-domain':
         specifier: workspace:*
         version: link:../../shared/domain
+      '@nx-ddd/user-domain':
+        specifier: workspace:^
+        version: link:../../user/domain
       '@nx-ddd/user-infrastructure':
         specifier: workspace:*
         version: link:../../user/infrastructure
@@ -26096,7 +26102,7 @@ snapshots:
     dependencies:
       invariant: 2.2.4
 
-  expo-router@5.1.4(38e418cceee90d7ca8b30978c984e3e4):
+  expo-router@5.1.4(o7vzqqsgvkxwkkcdkx44ivsuxe):
     dependencies:
       '@expo/metro-runtime': 5.0.4(react-native@0.79.5(@babel/core@7.28.0)(@types/react@19.0.0)(bufferutil@4.0.9)(react@19.0.0))
       '@expo/server': 0.6.3
