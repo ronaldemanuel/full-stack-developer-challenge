@@ -53,6 +53,7 @@
     "zod": "catalog:zod3",
     "@nestjs/common": "catalog:nestjs",
     "better-auth": "catalog:auth",
-    "@swc/helpers": "~0.5.11"
+    "@swc/helpers": "~0.5.11",
+    "@nx-ddd/user-domain": "workspace:*"
   }
 }

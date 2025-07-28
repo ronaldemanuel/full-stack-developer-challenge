@@ -35,9 +35,7 @@
   "dependencies": {
     "@nx-ddd/shared-domain": "workspace:*",
     "@swc/helpers": "~0.5.11",
-    "zod": "catalog:zod3"
-  },
-  "devDependencies": {
+    "zod": "catalog:zod3",
     "@anatine/zod-mock": "catalog:zod3"
   }
 }

@@ -901,6 +901,9 @@ importers:
       '@nx-ddd/database-infrastructure':
         specifier: workspace:*
         version: link:../../database/infrastructure
+      '@nx-ddd/user-domain':
+        specifier: workspace:*
+        version: link:../../user/domain
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17
@@ -916,6 +919,9 @@ importers:
 
   libs/database/application:
     dependencies:
+      '@nestjs-cls/transactional':
+        specifier: catalog:nestjs
+        version: 3.1.0(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(nestjs-cls@6.0.1(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17
@@ -943,12 +949,21 @@ importers:
       '@vercel/postgres':
         specifier: catalog:drizzle
         version: 0.10.0
+      drizzle-kit:
+        specifier: catalog:drizzle
+        version: 0.31.4
       drizzle-orm:
         specifier: catalog:drizzle
         version: 0.44.3(@neondatabase/serverless@1.0.1)(@types/pg@8.15.4)(@vercel/postgres@0.10.0)(kysely@0.28.3)(pg@8.16.3)
       drizzle-seed:
         specifier: catalog:drizzle
         version: 0.3.1(drizzle-orm@0.44.3(@neondatabase/serverless@1.0.1)(@types/pg@8.15.4)(@vercel/postgres@0.10.0)(kysely@0.28.3)(pg@8.16.3))
+      drizzle-zod:
+        specifier: catalog:drizzle
+        version: 0.8.2(drizzle-orm@0.44.3(@neondatabase/serverless@1.0.1)(@types/pg@8.15.4)(@vercel/postgres@0.10.0)(kysely@0.28.3)(pg@8.16.3))(zod@4.0.9)
+      nestjs-cls:
+        specifier: catalog:nestjs
+        version: 6.0.1(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       pg:
         specifier: catalog:drizzle
         version: 8.16.3
@@ -1188,6 +1203,12 @@ importers:
 
   libs/post/domain:
     dependencies:
+      '@anatine/zod-mock':
+        specifier: catalog:zod3
+        version: 3.14.0(@faker-js/faker@9.9.0)(zod@3.25.76)
+      '@nestjs/common':
+        specifier: catalog:nestjs
+        version: 11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nx-ddd/jobs-events-domain':
         specifier: workspace:*
         version: link:../../jobs/events/domain
@@ -1212,12 +1233,6 @@ importers:
       '@nestjs/common':
         specifier: catalog:nestjs
         version: 11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@nx-ddd/auth-domain':
-        specifier: workspace:*
-        version: link:../../auth/domain
-      '@nx-ddd/database-application':
-        specifier: workspace:*
-        version: link:../../database/application
       '@nx-ddd/database-infrastructure':
         specifier: workspace:*
         version: link:../../database/infrastructure
@@ -1233,9 +1248,6 @@ importers:
       '@nx-ddd/shared-domain':
         specifier: workspace:*
         version: link:../../shared/domain
-      '@nx-ddd/shared-infrastructure':
-        specifier: workspace:*
-        version: link:../../shared/infrastructure
       '@nx-ddd/user-infrastructure':
         specifier: workspace:*
         version: link:../../user/infrastructure
@@ -1243,6 +1255,15 @@ importers:
         specifier: ~0.5.11
         version: 0.5.17
     devDependencies:
+      '@nx-ddd/auth-domain':
+        specifier: workspace:*
+        version: link:../../auth/domain
+      '@nx-ddd/database-application':
+        specifier: workspace:*
+        version: link:../../database/application
+      '@nx-ddd/shared-infrastructure':
+        specifier: workspace:*
+        version: link:../../shared/infrastructure
       unplugin-swc:
         specifier: ^1.5.5
         version: 1.5.5(@swc/core@1.5.29(@swc/helpers@0.5.17))(rollup@4.45.1)
@@ -1267,6 +1288,9 @@ importers:
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17
+      zod:
+        specifier: catalog:zod3
+        version: 3.25.76
 
   libs/shared/application:
     dependencies:
@@ -1306,12 +1330,6 @@ importers:
       '@keyv/redis':
         specifier: 'catalog:'
         version: 5.0.0(keyv@5.4.0)
-      '@nestjs-cls/transactional':
-        specifier: catalog:nestjs
-        version: 3.1.0(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(nestjs-cls@6.0.1(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@nestjs-cls/transactional-adapter-drizzle-orm':
-        specifier: catalog:nestjs
-        version: 1.2.0(@nestjs-cls/transactional@3.1.0(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(nestjs-cls@6.0.1(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(drizzle-orm@0.44.3(@neondatabase/serverless@1.0.1)(@types/pg@8.15.4)(@vercel/postgres@0.10.0)(kysely@0.28.3)(pg@8.16.3))(nestjs-cls@6.0.1(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(reflect-metadata@0.2.2)(rxjs@7.8.2))
       '@nestjs/cache-manager':
         specifier: catalog:nestjs
         version: 3.0.1(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(cache-manager@7.0.1)(keyv@5.4.0)(rxjs@7.8.2)
@@ -1342,6 +1360,9 @@ importers:
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17
+      '@trpc/server':
+        specifier: catalog:trpc
+        version: 11.4.3(typescript@5.8.3)
       bcryptjs:
         specifier: 'catalog:'
         version: 3.0.2
@@ -1354,9 +1375,6 @@ importers:
       keyv:
         specifier: 'catalog:'
         version: 5.4.0
-      nestjs-cls:
-        specifier: catalog:nestjs
-        version: 6.0.1(@nestjs/common@11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(reflect-metadata@0.2.2)(rxjs@7.8.2)
 
   libs/shared/presentation:
     dependencies:
@@ -1414,6 +1432,9 @@ importers:
 
   libs/user/domain:
     dependencies:
+      '@anatine/zod-mock':
+        specifier: catalog:zod3
+        version: 3.14.0(@faker-js/faker@9.9.0)(zod@3.25.76)
       '@nx-ddd/shared-domain':
         specifier: workspace:*
         version: link:../../shared/domain
@@ -1423,25 +1444,18 @@ importers:
       zod:
         specifier: catalog:zod3
         version: 3.25.76
-    devDependencies:
-      '@anatine/zod-mock':
-        specifier: catalog:zod3
-        version: 3.14.0(@faker-js/faker@9.9.0)(zod@3.25.76)
 
   libs/user/infrastructure:
     dependencies:
+      '@nestjs/common':
+        specifier: catalog:nestjs
+        version: 11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nx-ddd/database-infrastructure':
         specifier: workspace:*
         version: link:../../database/infrastructure
-      '@nx-ddd/post-domain':
-        specifier: workspace:*
-        version: link:../../post/domain
       '@nx-ddd/shared-domain':
         specifier: workspace:*
         version: link:../../shared/domain
-      '@nx-ddd/shared-infrastructure':
-        specifier: workspace:*
-        version: link:../../shared/infrastructure
       '@nx-ddd/user-domain':
         specifier: workspace:*
         version: link:../domain
@@ -25315,6 +25329,11 @@ snapshots:
     dependencies:
       drizzle-orm: 0.44.3(@neondatabase/serverless@1.0.1)(@types/pg@8.15.4)(@vercel/postgres@0.10.0)(kysely@0.28.3)(pg@8.16.3)
       zod: 3.25.76
+
+  drizzle-zod@0.8.2(drizzle-orm@0.44.3(@neondatabase/serverless@1.0.1)(@types/pg@8.15.4)(@vercel/postgres@0.10.0)(kysely@0.28.3)(pg@8.16.3))(zod@4.0.9):
+    dependencies:
+      drizzle-orm: 0.44.3(@neondatabase/serverless@1.0.1)(@types/pg@8.15.4)(@vercel/postgres@0.10.0)(kysely@0.28.3)(pg@8.16.3)
+      zod: 4.0.9
 
   dunder-proto@1.0.1:
     dependencies:

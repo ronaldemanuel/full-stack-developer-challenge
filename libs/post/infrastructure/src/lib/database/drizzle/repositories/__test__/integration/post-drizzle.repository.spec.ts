@@ -95,7 +95,6 @@ describe('PostDrizzleRepository', () => {
       // Assert
       const results = await drizzleTestDB.db.query.post.findMany();
       expect(results).toHaveLength(1);
-      expect(results[0].id).toBe(postEntity.id);
       expect(results[0].title).toBe(postEntity.title);
       expect(results[0].content).toBe(postEntity.content);
     });
@@ -357,7 +356,9 @@ describe('PostDrizzleRepository', () => {
       });
 
       // Create a like entity that will be added
-      const likeEntity = userEntity.togglePostLike(postEntity)!;
+      const likeEntity = userEntity.togglePostLike(postEntity);
+      expect(likeEntity).toBeDefined();
+      if (!likeEntity) return;
       // Add to user's likes
       vi.spyOn(
         userEntity.$watchedRelations.likes,

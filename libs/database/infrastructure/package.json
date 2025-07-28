@@ -140,6 +140,9 @@
     "@swc/helpers": "~0.5.11",
     "testcontainers": "catalog:drizzle",
     "@testcontainers/postgresql": "catalog:drizzle",
-    "@vercel/postgres": "catalog:drizzle"
+    "@vercel/postgres": "catalog:drizzle",
+    "drizzle-kit": "catalog:drizzle",
+    "nestjs-cls": "catalog:nestjs",
+    "drizzle-zod": "catalog:drizzle"
   }
 }
