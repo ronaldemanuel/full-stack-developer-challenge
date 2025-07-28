@@ -58,6 +58,6 @@ describe('UserItemRef - removeItemFromInventory', () => {
 
     user.removeItemFromInventory(helmet.id);
 
-    expect(user.inventory.map((i) => i.itemId)).toEqual([gloves.id]);
+    expect(user.inventory.map((i: any) => i.itemId)).toEqual([gloves.id]);
   });
 });

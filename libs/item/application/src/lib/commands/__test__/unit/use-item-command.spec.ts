@@ -1,77 +1,137 @@
-import type { TestingModule } from '@nestjs/testing';
+import type {
+  TransactionalAdapter,
+  TransactionalOptionsAdapterFactory,
+} from '@nestjs-cls/transactional';
+import { ClsPluginTransactional } from '@nestjs-cls/transactional';
+import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
+import { ClsModule } from 'nestjs-cls';
 
-import type { ConsumableItemProps, UserItemRef } from '@nx-ddd/item-domain';
+import type { ItemProps } from '@nx-ddd/item-domain';
+import { DATABASE_CONNECTION_NAME } from '@nx-ddd/database-application';
 import {
-  InventoryInMemoryRepository,
   InventoryItemMapper,
-  InventoryRepository,
+  ItemInMemoryRepository,
   ItemMapper,
+  ItemRepository,
   UserItemRefFactory,
 } from '@nx-ddd/item-domain';
+import { UserInMemoryRepository, UserRepository } from '@nx-ddd/user-domain';
 
 import { UseItemCommand } from '../../use-item.command.js';
 
-describe('UseItemCommand.Handler', () => {
-  let handler: UseItemCommand.Handler;
-  let inventoryRepository: InventoryRepository.Repository;
+class StubAdapter implements TransactionalAdapter<any, any, any> {
+  connectionToken?: any;
+  connection?: any;
+  defaultTxOptions?: Partial<any> | undefined;
+  optionsFactory: TransactionalOptionsAdapterFactory<any, any, any> = () => {
+    return {
+      getFallbackInstance() {
+        return {};
+      },
+      wrapWithTransaction(options, fn, setTx) {
+        return fn();
+      },
+      wrapWithNestedTransaction(options, fn, setTx, tx) {
+        return fn();
+      },
+    };
+  };
+}
 
-  let character: UserItemRef;
-  let item: ReturnType<typeof ItemMapper.toDomain>;
-  let inventoryItem: ReturnType<typeof InventoryItemMapper.toDomain>;
-
-  const baseItem: ConsumableItemProps = {
-    id: 'healing-potion',
-    name: 'Poção de Cura',
-    type: 'consumable',
-  } as ConsumableItemProps;
+describe('UseItemCommand', () => {
+  let useItemCommand: UseItemCommand.Handler;
+  let itemRepository: ItemRepository.Repository;
+  let userRepository: UserRepository.Repository;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const moduleRef = await Test.createTestingModule({
+      imports: [
+        ClsModule.forRoot({
+          plugins: [
+            new ClsPluginTransactional({
+              connectionName: DATABASE_CONNECTION_NAME,
+              enableTransactionProxy: true,
+              adapter: new StubAdapter(),
+              imports: [],
+            }),
+          ],
+        }),
+        CqrsModule.forRoot(),
+      ],
+      controllers: [],
       providers: [
         UseItemCommand.Handler,
         {
-          provide: InventoryRepository.TOKEN,
-          useClass: InventoryInMemoryRepository,
+          provide: ItemRepository.TOKEN,
+          useClass: ItemInMemoryRepository,
+        },
+        {
+          provide: UserRepository.TOKEN,
+          useClass: UserInMemoryRepository,
         },
       ],
     }).compile();
 
-    handler = module.get(UseItemCommand.Handler);
-    inventoryRepository = module.get(InventoryRepository.TOKEN);
-
-    character = UserItemRefFactory({}, {}, 'user-123');
-
-    item = ItemMapper.toDomain(baseItem, character);
-    item.use = vi.fn(); // mocka uso do item
-    item.commit = vi.fn(); // mocka commit de eventos
-
-    inventoryItem = InventoryItemMapper.toDomain({}, { character, item });
-
-    // preenche o inventário
-    await inventoryRepository.update([inventoryItem]);
-  });
-
-  it('deve usar o item corretamente', async () => {
-    const command = UseItemCommand.create({
-      userId: character.id,
-      itemId: item.id,
-    });
-
-    await handler.execute(command);
-
-    expect(item.use).toHaveBeenCalled();
-    expect(item.commit).toHaveBeenCalled();
-  });
-
-  it('deve lançar erro se o item não for encontrado', async () => {
-    const command = UseItemCommand.create({
-      userId: character.id,
-      itemId: 'item-inexistente',
-    });
-
-    await expect(handler.execute(command)).rejects.toThrow(
-      'Item não encontrado no inventário',
+    useItemCommand = moduleRef.get<UseItemCommand.Handler>(
+      UseItemCommand.Handler,
     );
+    itemRepository = moduleRef.get<ItemRepository.Repository>(
+      ItemRepository.TOKEN,
+    );
+    userRepository = moduleRef.get<UserRepository.Repository>(
+      UserRepository.TOKEN,
+    );
+  });
+
+  it('should be defined', () => {
+    expect(useItemCommand).toBeDefined();
+  });
+
+  it('should use item', async () => {
+    // Arrange
+    const mockUser = UserItemRefFactory(undefined);
+
+    const baseItem: ItemProps = {
+      id: 'dragonscale-boots',
+      name: 'Dragon Boots',
+      type: 'apparel',
+      image:
+        'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
+    } as ItemProps;
+    const mockItem = ItemMapper.toDomain(baseItem, mockUser);
+    const mockInventoryItem = InventoryItemMapper.toDomain(
+      { amount: 1 },
+      { character: mockUser, item: mockItem },
+    );
+    mockUser.$watchedRelations.inventory.add(mockInventoryItem);
+
+    // Create spies on the user methods
+    const useItemSpy = vi.spyOn(mockUser, 'useItem');
+
+    vi.spyOn(mockItem, 'commit');
+
+    vi.spyOn(userRepository, 'findById').mockResolvedValue(mockUser);
+
+    vi.spyOn(itemRepository, 'findById').mockImplementation(async () => {
+      return mockItem as any;
+    });
+
+    vi.spyOn(itemRepository, 'update').mockResolvedValue(undefined);
+
+    const command = UseItemCommand.create({
+      userId: mockUser.id,
+      itemId: mockItem.id,
+    });
+
+    // Act
+    await useItemCommand.execute(command);
+
+    // Assert
+    expect(userRepository.findById).toHaveBeenCalledWith(mockUser.id);
+    expect(itemRepository.findById).toHaveBeenCalledWith(mockItem.id);
+    expect(useItemSpy).toHaveBeenCalledWith(mockItem.id);
+    expect(itemRepository.update).toHaveBeenCalledWith(mockItem);
+    expect(mockItem.commit).toHaveBeenCalled();
   });
 });

@@ -1,7 +1,5 @@
-import { CreatePostCommand } from './create-post.command.js';
-import { DeletePostCommand } from './delete-post.command.js';
+import { UseItemCommand } from './use-item.command.js';
 
-export * from './create-post.command.js';
-export * from './delete-post.command.js';
+export * from './use-item.command.js';
 
-export const commands = [CreatePostCommand.Handler, DeletePostCommand.Handler];
+export const commands = [UseItemCommand.Handler];

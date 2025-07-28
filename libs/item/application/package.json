@@ -28,16 +28,22 @@
           "outputPath": "libs/item/application/dist",
           "main": "libs/item/application/src/index.ts",
           "tsConfig": "libs/item/application/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
     }
   },
   "dependencies": {
-    "@swc/helpers": "~0.5.11",
+    "@nestjs/common": "catalog:nestjs",
+    "@nestjs/cqrs": "catalog:nestjs",
+    "@nx-ddd/database-application": "workspace:*",
     "@nx-ddd/item-domain": "workspace:*",
     "@nx-ddd/shared-application": "workspace:*",
-    "@nx-ddd/shared-domain": "workspace:*"
+    "@nx-ddd/shared-domain": "workspace:*",
+    "@nx-ddd/user-domain": "workspace:*",
+    "@swc/helpers": "~0.5.11"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "catalog:nestjs"
   }
 }

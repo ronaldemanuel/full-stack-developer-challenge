@@ -30,13 +30,19 @@
   ],
   "references": [
     {
-      "path": "../domain/tsconfig.lib.json"
+      "path": "../../database/application/tsconfig.lib.json"
+    },
+    {
+      "path": "../../user/domain/tsconfig.lib.json"
     },
     {
       "path": "../../shared/domain/tsconfig.lib.json"
     },
     {
       "path": "../../shared/application/tsconfig.lib.json"
+    },
+    {
+      "path": "../domain/tsconfig.lib.json"
     }
   ]
 }

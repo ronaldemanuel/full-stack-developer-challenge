@@ -1,21 +1,16 @@
 import z from 'zod';
 
-import { postSchema } from '@nx-ddd/post-domain';
-
-export const createPostInputSchema = postSchema.pick({
-  title: true,
-  content: true,
-});
-
-export const deletePostInputSchema = z.object({
-  id: z.string(),
-});
-
 export const useItemInputSchema = z.object({
-  userId: z.string().uuid(),
-  itemId: z.string().uuid(),
+  userId: z.string(),
+  itemId: z.string(),
 });
 
-export type CreatePostInput = z.infer<typeof createPostInputSchema>;
-export type DeletePostInput = z.infer<typeof deletePostInputSchema>;
+export const addItemToInventoryInputSchema = z.object({
+  userId: z.string(),
+  itemId: z.string(),
+});
+
 export type UseItemInput = z.infer<typeof useItemInputSchema>;
+export type AddItemToInventoryInput = z.infer<
+  typeof addItemToInventoryInputSchema
+>;

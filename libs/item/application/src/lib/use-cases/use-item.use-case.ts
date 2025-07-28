@@ -16,7 +16,15 @@ export namespace UseItemUseCase {
     ) {}
 
     async execute(input: Input): Promise<Output> {
-      return this.commandBus.execute(UseItemCommand.create(input));
+      return this.commandBus.execute<
+        UseItemCommand.Input,
+        UseItemCommand.Output
+      >(
+        UseItemCommand.create({
+          itemId: input.itemId,
+          userId: input.userId,
+        }),
+      );
     }
   }
 }

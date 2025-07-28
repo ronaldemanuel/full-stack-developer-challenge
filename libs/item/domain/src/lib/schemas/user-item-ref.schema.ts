@@ -13,5 +13,4 @@ export const userItemRefSchema = userPropsSchema.extend({
 
 export const userItemRefPropsSchema = userItemRefSchema;
 
-export type UserItemRef = z.infer<typeof userItemRefSchema>;
 export type UserItemRefProps = z.infer<typeof userItemRefPropsSchema>;

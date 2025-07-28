@@ -1,8 +1,12 @@
 import type { ICommandHandler } from '@nestjs/cqrs';
 import { Inject } from '@nestjs/common';
-import { CommandHandler } from '@nestjs/cqrs';
-import { InventoryRepository } from 'node_modules/@nx-ddd/post-domain/src/lib/repositories/index.js';
+import { CommandHandler, EventPublisher } from '@nestjs/cqrs';
+import { ItemRepository } from 'node_modules/@nx-ddd/post-domain/src/lib/repositories/index.js';
 import { Validated } from 'validated-extendable';
+
+import { Transactional } from '@nx-ddd/database-application';
+import { UserItemRef } from '@nx-ddd/post-domain';
+import { UserRepository } from '@nx-ddd/user-domain';
 
 import type { UseItemInput } from '../schemas/commands.js';
 import { useItemInputSchema } from '../schemas/commands.js';
@@ -20,28 +24,31 @@ export namespace UseItemCommand {
   @CommandHandler(UseItemCommand)
   export class Handler implements ICommandHandler<UseItemCommand, Output> {
     constructor(
-      @Inject(InventoryRepository.TOKEN)
-      private readonly inventoryRepository: InventoryRepository.Repository,
-    ) {}
+      @Inject(ItemRepository.TOKEN)
+      private readonly itemRepository: ItemRepository.Repository,
+      @Inject(EventPublisher)
+      private readonly eventPublisher: EventPublisher,
+      @Inject(UserRepository.TOKEN)
+      private userRepository: UserRepository.Repository,
+    ) {
+      itemRepository.userRepository = userRepository;
+    }
 
+    @Transactional()
     async execute(command: UseItemCommand): Promise<Output> {
-      const { userId, itemId } = command;
-
-      const inventories = await this.inventoryRepository.findByUserId(userId);
-
-      const inventory = inventories.find(
-        (inv) => inv.item.id === itemId, // já que só tem um item
+      const user = this.eventPublisher.mergeObjectContext(
+        UserItemRef.cast(await this.userRepository.findById(command.userId)),
       );
 
-      if (!inventory) throw new Error('Item não encontrado no inventário');
+      const item = this.eventPublisher.mergeObjectContext(
+        await this.itemRepository.findById(command.itemId),
+      );
 
-      const item = inventory.item; // diretamente
+      user.useItem(item.id);
 
-      item.use();
+      await this.itemRepository.update(item);
 
-      await this.inventoryRepository.update([inventory]); // ainda passa como array
-
-      item.commit?.();
+      item.commit();
     }
   }
 }

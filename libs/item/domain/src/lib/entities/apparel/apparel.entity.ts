@@ -1,6 +1,6 @@
-import type { apparelItemPropsSchema } from 'src/lib/schemas/apparel.schema.js';
 import type z from 'zod';
 
+import type { apparelItemPropsSchema } from '../../schemas/apparel.schema.js';
 import { WearableItemsEntity } from '../wearable-items.entity.js';
 
 type ApparelItemsProps = z.infer<typeof apparelItemPropsSchema>;
