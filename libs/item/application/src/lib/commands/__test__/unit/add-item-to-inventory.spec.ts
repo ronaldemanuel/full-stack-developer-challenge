@@ -113,10 +113,12 @@ describe('UseItemCommand', () => {
 
     vi.spyOn(itemRepository, 'update').mockResolvedValue(undefined);
 
-    const command = AddItemToInventoryCommand.create({
-      userId: mockUser.id,
-      itemId: mockItem.id,
-    });
+    const command = AddItemToInventoryCommand.create(
+      {
+        itemId: mockItem.id,
+      },
+      mockUser,
+    );
 
     // Act
     await addItemToInventoryCommand.execute(command);

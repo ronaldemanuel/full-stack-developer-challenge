@@ -16,10 +16,17 @@ export namespace AddItemToInventoryCommand {
 
   class AddItemToInventoryCommand extends Validated(
     addItemToInventoryInputSchema,
-  ) {}
+  ) {
+    user: UserItemRef;
 
-  export function create(input: Input) {
-    return new AddItemToInventoryCommand(input);
+    constructor(input: Input, user: UserItemRef) {
+      super(input);
+      this.user = user;
+    }
+  }
+
+  export function create(input: Input, user: UserItemRef) {
+    return new AddItemToInventoryCommand(input, user);
   }
 
   @CommandHandler(AddItemToInventoryCommand)
@@ -38,7 +45,7 @@ export namespace AddItemToInventoryCommand {
     @Transactional()
     async execute(command: AddItemToInventoryCommand): Promise<Output> {
       const user = this.eventPublisher.mergeObjectContext(
-        UserItemRef.cast(await this.userRepository.findById(command.userId)),
+        UserItemRef.cast(await this.userRepository.findById(command.user.id)),
       );
 
       const item = this.eventPublisher.mergeObjectContext(

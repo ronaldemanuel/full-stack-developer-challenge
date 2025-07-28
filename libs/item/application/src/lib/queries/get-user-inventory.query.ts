@@ -1,19 +1,21 @@
 import type { IQueryHandler } from '@nestjs/cqrs';
 import { Inject } from '@nestjs/common';
 import { QueryHandler } from '@nestjs/cqrs';
-import { Validated } from 'validated-extendable';
 
-import type { ItemEntity } from '@nx-ddd/post-domain';
+import type { ItemEntity, UserItemRef } from '@nx-ddd/post-domain';
 import { ItemRepository } from '@nx-ddd/post-domain';
 
-import type { GetUserInventoryInput } from '../schemas/queries.js';
-import { getUserInventoryInputSchema } from '../schemas/queries.js';
-
 export namespace GetUserInventoryQuery {
-  export type Input = GetUserInventoryInput;
+  export type Input = UserItemRef;
   export type Output = ItemEntity[];
 
-  class GetUserInventoryQuery extends Validated(getUserInventoryInputSchema) {}
+  class GetUserInventoryQuery {
+    user: UserItemRef;
+
+    constructor(user: UserItemRef) {
+      this.user = user;
+    }
+  }
 
   export function create(input: Input) {
     return new GetUserInventoryQuery(input);
@@ -27,7 +29,7 @@ export namespace GetUserInventoryQuery {
     ) {}
 
     async execute(query: GetUserInventoryQuery): Promise<Output> {
-      return await this.itemRepository.findByUserId(query.userId);
+      return await this.itemRepository.findByUserId(query.user.id);
     }
   }
 }

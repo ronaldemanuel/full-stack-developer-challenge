@@ -7,6 +7,9 @@
       "path": "../../shared/presentation"
     },
     {
+      "path": "../application"
+    },
+    {
       "path": "../domain"
     },
     {

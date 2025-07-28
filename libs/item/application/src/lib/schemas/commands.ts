@@ -1,12 +1,10 @@
 import z from 'zod';
 
 export const useItemInputSchema = z.object({
-  userId: z.string(),
   itemId: z.string(),
 });
 
 export const addItemToInventoryInputSchema = z.object({
-  userId: z.string(),
   itemId: z.string(),
 });
 

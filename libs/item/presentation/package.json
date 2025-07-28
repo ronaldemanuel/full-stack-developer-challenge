@@ -28,7 +28,6 @@
           "outputPath": "libs/post/presentation/dist",
           "main": "libs/post/presentation/src/index.ts",
           "tsConfig": "libs/post/presentation/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }
@@ -38,6 +37,7 @@
     "@swc/helpers": "~0.5.11",
     "@nx-ddd/item-domain": "workspace:*",
     "@nx-ddd/item-application": "workspace:*",
-    "@nx-ddd/shared-presentation": "workspace:*"
+    "@nx-ddd/shared-presentation": "workspace:*",
+    "@nestjs/common": "catalog:nestjs"
   }
 }

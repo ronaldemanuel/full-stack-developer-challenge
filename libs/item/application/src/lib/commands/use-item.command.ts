@@ -15,10 +15,17 @@ export namespace UseItemCommand {
   export type Input = UseItemInput;
   export type Output = void;
 
-  class UseItemCommand extends Validated(useItemInputSchema) {}
+  class UseItemCommand extends Validated(useItemInputSchema) {
+    user: UserItemRef;
 
-  export function create(input: Input) {
-    return new UseItemCommand(input);
+    constructor(input: Input, user: UserItemRef) {
+      super(input);
+      this.user = user;
+    }
+  }
+
+  export function create(input: Input, user: UserItemRef) {
+    return new UseItemCommand(input, user);
   }
 
   @CommandHandler(UseItemCommand)
@@ -37,7 +44,7 @@ export namespace UseItemCommand {
     @Transactional()
     async execute(command: UseItemCommand): Promise<Output> {
       const user = this.eventPublisher.mergeObjectContext(
-        UserItemRef.cast(await this.userRepository.findById(command.userId)),
+        UserItemRef.cast(await this.userRepository.findById(command.user.id)),
       );
 
       const item = this.eventPublisher.mergeObjectContext(

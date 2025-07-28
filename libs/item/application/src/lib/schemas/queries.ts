@@ -1,8 +1,8 @@
 import z from 'zod';
 
-export const getUserInventoryInputSchema = z.object({
-  userId: z.string(),
-});
+import { userItemRefPropsSchema, userItemRefSchema } from '@nx-ddd/item-domain';
+
+export const getUserInventoryInputSchema = userItemRefPropsSchema;
 
 export const getAllItemsInputSchema = z.object({});
 

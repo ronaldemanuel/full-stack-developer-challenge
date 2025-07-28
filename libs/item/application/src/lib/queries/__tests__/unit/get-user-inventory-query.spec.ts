@@ -69,9 +69,7 @@ describe('GetUserInventoryQuery', () => {
       Promise.resolve(mockItems as any),
     );
 
-    const query = GetUserInventoryQuery.create({
-      userId: mockUser.id,
-    });
+    const query = GetUserInventoryQuery.create(mockUser);
 
     // Act
     const result = await getUserInventoryQuery.execute(query);
