@@ -25,9 +25,9 @@ export const user = pgTable('user', {
   banned: boolean('banned'),
   banReason: text('ban_reason'),
   banExpires: timestamp('ban_expires'),
-  hpLevel: integer('hp_level').default(100).notNull(),
-  spLevel: integer('sp_level').default(100).notNull(),
-  mpLevel: integer('mp_level').default(100).notNull(),
+  hpLevel: integer('hp_level').default(100),
+  spLevel: integer('sp_level').default(100),
+  mpLevel: integer('mp_level').default(100),
 });
 
 export const session = pgTable('session', {

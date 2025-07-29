@@ -1,8 +1,8 @@
 import z from 'zod';
 
-import { itemPropsSchema } from './item.schema.js';
+import { itemSchema } from './item.schema.js';
 
-export const consumableItemSchema = itemPropsSchema.extend({
+export const consumableItemSchema = itemSchema.extend({
   effectValue: z.number().int().default(1),
   consumableType: z.enum(['hp-potion', 'mp-potion', 'sp-potion']),
 });
