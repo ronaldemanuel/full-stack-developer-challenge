@@ -1,8 +1,8 @@
-import type { UserItemRef } from '../../../../refs/user-item.ref.js';
-import type { ApparelItemSchemaProps } from '../../../../schemas/apparel.schema.js';
-import HelmetEntity from '../../../../entities/apparel/helmet.entity.js';
-import { UserItemRefFactory } from '../../../../entities/factories/user-item-ref.factory.js';
-import { ItemMapper } from '../../../item.mapper.js';
+import type { UserItemRef } from '../../../../refs/user-item.ref';
+import type { ApparelItemSchemaProps } from '../../../../schemas/apparel.schema';
+import HelmetEntity from '../../../../entities/apparel/helmet.entity';
+import { UserItemRefFactory } from '../../../../entities/factories/user-item-ref.factory';
+import { ItemMapper } from '../../../item.mapper';
 
 describe('Helmet Item Mapper', () => {
   const mockCharacter: UserItemRef = UserItemRefFactory({}, {}, 'user-123');

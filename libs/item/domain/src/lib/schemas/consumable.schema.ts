@@ -1,6 +1,6 @@
 import z from 'zod';
 
-import { itemSchema } from './item.schema.js';
+import { itemSchema } from './item.schema';
 
 export const consumableItemSchema = itemSchema.extend({
   effectValue: z.number().int().default(1),

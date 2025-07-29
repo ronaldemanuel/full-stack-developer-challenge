@@ -1,8 +1,8 @@
-import { AddItemToInventoryCommand } from './add-item-to-inventory.command.js';
-import { UseItemCommand } from './use-item.command.js';
+import { AddItemToInventoryCommand } from './add-item-to-inventory.command';
+import { UseItemCommand } from './use-item.command';
 
-export * from './use-item.command.js';
-export * from './add-item-to-inventory.command.js';
+export * from './use-item.command';
+export * from './add-item-to-inventory.command';
 
 export const commands = [
   UseItemCommand.Handler,

@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 
-import { commands } from './commands/index.js';
-import { queries } from './queries/index.js';
-import { AddItemToInventoryUseCase } from './use-cases/add-item-to-inventory.use-case.js';
-import { ListAllItemsUseCase } from './use-cases/list-all-items.use-case.js';
-import { ListUserInventoryUseCase } from './use-cases/list-user-inventory.use-case.js';
-import { UseItemUseCase } from './use-cases/use-item.use-case.js';
+import { commands } from './commands/index';
+import { queries } from './queries/index';
+import { AddItemToInventoryUseCase } from './use-cases/add-item-to-inventory.use-case';
+import { ListAllItemsUseCase } from './use-cases/list-all-items.use-case';
+import { ListUserInventoryUseCase } from './use-cases/list-user-inventory.use-case';
+import { UseItemUseCase } from './use-cases/use-item.use-case';
 
 @Module({
   providers: [

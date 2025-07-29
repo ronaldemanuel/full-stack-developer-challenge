@@ -1,11 +1,11 @@
-import type { UserItemRef } from 'src/lib/refs/user-item.ref.js';
+import type { UserItemRef } from 'src/lib/refs/user-item.ref';
 import type z from 'zod';
 
 import { ZodEntity } from '@nx-ddd/shared-domain';
 
-import type { ItemIdentifier } from '../abstract-item.entity.js';
-import { apparelItemPropsSchema } from '../../schemas/apparel.schema.js';
-import { ApparelEntity } from './apparel.entity.js';
+import type { ItemIdentifier } from '../abstract-item.entity';
+import { apparelItemPropsSchema } from '../../schemas/apparel.schema';
+import { ApparelEntity } from './apparel.entity';
 
 type HelmetProps = z.infer<typeof apparelItemPropsSchema>;
 

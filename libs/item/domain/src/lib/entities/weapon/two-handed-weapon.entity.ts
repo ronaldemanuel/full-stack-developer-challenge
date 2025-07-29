@@ -1,7 +1,7 @@
-import type { UserItemRef } from 'src/lib/refs/user-item.ref.js';
+import type { UserItemRef } from 'src/lib/refs/user-item.ref';
 
-import type { ItemIdentifier } from '../abstract-item.entity.js';
-import { WeaponEntity } from './weapon.entity.js';
+import type { ItemIdentifier } from '../abstract-item.entity';
+import { WeaponEntity } from './weapon.entity';
 
 export default class TwoHandedWeaponEntity extends WeaponEntity {
   override get equipped(): boolean {

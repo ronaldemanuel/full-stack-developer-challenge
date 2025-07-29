@@ -3,7 +3,7 @@ import { QueryBus } from '@nestjs/cqrs';
 
 import type { IUseCase } from '@nx-ddd/shared-application';
 
-import { GetAllItemsQuery } from '../queries/get-all-items.query.js';
+import { GetAllItemsQuery } from '../queries/get-all-items.query';
 
 export namespace ListAllItemsUseCase {
   export type Input = GetAllItemsQuery.Input;

@@ -1,15 +1,14 @@
 import type { ICommandHandler } from '@nestjs/cqrs';
 import { Inject } from '@nestjs/common';
 import { CommandHandler, EventPublisher } from '@nestjs/cqrs';
-import { ItemRepository } from 'node_modules/@nx-ddd/post-domain/src/lib/repositories/index.js';
 import { Validated } from 'validated-extendable';
 
 import { Transactional } from '@nx-ddd/database-application';
-import { UserItemRef } from '@nx-ddd/post-domain';
+import { ItemRepository, UserItemRef } from '@nx-ddd/post-domain';
 import { UserRepository } from '@nx-ddd/user-domain';
 
-import type { UseItemInput } from '../schemas/commands.js';
-import { useItemInputSchema } from '../schemas/commands.js';
+import type { UseItemInput } from '../schemas/commands';
+import { useItemInputSchema } from '../schemas/commands';
 
 export namespace UseItemCommand {
   export type Input = UseItemInput;

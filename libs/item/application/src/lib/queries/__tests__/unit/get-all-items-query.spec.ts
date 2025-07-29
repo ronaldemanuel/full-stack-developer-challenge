@@ -9,7 +9,7 @@ import {
   UserItemRefFactory,
 } from '@nx-ddd/item-domain';
 
-import { GetAllItemsQuery } from '../../get-all-items.query.js';
+import { GetAllItemsQuery } from '../../get-all-items.query';
 
 describe('GetAllItemsQuery', () => {
   let getAllItemsQuery: GetAllItemsQuery.Handler;

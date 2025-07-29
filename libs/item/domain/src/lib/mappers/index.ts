@@ -1,2 +1,2 @@
-export * from './item.mapper.js';
-export * from './inventory-mapper.js';
+export * from './item.mapper';
+export * from './inventory-mapper';

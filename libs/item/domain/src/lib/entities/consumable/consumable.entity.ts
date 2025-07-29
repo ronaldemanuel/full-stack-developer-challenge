@@ -1,7 +1,7 @@
-import type { UserItemRef } from 'src/lib/refs/user-item.ref.js';
-import type { ConsumableItemProps } from 'src/lib/schemas/consumable.schema.js';
+import type { UserItemRef } from 'src/lib/refs/user-item.ref';
+import type { ConsumableItemProps } from 'src/lib/schemas/consumable.schema';
 
-import { ItemEntity } from '../abstract-item.entity.js';
+import { ItemEntity } from '../abstract-item.entity';
 
 export abstract class ConsumableEntity<
   T extends ConsumableItemProps = ConsumableItemProps,

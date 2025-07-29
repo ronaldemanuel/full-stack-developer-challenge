@@ -7,8 +7,8 @@ import { Transactional } from '@nx-ddd/database-application';
 import { ItemRepository, UserItemRef } from '@nx-ddd/item-domain';
 import { UserRepository } from '@nx-ddd/user-domain';
 
-import type { AddItemToInventoryInput } from '../schemas/commands.js';
-import { addItemToInventoryInputSchema } from '../schemas/commands.js';
+import type { AddItemToInventoryInput } from '../schemas/commands';
+import { addItemToInventoryInputSchema } from '../schemas/commands';
 
 export namespace AddItemToInventoryCommand {
   export type Input = AddItemToInventoryInput;

@@ -1,6 +1,6 @@
 import z from 'zod';
 
-import { userItemRefPropsSchema, userItemRefSchema } from '@nx-ddd/item-domain';
+import { userItemRefPropsSchema } from '@nx-ddd/item-domain';
 
 export const getUserInventoryInputSchema = userItemRefPropsSchema;
 

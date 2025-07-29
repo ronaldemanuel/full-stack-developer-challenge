@@ -1,7 +1,7 @@
-import type { ApparelItemSchemaProps } from '../../../schemas/apparel.schema.js';
-import type { UserItemRef } from '../../user-item.ref.js';
-import { UserItemRefFactory } from '../../../entities/factories/user-item-ref.factory.js';
-import { ItemMapper } from '../../../mappers/item.mapper.js';
+import type { ApparelItemSchemaProps } from '../../../schemas/apparel.schema';
+import type { UserItemRef } from '../../user-item.ref';
+import { UserItemRefFactory } from '../../../entities/factories/user-item-ref.factory';
+import { ItemMapper } from '../../../mappers/item.mapper';
 
 describe('UserItemRef.addItemToInventory', () => {
   let user: UserItemRef;

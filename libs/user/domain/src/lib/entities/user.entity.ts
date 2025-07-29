@@ -1,7 +1,7 @@
 import { Entity, ZodEntity } from '@nx-ddd/shared-domain';
 
-import type { UserProps } from '../schemas/user.schema.js';
-import { userPropsSchema } from '../schemas/user.schema.js';
+import type { UserProps } from '../schemas/user.schema';
+import { userPropsSchema } from '../schemas/user.schema';
 
 @ZodEntity(userPropsSchema)
 export class UserEntity extends Entity<UserProps> {

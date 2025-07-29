@@ -1,8 +1,8 @@
-import type { InventoryItemEntity } from 'src/lib/entities/inventory-item.entity.js';
+import type { InventoryItemEntity } from 'src/lib/entities/inventory-item.entity';
 
 import { getRepositoryToken } from '@nx-ddd/shared-domain';
 
-import type { ItemRepository } from './item.repository.js';
+import type { ItemRepository } from './item.repository';
 
 export namespace InventoryRepository {
   export const TOKEN = getRepositoryToken('InventoryItem');

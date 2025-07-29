@@ -1,19 +1,19 @@
-import type { ITEMS } from '../constants/items.js';
-import type { ItemEntity } from '../entities/abstract-item.entity.js';
-import type { UserItemRef } from '../refs/user-item.ref.js';
-import type { ApparelItemSchemaProps } from '../schemas/apparel.schema.js';
-import type { ConsumableItemProps } from '../schemas/consumable.schema.js';
-import type { ItemProps } from '../schemas/item.schema.js';
-import type { WeaponItemProps } from '../schemas/weapon.schema.js';
-import BootsEntity from '../entities/apparel/boots.entity.js';
-import ChestEntity from '../entities/apparel/chest.entity.js';
-import GlovesEntity from '../entities/apparel/gloves.entity.js';
-import HelmetEntity from '../entities/apparel/helmet.entity.js';
-import { HpPotionEntity } from '../entities/consumable/hp-potion.entity.js';
-import { MpPotionEntity } from '../entities/consumable/mp-potion.entity.js';
-import { SpPotionEntity } from '../entities/consumable/sp-potion.entity.js';
-import { OneHandedWeaponEntity } from '../entities/weapon/one-handed-weapon.entity.js';
-import TwoHandedWeaponEntity from '../entities/weapon/two-handed-weapon.entity.js';
+import type { ITEMS } from '../constants/items';
+import type { ItemEntity } from '../entities/abstract-item.entity';
+import type { UserItemRef } from '../refs/user-item.ref';
+import type { ApparelItemSchemaProps } from '../schemas/apparel.schema';
+import type { ConsumableItemProps } from '../schemas/consumable.schema';
+import type { ItemProps } from '../schemas/item.schema';
+import type { WeaponItemProps } from '../schemas/weapon.schema';
+import BootsEntity from '../entities/apparel/boots.entity';
+import ChestEntity from '../entities/apparel/chest.entity';
+import GlovesEntity from '../entities/apparel/gloves.entity';
+import HelmetEntity from '../entities/apparel/helmet.entity';
+import { HpPotionEntity } from '../entities/consumable/hp-potion.entity';
+import { MpPotionEntity } from '../entities/consumable/mp-potion.entity';
+import { SpPotionEntity } from '../entities/consumable/sp-potion.entity';
+import { OneHandedWeaponEntity } from '../entities/weapon/one-handed-weapon.entity';
+import TwoHandedWeaponEntity from '../entities/weapon/two-handed-weapon.entity';
 
 export class ItemMapper {
   static toDomain(

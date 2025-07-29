@@ -1,8 +1,8 @@
 import { Entity, RelationshipNotLoadedError } from '@nx-ddd/shared-domain';
 
-import type { UserItemRef } from '../refs/user-item.ref.js';
-import type { UserItemProps } from '../schemas/inventory.schema.js';
-import type { ItemEntity } from './abstract-item.entity.js';
+import type { UserItemRef } from '../refs/user-item.ref';
+import type { UserItemProps } from '../schemas/inventory.schema';
+import type { ItemEntity } from './abstract-item.entity';
 
 export interface InventoryEntityRelations {
   character?: UserItemRef;

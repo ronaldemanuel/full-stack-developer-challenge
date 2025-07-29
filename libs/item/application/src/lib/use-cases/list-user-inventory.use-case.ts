@@ -3,7 +3,7 @@ import { QueryBus } from '@nestjs/cqrs';
 
 import type { IUseCase } from '@nx-ddd/shared-application';
 
-import type { GetUserInventoryQuery } from '../queries/get-user-inventory.query.js';
+import type { GetUserInventoryQuery } from '../queries/get-user-inventory.query';
 
 export namespace ListUserInventoryUseCase {
   export type Input = GetUserInventoryQuery.Input;

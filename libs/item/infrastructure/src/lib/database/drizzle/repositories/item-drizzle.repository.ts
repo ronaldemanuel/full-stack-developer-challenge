@@ -1,8 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ITEMS } from 'node_modules/@nx-ddd/post-domain/src/lib/constants/items.js';
 
 import type { DrizzleDB, DrizzleTX } from '@nx-ddd/database-infrastructure';
-import type { ItemEntity } from '@nx-ddd/post-domain';
+import type { ItemEntity } from '@nx-ddd/item-domain';
 import type { UserRepository } from '@nx-ddd/user-domain';
 import {
   InjectDrizzle,
@@ -10,7 +9,7 @@ import {
 } from '@nx-ddd/database-infrastructure';
 import { and, eq } from '@nx-ddd/database-infrastructure/drizzle/operators';
 import { user, userItem } from '@nx-ddd/database-infrastructure/drizzle/schema';
-import { ItemMapper, ItemRepository } from '@nx-ddd/post-domain';
+import { ItemMapper, ItemRepository, ITEMS } from '@nx-ddd/item-domain';
 import { NotFoundError } from '@nx-ddd/shared-domain';
 
 @Injectable()

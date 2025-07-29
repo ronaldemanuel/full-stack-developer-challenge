@@ -1,6 +1,6 @@
 import z from 'zod';
 
-import { wearableItemSchema } from './wearable-item.schema.js';
+import { wearableItemSchema } from './wearable-item.schema';
 
 export const weaponItemSchema = wearableItemSchema.extend({
   damageValue: z.number().int().default(1),

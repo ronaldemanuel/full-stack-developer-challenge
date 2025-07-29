@@ -1,9 +1,9 @@
-import type { ItemEntity } from 'src/lib/entities/abstract-item.entity.js';
+import type { ItemEntity } from 'src/lib/entities/abstract-item.entity';
 
 import type { UserRepository } from '@nx-ddd/user-domain';
 import { InMemoryRepository } from '@nx-ddd/shared-domain';
 
-import type { ItemRepository } from '../../../item.repository.js';
+import type { ItemRepository } from '../../../item.repository';
 
 export class ItemInMemoryRepository
   extends InMemoryRepository<ItemEntity>

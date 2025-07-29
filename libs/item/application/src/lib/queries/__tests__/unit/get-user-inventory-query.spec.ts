@@ -9,7 +9,7 @@ import {
   UserItemRefFactory,
 } from '@nx-ddd/item-domain';
 
-import { GetUserInventoryQuery } from '../../get-user-inventory.query.js';
+import { GetUserInventoryQuery } from '../../get-user-inventory.query';
 
 describe('GetUserInventoryQuery', () => {
   let getUserInventoryQuery: GetUserInventoryQuery.Handler;

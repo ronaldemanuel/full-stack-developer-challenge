@@ -13,7 +13,7 @@ import { setupDrizzleTestDB } from '@nx-ddd/database-infrastructure/drizzle/oper
 import { ItemRepository } from '@nx-ddd/item-domain';
 import { UserModule } from '@nx-ddd/user-infrastructure';
 
-import { ItemDrizzleRepository } from '../../item-drizzle.repository.js';
+import { ItemDrizzleRepository } from '../../item-drizzle.repository';
 
 describe('ItemDrizzleRepository', () => {
   let drizzleTestDB: DrizzleTestDB;

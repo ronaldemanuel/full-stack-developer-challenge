@@ -37,6 +37,7 @@
     "@nestjs/core": "catalog:nestjs",
     "@nx-ddd/email-infrastructure": "workspace:*",
     "@nx-ddd/post-infrastructure": "workspace:*",
+    "@nx-ddd/item-infrastructure": "workspace:*",
     "@nx-ddd/user-infrastructure": "workspace:*",
     "@nx-ddd/shared-infrastructure": "workspace:*",
     "@nx-ddd/shared-presentation": "workspace:*",

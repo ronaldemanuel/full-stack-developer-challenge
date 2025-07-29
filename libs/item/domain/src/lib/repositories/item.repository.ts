@@ -2,7 +2,7 @@ import type { IRepository } from '@nx-ddd/shared-domain';
 import type { UserRepository } from '@nx-ddd/user-domain';
 import { getRepositoryToken } from '@nx-ddd/shared-domain';
 
-import type { ItemEntity } from '../entities/abstract-item.entity.js';
+import type { ItemEntity } from '../entities/abstract-item.entity';
 
 export namespace ItemRepository {
   export const TOKEN = getRepositoryToken('Item');

@@ -1,7 +1,7 @@
-import type { ApparelItemSchemaProps } from '../schemas/apparel.schema.js';
-import type { ConsumableItemProps } from '../schemas/consumable.schema.js';
-import type { ItemProps } from '../schemas/item.schema.js';
-import type { WeaponItemProps } from '../schemas/weapon.schema.js';
+import type { ApparelItemSchemaProps } from '../schemas/apparel.schema';
+import type { ConsumableItemProps } from '../schemas/consumable.schema';
+import type { ItemProps } from '../schemas/item.schema';
+import type { WeaponItemProps } from '../schemas/weapon.schema';
 
 export const ITEMS = {
   'dragonscale-helmet': {

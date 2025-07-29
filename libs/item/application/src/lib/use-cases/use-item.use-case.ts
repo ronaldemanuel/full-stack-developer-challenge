@@ -5,7 +5,7 @@ import type { UserItemRef } from '@nx-ddd/item-domain';
 import type { IUseCase } from '@nx-ddd/shared-application';
 import { Transactional } from '@nx-ddd/database-application';
 
-import { UseItemCommand } from '../commands/use-item.command.js';
+import { UseItemCommand } from '../commands/use-item.command';
 
 export namespace UseItemUseCase {
   export type Input = UseItemCommand.Input & { user: UserItemRef };

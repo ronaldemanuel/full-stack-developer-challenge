@@ -1,6 +1,6 @@
-import type { InventoryEntityRelations } from '../entities/inventory-item.entity.js';
-import type { UserItemProps } from '../schemas/inventory.schema.js';
-import { InventoryItemEntity } from '../entities/inventory-item.entity.js';
+import type { InventoryEntityRelations } from '../entities/inventory-item.entity';
+import type { UserItemProps } from '../schemas/inventory.schema';
+import { InventoryItemEntity } from '../entities/inventory-item.entity';
 
 export class InventoryItemMapper {
   static toDomain(

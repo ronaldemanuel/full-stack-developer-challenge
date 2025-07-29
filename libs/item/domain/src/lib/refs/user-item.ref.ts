@@ -5,15 +5,16 @@ import {
 } from '@nx-ddd/shared-domain';
 import { UserEntity } from '@nx-ddd/user-domain';
 
-import type { ItemEntity } from '../entities/abstract-item.entity.js';
-import type BootsEntity from '../entities/apparel/boots.entity.js';
-import type ChestEntity from '../entities/apparel/chest.entity.js';
-import type GlovesEntity from '../entities/apparel/gloves.entity.js';
-import type HelmetEntity from '../entities/apparel/helmet.entity.js';
-import type { InventoryItemEntity } from '../entities/inventory-item.entity.js';
-import type { WeaponEntity } from '../entities/weapon/weapon.entity.js';
-import type { UserItemRefProps } from '../schemas/user-item-ref.schema.js';
-import { InventoryItemMapper } from '../mappers/inventory-mapper.js';
+import type { ItemEntity } from '../entities/abstract-item.entity';
+import type BootsEntity from '../entities/apparel/boots.entity';
+import type ChestEntity from '../entities/apparel/chest.entity';
+import type GlovesEntity from '../entities/apparel/gloves.entity';
+import type HelmetEntity from '../entities/apparel/helmet.entity';
+import type { InventoryItemEntity } from '../entities/inventory-item.entity';
+import type { WeaponEntity } from '../entities/weapon/weapon.entity';
+import type { UserItemRefProps } from '../schemas/user-item-ref.schema';
+import { ItemAddedToInventoryEvent } from '../events/item-added-to-inventory.event';
+import { InventoryItemMapper } from '../mappers/inventory-mapper';
 
 export interface UserItemRefRelations {
   inventory: InventoryItemEntity[];
@@ -117,18 +118,19 @@ export class UserItemRef extends UserEntity {
       existingItem.amount += 1;
       return;
     }
-
-    this._inventory.add(
-      InventoryItemMapper.toDomain(
-        {
-          amount: 1,
-        },
-        {
-          item,
-          character: this,
-        },
-      ),
+    const inventory = InventoryItemMapper.toDomain(
+      {
+        amount: 1,
+      },
+      {
+        item,
+        character: this,
+      },
     );
+
+    inventory.apply(new ItemAddedToInventoryEvent(item.toJSON()));
+
+    this._inventory.add(inventory);
   }
 
   public removeItemFromInventory(itemId: string) {

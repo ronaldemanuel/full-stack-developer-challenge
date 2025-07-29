@@ -1,7 +1,7 @@
-import type { UserItemRef } from 'src/lib/refs/user-item.ref.js';
+import type { UserItemRef } from 'src/lib/refs/user-item.ref';
 
-import type { ItemIdentifier } from '../abstract-item.entity.js';
-import { ApparelEntity } from './apparel.entity.js';
+import type { ItemIdentifier } from '../abstract-item.entity';
+import { ApparelEntity } from './apparel.entity';
 
 export default class BootsEntity extends ApparelEntity {
   override get equipped(): boolean {

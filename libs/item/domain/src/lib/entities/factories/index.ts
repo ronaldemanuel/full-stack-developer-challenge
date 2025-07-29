@@ -1,1 +1,1 @@
-export * from './user-item-ref.factory.js';
+export * from './user-item-ref.factory';

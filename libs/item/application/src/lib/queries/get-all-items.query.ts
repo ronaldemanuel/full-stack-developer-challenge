@@ -6,7 +6,7 @@ import { Validated } from 'validated-extendable';
 import type { ItemEntity } from '@nx-ddd/post-domain';
 import { ItemRepository } from '@nx-ddd/post-domain';
 
-import { getAllItemsInputSchema } from '../schemas/queries.js';
+import { getAllItemsInputSchema } from '../schemas/queries';
 
 export namespace GetAllItemsQuery {
   export type Input = object;

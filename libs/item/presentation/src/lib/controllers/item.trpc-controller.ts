@@ -1,17 +1,23 @@
 import { Inject } from '@nestjs/common';
+import z from 'zod';
 
-import type {
-  inferProcedureBuilderResolverContext,
-  protectedProcedure,
-} from '@nx-ddd/shared-presentation';
+import type { inferProcedureBuilderResolverContext } from '@nx-ddd/shared-presentation';
 import {
+  addItemToInventoryInputSchema,
   AddItemToInventoryUseCase,
   ListAllItemsUseCase,
   ListUserInventoryUseCase,
+  useItemInputSchema,
   UseItemUseCase,
 } from '@nx-ddd/item-application';
-import { UserItemRef } from '@nx-ddd/item-domain';
-import { Ctx, Input } from '@nx-ddd/shared-presentation';
+import { itemSchema, UserItemRef } from '@nx-ddd/item-domain';
+import {
+  createNestjsTrpcRouter,
+  Ctx,
+  Input,
+  protectedProcedure,
+  publicProcedure,
+} from '@nx-ddd/shared-presentation';
 
 export class ItemTrpcController {
   @Inject(ListAllItemsUseCase.UseCase)
@@ -57,3 +63,24 @@ export class ItemTrpcController {
     });
   }
 }
+
+export const itemsRouter = createNestjsTrpcRouter(
+  ItemTrpcController,
+  (adapter) => {
+    return {
+      getAllItems: publicProcedure
+        .input(z.object({}))
+        .query(adapter.adaptMethod('getAllItems')),
+      getUserItems: publicProcedure
+        .input(z.object({}))
+        .output(z.array(itemSchema))
+        .query(adapter.adaptMethod('getUserItems')),
+      useItem: protectedProcedure
+        .input(useItemInputSchema)
+        .mutation(adapter.adaptMethod('useItem')),
+      addItemToInventory: protectedProcedure
+        .input(addItemToInventoryInputSchema)
+        .mutation(adapter.adaptMethod('addItemToInventory')),
+    };
+  },
+);

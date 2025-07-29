@@ -1,7 +1,7 @@
-import type { UserItemRef } from '../../../../refs/user-item.ref.js';
-import type { ApparelItemSchemaProps } from '../../../../schemas/apparel.schema.js';
-import { ItemMapper } from '../../../../mappers/item.mapper.js';
-import { UserItemRefFactory } from '../../../factories/user-item-ref.factory.js';
+import type { UserItemRef } from '../../../../refs/user-item.ref';
+import type { ApparelItemSchemaProps } from '../../../../schemas/apparel.schema';
+import { ItemMapper } from '../../../../mappers/item.mapper';
+import { UserItemRefFactory } from '../../../factories/user-item-ref.factory';
 
 describe('ChestEntity', () => {
   let character: UserItemRef;

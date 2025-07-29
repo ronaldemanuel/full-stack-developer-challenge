@@ -18,7 +18,7 @@ import {
 } from '@nx-ddd/item-domain';
 import { UserInMemoryRepository, UserRepository } from '@nx-ddd/user-domain';
 
-import { UseItemCommand } from '../../use-item.command.js';
+import { UseItemCommand } from '../../use-item.command';
 
 class StubAdapter implements TransactionalAdapter<any, any, any> {
   connectionToken?: any;
