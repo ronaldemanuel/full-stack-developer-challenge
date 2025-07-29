@@ -5,7 +5,7 @@
     "scheme": "expo",
     "version": "0.1.0",
     "orientation": "portrait",
-    "icon": "./assets/icon-light.png",
+    "icon": "./assets/skyrim-logo.png",
     "userInterfaceStyle": "automatic",
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -16,14 +16,14 @@
       "bundleIdentifier": "your.bundle.identifier",
       "supportsTablet": true,
       "icon": {
-        "light": "./assets/icon-light.png",
-        "dark": "./assets/icon-dark.png"
+        "light": "./assets/skyrim-logo.png",
+        "dark": "/assets/skyrim-logo.png"
       }
     },
     "android": {
       "package": "your.bundle.identifier",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon-light.png",
+        "foregroundImage": "./assets/skyrim-logo.png",
         "backgroundColor": "#1F104A"
       },
       "edgeToEdgeEnabled": true
@@ -40,10 +40,10 @@
         "expo-splash-screen",
         {
           "backgroundColor": "#E4E4E7",
-          "image": "./assets/icon-light.png",
+          "image": "./assets/skyrim-logo.png",
           "dark": {
             "backgroundColor": "#18181B",
-            "image": "./assets/icon-dark.png"
+            "image": "/assets/skyrim-logo.png"
           }
         }
       ]

@@ -20,6 +20,9 @@
   ],
   "references": [
     {
+      "path": "../../libs/item/domain"
+    },
+    {
       "path": "../../tools/tailwind"
     },
     {
