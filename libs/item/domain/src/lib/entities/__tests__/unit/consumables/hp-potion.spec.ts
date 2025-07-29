@@ -18,17 +18,17 @@ describe('HpPotionEntity', () => {
   } as ConsumableItemProps;
 
   beforeEach(() => {
-    character = UserItemRefFactory({ hpLevel: 200 }, {}, 'user-123');
+    character = UserItemRefFactory({ hpLevel: 100 }, {}, 'user-123');
     hpPotion = ItemMapper.toDomain(baseItem, character);
     character.addItemToInventory(hpPotion);
   });
 
   it('should increase hpLevel by the effectValue when used', () => {
-    expect(character.hpLevel).toBe(200);
+    expect(character.hpLevel).toBe(100);
 
     hpPotion.use();
 
-    expect(character.hpLevel).toBe(267);
+    expect(character.hpLevel).toBe(167);
   });
 
   it('should remove the potion from the inventory after use', () => {

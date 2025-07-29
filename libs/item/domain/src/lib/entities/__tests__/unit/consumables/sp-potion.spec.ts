@@ -18,17 +18,17 @@ describe('SpPotionEntity', () => {
   } as ConsumableItemProps;
 
   beforeEach(() => {
-    character = UserItemRefFactory({ spLevel: 1000 }, {}, 'user-123');
+    character = UserItemRefFactory({ spLevel: 100 }, {}, 'user-123');
     spPotion = ItemMapper.toDomain(baseItem, character);
     character.addItemToInventory(spPotion);
   });
 
   it('should increase spLevel by the effectValue when used', () => {
-    expect(character.spLevel).toBe(1000);
+    expect(character.spLevel).toBe(100);
 
     spPotion.use();
 
-    expect(character.spLevel).toBe(1341);
+    expect(character.spLevel).toBe(441);
   });
 
   it('should remove the potion from the inventory after use', () => {

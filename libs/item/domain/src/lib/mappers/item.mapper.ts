@@ -2,7 +2,9 @@ import type { ITEMS } from '../constants/items.js';
 import type { ItemEntity } from '../entities/abstract-item.entity.js';
 import type { UserItemRef } from '../refs/user-item.ref.js';
 import type { ApparelItemSchemaProps } from '../schemas/apparel.schema.js';
+import type { ConsumableItemProps } from '../schemas/consumable.schema.js';
 import type { ItemProps } from '../schemas/item.schema.js';
+import type { WeaponItemProps } from '../schemas/weapon.schema.js';
 import BootsEntity from '../entities/apparel/boots.entity.js';
 import ChestEntity from '../entities/apparel/chest.entity.js';
 import GlovesEntity from '../entities/apparel/gloves.entity.js';
@@ -15,7 +17,11 @@ import TwoHandedWeaponEntity from '../entities/weapon/two-handed-weapon.entity.j
 
 export class ItemMapper {
   static toDomain(
-    item: ItemProps | ApparelItemSchemaProps,
+    item:
+      | ItemProps
+      | ApparelItemSchemaProps
+      | WeaponItemProps
+      | ConsumableItemProps,
     character?: UserItemRef,
   ): ItemEntity {
     type EntityConstructor<T extends ItemEntity = ItemEntity> = new (

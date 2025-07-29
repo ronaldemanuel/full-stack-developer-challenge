@@ -6,14 +6,7 @@ export const itemSchema = z.object({
   image: z.string().url(),
   characterId: z.string().nullish(),
   type: z.enum(['apparel', 'weapon', 'consumable', 'misc']),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-});
-
-export const itemPropsSchema = itemSchema.partial({
-  createdAt: true,
-  updatedAt: true,
 });
 
 export type Item = z.infer<typeof itemSchema>;
-export type ItemProps = z.infer<typeof itemPropsSchema>;
+export type ItemProps = z.infer<typeof itemSchema>;

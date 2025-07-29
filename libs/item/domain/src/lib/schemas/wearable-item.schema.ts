@@ -1,8 +1,8 @@
 import z from 'zod';
 
-import { itemPropsSchema } from './item.schema.js';
+import { itemSchema } from './item.schema.js';
 
-export const wearableItemSchema = itemPropsSchema.extend({
+export const wearableItemSchema = itemSchema.extend({
   equipped: z.boolean().default(false),
 });
 
