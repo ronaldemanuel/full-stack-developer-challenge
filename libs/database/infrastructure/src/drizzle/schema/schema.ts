@@ -46,3 +46,23 @@ export const like = pgTable(
     }),
   }),
 );
+
+export const userItem = pgTable(
+  'user_item',
+  (t) => ({
+    userId: t
+      .text('user_id')
+      .notNull()
+      .references(() => user.id, {
+        onDelete: 'cascade',
+      }),
+
+    itemId: t.text('item_id').notNull(),
+  }),
+  (t) => ({
+    pk: primaryKey({
+      columns: [t.userId, t.itemId],
+      name: 'user_item_pkey',
+    }),
+  }),
+);

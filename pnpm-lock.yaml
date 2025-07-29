@@ -1074,6 +1074,9 @@ importers:
 
   libs/item/infrastructure:
     dependencies:
+      '@nestjs/common':
+        specifier: catalog:nestjs
+        version: 11.1.5(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nx-ddd/database-infrastructure':
         specifier: workspace:*
         version: link:../../database/infrastructure
@@ -1092,6 +1095,9 @@ importers:
       '@nx-ddd/shared-infrastructure':
         specifier: workspace:*
         version: link:../../shared/infrastructure
+      '@nx-ddd/user-domain':
+        specifier: workspace:*
+        version: link:../../user/domain
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.17

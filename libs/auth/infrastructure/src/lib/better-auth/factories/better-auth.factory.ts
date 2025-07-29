@@ -1,7 +1,7 @@
 import type { FactoryProvider } from '@nestjs/common';
 import type { Adapter } from 'better-auth';
 import { expo } from '@better-auth/expo';
-import { betterAuth } from 'better-auth';
+import { betterAuth, number } from 'better-auth';
 import { nextCookies } from 'better-auth/next-js';
 import {
   admin,
@@ -65,6 +65,22 @@ export function initAuth(
     account: {
       accountLinking: {
         trustedProviders: ['google', 'github', 'demo-app'],
+      },
+    },
+    user: {
+      additionalFields: {
+        hpLevel: {
+          type: 'number',
+          defaultValue: 100,
+        },
+        spLevel: {
+          type: 'number',
+          defaultValue: 100,
+        },
+        mpLevel: {
+          type: 'number',
+          defaultValue: 100,
+        },
       },
     },
     emailAndPassword: {

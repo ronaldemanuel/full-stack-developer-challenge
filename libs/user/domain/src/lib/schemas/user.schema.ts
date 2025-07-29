@@ -13,9 +13,9 @@ export const userSchema = z.object({
   banned: z.boolean().nullish(),
   banReason: z.string().nullish(),
   banExpires: z.date().nullish(),
-  hpLevel: z.number().max(500).int().default(100),
-  spLevel: z.number().max(2000).int().default(1000),
-  mpLevel: z.number().max(200).int().default(50),
+  hpLevel: z.number().max(1000).int().default(100),
+  spLevel: z.number().max(1200).int().default(100),
+  mpLevel: z.number().max(800).int().default(100),
 });
 
 export const userPropsSchema = userSchema

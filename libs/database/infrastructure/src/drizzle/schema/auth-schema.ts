@@ -1,4 +1,10 @@
-import { boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+} from 'drizzle-orm/pg-core';
 
 export const user = pgTable('user', {
   id: text('id').primaryKey(),
@@ -19,6 +25,9 @@ export const user = pgTable('user', {
   banned: boolean('banned'),
   banReason: text('ban_reason'),
   banExpires: timestamp('ban_expires'),
+  hpLevel: integer('hp_level').default(100).notNull(),
+  spLevel: integer('sp_level').default(100).notNull(),
+  mpLevel: integer('mp_level').default(100).notNull(),
 });
 
 export const session = pgTable('session', {
