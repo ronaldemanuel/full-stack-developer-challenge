@@ -6,7 +6,7 @@ import { Link, router } from 'expo-router';
 import { Button } from '@/components/ui/button';
 import { Form, FormField, FormInput } from '@/components/ui/Form';
 import { Text } from '@/components/ui/text';
-import { handleEmailLogin } from '@/modules/auth/hooks/use-auth';
+import { useAuth } from '@/modules/auth/hooks/use-auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -20,6 +20,7 @@ export type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginScreen() {
   const [isLoading, setIsLoading] = useState(false);
+  const { loginWithEmail } = useAuth();
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -29,7 +30,7 @@ export default function LoginScreen() {
   const onSubmit = (data: LoginFormData) => {
     setIsLoading(true);
     setTimeout(() => {
-      handleEmailLogin(data);
+      loginWithEmail(data);
       setIsLoading(false);
       router.replace('/(tabs)/inventory');
     }, 1500);

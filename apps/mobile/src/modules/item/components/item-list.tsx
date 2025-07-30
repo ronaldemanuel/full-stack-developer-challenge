@@ -19,7 +19,7 @@ export default function ItemList({
       <View
         className="w-full"
         style={{
-          height: 360,
+          height: 240,
           overflow: 'hidden',
         }}
       >

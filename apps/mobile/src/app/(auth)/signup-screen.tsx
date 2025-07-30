@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { ScrollView, View } from 'react-native';
-import { Link } from 'expo-router';
+import { KeyboardAvoidingView, Platform, View } from 'react-native';
+import { Link, router } from 'expo-router';
 import { Form, FormField, FormInput } from '@/components/ui/Form';
 import { Text } from '@/components/ui/text';
-import { handleEmailSignup } from '@/modules/auth/hooks/use-auth';
+import { useAuth } from '@/modules/auth/hooks/use-auth';
 import SkyrimButton from '@/modules/shared/components/skyrim-button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -26,6 +26,8 @@ export type SignupFormData = z.infer<typeof signupSchema>;
 export default function SignupScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
+  const { signupWithEmail } = useAuth();
+
   const form = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -39,15 +41,17 @@ export default function SignupScreen() {
   const onSubmit = (data: SignupFormData) => {
     setIsLoading(true);
     setTimeout(() => {
-      handleEmailSignup(data);
+      signupWithEmail(data);
       setIsLoading(false);
+      router.replace('/(tabs)/inventory');
     }, 1500);
   };
 
   return (
-    <ScrollView
+    <KeyboardAvoidingView
       className="w-full"
       contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+      behavior={Platform.OS === 'android' ? 'position' : 'padding'}
     >
       <Form {...form}>
         <View className="gap-4">
@@ -131,6 +135,6 @@ export default function SignupScreen() {
           <Text className="text-sm tracking-wider text-white">Sign In</Text>
         </Link>
       </View>
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 }

@@ -1,13 +1,10 @@
-import { Image, ImageBackground, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ImageBackground, View } from 'react-native';
 import { Stack } from 'expo-router';
 import { Card } from '@/components/ui/card';
 import { Text } from '@/components/ui/text';
 import SkyrimIconLogo from '@/modules/shared/components/skyrim-icon-logo';
 
 export default function AuthLayout() {
-  console.log('teste');
-
   return (
     <Stack
       screenOptions={{ headerShown: false }}

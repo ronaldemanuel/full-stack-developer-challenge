@@ -6,6 +6,8 @@ import { DarkTheme, ThemeProvider } from '@react-navigation/native';
 import '../styles.css';
 
 import { useEffect } from 'react';
+import { StatusBar } from 'react-native';
+import { ToastProvider } from '@/components/ui/toast';
 import { useUser } from '@/modules/auth/hooks/use-user';
 import { NAV_THEME } from '@/utils/constants';
 import { useColorScheme } from '@/utils/useColorScheme';
@@ -43,9 +45,11 @@ function RootLayout() {
 export default function App() {
   return (
     <ThemeProvider value={DARK_THEME}>
-      <QueryClientProvider client={queryClient}>
-        <RootLayout />
-      </QueryClientProvider>
+      <ToastProvider>
+        <QueryClientProvider client={queryClient}>
+          <RootLayout />
+        </QueryClientProvider>
+      </ToastProvider>
     </ThemeProvider>
   );
 }
