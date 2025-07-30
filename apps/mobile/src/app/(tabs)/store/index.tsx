@@ -269,9 +269,6 @@ export default function StoreScreen() {
           </View>
         </View>
       </View> */}
-
-      {/* Bottom Navigation */}
-      <BottomNavigation />
     </View>
   );
 }

@@ -11,7 +11,7 @@ export default function AuthLayout() {
         resizeMode="contain"
       />
 
-      <Stack>
+      <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
         <Stack.Screen name="forgot-password" />
         <Stack.Screen name="signup-screen" />

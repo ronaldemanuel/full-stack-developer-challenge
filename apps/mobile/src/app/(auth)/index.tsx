@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Image, TextInput, View } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Text } from '@/components/ui/text';
@@ -36,6 +36,7 @@ export default function LoginScreen() {
     setTimeout(() => {
       handleEmailLogin(data);
       setIsLoading(false);
+      router.replace('/(tabs)/inventory');
     }, 1500);
   };
 

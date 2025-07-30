@@ -5,8 +5,8 @@ import { Text } from '@/components/ui/text';
 import ItemList from '@/modules/item/components/item-list';
 import ItemStatsPanel from '@/modules/item/components/item-stats-panel';
 import { SelectedItemCategory } from '@/modules/item/components/selected-item-category';
-import BottomNavigation from '@/modules/shared/components/bottom-navigation';
 import { categories } from '@/modules/shared/constants/item-categories';
+import { authClient } from '@/utils/auth';
 import clsx from 'clsx';
 
 // Mock
@@ -144,7 +144,8 @@ export default function InventoryScreen() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   // const itemQuery = useQuery(trpc.item.getUserItems.queryOptions({}));
 
-  // console.log(itemQuery);
+  // console.log(itemQuery.data);
+  console.log(authClient.useSession().data?.user.email);
 
   // const inventoryItems = itemQuery.data ?? [
   //   { id: '', image: '', name: '', type: '' },
@@ -282,7 +283,6 @@ export default function InventoryScreen() {
           </View>
         </View>
       </View> */}
-      <BottomNavigation />
     </View>
   );
 }

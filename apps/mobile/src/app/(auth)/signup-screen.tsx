@@ -24,7 +24,7 @@ const signupSchema = z
 
 export type SignupFormData = z.infer<typeof signupSchema>;
 
-export const SignupScreen = () => {
+export default function SignupScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -178,4 +178,4 @@ export const SignupScreen = () => {
       </ScrollView>
     </View>
   );
-};
+}

@@ -5,6 +5,6 @@ export const useUser = () => {
 
   return {
     user: session?.user,
-    loggedIn: !!session?.user,
+    loggedIn: session?.user,
   };
 };
