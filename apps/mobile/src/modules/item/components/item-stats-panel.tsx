@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import SkyrimButton from '@/modules/shared/components/skyrim-button';
 
-interface ItemStatsPanelProps {
+export interface ItemStatsPanelProps {
   item: any;
   panelType: 'inventory' | 'store';
 }

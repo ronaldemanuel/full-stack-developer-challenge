@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Dimensions,
-  FlatList,
   Image,
   ScrollView,
   Text,
@@ -9,10 +8,10 @@ import {
   View,
 } from 'react-native';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import ItemList from '@/modules/item/components/item-list';
 import ItemStatsPanel from '@/modules/item/components/item-stats-panel';
-import SkyrimButton from '@/modules/shared/components/skyrim-button';
+import { SelectedItemCategory } from '@/modules/item/components/selected-item-category';
+import BottomNavigation from '@/modules/shared/components/bottom-navigation';
 import { categories } from '@/modules/shared/constants/item-categories';
 import clsx from 'clsx';
 
@@ -243,6 +242,8 @@ export default function StoreScreen() {
             {/* Item Display */}
             <ItemStatsPanel item={selectedItem} panelType="store" />
 
+            <SelectedItemCategory selectedCategory={selectedCategory} />
+
             {/* Item List */}
             <ItemList
               items={filteredItems}
@@ -270,11 +271,7 @@ export default function StoreScreen() {
       </View> */}
 
       {/* Bottom Navigation */}
-      {/* <BottomNavigation
-        currentScreen={currentScreen}
-        onNavigate={onNavigate}
-        onLogout={onLogout}
-      /> */}
+      <BottomNavigation />
     </View>
   );
 }

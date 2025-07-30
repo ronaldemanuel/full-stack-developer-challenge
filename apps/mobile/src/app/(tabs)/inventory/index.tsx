@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Dimensions, FlatList, Image, ScrollView, View } from 'react-native';
-import BottomNavigation from '@/components/atoms/bottom-navigation';
+import { Dimensions, Image, ScrollView, View } from 'react-native';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
+import ItemList from '@/modules/item/components/item-list';
 import ItemStatsPanel from '@/modules/item/components/item-stats-panel';
+import { SelectedItemCategory } from '@/modules/item/components/selected-item-category';
+import BottomNavigation from '@/modules/shared/components/bottom-navigation';
 import { categories } from '@/modules/shared/constants/item-categories';
 import clsx from 'clsx';
 
@@ -164,7 +166,10 @@ export default function InventoryScreen() {
       <View className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60" />
 
       {/* Dragon logo */}
-      <View className="absolute inset-0 items-center justify-center opacity-5">
+      <View
+        pointerEvents="none"
+        className="absolute inset-0 z-0 items-center justify-center opacity-5"
+      >
         <Image
           source={require('../../../../assets/skyrim-logo.png')}
           className={clsx(
@@ -179,14 +184,17 @@ export default function InventoryScreen() {
       </View>
 
       {/* Header bar on mobile */}
-      <View className="z-20 border-b border-white/20 bg-black/90 p-4 md:hidden">
+      <View className="z-20 border-b border-white/20 bg-black/100 p-4 md:hidden">
         <View className="flex flex-row items-center justify-between">
           <View />
           <Text className="text-xl font-light tracking-wider text-white">
             INVENTORY
           </Text>
           <Button
-            onPress={() => setShowSidebar(!showSidebar)}
+            onPress={() => {
+              console.log('MENU button pressed');
+              setShowSidebar(!showSidebar);
+            }}
             className="border border-white/30 bg-black/60 px-4 py-2"
           >
             <Text className="text-sm text-white">MENU</Text>
@@ -221,12 +229,12 @@ export default function InventoryScreen() {
         )}
 
         {/* Overlay backdrop */}
-        {showSidebar && width < 768 && (
+        {/* {showSidebar && width < 768 && (
           <Button
             onPress={() => setShowSidebar(false)}
             className="absolute inset-0 z-20 bg-black/50"
           />
-        )}
+        )} */}
 
         {/* Main content */}
         <View className="relative z-10 flex flex-1 flex-col">
@@ -245,53 +253,14 @@ export default function InventoryScreen() {
             {/* Stats panel */}
             <ItemStatsPanel item={selectedItem} panelType="inventory" />
 
-            <View className="flex w-full max-w-md items-center p-4 backdrop-blur-sm">
-              <Text className="mt-2 text-2xl font-light tracking-wider text-white">
-                {selectedCategory.toUpperCase()}
-              </Text>
-            </View>
+            <SelectedItemCategory selectedCategory={selectedCategory} />
+
             {/* Item list */}
-            <View className="w-full border-t border-white/20 bg-black/60 backdrop-blur-sm lg:w-80 lg:border-l lg:border-t-0">
-              <View
-                className="w-full"
-                style={{
-                  height: 360,
-                  overflow: 'hidden',
-                }}
-              >
-                <FlatList
-                  data={filteredItems}
-                  keyExtractor={(item, idx) => `${item.id ?? idx}`}
-                  scrollEnabled
-                  style={{ flexGrow: 0 }}
-                  contentContainerStyle={{
-                    paddingBottom: 120,
-                    overflow: 'scroll',
-                  }}
-                  renderItem={({ item }) => (
-                    <Button
-                      onPress={() => setSelectedItem(item)}
-                      className={clsx(
-                        'flex-row items-center justify-between border-b border-white/10 p-2',
-                        selectedItem.name === item.name
-                          ? 'bg-white/20 text-white'
-                          : 'text-gray-300 hover:bg-white/10 hover:text-white',
-                      )}
-                    >
-                      <View className="flex-row items-center space-x-3">
-                        <Image
-                          source={{ uri: item.image }}
-                          className="h-6 w-6 rounded border border-white/10"
-                          resizeMode="contain"
-                        />
-                        <Text className="text-sm font-light">{item.name}</Text>
-                      </View>
-                      <Text className="text-right text-xs text-white">100</Text>
-                    </Button>
-                  )}
-                />
-              </View>
-            </View>
+            <ItemList
+              items={filteredItems}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
+            />
           </View>
         </View>
       </View>
@@ -313,6 +282,7 @@ export default function InventoryScreen() {
           </View>
         </View>
       </View> */}
+      <BottomNavigation />
     </View>
   );
 }

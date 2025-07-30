@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import clsx from 'clsx';
 
-interface ItemListProps {
+export interface ItemListProps {
   items: any[];
   selectedItem: any;
   setSelectedItem: (item: any) => void;
