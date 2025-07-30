@@ -8,6 +8,7 @@
   "dependencies": {
     "@better-auth/expo": "catalog:expo",
     "@expo/metro-config": "catalog:expo",
+    "@hookform/resolvers": "^5.2.1",
     "@legendapp/list": "catalog:react-native",
     "@rn-primitives/accordion": "^1.2.0",
     "@rn-primitives/alert-dialog": "^1.2.0",
@@ -56,15 +57,18 @@
     "nativewind": "catalog:react-native",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
+    "react-hook-form": "catalog:",
     "react-native": "catalog:react-native",
     "react-native-gesture-handler": "catalog:react-native",
+    "react-native-paper": "^5.14.5",
     "react-native-reanimated": "catalog:react-native",
     "react-native-safe-area-context": "catalog:react-native",
     "react-native-screens": "catalog:react-native",
     "react-native-svg": "15.11.2",
     "superjson": "catalog:trpc",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss-animate": "catalog:"
+    "tailwindcss-animate": "catalog:",
+    "zod": "^4.0.13"
   },
   "devDependencies": {
     "@nx-ddd/api-infrastructure": "workspace:*",
