@@ -39,6 +39,7 @@
     "@trpc/server": "catalog:trpc",
     "@trpc/tanstack-react-query": "catalog:trpc",
     "better-auth": "catalog:auth",
+    "class-transformer": "^0.5.1",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
     "expo": "catalog:expo",
@@ -68,8 +69,7 @@
   "devDependencies": {
     "@nx-ddd/api-infrastructure": "workspace:*",
     "@nx-ddd/shared-domain": "workspace:*",
-    "@nx-ddd/tailwind": "workspace:*",
-    "@nx-ddd/item-domain": "workspace:*"
+    "@nx-ddd/tailwind": "workspace:*"
   },
   "scripts": {
     "android": "expo run:android",
