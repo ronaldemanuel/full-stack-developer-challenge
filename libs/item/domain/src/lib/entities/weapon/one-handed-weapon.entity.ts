@@ -11,7 +11,7 @@ export class OneHandedWeaponEntity extends WeaponEntity {
   }
 
   protected override getIdentifier(): ItemIdentifier {
-    throw new Error('Method not implemented.');
+    return 'one-handed-weapon';
   }
 
   protected override applyEffect(character: UserItemRef): void {

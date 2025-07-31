@@ -1,5 +1,4 @@
-import type { IRepository } from '@nx-ddd/shared-domain';
-import type { UserRepository } from '@nx-ddd/user-domain';
+import type { IReadableRepository } from '@nx-ddd/shared-domain';
 import { getRepositoryToken } from '@nx-ddd/shared-domain';
 
 import type { ItemEntity } from '../entities/abstract-item.entity';
@@ -7,10 +6,5 @@ import type { ItemEntity } from '../entities/abstract-item.entity';
 export namespace ItemRepository {
   export const TOKEN = getRepositoryToken('Item');
 
-  export interface Repository extends IRepository<ItemEntity> {
-    userRepository?: UserRepository.Repository;
-
-    findById(id: string): Promise<ItemEntity>;
-    findByUserId(userId: string): Promise<ItemEntity[]>;
-  }
+  export type Repository = IReadableRepository<ItemEntity>;
 }

@@ -1,13 +1,14 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 
-import type { ItemProps } from '@nx-ddd/item-domain';
+import type { ItemSchema } from '@nx-ddd/item-domain';
 import {
   ItemInMemoryRepository,
   ItemMapper,
   ItemRepository,
   UserItemRefFactory,
 } from '@nx-ddd/item-domain';
+import { UserEntityMockFactory } from '@nx-ddd/user-domain';
 
 import { GetUserInventoryQuery } from '../../get-user-inventory.query';
 
@@ -42,34 +43,35 @@ describe('GetUserInventoryQuery', () => {
 
   it('should return a user items list', async () => {
     // Arrange
-    const mockUser = UserItemRefFactory();
+    const mockUser = UserEntityMockFactory();
+    const mockUserItemRef = UserItemRefFactory(mockUser);
 
-    const baseItem: ItemProps = {
+    const baseItem: ItemSchema = {
       id: 'dragonscale-boots',
       name: 'Dragon Boots',
       type: 'apparel',
       image:
         'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
-    } as ItemProps;
+    } as ItemSchema;
 
-    const baseItem2: ItemProps = {
+    const baseItem2: ItemSchema = {
       id: 'leather-armor',
       name: 'Leather Armor',
       image:
         'https://static.wikia.nocookie.net/elderscrolls/images/e/e2/Leather_Armor_%28Armor_Piece%29.png/revision/latest?cb=20180219152808',
 
       type: 'apparel',
-    } as ItemProps;
+    } as ItemSchema;
 
-    const mockItem1 = ItemMapper.toDomain(baseItem, mockUser);
-    const mockItem2 = ItemMapper.toDomain(baseItem2, mockUser);
+    const mockItem1 = ItemMapper.toDomain(baseItem, mockUserItemRef);
+    const mockItem2 = ItemMapper.toDomain(baseItem2, mockUserItemRef);
     const mockItems = [mockItem1, mockItem2];
 
     vi.spyOn(itemRepository, 'findByUserId').mockReturnValue(
       Promise.resolve(mockItems as any),
     );
 
-    const query = GetUserInventoryQuery.create(mockUser);
+    const query = GetUserInventoryQuery.create(mockUser.toJSON());
 
     // Act
     const result = await getUserInventoryQuery.execute(query);

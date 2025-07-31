@@ -1,7 +1,7 @@
 import z from 'zod';
 
 export const inventoryPropsSchema = z.object({
-  amount: z.number(),
+  amount: z.number().nullable(),
 });
 
 export const userItemPropsSchema = inventoryPropsSchema.partial({

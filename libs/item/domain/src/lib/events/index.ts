@@ -1,1 +1,1 @@
-export * from './item-created.event.js';
+export * from './item-added-to-inventory.event';

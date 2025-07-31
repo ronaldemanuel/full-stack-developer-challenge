@@ -4,7 +4,7 @@ import { ItemEntity } from './abstract-item.entity';
 
 export class MiscItemEntity extends ItemEntity {
   protected override getIdentifier(): ItemIdentifier {
-    throw new Error('Method not implemented.');
+    return 'misc';
   }
 
   protected override applyEffect(character: UserItemRef): void {

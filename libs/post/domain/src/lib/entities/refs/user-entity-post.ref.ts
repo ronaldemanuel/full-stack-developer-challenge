@@ -83,6 +83,7 @@ export class UserEntityPostRef extends UserEntity {
       (user as UserEntityPostRef).$relations ||
         relations ||
         function (this: UserEntityPostRef) {
+          // NOMINAL NAO USAMOS ARROW FUNCTION TA OK
           const likes = (this.props.likes || []).map((like) => {
             const post = new PostEntity(
               {

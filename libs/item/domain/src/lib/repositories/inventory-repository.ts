@@ -1,21 +1,24 @@
 import type { InventoryItemEntity } from 'src/lib/entities/inventory-item.entity';
 
+import type { UserRepository } from '@nx-ddd/user-domain';
 import { getRepositoryToken } from '@nx-ddd/shared-domain';
 
-import type { ItemRepository } from './item.repository';
-
 export namespace InventoryRepository {
-  export const TOKEN = getRepositoryToken('InventoryItem');
+  export const TOKEN = getRepositoryToken('Inventory');
 
   export interface Repository {
-    itemRepository?: ItemRepository.Repository;
+    userRepository?: UserRepository.Repository;
 
     findByUserId(userId: string): Promise<InventoryItemEntity[]>;
     findByUserIdAndItemId(
       userId: string,
       itemId: string,
     ): Promise<InventoryItemEntity>;
-    update(inventoryItems: InventoryItemEntity[]): Promise<void>;
+
+    update(
+      userId: string,
+      inventoryItems: InventoryItemEntity[],
+    ): Promise<void>;
 
     findOrCreateByUserId(userId: string): Promise<InventoryItemEntity>;
   }

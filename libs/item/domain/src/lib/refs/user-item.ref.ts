@@ -6,10 +6,10 @@ import {
 import { UserEntity } from '@nx-ddd/user-domain';
 
 import type { ItemEntity } from '../entities/abstract-item.entity';
-import type BootsEntity from '../entities/apparel/boots.entity';
-import type ChestEntity from '../entities/apparel/chest.entity';
-import type GlovesEntity from '../entities/apparel/gloves.entity';
-import type HelmetEntity from '../entities/apparel/helmet.entity';
+import type { BootsEntity } from '../entities/apparel/boots.entity';
+import type { ChestEntity } from '../entities/apparel/chest.entity';
+import type { GlovesEntity } from '../entities/apparel/gloves.entity';
+import type { HelmetEntity } from '../entities/apparel/helmet.entity';
 import type { InventoryItemEntity } from '../entities/inventory-item.entity';
 import type { WeaponEntity } from '../entities/weapon/weapon.entity';
 import type { UserItemRefProps } from '../schemas/user-item-ref.schema';
@@ -109,10 +109,12 @@ export class UserItemRef extends UserEntity {
     return left?.damageValue ?? right?.damageValue ?? 0;
   }
 
+  private getInventoryItem(itemId: string) {
+    return this.inventory.find((inventory) => inventory.itemId === itemId);
+  }
+
   public addItemToInventory(item: ItemEntity): void {
-    const existingItem = this.inventory.find(
-      (inventory) => inventory.itemId === item.id,
-    );
+    const existingItem = this.getInventoryItem(item.id);
 
     if (existingItem) {
       existingItem.amount += 1;
@@ -127,6 +129,10 @@ export class UserItemRef extends UserEntity {
         character: this,
       },
     );
+
+    item.character = this;
+
+    console.log(item.character);
 
     inventory.apply(new ItemAddedToInventoryEvent(item.toJSON()));
 
@@ -144,17 +150,28 @@ export class UserItemRef extends UserEntity {
   }
 
   public useItem(itemId: string) {
-    const item = this.inventory.find((item) => item.itemId === itemId)?.item;
+    const inventoryItem = this.getInventoryItem(itemId);
 
-    if (!item) {
-      throw new NotFoundError('Item not found on inventory');
+    if (!inventoryItem) {
+      throw new NotFoundError('Inventory item not found');
     }
-    item.use();
+
+    if (inventoryItem.amount === 0) {
+      throw new Error('Item not enough in inventory');
+    }
+
+    if (inventoryItem.item.type === 'consumable') {
+      inventoryItem.amount -= 1;
+    }
+
+    inventoryItem.item.use();
   }
 
   static override cast(
     user: UserEntity,
-    relations?: () => UserItemRefRelations,
+    relations: () => UserItemRefRelations = () => {
+      return { inventory: [] };
+    },
     id?: string,
   ): UserItemRef {
     if (user instanceof UserItemRef) {

@@ -5,7 +5,7 @@ import { ConsumableEntity } from './consumable.entity';
 
 export class HpPotionEntity extends ConsumableEntity {
   protected override getIdentifier(): ItemIdentifier {
-    throw new Error('Method not implemented.');
+    return 'hp-potion';
   }
 
   protected override applyEffect(character: UserItemRef): void {

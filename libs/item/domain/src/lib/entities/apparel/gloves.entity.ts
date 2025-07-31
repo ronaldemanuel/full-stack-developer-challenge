@@ -10,13 +10,13 @@ import { ApparelEntity } from './apparel.entity';
 type GlovesProps = z.infer<typeof apparelItemPropsSchema>;
 
 @ZodEntity(apparelItemPropsSchema)
-export default class GlovesEntity extends ApparelEntity<GlovesProps> {
+export class GlovesEntity extends ApparelEntity<GlovesProps> {
   override get equipped(): boolean {
     return this.character?.equippedGloves === this;
   }
 
   protected override getIdentifier(): ItemIdentifier {
-    throw new Error('Method not implemented.');
+    return 'gloves';
   }
 
   protected override applyEffect(character: UserItemRef): void {

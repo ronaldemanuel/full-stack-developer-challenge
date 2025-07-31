@@ -1,7 +1,7 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 
-import type { ItemProps } from '@nx-ddd/item-domain';
+import type { ItemSchema } from '@nx-ddd/item-domain';
 import {
   ItemInMemoryRepository,
   ItemMapper,
@@ -44,22 +44,22 @@ describe('GetAllItemsQuery', () => {
     // Arrange
     const mockUser = UserItemRefFactory();
 
-    const baseItem: ItemProps = {
+    const baseItem: ItemSchema = {
       id: 'dragonscale-boots',
       name: 'Dragon Boots',
       type: 'apparel',
       image:
         'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
-    } as ItemProps;
+    } as ItemSchema;
 
-    const baseItem2: ItemProps = {
+    const baseItem2: ItemSchema = {
       id: 'leather-armor',
       name: 'Leather Armor',
       image:
         'https://static.wikia.nocookie.net/elderscrolls/images/e/e2/Leather_Armor_%28Armor_Piece%29.png/revision/latest?cb=20180219152808',
 
       type: 'apparel',
-    } as ItemProps;
+    } as ItemSchema;
 
     const mockItem1 = ItemMapper.toDomain(baseItem, mockUser);
     const mockItem2 = ItemMapper.toDomain(baseItem2, mockUser);

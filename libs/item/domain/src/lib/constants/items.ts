@@ -1,9 +1,12 @@
 import type { ApparelItemSchemaProps } from '../schemas/apparel.schema';
 import type { ConsumableItemProps } from '../schemas/consumable.schema';
-import type { ItemProps } from '../schemas/item.schema';
+import type { ItemSchema } from '../schemas/item.schema';
 import type { WeaponItemProps } from '../schemas/weapon.schema';
 
-export const ITEMS = {
+export const ITEMS: Record<
+  string,
+  ItemSchema | ApparelItemSchemaProps | WeaponItemProps | ConsumableItemProps
+> = {
   'dragonscale-helmet': {
     id: 'dragonscale-helmet' as const,
     name: 'Dragonscale Helmet',
@@ -12,6 +15,8 @@ export const ITEMS = {
     defenseValue: 17,
     type: 'apparel',
     apparelType: 'helmet',
+    price: 750,
+    weight: 4,
   },
   'dragonscale-gautlets': {
     id: 'dragonscale-gautlets' as const,
@@ -21,6 +26,8 @@ export const ITEMS = {
     defenseValue: 12,
     type: 'apparel',
     apparelType: 'gloves',
+    price: 300,
+    weight: 3,
   },
   'dragonscale-armor': {
     id: 'dragonscale-armor' as const,
@@ -30,6 +37,8 @@ export const ITEMS = {
     defenseValue: 41,
     type: 'apparel',
     apparelType: 'chest',
+    price: 1500,
+    weight: 300,
   },
   'dragonscale-boots': {
     id: 'dragonscale-boots' as const,
@@ -39,6 +48,8 @@ export const ITEMS = {
     defenseValue: 12,
     type: 'apparel',
     apparelType: 'boots',
+    price: 300,
+    weight: 3,
   },
   'leather-helmet': {
     id: 'leather-helmet',
@@ -48,6 +59,8 @@ export const ITEMS = {
     defenseValue: 12,
     type: 'apparel',
     apparelType: 'helmet',
+    price: 60,
+    weight: 2,
   },
   'leather-bracers': {
     id: 'leather-bracers',
@@ -57,6 +70,8 @@ export const ITEMS = {
     defenseValue: 7,
     type: 'apparel',
     apparelType: 'gloves',
+    price: 25,
+    weight: 2,
   },
   'leather-armor': {
     id: 'leather-armor',
@@ -66,6 +81,8 @@ export const ITEMS = {
     defenseValue: 26,
     type: 'apparel',
     apparelType: 'chest',
+    price: 125,
+    weight: 3,
   },
   'leather-boots': {
     id: 'leather-boots',
@@ -75,6 +92,8 @@ export const ITEMS = {
     defenseValue: 7,
     type: 'apparel',
     apparelType: 'boots',
+    price: 25,
+    weight: 2,
   },
   'daedric-battleaxe': {
     id: 'daedric-battleaxe',
@@ -84,6 +103,8 @@ export const ITEMS = {
     damageValue: 25,
     type: 'weapon',
     weaponType: 'two-hands',
+    price: 2750,
+    weight: 27,
   },
   'ebony-sword': {
     id: 'ebony-sword',
@@ -93,6 +114,8 @@ export const ITEMS = {
     damageValue: 13,
     type: 'weapon',
     weaponType: 'one-hand',
+    price: 720,
+    weight: 15,
   },
   'iron-sword': {
     id: 'iron-sword',
@@ -102,6 +125,8 @@ export const ITEMS = {
     damageValue: 13,
     type: 'weapon',
     weaponType: 'one-hand',
+    price: 25,
+    weight: 9,
   },
   'potion-of-health': {
     id: 'potion-of-health',
@@ -111,6 +136,8 @@ export const ITEMS = {
     effectValue: 67,
     type: 'consumable',
     consumableType: 'hp-potion',
+    price: 67,
+    weight: 0,
   },
   'potion-of-enhanced-stamina': {
     id: 'potion-of-enhanced-stamina',
@@ -120,6 +147,8 @@ export const ITEMS = {
     effectValue: 341,
     type: 'consumable',
     consumableType: 'sp-potion',
+    price: 44,
+    weight: 0,
   },
   'potion-of-extra-magicka': {
     id: 'potion-of-extra-magicka',
@@ -129,8 +158,10 @@ export const ITEMS = {
     effectValue: 58,
     type: 'consumable',
     consumableType: 'mp-potion',
+    price: 58,
+    weight: 0,
   },
 } satisfies Record<
   string,
-  ItemProps | ApparelItemSchemaProps | WeaponItemProps | ConsumableItemProps
+  ItemSchema | ApparelItemSchemaProps | WeaponItemProps | ConsumableItemProps
 >;

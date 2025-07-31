@@ -3,9 +3,9 @@ import type { UserItemRef } from 'src/lib/refs/user-item.ref';
 import type { ItemIdentifier } from '../abstract-item.entity';
 import { ApparelEntity } from './apparel.entity';
 
-export default class ChestEntity extends ApparelEntity {
+export class ChestEntity extends ApparelEntity {
   protected override getIdentifier(): ItemIdentifier {
-    throw new Error('Method not implemented.');
+    return 'chest';
   }
 
   override get equipped(): boolean {

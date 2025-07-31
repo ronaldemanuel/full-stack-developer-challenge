@@ -61,7 +61,10 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/events-processor-e2e/**/*"]
+      "exclude": [
+        "apps/events-processor-e2e/**/*",
+        "apps/inngest-worker-e2e/**/*"
+      ]
     },
     {
       "plugin": "@nx/vite/plugin",
@@ -112,6 +115,16 @@
         "buildDepsTargetName": "build-deps",
         "watchDepsTargetName": "watch-deps"
       }
+    },
+    {
+      "plugin": "@nx/webpack/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "serveTargetName": "serve",
+        "previewTargetName": "preview",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps"
+      }
     }
   ],
   "targetDefaults": {
@@ -140,6 +153,12 @@
       "library": {
         "unitTestRunner": "vitest"
       }
+    },
+    "@nx/web:application": {
+      "style": "css",
+      "linter": "none",
+      "unitTestRunner": "none",
+      "e2eTestRunner": "playwright"
     }
   }
 }

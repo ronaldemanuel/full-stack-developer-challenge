@@ -3,7 +3,7 @@ import type { UserItemRef } from 'src/lib/refs/user-item.ref';
 import type { ItemIdentifier } from '../abstract-item.entity';
 import { WeaponEntity } from './weapon.entity';
 
-export default class TwoHandedWeaponEntity extends WeaponEntity {
+export class TwoHandedWeaponEntity extends WeaponEntity {
   override get equipped(): boolean {
     return (
       this.character.leftHand === this && this.character.rightHand === this
@@ -11,7 +11,7 @@ export default class TwoHandedWeaponEntity extends WeaponEntity {
   }
 
   protected override getIdentifier(): ItemIdentifier {
-    throw new Error('Method not implemented.');
+    return 'two-handed-weapon';
   }
 
   protected override applyEffect(character: UserItemRef): void {

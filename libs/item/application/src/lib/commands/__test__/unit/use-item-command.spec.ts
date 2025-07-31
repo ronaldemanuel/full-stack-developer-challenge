@@ -7,7 +7,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 import { ClsModule } from 'nestjs-cls';
 
-import type { ItemProps } from '@nx-ddd/item-domain';
+import type { ItemSchema } from '@nx-ddd/item-domain';
 import { DATABASE_CONNECTION_NAME } from '@nx-ddd/database-application';
 import {
   InventoryItemMapper,
@@ -92,13 +92,13 @@ describe('UseItemCommand', () => {
     // Arrange
     const mockUser = UserItemRefFactory(undefined);
 
-    const baseItem: ItemProps = {
+    const baseItem: ItemSchema = {
       id: 'dragonscale-boots',
       name: 'Dragon Boots',
       type: 'apparel',
       image:
         'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
-    } as ItemProps;
+    } as ItemSchema;
     const mockItem = ItemMapper.toDomain(baseItem, mockUser);
     const mockInventoryItem = InventoryItemMapper.toDomain(
       { amount: 1 },

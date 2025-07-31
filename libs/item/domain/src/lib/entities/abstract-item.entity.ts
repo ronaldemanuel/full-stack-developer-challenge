@@ -1,24 +1,41 @@
-import { Entity } from '@nx-ddd/shared-domain';
+import { Entity, RelationshipNotLoadedError } from '@nx-ddd/shared-domain';
 
 import type { UserItemRef } from '../refs/user-item.ref';
 import type { ItemProps } from '../schemas/item.schema';
+import { ITEMS } from '../constants/items';
 
-export type ItemIdentifier = 'apparel' | 'weapon' | 'consumable' | 'misc';
+export type ItemIdentifier =
+  | 'boots'
+  | 'chest'
+  | 'helmet'
+  | 'gloves'
+  | 'hp-potion'
+  | 'mp-potion'
+  | 'sp-potion'
+  | 'one-handed-weapon'
+  | 'two-handed-weapon'
+  | 'misc';
 
 export interface ItemRelations {
   character?: UserItemRef;
 }
-
 export abstract class ItemEntity<
   T extends ItemProps = ItemProps,
 > extends Entity<T> {
-  private $relations: () => ItemRelations;
+  private _character?: UserItemRef;
 
   protected abstract getIdentifier(): ItemIdentifier;
 
-  constructor(props: T, relations: () => ItemRelations, id?: string) {
-    super(props, id);
-    this.$relations = relations;
+  constructor(dataProps: T, relations?: () => ItemRelations, id?: string) {
+    super({} as unknown as T, id);
+
+    const { id: identifier, ...props } = ITEMS[id!];
+    Object.assign(this.props, {
+      ...props,
+      ...dataProps,
+      id: id ?? identifier,
+    });
+    // this._owner = owner;
   }
 
   get name() {
@@ -33,17 +50,26 @@ export abstract class ItemEntity<
     return this.props.type;
   }
 
+  get price() {
+    return this.props.price;
+  }
+
+  get weight() {
+    return this.props.weight;
+  }
+
   get character() {
-    const character = this.$relations().character;
-    if (character === undefined) {
-      throw new Error('This item has no character');
-    } else {
-      return character;
+    if (!this._character) {
+      throw new RelationshipNotLoadedError(
+        'Character not loaded for this item',
+      );
     }
+
+    return this._character;
   }
 
   set character(character: UserItemRef) {
-    this.$relations().character = character;
+    this._character = character;
   }
 
   use(): void {

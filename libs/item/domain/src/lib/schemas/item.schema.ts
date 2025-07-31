@@ -6,7 +6,11 @@ export const itemSchema = z.object({
   image: z.string().url(),
   characterId: z.string().nullish(),
   type: z.enum(['apparel', 'weapon', 'consumable', 'misc']),
+  price: z.number(),
+  weight: z.number(),
 });
 
-export type Item = z.infer<typeof itemSchema>;
-export type ItemProps = z.infer<typeof itemSchema>;
+export const itemPropsSchema = itemSchema.omit({ id: true });
+
+export type ItemSchema = z.infer<typeof itemSchema>;
+export type ItemProps = z.infer<typeof itemPropsSchema>;
