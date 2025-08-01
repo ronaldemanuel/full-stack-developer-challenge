@@ -3,14 +3,14 @@ import { Inject } from '@nestjs/common';
 import { QueryHandler } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
-import type { ItemEntity } from '@nx-ddd/item-domain';
+import type { InventoryItemEntity, ItemEntity } from '@nx-ddd/item-domain';
 import type { User } from '@nx-ddd/user-domain';
 import { InventoryRepository } from '@nx-ddd/item-domain';
 import { userSchema } from '@nx-ddd/user-domain';
 
 export namespace GetUserInventoryQuery {
   export type Input = User;
-  export type Output = ItemEntity[];
+  export type Output = InventoryItemEntity[];
 
   class GetUserInventoryQuery extends Validated(userSchema) {}
 
@@ -26,11 +26,7 @@ export namespace GetUserInventoryQuery {
     ) {}
 
     async execute(query: GetUserInventoryQuery): Promise<Output> {
-      const inventory = await this.inventoryRepository.findByUserId(query.id);
-
-      const items = inventory.map((inventoryItem) => inventoryItem.item);
-
-      return items;
+      return await this.inventoryRepository.findByUserId(query.id);
     }
   }
 }

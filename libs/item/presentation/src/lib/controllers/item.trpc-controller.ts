@@ -13,6 +13,7 @@ import {
 import {
   apparelItemSchema,
   consumableItemSchema,
+  inventoryPropsSchema,
   itemSchema,
   UserItemRef,
   weaponItemSchema,
@@ -42,9 +43,11 @@ export class ItemTrpcController {
   async getUserItems(
     @Ctx() ctx: inferProcedureBuilderResolverContext<typeof protectedProcedure>,
   ) {
-    return await this.listUserInventoryUseCase.execute(
+    const teste = await this.listUserInventoryUseCase.execute(
       UserItemRef.cast(ctx.session.user),
     );
+
+    return teste;
   }
 
   async useItem(
@@ -82,10 +85,22 @@ export const itemsRouter = createNestjsTrpcRouter(
         .output(
           z.array(
             z.union([
-              apparelItemSchema,
-              weaponItemSchema,
-              consumableItemSchema,
-              itemSchema,
+              z.object({
+                amount: z.number(),
+                item: apparelItemSchema,
+              }),
+              z.object({
+                amount: z.number(),
+                item: weaponItemSchema,
+              }),
+              z.object({
+                amount: z.number(),
+                item: consumableItemSchema,
+              }),
+              z.object({
+                amount: z.number(),
+                item: itemSchema,
+              }),
             ]),
           ),
         )

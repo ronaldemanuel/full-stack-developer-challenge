@@ -8,6 +8,7 @@ export const itemSchema = z.object({
   type: z.enum(['apparel', 'weapon', 'consumable', 'misc']),
   price: z.number(),
   weight: z.number(),
+  amount: z.number().nullish(),
 });
 
 export const itemPropsSchema = itemSchema.omit({ id: true });

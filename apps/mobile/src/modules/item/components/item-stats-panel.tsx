@@ -6,16 +6,14 @@ import { trpc } from '@/utils/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export interface ItemStatsPanelProps {
-  item: any;
+  inventoryItem: any;
   panelType: 'inventory' | 'store';
 }
 
 export default function ItemStatsPanel({
-  item,
+  inventoryItem,
   panelType,
 }: ItemStatsPanelProps) {
-  console.log('SELECTEDiTEM: ', item);
-
   const queryClient = useQueryClient();
 
   const toast = useToast();
@@ -35,13 +33,11 @@ export default function ItemStatsPanel({
     }),
   );
 
-  console.log(error);
-
   return (
     <View className="mt-3 flex-1 items-center justify-center p-4">
       <View className="mb-6 flex h-32 w-32 items-center justify-center rounded-lg border-2 border-white/30 bg-gradient-to-b from-gray-600 to-gray-800 shadow-2xl md:h-48 md:w-48 lg:h-64 lg:w-64">
         <Image
-          source={{ uri: item.image }}
+          source={{ uri: inventoryItem.item.image }}
           className="h-full w-full rounded border border-white/10"
           resizeMode="contain"
         />
@@ -57,39 +53,39 @@ export default function ItemStatsPanel({
           {/* TITLE */}
           <View className="mb-4 items-center">
             <Text className="mb-2 text-center text-xl font-light tracking-wider text-white">
-              {item.name.toUpperCase()}
+              {inventoryItem.item.name.toUpperCase()}
             </Text>
             <Text className="text-center text-sm text-gray-400">
-              {item.type}
+              {inventoryItem.item.type}
             </Text>
           </View>
 
           {/* ATTRIBUTES */}
           <View className="mb-4 flex flex-row flex-wrap items-center justify-center gap-4">
-            {item.type === 'weapon' && (
+            {inventoryItem.item.type === 'weapon' && (
               <View className="items-center">
                 <Text className="text-xs uppercase text-gray-400">Damage</Text>
                 <Text className="text-lg font-light text-white">
                   {/* {item.damageValue} */}
-                  {item.damageValue}
+                  {inventoryItem.item.damageValue}
                 </Text>
               </View>
             )}
 
-            {item.type === 'apparel' && (
+            {inventoryItem.item.type === 'apparel' && (
               <View className="items-center">
                 <Text className="text-xs uppercase text-gray-400">Armor</Text>
                 <Text className="text-lg font-light text-white">
-                  {item.defenseValue}
+                  {inventoryItem.item.defenseValue}
                 </Text>
               </View>
             )}
 
-            {item.type === 'consumable' && (
+            {inventoryItem.item.type === 'consumable' && (
               <View className="items-center">
                 <Text className="text-xs uppercase text-gray-400">Effect</Text>
                 <Text className="text-lg font-light text-white">
-                  {item.effectValue}
+                  {inventoryItem.item.effectValue}
                 </Text>
               </View>
             )}
@@ -97,14 +93,14 @@ export default function ItemStatsPanel({
             <View className="items-center">
               <Text className="text-xs uppercase text-gray-400">Weight</Text>
               <Text className="text-lg font-light text-white">
-                {item.weight}
+                {inventoryItem.item.weight}
               </Text>
             </View>
 
             <View className="items-center">
               <Text className="text-xs uppercase text-gray-400">Price</Text>
               <Text className="text-lg font-light text-white">
-                {item.price}
+                {inventoryItem.item.price}
               </Text>
             </View>
           </View>
@@ -119,9 +115,10 @@ export default function ItemStatsPanel({
                 className="rounded bg-white/20 px-4 py-2"
               >
                 <Text className="text-white">
-                  {item.type === 'consumable' || item.type === 'misc'
+                  {inventoryItem.item.type === 'consumable' ||
+                  inventoryItem.item.type === 'misc'
                     ? 'Use'
-                    : item.equipped
+                    : inventoryItem.item.equipped
                       ? 'Unequip'
                       : 'Equip'}
                 </Text>
@@ -131,13 +128,15 @@ export default function ItemStatsPanel({
               <Button
                 onPress={() => {
                   console.log('Comprar Item');
-                  mutate({ itemId: item.id });
+                  mutate({ itemId: inventoryItem.item.id });
                 }}
                 className="rounded bg-white/20 px-4 py-2"
               >
                 <View className="flex-row items-center gap-1">
                   <Text className="mr-1 text-white">BUY</Text>
-                  <Text className="mr-1 text-white">{item.price}</Text>
+                  <Text className="mr-1 text-white">
+                    {inventoryItem.item.price}
+                  </Text>
                   <Image
                     source={require('../../../../assets/Septim_Skyrim.png')}
                     style={{ width: 16, height: 16 }}

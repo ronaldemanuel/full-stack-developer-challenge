@@ -63,6 +63,10 @@ export abstract class ItemEntity<
     return this.$relations().character;
   }
 
+  get amount() {
+    return this.$relations().inventory?.amount ?? 0;
+  }
+
   use(): void {
     this.applyEffect(this.character);
   }

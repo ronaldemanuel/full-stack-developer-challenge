@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Dimensions, Image, View } from 'react-native';
-import { router } from 'expo-router';
-import { Text } from '@/components/ui/text';
 import { useUser } from '@/modules/auth/hooks/use-user';
 import { CharacterInfo } from '@/modules/character/character-info';
 import ItemList from '@/modules/item/components/item-list';
@@ -27,20 +25,21 @@ export default function InventoryScreen({ filter }: InventoryScreenProps) {
   const inventoryItems = itemQuery.data;
 
   const [selectedItem, setSelectedItem] = useState({
-    id: '',
-    image: '',
-    name: '',
-    type: '',
+    amount: 0,
+    item: {
+      id: '',
+      image: '',
+      name: '',
+      type: '',
+    },
   });
 
   const filteredItems =
     filter === 'all'
       ? inventoryItems
-      : inventoryItems?.filter((item) => item.type === filter);
+      : inventoryItems?.filter((inventory) => inventory.item.type === filter);
 
   const { width } = Dimensions.get('window');
-
-  console.log(selectedItem);
 
   return (
     <View className="relative flex-1 bg-black">
@@ -71,13 +70,16 @@ export default function InventoryScreen({ filter }: InventoryScreenProps) {
             <InventoryEmptyPanel user={user} />
           ) : (
             <View className="flex flex-1 flex-col lg:flex-row">
-              <ItemStatsPanel item={selectedItem} panelType="inventory" />
+              <ItemStatsPanel
+                inventoryItem={selectedItem}
+                panelType="inventory"
+              />
 
               <SelectedItemCategory selectedCategory={filter} />
 
               {/* Item list */}
               <ItemList
-                items={filteredItems}
+                inventory={filteredItems}
                 selectedItem={selectedItem}
                 setSelectedItem={setSelectedItem}
               />
