@@ -46,7 +46,7 @@ export class InventoryDrizzleRepository
     @Inject(UserRepository.TOKEN)
     public userRepository?: UserRepository.Repository,
   ) {}
-  async findByUserIdAndTypePaginated(
+  async findByUserIdAndType(
     userId: string,
     type: string,
   ): Promise<InventoryItemEntity[]> {

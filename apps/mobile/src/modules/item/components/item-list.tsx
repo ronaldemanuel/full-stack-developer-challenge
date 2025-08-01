@@ -1,10 +1,11 @@
-import { FlatList, Image, View } from 'react-native';
+import { Image, View } from 'react-native';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
+import { LegendList } from '@legendapp/list';
 import clsx from 'clsx';
 
 export interface ItemListProps {
-  inventory: any[] | undefined;
+  inventory: any[];
   selectedItem: any;
   setSelectedItem: (item: any) => void;
 }
@@ -23,7 +24,7 @@ export default function ItemList({
           overflow: 'hidden',
         }}
       >
-        <FlatList
+        <LegendList
           data={inventory}
           keyExtractor={(item, idx) => `${item.id ?? idx}`}
           scrollEnabled

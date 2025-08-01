@@ -27,7 +27,7 @@ export namespace GetUserInventoryQuery {
     ) {}
 
     async execute(query: GetUserInventoryQuery): Promise<Output> {
-      return await this.inventoryRepository.findByUserIdAndTypePaginated(
+      return await this.inventoryRepository.findByUserIdAndType(
         query.userId,
         query.type,
       );

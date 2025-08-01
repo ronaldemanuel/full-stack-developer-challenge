@@ -9,6 +9,17 @@ export class InventoryInMemoryRepository
   extends InMemoryRepository<InventoryItemEntity>
   implements InventoryRepository.Repository
 {
+  findByUserIdAndType(
+    userId: string,
+    type: string,
+  ): Promise<InventoryItemEntity[]> {
+    const items = this.items.filter(
+      (i) => i.item.type === type && i.characterId === userId,
+    );
+
+    return Promise.resolve(items);
+  }
+
   findByUserIdAndItemId(
     userId: string,
     itemId: string,
