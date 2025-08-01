@@ -1,5 +1,5 @@
-import { PostCreatedEventHandler } from './post-created.event-handler.js';
+import { ItemAddedToInventoryEventHandler } from './item-added-to-inventory.event';
 
-export * from './post-created.event-handler.js';
+export * from './item-added-to-inventory.event';
 
-export const events = [PostCreatedEventHandler.Handler];
+export const events = [ItemAddedToInventoryEventHandler.Handler];

@@ -5,7 +5,7 @@ import { Validated } from 'validated-extendable';
 
 import type { ItemEntity } from '@nx-ddd/post-domain';
 import type { User } from '@nx-ddd/user-domain';
-import { InventoryRepository, ItemRepository } from '@nx-ddd/post-domain';
+import { InventoryRepository } from '@nx-ddd/post-domain';
 import { userSchema } from '@nx-ddd/user-domain';
 
 export namespace GetUserInventoryQuery {
@@ -26,11 +26,9 @@ export namespace GetUserInventoryQuery {
     ) {}
 
     async execute(query: GetUserInventoryQuery): Promise<Output> {
-      const inventory = this.inventoryRepository.findByUserId(query.id);
+      const inventory = await this.inventoryRepository.findByUserId(query.id);
 
-      const items = (await inventory).map(
-        (inventoryItem) => inventoryItem.item,
-      );
+      const items = inventory.map((inventoryItem) => inventoryItem.item);
 
       return items;
     }

@@ -15,6 +15,8 @@ describe('UserItemRef.addItemToInventory', () => {
       'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
     defenseValue: 31,
     apparelType: 'helmet',
+    price: 123,
+    weight: 4,
   } as ApparelItemSchemaProps;
 
   beforeEach(() => {

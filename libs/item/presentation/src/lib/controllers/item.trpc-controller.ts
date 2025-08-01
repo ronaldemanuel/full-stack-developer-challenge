@@ -10,7 +10,13 @@ import {
   useItemInputSchema,
   UseItemUseCase,
 } from '@nx-ddd/item-application';
-import { itemSchema, UserItemRef } from '@nx-ddd/item-domain';
+import {
+  apparelItemSchema,
+  consumableItemSchema,
+  itemSchema,
+  UserItemRef,
+  weaponItemSchema,
+} from '@nx-ddd/item-domain';
 import {
   createNestjsTrpcRouter,
   Ctx,
@@ -73,7 +79,14 @@ export const itemsRouter = createNestjsTrpcRouter(
         .query(adapter.adaptMethod('getAllItems')),
       getUserItems: publicProcedure
         .input(z.object({}))
-        .output(z.array(itemSchema))
+        .output(
+          z.array(
+            itemSchema ||
+              apparelItemSchema ||
+              weaponItemSchema ||
+              consumableItemSchema,
+          ),
+        )
         .query(adapter.adaptMethod('getUserItems')),
       useItem: protectedProcedure
         .input(useItemInputSchema)

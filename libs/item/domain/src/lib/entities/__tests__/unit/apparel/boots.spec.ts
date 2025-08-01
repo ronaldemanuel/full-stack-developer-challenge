@@ -15,6 +15,8 @@ describe('BootsEntity', () => {
       'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
     defenseValue: 31,
     apparelType: 'boots',
+    price: 23,
+    weight: 5,
   } as ApparelItemSchemaProps;
 
   beforeEach(() => {

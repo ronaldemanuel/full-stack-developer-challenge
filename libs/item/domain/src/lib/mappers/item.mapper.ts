@@ -1,5 +1,9 @@
 import type { ITEMS } from '../constants/items';
-import type { ItemEntity } from '../entities/abstract-item.entity';
+import type {
+  ItemEntity,
+  ItemRelations,
+} from '../entities/abstract-item.entity';
+import type { UserItemRef } from '../refs';
 import type { ApparelItemSchemaProps } from '../schemas/apparel.schema';
 import type { ConsumableItemProps } from '../schemas/consumable.schema';
 import type { ItemSchema } from '../schemas/item.schema';
@@ -21,6 +25,7 @@ export class ItemMapper {
       | ApparelItemSchemaProps
       | WeaponItemProps
       | ConsumableItemProps,
+    character?: UserItemRef,
   ): ItemEntity {
     type EntityConstructor<T extends ItemEntity = ItemEntity> = new (
       props: any,
@@ -28,10 +33,7 @@ export class ItemMapper {
       id?: any,
     ) => T;
 
-    const classesMap: Record<
-      keyof typeof ITEMS,
-      EntityConstructor<ItemEntity>
-    > = {
+    const classesMap: Record<keyof typeof ITEMS, EntityConstructor> = {
       'dragonscale-helmet': HelmetEntity,
       'dragonscale-armor': ChestEntity,
       'dragonscale-boots': BootsEntity,
@@ -55,6 +57,6 @@ export class ItemMapper {
       throw new Error(`Item class not found for identifier: ${item.id}`);
     }
 
-    return new ItemClass(item, undefined, item.id);
+    return new ItemClass(item, () => ({ character }), item.id);
   }
 }

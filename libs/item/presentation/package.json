@@ -36,6 +36,7 @@
   "dependencies": {
     "@swc/helpers": "~0.5.11",
     "@nx-ddd/item-domain": "workspace:*",
+    "@nx-ddd/user-domain": "workspace:*",
     "@nx-ddd/item-application": "workspace:*",
     "@nx-ddd/shared-presentation": "workspace:*",
     "@nestjs/common": "catalog:nestjs"

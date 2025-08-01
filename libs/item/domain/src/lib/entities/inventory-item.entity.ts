@@ -55,7 +55,7 @@ export class InventoryItemEntity extends Entity<UserItemProps> {
   get item(): ItemEntity {
     const item = this.$relations.item;
     if (!item) {
-      throw new RelationshipNotLoadedError('User not loaded');
+      throw new RelationshipNotLoadedError('Item not loaded');
     }
     return item;
   }

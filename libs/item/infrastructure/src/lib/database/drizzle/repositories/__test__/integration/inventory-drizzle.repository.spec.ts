@@ -200,7 +200,7 @@ describe('InventoryDrizzleRepository', () => {
     });
   });
 
-  describe('syncByUserId', () => {
+  describe('syncByUser', () => {
     it('should insert new inventory items', async () => {
       // Arrange
       const character = UserItemRefFactory();
@@ -229,7 +229,7 @@ describe('InventoryDrizzleRepository', () => {
       ).mockReturnValue([]);
 
       // Act
-      await inventoryDrizzleRepository.syncByUserId(character);
+      await inventoryDrizzleRepository.syncByUser(character);
 
       // Assert
       const results = await drizzleTestDB.db.query.userItem.findMany({
@@ -277,7 +277,7 @@ describe('InventoryDrizzleRepository', () => {
       ).mockReturnValue([inventoryItem]);
 
       // Act
-      await inventoryDrizzleRepository.syncByUserId(character);
+      await inventoryDrizzleRepository.syncByUser(character);
 
       // Assert
       const results = await drizzleTestDB.db.query.userItem.findMany({
@@ -342,7 +342,7 @@ describe('InventoryDrizzleRepository', () => {
       ).mockReturnValue([inventoryItemToDelete]);
 
       // Act
-      await inventoryDrizzleRepository.syncByUserId(character);
+      await inventoryDrizzleRepository.syncByUser(character);
 
       // Assert
       const results = await drizzleTestDB.db.query.userItem.findMany({
@@ -388,7 +388,7 @@ describe('InventoryDrizzleRepository', () => {
         'getItems',
       ).mockReturnValue([inventoryItemUpdated]);
 
-      await inventoryDrizzleRepository.syncByUserId(character);
+      await inventoryDrizzleRepository.syncByUser(character);
 
       // Assert
       const results = await drizzleTestDB.db.query.userItem.findMany({

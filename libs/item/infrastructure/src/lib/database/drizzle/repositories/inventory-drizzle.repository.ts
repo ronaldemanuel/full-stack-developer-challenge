@@ -37,7 +37,7 @@ export class InventoryDrizzleRepository
   update(inventoryItems: InventoryItemEntity[]): Promise<void> {
     throw new Error('Method not implemented.');
   }
-  async syncByUserId(user: UserItemRef): Promise<void> {
+  async syncByUser(user: UserItemRef): Promise<void> {
     const itemsToDelete = user.$watchedRelations.inventory.getRemovedItems();
     const itemsToCreate = user.$watchedRelations.inventory.getNewItems();
     const currentItems = user.$watchedRelations.inventory.getItems();
@@ -134,10 +134,6 @@ export class InventoryDrizzleRepository
       },
       relations,
     );
-  }
-
-  findOrCreateByUserId(userId: string): Promise<InventoryItemEntity> {
-    throw new Error('Method not implemented.');
   }
 
   async findByUserId(userId: string): Promise<InventoryItemEntity[]> {

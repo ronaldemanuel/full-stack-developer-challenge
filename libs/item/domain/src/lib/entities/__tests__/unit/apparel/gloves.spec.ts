@@ -15,6 +15,8 @@ describe('GlovesEntity', () => {
       'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
     defenseValue: 31,
     apparelType: 'gloves',
+    price: 750,
+    weight: 4,
   } as ApparelItemSchemaProps;
 
   beforeEach(() => {
@@ -37,6 +39,8 @@ describe('GlovesEntity', () => {
         'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
       defenseValue: 31,
       apparelType: 'gloves',
+      price: 25,
+      weight: 2,
     } as ApparelItemSchemaProps;
 
     // Equip the first gloves

@@ -16,11 +16,6 @@ export namespace InventoryRepository {
       userId: string,
       itemId: string,
     ): Promise<InventoryItemEntity>;
-
-    update(inventoryItems: InventoryItemEntity[]): Promise<void>;
-
-    syncByUserId(user: UserItemRef): Promise<void>;
-
-    findOrCreateByUserId(userId: string): Promise<InventoryItemEntity>;
+    syncByUser(user: UserItemRef): Promise<void>;
   }
 }

@@ -15,6 +15,8 @@ describe('UserItemRef - removeItemFromInventory', () => {
       'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
     defenseValue: 31,
     apparelType: 'helmet',
+    price: 23,
+    weight: 3,
   } as ApparelItemSchemaProps;
 
   beforeEach(() => {
@@ -49,6 +51,8 @@ describe('UserItemRef - removeItemFromInventory', () => {
         'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
       defenseValue: 12,
       apparelType: 'gloves',
+      price: 34,
+      weight: 5,
     } as ApparelItemSchemaProps;
 
     const gloves = ItemMapper.toDomain(item2, user);

@@ -18,18 +18,17 @@ export type ItemIdentifier =
   | 'misc';
 
 export interface ItemRelations {
-  character?: UserItemRef;
+  character: UserItemRef;
   inventory?: InventoryItemEntity;
 }
 export abstract class ItemEntity<
   T extends ItemProps = ItemProps,
 > extends Entity<T> {
-  private _character?: UserItemRef;
-
+  private $relations: () => ItemRelations;
   protected abstract getIdentifier(): ItemIdentifier;
 
-  constructor(dataProps: T, relations?: () => ItemRelations, id?: string) {
-    super({} as unknown as T, id);
+  constructor(dataProps: T, relations: () => ItemRelations, id?: string) {
+    super(dataProps, id);
 
     const { id: identifier, ...props } = ITEMS[id!];
     Object.assign(this.props, {
@@ -37,7 +36,7 @@ export abstract class ItemEntity<
       ...dataProps,
       id: id ?? identifier,
     });
-    // this._owner = owner;
+    this.$relations = relations;
   }
 
   get name() {
@@ -61,27 +60,13 @@ export abstract class ItemEntity<
   }
 
   get character() {
-    if (!this._character) {
+    if (!this.$relations().character) {
       throw new RelationshipNotLoadedError(
         'Character not loaded for this item',
       );
     }
 
-    return this._character;
-  }
-
-  set character(character: UserItemRef) {
-    this._character = character;
-  }
-
-  get inventory() {
-    if (!this._character) {
-      throw new RelationshipNotLoadedError(
-        'Character not loaded for this item',
-      );
-    }
-
-    return this._character;
+    return this.$relations().character;
   }
 
   use(): void {

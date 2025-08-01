@@ -58,6 +58,7 @@ export const userItem = pgTable(
       }),
 
     itemId: t.text('item_id').notNull(),
+    amount: t.numeric({ mode: 'number' }),
   }),
   (t) => ({
     pk: primaryKey({

@@ -3,18 +3,18 @@ import { Test } from '@nestjs/testing';
 
 import type { ItemSchema } from '@nx-ddd/item-domain';
 import {
-  ItemInMemoryRepository,
+  InventoryInMemoryRepository,
+  InventoryItemMapper,
+  InventoryRepository,
   ItemMapper,
-  ItemRepository,
   UserItemRefFactory,
 } from '@nx-ddd/item-domain';
-import { UserEntityMockFactory } from '@nx-ddd/user-domain';
 
 import { GetUserInventoryQuery } from '../../get-user-inventory.query';
 
 describe('GetUserInventoryQuery', () => {
   let getUserInventoryQuery: GetUserInventoryQuery.Handler;
-  let itemRepository: ItemRepository.Repository;
+  let inventoryRepository: InventoryRepository.Repository;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -23,8 +23,8 @@ describe('GetUserInventoryQuery', () => {
       providers: [
         GetUserInventoryQuery.Handler,
         {
-          provide: ItemRepository.TOKEN,
-          useClass: ItemInMemoryRepository,
+          provide: InventoryRepository.TOKEN,
+          useClass: InventoryInMemoryRepository,
         },
       ],
     }).compile();
@@ -32,8 +32,8 @@ describe('GetUserInventoryQuery', () => {
     getUserInventoryQuery = moduleRef.get<GetUserInventoryQuery.Handler>(
       GetUserInventoryQuery.Handler,
     );
-    itemRepository = moduleRef.get<ItemRepository.Repository>(
-      ItemRepository.TOKEN,
+    inventoryRepository = moduleRef.get<InventoryRepository.Repository>(
+      InventoryRepository.TOKEN,
     );
   });
 
@@ -43,8 +43,7 @@ describe('GetUserInventoryQuery', () => {
 
   it('should return a user items list', async () => {
     // Arrange
-    const mockUser = UserEntityMockFactory();
-    const mockUserItemRef = UserItemRefFactory(mockUser);
+    const mockUser = UserItemRefFactory();
 
     const baseItem: ItemSchema = {
       id: 'dragonscale-boots',
@@ -63,12 +62,33 @@ describe('GetUserInventoryQuery', () => {
       type: 'apparel',
     } as ItemSchema;
 
-    const mockItem1 = ItemMapper.toDomain(baseItem, mockUserItemRef);
-    const mockItem2 = ItemMapper.toDomain(baseItem2, mockUserItemRef);
+    const mockItem1 = ItemMapper.toDomain(baseItem, mockUser);
+    const mockItem2 = ItemMapper.toDomain(baseItem2, mockUser);
+
+    const inventoryItemProps1 = {
+      itemId: mockItem1.id,
+      userId: mockUser.id,
+      amount: 5,
+    };
+
+    const inventoryItemProps2 = {
+      itemId: mockItem2.id,
+      userId: mockUser.id,
+      amount: 2,
+    };
+
+    const inventoryItem1 = InventoryItemMapper.toDomain(inventoryItemProps1, {
+      item: mockItem1,
+    });
+    const inventoryItem2 = InventoryItemMapper.toDomain(inventoryItemProps2, {
+      item: mockItem2,
+    });
+
+    const mockInventory = [inventoryItem1, inventoryItem2];
     const mockItems = [mockItem1, mockItem2];
 
-    vi.spyOn(itemRepository, 'findByUserId').mockReturnValue(
-      Promise.resolve(mockItems as any),
+    vi.spyOn(inventoryRepository, 'findByUserId').mockReturnValue(
+      Promise.resolve(mockInventory as any),
     );
 
     const query = GetUserInventoryQuery.create(mockUser.toJSON());
@@ -76,9 +96,11 @@ describe('GetUserInventoryQuery', () => {
     // Act
     const result = await getUserInventoryQuery.execute(query);
 
+    console.log(result);
+
     // Assert
-    expect(itemRepository.findByUserId).toHaveBeenCalled();
-    expect(itemRepository.findByUserId).toHaveBeenCalledWith(mockUser.id);
+    expect(inventoryRepository.findByUserId).toHaveBeenCalled();
+    expect(inventoryRepository.findByUserId).toHaveBeenCalledWith(mockUser.id);
     expect(result).toEqual(mockItems);
   });
 });

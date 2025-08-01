@@ -36,6 +36,9 @@
       "path": "../application/tsconfig.lib.json"
     },
     {
+      "path": "../../user/domain/tsconfig.lib.json"
+    },
+    {
       "path": "../domain/tsconfig.lib.json"
     }
   ]

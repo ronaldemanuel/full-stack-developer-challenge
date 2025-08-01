@@ -1,5 +1,6 @@
 import type { UserItemRef } from '../../../../refs/user-item.ref';
 import type { ApparelItemSchemaProps } from '../../../../schemas/apparel.schema';
+import type { HelmetEntity } from '../../../apparel/helmet.entity';
 import { ItemMapper } from '../../../../mappers/item.mapper';
 import { UserItemRefFactory } from '../../../factories/user-item-ref.factory';
 
@@ -15,7 +16,9 @@ describe('HelmetEntity', () => {
       'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
     defenseValue: 31,
     apparelType: 'helmet',
-  } as ApparelItemSchemaProps;
+    price: 750,
+    weight: 4,
+  } as HelmetEntity;
 
   beforeEach(() => {
     character = UserItemRefFactory({}, {}, 'user-123');
@@ -37,6 +40,8 @@ describe('HelmetEntity', () => {
         'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
       defenseValue: 31,
       apparelType: 'helmet',
+      price: 750,
+      weight: 4,
     } as ApparelItemSchemaProps;
 
     // Equip the first helmet

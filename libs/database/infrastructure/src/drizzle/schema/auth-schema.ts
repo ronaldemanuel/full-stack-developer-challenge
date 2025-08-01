@@ -28,6 +28,12 @@ export const user = pgTable('user', {
   hpLevel: integer('hp_level').default(100),
   spLevel: integer('sp_level').default(100),
   mpLevel: integer('mp_level').default(100),
+  equippedHelmet: text('equipped_helmet'),
+  equippedBoots: text('equipped_boots'),
+  equippedChest: text('equipped_chest'),
+  equippedGloves: text('equipped_gloves'),
+  leftHand: text('left_hand'),
+  rightHand: text('right_hand'),
 });
 
 export const session = pgTable('session', {

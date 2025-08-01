@@ -118,8 +118,6 @@ export class UserItemRef extends UserEntity {
   public addItemToInventory(item: ItemEntity): void {
     const existingItem = this.getInventoryItem(item.id);
 
-    console.log(existingItem);
-
     if (existingItem) {
       existingItem.amount += 1;
       return;
@@ -134,17 +132,20 @@ export class UserItemRef extends UserEntity {
       },
     );
 
-    item.character = this;
+    // item. = this;
 
     inventory.apply(new ItemAddedToInventoryEvent(item.toJSON()));
 
-    this._inventory.add(inventory);
+    this.$watchedRelations.inventory.add(inventory);
   }
 
   public removeItemFromInventory(itemId: string) {
     const inventoryItem = this.getInventoryItem(itemId);
 
-    if (inventoryItem) this._inventory.remove(inventoryItem);
+    if (!inventoryItem) {
+      throw new NotFoundError('Item not found in user inventory');
+    }
+    this._inventory.remove(inventoryItem);
   }
 
   public useItem(itemId: string) {

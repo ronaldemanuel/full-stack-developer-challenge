@@ -4,7 +4,11 @@ import { CommandHandler, EventPublisher } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
 import { Transactional } from '@nx-ddd/database-application';
-import { ItemRepository, UserItemRef } from '@nx-ddd/post-domain';
+import {
+  InventoryRepository,
+  ItemRepository,
+  UserItemRef,
+} from '@nx-ddd/post-domain';
 import { UserRepository } from '@nx-ddd/user-domain';
 
 import type { UseItemInput } from '../schemas/commands';
@@ -36,21 +40,24 @@ export namespace UseItemCommand {
       private readonly eventPublisher: EventPublisher,
       @Inject(UserRepository.TOKEN)
       private userRepository: UserRepository.Repository,
-    ) {
-      itemRepository.userRepository = userRepository;
-    }
+      @Inject(InventoryRepository.TOKEN)
+      private inventoryRepository: InventoryRepository.Repository,
+    ) {}
 
     @Transactional()
     async execute(command: UseItemCommand): Promise<Output> {
+      const inventory = await this.inventoryRepository.findByUserId(
+        command.user.id,
+      );
+
       const user = this.eventPublisher.mergeObjectContext(
-        UserItemRef.cast(await this.userRepository.findById(command.user.id)),
+        UserItemRef.cast(
+          await this.userRepository.findById(command.user.id),
+          () => ({ inventory }),
+        ),
       );
 
-      const item = this.eventPublisher.mergeObjectContext(
-        await this.itemRepository.findById(command.itemId),
-      );
-
-      user.useItem(item.id);
+      user.useItem(command.itemId);
 
       await this.itemRepository.update(item);
 

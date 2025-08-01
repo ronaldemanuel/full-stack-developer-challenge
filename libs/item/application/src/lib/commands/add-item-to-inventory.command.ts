@@ -4,7 +4,11 @@ import { CommandHandler, EventPublisher } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
 import { Transactional } from '@nx-ddd/database-application';
-import { ItemRepository, UserItemRef } from '@nx-ddd/item-domain';
+import {
+  InventoryRepository,
+  ItemRepository,
+  UserItemRef,
+} from '@nx-ddd/item-domain';
 import { UserRepository } from '@nx-ddd/user-domain';
 
 import type { AddItemToInventoryInput } from '../schemas/commands';
@@ -40,6 +44,8 @@ export namespace AddItemToInventoryCommand {
       private readonly itemRepository: ItemRepository.Repository,
       @Inject(UserRepository.TOKEN)
       private userRepository: UserRepository.Repository,
+      @Inject(InventoryRepository.TOKEN)
+      private inventoryRepository: InventoryRepository.Repository,
     ) {}
 
     @Transactional()
@@ -54,7 +60,7 @@ export namespace AddItemToInventoryCommand {
 
       user.addItemToInventory(item);
 
-      await this.itemRepository.update(item);
+      await this.inventoryRepository.syncByUser(user);
 
       item.commit();
     }
