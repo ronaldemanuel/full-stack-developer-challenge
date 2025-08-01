@@ -42,7 +42,9 @@ export namespace UseItemCommand {
       private userRepository: UserRepository.Repository,
       @Inject(InventoryRepository.TOKEN)
       private inventoryRepository: InventoryRepository.Repository,
-    ) {}
+    ) {
+      inventoryRepository.userRepository = userRepository;
+    }
 
     @Transactional()
     async execute(command: UseItemCommand): Promise<Output> {
@@ -60,7 +62,6 @@ export namespace UseItemCommand {
       user.useItem(command.itemId);
 
       await this.inventoryRepository.syncByUser(user);
-      await this.userRepository.update(user);
 
       user.commit();
     }

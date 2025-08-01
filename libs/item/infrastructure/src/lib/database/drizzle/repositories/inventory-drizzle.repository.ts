@@ -12,7 +12,10 @@ import {
   InjectDrizzleTransaction,
 } from '@nx-ddd/database-infrastructure';
 import { and, eq, gt } from '@nx-ddd/database-infrastructure/drizzle/operators';
-import { userItem } from '@nx-ddd/database-infrastructure/drizzle/schema';
+import {
+  userItem,
+  user as userTable,
+} from '@nx-ddd/database-infrastructure/drizzle/schema';
 import { InventoryItemMapper, ItemRepository } from '@nx-ddd/item-domain';
 import { NotFoundError } from '@nx-ddd/shared-domain';
 import { UserRepository } from '@nx-ddd/user-domain';
@@ -53,6 +56,21 @@ export class InventoryDrizzleRepository
 
       return item;
     });
+
+    if (this.userRepository) {
+      await this.tx
+        .update(userTable)
+        .set({
+          equippedHelmet: user.equippedHelmet?.id ?? null,
+          equippedBoots: user.equippedBoots?.id ?? null,
+          equippedChest: user.equippedChest?.id ?? null,
+          equippedGloves: user.equippedGloves?.id ?? null,
+          leftHand: user.leftHand?.id ?? null,
+          rightHand: user.rightHand?.id ?? null,
+          ...user.toJSON(),
+        })
+        .where(eq(userTable.id, user.id));
+    }
 
     await Promise.all(
       [

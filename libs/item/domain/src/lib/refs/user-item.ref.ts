@@ -172,7 +172,7 @@ export class UserItemRef extends UserEntity {
       throw new NotFoundError('Item not found in user inventory');
     }
 
-    if (inventoryItem.amount > 0) {
+    if (inventoryItem.amount > 1) {
       inventoryItem.amount -= amount ?? 1;
       return;
     }
