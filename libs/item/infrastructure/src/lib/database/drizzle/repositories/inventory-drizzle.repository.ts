@@ -21,7 +21,11 @@ import {
   userItem,
   user as userTable,
 } from '@nx-ddd/database-infrastructure/drizzle/schema';
-import { InventoryItemMapper, ItemRepository } from '@nx-ddd/item-domain';
+import {
+  InventoryItemMapper,
+  ItemMapper,
+  ItemRepository,
+} from '@nx-ddd/item-domain';
 import { NotFoundError } from '@nx-ddd/shared-domain';
 import { UserRepository } from '@nx-ddd/user-domain';
 import { UserDrizzleModelMapper } from '@nx-ddd/user-infrastructure';
@@ -49,7 +53,9 @@ export class InventoryDrizzleRepository
     let idList: string[] = [];
 
     if (type !== 'all') {
-      idList = (await this.itemRepository.findByType(type)).map((item) => item.id);;
+      idList = (await this.itemRepository.findByType(type)).map(
+        (item) => item.id,
+      );
     }
 
     const items = await this.db.query.userItem.findMany({
@@ -69,12 +75,14 @@ export class InventoryDrizzleRepository
         const itemData = await this.itemRepository.findById(item.itemId);
         if (!itemData) throw new NotFoundError('Item no found');
 
-        const inventoryItemRelations: InventoryItemEntityRelations = {
-          item: itemData,
-        };
-
         const user = UserDrizzleModelMapper.toEntity(item.user);
         const userItemRef = UserItemRefDrizzleModelMapper.toEntity(user);
+
+        const itemEntity = ItemMapper.toDomain(itemData, userItemRef);
+
+        const inventoryItemRelations: InventoryItemEntityRelations = {
+          item: itemEntity,
+        };
 
         if (this.userRepository) {
           inventoryItemRelations.character = userItemRef;
