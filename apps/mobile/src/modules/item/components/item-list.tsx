@@ -4,7 +4,7 @@ import { Text } from '@/components/ui/text';
 import clsx from 'clsx';
 
 export interface ItemListProps {
-  inventory?: any[];
+  inventory: any[] | undefined;
   selectedItem: any;
   setSelectedItem: (item: any) => void;
 }

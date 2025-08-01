@@ -15,9 +15,6 @@ export function CharacterInfo({ user }: CharacterInfoProps) {
         <View>
           <Text className="text-base font-light text-white">{name}</Text>
         </View>
-        <Text className="text-xs text-gray-400">
-          Weight: <Text className="text-white">{user.weight} / 135</Text>
-        </Text>
       </View>
 
       {/* Character Stats */}

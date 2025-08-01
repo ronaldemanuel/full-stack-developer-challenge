@@ -1,9 +1,7 @@
 import { Image, Text, View } from 'react-native';
-import { cn } from '@/utils/react-native-reusables';
 
 interface MoneyInfoProps {
   user: any;
-  // characterStats: MoneyStats;
 }
 
 export function MoneyInfo({ user }: MoneyInfoProps) {
@@ -23,46 +21,7 @@ export function MoneyInfo({ user }: MoneyInfoProps) {
           />
           <Text className="text-white">{user.coins}</Text>
         </View>
-        <Text className="text-xs text-gray-400">
-          Weight: <Text className="text-white">40 / 135</Text>
-        </Text>
       </View>
-    </View>
-  );
-}
-
-function StatBar({
-  label,
-  percent,
-  barColor,
-  bgColor,
-  borderColor,
-  textColor,
-}: {
-  label: string;
-  percent: number;
-  barColor: string;
-  bgColor: string;
-  borderColor: string;
-  textColor: string;
-}) {
-  return (
-    <View className="flex-1">
-      <Text className={cn('mb-1 text-xs uppercase', textColor)}>{label}</Text>
-      <View
-        className={cn(
-          'h-2 overflow-hidden rounded',
-          bgColor,
-          borderColor,
-          'border',
-        )}
-      >
-        <View
-          className={cn('h-full', barColor)}
-          style={{ width: `${percent}%` }}
-        />
-      </View>
-      <Text className="mt-1 text-center text-xs text-white">{percent}%</Text>
     </View>
   );
 }
