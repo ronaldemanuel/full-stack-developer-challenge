@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Dimensions, Image, View } from 'react-native';
 import { useUser } from '@/modules/auth/hooks/use-user';
 import { CharacterInfo } from '@/modules/character/character-info';
@@ -17,10 +17,7 @@ interface InventoryScreenProps {
 
 export default function InventoryScreen({ filter }: InventoryScreenProps) {
   const itemQuery = useQuery(trpc.item.getUserItems.queryOptions({}));
-
   const { user } = useUser();
-
-  console.log(itemQuery.data);
 
   const inventoryItems = itemQuery.data;
 
@@ -34,10 +31,22 @@ export default function InventoryScreen({ filter }: InventoryScreenProps) {
     },
   });
 
-  const filteredItems =
-    filter === 'all'
-      ? inventoryItems
-      : inventoryItems?.filter((inventory) => inventory.item.type === filter);
+  const filteredItems = useMemo(() => {
+    if (!inventoryItems) return [];
+
+    const result =
+      filter === 'all'
+        ? inventoryItems
+        : inventoryItems.filter((inventory) => inventory.item.type === filter);
+
+    return result;
+  }, [inventoryItems, filter]);
+
+  useEffect(() => {
+    if (filteredItems.length > 0) {
+      setSelectedItem(filteredItems[0]);
+    }
+  }, [filteredItems]);
 
   const { width } = Dimensions.get('window');
 

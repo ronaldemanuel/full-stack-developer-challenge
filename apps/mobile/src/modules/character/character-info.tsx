@@ -1,13 +1,6 @@
 import { Text, View } from 'react-native';
 import { cn } from '@/utils/react-native-reusables';
 
-interface CharacterStats {
-  health: number;
-  magicka: number;
-  stamina: number;
-  carryWeight: number;
-}
-
 interface CharacterInfoProps {
   user: any;
   // characterStats: CharacterStats;
@@ -15,6 +8,8 @@ interface CharacterInfoProps {
 
 export function CharacterInfo({ user }: CharacterInfoProps) {
   const name = user?.name?.toUpperCase() ?? 'DRAGONBORN';
+
+  console.log(user);
 
   return (
     <View className="absolute bottom-0 left-0 right-0 z-20 bg-black/95 p-3 backdrop-blur-sm md:hidden">
@@ -31,7 +26,7 @@ export function CharacterInfo({ user }: CharacterInfoProps) {
       <View className="flex-row justify-between gap-3">
         <StatBar
           label="HP"
-          percent={user.hpLevel}
+          value={user.hpLevel}
           barColor="bg-red-500"
           bgColor="bg-red-900/30"
           borderColor="border-red-500/50"
@@ -39,7 +34,7 @@ export function CharacterInfo({ user }: CharacterInfoProps) {
         />
         <StatBar
           label="MP"
-          percent={user.mpLevel}
+          value={user.mpLevel}
           barColor="bg-blue-500"
           bgColor="bg-blue-900/30"
           borderColor="border-blue-500/50"
@@ -47,7 +42,7 @@ export function CharacterInfo({ user }: CharacterInfoProps) {
         />
         <StatBar
           label="SP"
-          percent={user.spLevel}
+          value={user.spLevel}
           barColor="bg-green-500"
           bgColor="bg-green-900/30"
           borderColor="border-green-500/50"
@@ -60,14 +55,14 @@ export function CharacterInfo({ user }: CharacterInfoProps) {
 
 function StatBar({
   label,
-  percent,
+  value,
   barColor,
   bgColor,
   borderColor,
   textColor,
 }: {
   label: string;
-  percent: number;
+  value: number;
   barColor: string;
   bgColor: string;
   borderColor: string;
@@ -86,10 +81,10 @@ function StatBar({
       >
         <View
           className={cn('h-full', barColor)}
-          style={{ width: `${percent}%` }}
+          style={{ width: `${value}%` }}
         />
       </View>
-      <Text className="mt-1 text-center text-xs text-white">{percent}%</Text>
+      <Text className="mt-1 text-center text-xs text-white">{value} / 100</Text>
     </View>
   );
 }
