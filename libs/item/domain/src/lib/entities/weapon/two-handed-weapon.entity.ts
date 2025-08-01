@@ -6,7 +6,8 @@ import { WeaponEntity } from './weapon.entity';
 export class TwoHandedWeaponEntity extends WeaponEntity {
   override get equipped(): boolean {
     return (
-      this.character.leftHand === this && this.character.rightHand === this
+      this.character?.leftHand === this.id &&
+      this.character?.rightHand === this.id
     );
   }
 
@@ -16,7 +17,7 @@ export class TwoHandedWeaponEntity extends WeaponEntity {
 
   protected override applyEffect(character: UserItemRef): void {
     if (character.leftHand != null && character.rightHand != null) {
-      if (character.leftHand === this && character.rightHand === this) {
+      if (character.leftHand === this.id && character.rightHand === this.id) {
         character.leftHand = null;
         character.rightHand = null;
 
@@ -24,7 +25,7 @@ export class TwoHandedWeaponEntity extends WeaponEntity {
       }
     }
 
-    character.leftHand = this;
-    character.rightHand = this;
+    character.leftHand = this.id;
+    character.rightHand = this.id;
   }
 }
