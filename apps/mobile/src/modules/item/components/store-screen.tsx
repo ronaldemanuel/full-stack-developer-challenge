@@ -169,14 +169,16 @@ interface StoreScreenProps {
 }
 
 export default function StoreScreen({ filter }: StoreScreenProps) {
-  const [selectedItem, setSelectedItem] = useState(storeItems[0]);
-
   const { user } = useUser();
 
   const filteredItems =
     filter === 'all'
-      ? storeItems
-      : storeItems.filter((item) => item.type === filter);
+      ? storeItems.map((i) => ({ item: i }))
+      : storeItems
+          .filter((item) => item.type === filter)
+          .map((i) => ({ item: i }));
+
+  const [selectedItem, setSelectedItem] = useState(filteredItems[0]);
 
   return (
     <View className="flex-1 flex-row">
@@ -192,13 +194,13 @@ export default function StoreScreen({ filter }: StoreScreenProps) {
 
         <View className="flex flex-1 flex-col lg:flex-row">
           {/* Item Display */}
-          <ItemStatsPanel item={selectedItem} panelType="store" />
+          <ItemStatsPanel inventoryItem={selectedItem} panelType="store" />
 
           <SelectedItemCategory selectedCategory={filter} />
 
           {/* Item List */}
           <ItemList
-            items={filteredItems}
+            inventory={filteredItems}
             selectedItem={selectedItem}
             setSelectedItem={setSelectedItem}
           />

@@ -50,8 +50,15 @@ export namespace AddItemToInventoryCommand {
 
     @Transactional()
     async execute(command: AddItemToInventoryCommand): Promise<Output> {
+      const inventory = await this.inventoryRepository.findByUserId(
+        command.user.id,
+      );
+
       const user = this.eventPublisher.mergeObjectContext(
-        UserItemRef.cast(await this.userRepository.findById(command.user.id)),
+        UserItemRef.cast(
+          await this.userRepository.findById(command.user.id),
+          () => ({ inventory }),
+        ),
       );
 
       const item = this.eventPublisher.mergeObjectContext(

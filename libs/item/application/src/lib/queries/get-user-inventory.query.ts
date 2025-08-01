@@ -3,7 +3,7 @@ import { Inject } from '@nestjs/common';
 import { QueryHandler } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
-import type { InventoryItemEntity, ItemEntity } from '@nx-ddd/item-domain';
+import type { InventoryItemEntity } from '@nx-ddd/item-domain';
 import type { User } from '@nx-ddd/user-domain';
 import { InventoryRepository } from '@nx-ddd/item-domain';
 import { userSchema } from '@nx-ddd/user-domain';

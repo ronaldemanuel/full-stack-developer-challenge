@@ -11,7 +11,7 @@ import {
   InjectDrizzle,
   InjectDrizzleTransaction,
 } from '@nx-ddd/database-infrastructure';
-import { and, eq } from '@nx-ddd/database-infrastructure/drizzle/operators';
+import { and, eq, gt } from '@nx-ddd/database-infrastructure/drizzle/operators';
 import { userItem } from '@nx-ddd/database-infrastructure/drizzle/schema';
 import { InventoryItemMapper, ItemRepository } from '@nx-ddd/item-domain';
 import { NotFoundError } from '@nx-ddd/shared-domain';
@@ -138,7 +138,8 @@ export class InventoryDrizzleRepository
 
   async findByUserId(userId: string): Promise<InventoryItemEntity[]> {
     const items = await this.db.query.userItem.findMany({
-      where: eq(userItem.userId, userId),
+      where: (fields, { and }) =>
+        and(eq(fields.userId, userId), gt(fields.amount, 0)),
       with: {
         user: this.userRepository ? true : undefined,
       },

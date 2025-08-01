@@ -110,7 +110,8 @@ export class UserItemRef extends UserEntity {
   }
 
   get coins() {
-    return this.inventory
+    return this.$watchedRelations.inventory
+      .getItems()
       .filter((i) => i.itemId === 'coin')
       .reduce((acc, curr) => {
         acc += curr.amount;
@@ -120,7 +121,7 @@ export class UserItemRef extends UserEntity {
 
   get weight() {
     return this.inventory.reduce((acc, curr) => {
-      acc += curr.item.weight;
+      acc += curr.item.weight * curr.amount;
       return acc;
     }, 0);
   }
@@ -136,12 +137,15 @@ export class UserItemRef extends UserEntity {
       throw new Error('No enough coins');
     }
 
+    this.removeItemFromInventory('coin', item.price);
+
     const existingItem = this.getInventoryItem(item.id);
 
     if (existingItem) {
       existingItem.amount += 1;
       return;
     }
+
     const inventory = InventoryItemMapper.toDomain(
       {
         amount: 1,
@@ -152,20 +156,24 @@ export class UserItemRef extends UserEntity {
       },
     );
 
-    // item. = this;
-
     inventory.apply(new ItemAddedToInventoryEvent(item.toJSON()));
 
     this.$watchedRelations.inventory.add(inventory);
   }
 
-  public removeItemFromInventory(itemId: string) {
+  public removeItemFromInventory(itemId: string, amount?: number) {
     const inventoryItem = this.getInventoryItem(itemId);
 
     if (!inventoryItem) {
       throw new NotFoundError('Item not found in user inventory');
     }
-    this._inventory.remove(inventoryItem);
+
+    if (inventoryItem.amount > 0) {
+      inventoryItem.amount -= amount ?? 1;
+      return;
+    }
+
+    this.$watchedRelations.inventory.remove(inventoryItem);
   }
 
   public useItem(itemId: string) {
