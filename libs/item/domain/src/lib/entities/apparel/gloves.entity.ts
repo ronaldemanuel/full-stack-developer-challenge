@@ -12,7 +12,7 @@ type GlovesProps = z.infer<typeof apparelItemPropsSchema>;
 @ZodEntity(apparelItemPropsSchema)
 export class GlovesEntity extends ApparelEntity<GlovesProps> {
   override get equipped(): boolean {
-    return this.character?.equippedGloves === this;
+    return this.character?.equippedGloves === this.id;
   }
 
   protected override getIdentifier(): ItemIdentifier {
@@ -20,11 +20,11 @@ export class GlovesEntity extends ApparelEntity<GlovesProps> {
   }
 
   protected override applyEffect(character: UserItemRef): void {
-    if (character.equippedGloves === this) {
+    if (character.equippedGloves === this.id) {
       character.equippedGloves = null;
       return;
     }
 
-    character.equippedGloves = this;
+    character.equippedGloves = this.id;
   }
 }

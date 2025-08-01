@@ -8,15 +8,15 @@ export class BootsEntity extends ApparelEntity {
     return 'boots';
   }
   override get equipped(): boolean {
-    return this.character?.equippedBoots === this;
+    return this.character?.equippedBoots === this.id;
   }
 
   protected override applyEffect(character: UserItemRef): void {
-    if (character?.equippedBoots === this) {
+    if (character?.equippedBoots === this.id) {
       character.equippedBoots = null;
       return;
     }
 
-    character.equippedBoots = this;
+    character.equippedBoots = this.id;
   }
 }

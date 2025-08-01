@@ -9,15 +9,15 @@ export class ChestEntity extends ApparelEntity {
   }
 
   override get equipped(): boolean {
-    return this.character.equippedChest === this;
+    return this.character?.equippedChest === this.id;
   }
 
   protected override applyEffect(character: UserItemRef): void {
-    if (character.equippedChest === this) {
+    if (character.equippedChest === this.id) {
       character.equippedChest = null;
       return;
     }
 
-    character.equippedChest = this;
+    character.equippedChest = this.id;
   }
 }

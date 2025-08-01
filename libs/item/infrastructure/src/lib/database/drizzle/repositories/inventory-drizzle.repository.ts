@@ -60,15 +60,7 @@ export class InventoryDrizzleRepository
     if (this.userRepository) {
       await this.tx
         .update(userTable)
-        .set({
-          equippedHelmet: user.equippedHelmet?.id ?? null,
-          equippedBoots: user.equippedBoots?.id ?? null,
-          equippedChest: user.equippedChest?.id ?? null,
-          equippedGloves: user.equippedGloves?.id ?? null,
-          leftHand: user.leftHand?.id ?? null,
-          rightHand: user.rightHand?.id ?? null,
-          ...user.toJSON(),
-        })
+        .set(user.toJSON())
         .where(eq(userTable.id, user.id));
     }
 

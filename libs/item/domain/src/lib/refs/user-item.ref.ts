@@ -2,17 +2,11 @@ import {
   NotFoundError,
   RelationshipNotLoadedError,
   WatchedList,
-  ZodEntity,
 } from '@nx-ddd/shared-domain';
 import { UserEntity } from '@nx-ddd/user-domain';
 
 import type { ItemEntity } from '../entities/abstract-item.entity';
-import type { BootsEntity } from '../entities/apparel/boots.entity';
-import type { ChestEntity } from '../entities/apparel/chest.entity';
-import type { GlovesEntity } from '../entities/apparel/gloves.entity';
-import type { HelmetEntity } from '../entities/apparel/helmet.entity';
 import type { InventoryItemEntity } from '../entities/inventory-item.entity';
-import type { WeaponEntity } from '../entities/weapon/weapon.entity';
 import type { UserItemRefProps } from '../schemas/user-item-ref.schema';
 import { ItemAddedToInventoryEvent } from '../events/item-added-to-inventory.event';
 import { ItemMapper } from '../mappers';
@@ -28,14 +22,6 @@ export interface UserItemRefWatchedRelations {
 
 // @ts-expect-error: Expect error because of the override of the cast method
 export class UserItemRef extends UserEntity {
-  equippedHelmet: HelmetEntity | null = null;
-  equippedChest: ChestEntity | null = null;
-  equippedBoots: BootsEntity | null = null;
-  equippedGloves: GlovesEntity | null = null;
-
-  leftHand: WeaponEntity | null = null;
-  rightHand: WeaponEntity | null = null;
-
   private _inventory: WatchedList<InventoryItemEntity>;
 
   private $relations: () => UserItemRefRelations;
@@ -61,6 +47,54 @@ export class UserItemRef extends UserEntity {
     );
   }
 
+  get equippedHelmet(): string | null | undefined {
+    return this.props.equippedHelmet;
+  }
+
+  set equippedHelmet(value: string | null) {
+    this.props.equippedHelmet = value;
+  }
+
+  get equippedBoots(): string | null | undefined {
+    return this.props.equippedBoots;
+  }
+
+  set equippedBoots(value: string | null) {
+    this.props.equippedBoots = value;
+  }
+
+  get equippedChest(): string | null | undefined {
+    return this.props.equippedChest;
+  }
+
+  set equippedChest(value: string | null) {
+    this.props.equippedChest = value;
+  }
+
+  get equippedGloves(): string | null | undefined {
+    return this.props.equippedGloves;
+  }
+
+  set equippedGloves(value: string | null) {
+    this.props.equippedGloves = value;
+  }
+
+  get leftHand(): string | null | undefined {
+    return this.props.leftHand;
+  }
+
+  set leftHand(value: string | null) {
+    this.props.leftHand = value;
+  }
+
+  get rightHand(): string | null | undefined {
+    return this.props.rightHand;
+  }
+
+  set rightHand(value: string | null) {
+    this.props.rightHand = value;
+  }
+
   get inventory(): InventoryItemEntity[] {
     const inventoryItem = this._inventory.getItems();
 
@@ -79,36 +113,6 @@ export class UserItemRef extends UserEntity {
     } else {
       this.inventory = newInventory;
     }
-  }
-
-  get constitution(): number {
-    const helmet = this.equippedHelmet?.defenseValue ?? 0;
-    const chest = this.equippedChest?.defenseValue ?? 0;
-    const boots = this.equippedBoots?.defenseValue ?? 0;
-    const gloves = this.equippedGloves?.defenseValue ?? 0;
-
-    return helmet + chest + boots + gloves;
-  }
-
-  get damage(): number {
-    const left = this.leftHand;
-    const right = this.rightHand;
-
-    if (!left && !right) {
-      return 0;
-    }
-
-    if (left && right) {
-      if (left === right) {
-        return left.damageValue ?? 0;
-      }
-
-      const leftDamage = left.damageValue ?? 0;
-      const rightDamage = right.damageValue ?? 0;
-      return leftDamage + rightDamage;
-    }
-
-    return left?.damageValue ?? right?.damageValue ?? 0;
   }
 
   get coins() {
@@ -192,6 +196,8 @@ export class UserItemRef extends UserEntity {
     }
 
     const item = ItemMapper.toDomain(inventoryItem.item, this);
+
+    console.log('item', item);
 
     item.use();
   }

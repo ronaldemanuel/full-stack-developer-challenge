@@ -165,6 +165,7 @@ export function initAuth(
       customSession(async ({ user, session }) => {
         const coinInventoryItem =
           await inventoryRepository.findByUserIdAndItemId(user.id, 'coin');
+
         const userSession = UserSessionMapper.toEntity(user, coinInventoryItem);
 
         return { session, user: userSession.toJSON() };
