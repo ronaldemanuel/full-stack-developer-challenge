@@ -1,4 +1,4 @@
-import { UserItemRef } from '@nx-ddd/post-domain';
+import { UserItemRef } from '@nx-ddd/item-domain';
 
 export class UserItemRefDrizzleModelMapper {
   static toEntity(data: any): UserItemRef {

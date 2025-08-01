@@ -81,10 +81,12 @@ export const itemsRouter = createNestjsTrpcRouter(
         .input(z.object({}))
         .output(
           z.array(
-            itemSchema ||
-              apparelItemSchema ||
-              weaponItemSchema ||
+            z.union([
+              apparelItemSchema,
+              weaponItemSchema,
               consumableItemSchema,
+              itemSchema,
+            ]),
           ),
         )
         .query(adapter.adaptMethod('getUserItems')),

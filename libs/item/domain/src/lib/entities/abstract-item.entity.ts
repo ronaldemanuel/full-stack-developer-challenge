@@ -60,12 +60,6 @@ export abstract class ItemEntity<
   }
 
   get character() {
-    if (!this.$relations().character) {
-      throw new RelationshipNotLoadedError(
-        'Character not loaded for this item',
-      );
-    }
-
     return this.$relations().character;
   }
 

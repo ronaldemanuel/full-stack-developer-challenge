@@ -109,6 +109,22 @@ export class UserItemRef extends UserEntity {
     return left?.damageValue ?? right?.damageValue ?? 0;
   }
 
+  get coins() {
+    return this.inventory
+      .filter((i) => i.itemId === 'coin')
+      .reduce((acc, curr) => {
+        acc += curr.amount;
+        return acc;
+      }, 0);
+  }
+
+  get weight() {
+    return this.inventory.reduce((acc, curr) => {
+      acc += curr.item.weight;
+      return acc;
+    }, 0);
+  }
+
   public getInventoryItem(itemId: string) {
     return this.$watchedRelations.inventory
       .getItems()
@@ -116,6 +132,10 @@ export class UserItemRef extends UserEntity {
   }
 
   public addItemToInventory(item: ItemEntity): void {
+    if (item.price > this.coins) {
+      throw new Error('No enough coins');
+    }
+
     const existingItem = this.getInventoryItem(item.id);
 
     if (existingItem) {

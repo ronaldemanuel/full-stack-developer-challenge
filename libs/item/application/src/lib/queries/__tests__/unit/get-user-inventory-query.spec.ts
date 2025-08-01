@@ -96,8 +96,6 @@ describe('GetUserInventoryQuery', () => {
     // Act
     const result = await getUserInventoryQuery.execute(query);
 
-    console.log(result);
-
     // Assert
     expect(inventoryRepository.findByUserId).toHaveBeenCalled();
     expect(inventoryRepository.findByUserId).toHaveBeenCalledWith(mockUser.id);

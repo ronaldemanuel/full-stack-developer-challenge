@@ -161,6 +161,42 @@ export const ITEMS: Record<
     price: 58,
     weight: 0,
   },
+  'dragon-bone': {
+    id: 'dragon-bone',
+    name: 'Dragon Bone',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/a/ad/TESV_Dragon_Bone.png/revision/latest?cb=20120316215755',
+    type: 'misc',
+    price: 500,
+    weight: 15,
+  },
+  'silver-ingot': {
+    id: 'silver-ingot',
+    name: 'Silver Ingot',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/f/f9/Ingotsilver.png/revision/latest?cb=20120612172836',
+    type: 'misc',
+    price: 50,
+    weight: 1,
+  },
+  'diamond': {
+    id: 'diamond',
+    name: 'Diamond',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/d/d5/Skyrim_diamond.png/revision/latest?cb=20120901164151',
+    type: 'misc',
+    price: 800,
+    weight: 0.1,
+  },
+  'coin': {
+    id: 'coin',
+    name: 'Coin',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/5/55/Septim_Skyrim.png/revision/latest?cb=20120311100037',
+    type: 'misc',
+    price: 800,
+    weight: 0.1,
+  },
 } satisfies Record<
   string,
   ItemSchema | ApparelItemSchemaProps | WeaponItemProps | ConsumableItemProps

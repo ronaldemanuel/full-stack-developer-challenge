@@ -2,8 +2,8 @@ import type { Provider } from '@nestjs/common';
 import { Module } from '@nestjs/common';
 
 import { ItemApplicationModule } from '@nx-ddd/item-application';
-import { InventoryRepository, ItemRepository } from '@nx-ddd/post-domain';
-import { ItemTrpcController } from '@nx-ddd/post-presentation';
+import { InventoryRepository, ItemRepository } from '@nx-ddd/item-domain';
+import { ItemTrpcController } from '@nx-ddd/item-presentation';
 import { UserModule } from '@nx-ddd/user-infrastructure';
 
 import { InventoryDrizzleRepository } from './database/drizzle/repositories/inventory-drizzle.repository';

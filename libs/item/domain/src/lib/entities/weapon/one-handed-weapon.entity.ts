@@ -6,7 +6,7 @@ import { WeaponEntity } from './weapon.entity';
 export class OneHandedWeaponEntity extends WeaponEntity {
   override get equipped(): boolean {
     return (
-      this.character.leftHand === this || this.character.rightHand === this
+      this.character?.leftHand === this || this.character?.rightHand === this
     );
   }
 

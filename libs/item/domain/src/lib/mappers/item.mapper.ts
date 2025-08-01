@@ -15,6 +15,7 @@ import { HelmetEntity } from '../entities/apparel/helmet.entity';
 import { HpPotionEntity } from '../entities/consumable/hp-potion.entity';
 import { MpPotionEntity } from '../entities/consumable/mp-potion.entity';
 import { SpPotionEntity } from '../entities/consumable/sp-potion.entity';
+import { MiscItemEntity } from '../entities/misc.entity';
 import { OneHandedWeaponEntity } from '../entities/weapon/one-handed-weapon.entity';
 import { TwoHandedWeaponEntity } from '../entities/weapon/two-handed-weapon.entity';
 
@@ -48,6 +49,10 @@ export class ItemMapper {
       'potion-of-health': HpPotionEntity,
       'potion-of-enhanced-stamina': SpPotionEntity,
       'potion-of-extra-magicka': MpPotionEntity,
+      'dragon-bone': MiscItemEntity,
+      'diamond': MiscItemEntity,
+      'silver-ingot': MiscItemEntity,
+      'coin': MiscItemEntity,
     };
 
     const ItemClass =

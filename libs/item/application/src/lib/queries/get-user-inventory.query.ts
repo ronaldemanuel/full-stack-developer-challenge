@@ -3,9 +3,9 @@ import { Inject } from '@nestjs/common';
 import { QueryHandler } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
-import type { ItemEntity } from '@nx-ddd/post-domain';
+import type { ItemEntity } from '@nx-ddd/item-domain';
 import type { User } from '@nx-ddd/user-domain';
-import { InventoryRepository } from '@nx-ddd/post-domain';
+import { InventoryRepository } from '@nx-ddd/item-domain';
 import { userSchema } from '@nx-ddd/user-domain';
 
 export namespace GetUserInventoryQuery {

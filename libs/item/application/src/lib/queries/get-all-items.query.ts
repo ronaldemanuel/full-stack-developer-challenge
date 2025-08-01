@@ -3,8 +3,8 @@ import { Inject } from '@nestjs/common';
 import { QueryHandler } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
-import type { ItemEntity } from '@nx-ddd/post-domain';
-import { ItemRepository } from '@nx-ddd/post-domain';
+import type { ItemEntity } from '@nx-ddd/item-domain';
+import { ItemRepository } from '@nx-ddd/item-domain';
 
 import { getAllItemsInputSchema } from '../schemas/queries';
 

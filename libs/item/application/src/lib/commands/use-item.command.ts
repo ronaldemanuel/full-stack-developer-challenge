@@ -8,7 +8,7 @@ import {
   InventoryRepository,
   ItemRepository,
   UserItemRef,
-} from '@nx-ddd/post-domain';
+} from '@nx-ddd/item-domain';
 import { UserRepository } from '@nx-ddd/user-domain';
 
 import type { UseItemInput } from '../schemas/commands';
