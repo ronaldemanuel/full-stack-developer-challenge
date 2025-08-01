@@ -7,7 +7,7 @@ export default function Layout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer
         initialRouteName="index"
-        screenOptions={() => ({
+        screenOptions={({ theme }) => ({
           header: ({ navigation, options }) => {
             return (
               <CustomHeader
@@ -15,6 +15,16 @@ export default function Layout() {
                 onMenuPress={() => navigation.toggleDrawer()}
               />
             );
+          },
+          drawerContentStyle: {
+            backgroundColor: theme.colors.background,
+            borderRightWidth: 1,
+            borderRightColor: theme.colors.border,
+          },
+          drawerActiveBackgroundColor: theme.colors.border,
+          drawerItemStyle: {
+            borderRadius: 0,
+            width: '100%',
           },
         })}
       >

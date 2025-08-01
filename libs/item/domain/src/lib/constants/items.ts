@@ -194,7 +194,7 @@ export const ITEMS: Record<
     image:
       'https://static.wikia.nocookie.net/elderscrolls/images/5/55/Septim_Skyrim.png/revision/latest?cb=20120311100037',
     type: 'misc',
-    price: 800,
+    price: 0,
     weight: 0.1,
   },
 } satisfies Record<
