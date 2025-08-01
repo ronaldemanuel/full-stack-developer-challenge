@@ -141,8 +141,6 @@ export class UserItemRef extends UserEntity {
       throw new Error('No enough coins');
     }
 
-    console.log(this.coins);
-
     this.removeItemFromInventory('coin', item.price);
 
     const existingItem = this.getInventoryItem(item.id);
@@ -196,10 +194,6 @@ export class UserItemRef extends UserEntity {
     const item = ItemMapper.toDomain(inventoryItem.item, this);
 
     item.use();
-
-    if (inventoryItem.item.type === 'consumable') {
-      this.removeItemFromInventory(itemId);
-    }
   }
 
   static override cast(

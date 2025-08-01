@@ -28,6 +28,9 @@
   ],
   "references": [
     {
+      "path": "../../shared/domain/tsconfig.lib.json"
+    },
+    {
       "path": "../../jobs/events/domain/tsconfig.lib.json"
     },
     {

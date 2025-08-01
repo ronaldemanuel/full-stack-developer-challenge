@@ -60,6 +60,7 @@ export namespace UseItemCommand {
       user.useItem(command.itemId);
 
       await this.inventoryRepository.syncByUser(user);
+      await this.userRepository.update(user);
 
       user.commit();
     }

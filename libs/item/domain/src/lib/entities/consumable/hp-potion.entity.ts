@@ -9,7 +9,15 @@ export class HpPotionEntity extends ConsumableEntity {
   }
 
   protected override applyEffect(character: UserItemRef): void {
-    character.hpLevel += this.effectValue;
+    const { hpLevel } = character;
+
+    if (hpLevel === 100) {
+      throw new Error('Item cannot be used: HP is full');
+    }
+
+    character.hpLevel =
+      hpLevel + this.effectValue < 100 ? this.effectValue : 100;
+
     this.removeItem(character);
   }
 }

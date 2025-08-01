@@ -1,13 +1,6 @@
 import { Image, Text, View } from 'react-native';
 import { cn } from '@/utils/react-native-reusables';
 
-interface CharacterStats {
-  health: number;
-  magicka: number;
-  stamina: number;
-  carryWeight: number;
-}
-
 interface MoneyInfoProps {
   user: any;
   // characterStats: MoneyStats;

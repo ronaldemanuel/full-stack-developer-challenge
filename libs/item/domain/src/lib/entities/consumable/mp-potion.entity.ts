@@ -9,7 +9,15 @@ export class MpPotionEntity extends ConsumableEntity {
   }
 
   protected override applyEffect(character: UserItemRef): void {
-    character.mpLevel += this.effectValue;
+    const { mpLevel } = character;
+
+    if (mpLevel === 100) {
+      throw new Error('Item cannot be used: MP is full');
+    }
+
+    character.mpLevel =
+      mpLevel + this.effectValue < 100 ? this.effectValue : 100;
+
     this.removeItem(character);
   }
 }

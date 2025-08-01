@@ -8,6 +8,6 @@ export class MiscItemEntity extends ItemEntity {
   }
 
   protected override applyEffect(character: UserItemRef): void {
-    throw new Error('Miscelaneas não podem ser usadas.');
+    throw new Error('Misc items cannot be used');
   }
 }

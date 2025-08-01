@@ -9,7 +9,14 @@ export class SpPotionEntity extends ConsumableEntity {
   }
 
   protected override applyEffect(character: UserItemRef): void {
-    character.spLevel += this.effectValue;
+    const { spLevel } = character;
+
+    if (spLevel === 100) {
+      throw new Error('Item cannot be used: SP is full');
+    }
+    character.spLevel =
+      spLevel + this.effectValue < 100 ? this.effectValue : 100;
+
     this.removeItem(character);
   }
 }

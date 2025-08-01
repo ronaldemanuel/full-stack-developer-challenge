@@ -57,6 +57,13 @@ export default function ItemStatsPanel({
           variant: 'success',
         });
       },
+      onError: (err) => {
+        toast.toast({
+          title: 'Error',
+          description: err.message,
+          variant: 'error',
+        });
+      },
     }),
   );
 
