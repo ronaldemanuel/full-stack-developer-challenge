@@ -15,4 +15,11 @@ export class ItemInMemoryRepository
     const items = this.items.filter((item) => item.character?.id === userId);
     return Promise.resolve(items);
   }
+
+  findIdListByType(type: string): Promise<string[]> {
+    const idList = this.items
+      .filter((item) => item.type === type)
+      .map((item) => item.id);
+    return Promise.resolve(idList);
+  }
 }

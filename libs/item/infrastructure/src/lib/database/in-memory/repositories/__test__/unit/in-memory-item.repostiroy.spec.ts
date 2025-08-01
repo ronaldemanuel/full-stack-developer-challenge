@@ -75,4 +75,20 @@ describe('InMemoryItemRepository', () => {
       ).rejects.toThrowError();
     });
   });
+
+  describe('findIdListByType', () => {
+    it('should return IDs of items matching the given type', async () => {
+      const result = await repository.findIdListByType('weapon');
+      expect(result).toEqual([
+        'daedric-battleaxe',
+        'ebony-sword',
+        'iron-sword',
+      ]);
+    });
+
+    it('should return an empty array if no items match the type', async () => {
+      const result = await repository.findIdListByType('ring');
+      expect(result).toEqual([]);
+    });
+  });
 });

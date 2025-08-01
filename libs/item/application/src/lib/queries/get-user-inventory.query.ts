@@ -4,15 +4,16 @@ import { QueryHandler } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
 import type { InventoryItemEntity } from '@nx-ddd/item-domain';
-import type { User } from '@nx-ddd/user-domain';
 import { InventoryRepository } from '@nx-ddd/item-domain';
-import { userSchema } from '@nx-ddd/user-domain';
+
+import type { GetUserInventoryInput } from '../schemas';
+import { getUserInventoryInputSchema } from '../schemas';
 
 export namespace GetUserInventoryQuery {
-  export type Input = User;
+  export type Input = GetUserInventoryInput;
   export type Output = InventoryItemEntity[];
 
-  class GetUserInventoryQuery extends Validated(userSchema) {}
+  class GetUserInventoryQuery extends Validated(getUserInventoryInputSchema) {}
 
   export function create(input: Input) {
     return new GetUserInventoryQuery(input);
@@ -26,7 +27,10 @@ export namespace GetUserInventoryQuery {
     ) {}
 
     async execute(query: GetUserInventoryQuery): Promise<Output> {
-      return await this.inventoryRepository.findByUserId(query.id);
+      return await this.inventoryRepository.findByUserIdAndTypePaginated(
+        query.userId,
+        query.type,
+      );
     }
   }
 }

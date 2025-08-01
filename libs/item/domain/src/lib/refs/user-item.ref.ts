@@ -197,8 +197,6 @@ export class UserItemRef extends UserEntity {
 
     const item = ItemMapper.toDomain(inventoryItem.item, this);
 
-    console.log('item', item);
-
     item.use();
   }
 

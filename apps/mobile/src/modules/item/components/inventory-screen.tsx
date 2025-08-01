@@ -12,11 +12,14 @@ import { useQuery } from '@tanstack/react-query';
 import { InventoryEmptyPanel } from './inventory-empty-panel';
 
 interface InventoryScreenProps {
-  filter: string;
+  filter: 'weapon' | 'apparel' | 'misc' | 'all' | 'consumable';
 }
 
 export default function InventoryScreen({ filter }: InventoryScreenProps) {
-  const itemQuery = useQuery(trpc.item.getUserItems.queryOptions({}));
+  const itemQuery = useQuery(
+    trpc.item.getUserItems.queryOptions({ type: filter }),
+  );
+
   const { user } = useUser();
 
   const inventoryItems = itemQuery.data;

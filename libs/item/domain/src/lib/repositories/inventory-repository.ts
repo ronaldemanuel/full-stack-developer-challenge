@@ -12,6 +12,10 @@ export namespace InventoryRepository {
     userRepository?: UserRepository.Repository;
 
     findByUserId(userId: string): Promise<InventoryItemEntity[]>;
+    findByUserIdAndTypePaginated(
+      userId: string,
+      type: string,
+    ): Promise<InventoryItemEntity[]>;
     findByUserIdAndItemId(
       userId: string,
       itemId: string,

@@ -5,6 +5,7 @@ import type { inferProcedureBuilderResolverContext } from '@nx-ddd/shared-presen
 import {
   addItemToInventoryInputSchema,
   AddItemToInventoryUseCase,
+  getUserInventoryInputSchema,
   ListAllItemsUseCase,
   ListUserInventoryUseCase,
   useItemInputSchema,
@@ -13,7 +14,6 @@ import {
 import {
   apparelItemSchema,
   consumableItemSchema,
-  inventoryPropsSchema,
   itemSchema,
   UserItemRef,
   weaponItemSchema,
@@ -41,13 +41,14 @@ export class ItemTrpcController {
   }
 
   async getUserItems(
+    @Input()
+    input: ListUserInventoryUseCase.Input,
     @Ctx() ctx: inferProcedureBuilderResolverContext<typeof protectedProcedure>,
   ) {
-    const teste = await this.listUserInventoryUseCase.execute(
-      UserItemRef.cast(ctx.session.user),
-    );
-
-    return teste;
+    return await this.listUserInventoryUseCase.execute({
+      userId: ctx.session.user.id,
+      type: input.type,
+    });
   }
 
   async useItem(
@@ -81,7 +82,7 @@ export const itemsRouter = createNestjsTrpcRouter(
         .input(z.object({}))
         .query(adapter.adaptMethod('getAllItems')),
       getUserItems: publicProcedure
-        .input(z.object({}))
+        .input(getUserInventoryInputSchema.omit({ userId: true }))
         .output(
           z.array(
             z.union([

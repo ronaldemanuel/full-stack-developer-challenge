@@ -11,16 +11,17 @@ import {
   InjectDrizzle,
   InjectDrizzleTransaction,
 } from '@nx-ddd/database-infrastructure';
-import { and, eq, gt } from '@nx-ddd/database-infrastructure/drizzle/operators';
+import {
+  and,
+  eq,
+  gt,
+  inArray,
+} from '@nx-ddd/database-infrastructure/drizzle/operators';
 import {
   userItem,
   user as userTable,
 } from '@nx-ddd/database-infrastructure/drizzle/schema';
-import {
-  InventoryItemMapper,
-  ItemMapper,
-  ItemRepository,
-} from '@nx-ddd/item-domain';
+import { InventoryItemMapper, ItemRepository } from '@nx-ddd/item-domain';
 import { NotFoundError } from '@nx-ddd/shared-domain';
 import { UserRepository } from '@nx-ddd/user-domain';
 import { UserDrizzleModelMapper } from '@nx-ddd/user-infrastructure';
@@ -41,9 +42,56 @@ export class InventoryDrizzleRepository
     @Inject(UserRepository.TOKEN)
     public userRepository?: UserRepository.Repository,
   ) {}
-  update(inventoryItems: InventoryItemEntity[]): Promise<void> {
-    throw new Error('Method not implemented.');
+  async findByUserIdAndTypePaginated(
+    userId: string,
+    type: string,
+  ): Promise<InventoryItemEntity[]> {
+    let idList: string[] = [];
+
+    if (type !== 'all') {
+      idList = await this.itemRepository.findIdListByType(type);
+    }
+
+    const items = await this.db.query.userItem.findMany({
+      where: (fields, { and, inArray }) =>
+        and(
+          eq(fields.userId, userId),
+          gt(fields.amount, 0),
+          ...(type !== 'all' ? [inArray(fields.itemId, idList)] : []),
+        ),
+      with: {
+        user: this.userRepository ? true : undefined,
+      },
+    });
+
+    const entities = await Promise.all(
+      items.map(async (item) => {
+        const itemData = await this.itemRepository.findById(item.itemId);
+        if (!itemData) throw new NotFoundError('Item no found');
+
+        const inventoryItemRelations: InventoryItemEntityRelations = {
+          item: itemData,
+        };
+
+        const user = UserDrizzleModelMapper.toEntity(item.user);
+        const userItemRef = UserItemRefDrizzleModelMapper.toEntity(user);
+
+        if (this.userRepository) {
+          inventoryItemRelations.character = userItemRef;
+        }
+
+        return InventoryItemMapper.toDomain(
+          {
+            amount: item.amount,
+          },
+          inventoryItemRelations,
+        );
+      }),
+    );
+
+    return entities;
   }
+
   async syncByUser(user: UserItemRef): Promise<void> {
     const itemsToDelete = user.$watchedRelations.inventory.getRemovedItems();
     const itemsToCreate = user.$watchedRelations.inventory.getNewItems();
@@ -164,14 +212,12 @@ export class InventoryDrizzleRepository
         const itemData = await this.itemRepository.findById(item.itemId);
         if (!itemData) throw new NotFoundError('Item no found');
 
+        const inventoryItemRelations: InventoryItemEntityRelations = {
+          item: itemData,
+        };
+
         const user = UserDrizzleModelMapper.toEntity(item.user);
         const userItemRef = UserItemRefDrizzleModelMapper.toEntity(user);
-
-        const itemEntity = ItemMapper.toDomain(itemData, userItemRef);
-
-        const inventoryItemRelations: InventoryItemEntityRelations = {
-          item: itemEntity,
-        };
 
         if (this.userRepository) {
           inventoryItemRelations.character = userItemRef;
@@ -187,5 +233,9 @@ export class InventoryDrizzleRepository
     );
 
     return entities;
+  }
+
+  update(inventoryItems: InventoryItemEntity[]): Promise<void> {
+    throw new Error('Method not implemented.');
   }
 }
