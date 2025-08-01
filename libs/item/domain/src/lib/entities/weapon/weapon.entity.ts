@@ -12,4 +12,12 @@ export abstract class WeaponEntity<
   get weaponType(): 'one-hand' | 'two-hands' {
     return this.props.weaponType;
   }
+
+  get onRightHand() {
+    return this.character?.rightHand === this.id;
+  }
+
+  get onLeftHand() {
+    return this.character?.leftHand === this.id;
+  }
 }

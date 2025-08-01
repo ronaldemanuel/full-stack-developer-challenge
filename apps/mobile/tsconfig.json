@@ -23,6 +23,9 @@
       "path": "../../tools/tailwind"
     },
     {
+      "path": "../../libs/shared/domain"
+    },
+    {
       "path": "../../libs/api/infrastructure"
     }
   ],
