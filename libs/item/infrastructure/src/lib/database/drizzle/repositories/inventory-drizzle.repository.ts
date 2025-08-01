@@ -49,7 +49,7 @@ export class InventoryDrizzleRepository
     let idList: string[] = [];
 
     if (type !== 'all') {
-      idList = await this.itemRepository.findIdListByType(type);
+      idList = (await this.itemRepository.findByType(type)).map((item) => item.id);;
     }
 
     const items = await this.db.query.userItem.findMany({

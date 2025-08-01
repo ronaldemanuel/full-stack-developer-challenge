@@ -4,7 +4,7 @@ import { Text } from '@/components/ui/text';
 import clsx from 'clsx';
 
 export interface ItemListProps {
-  inventory: any[] | undefined;
+  inventory?: any[];
   selectedItem: any;
   setSelectedItem: (item: any) => void;
 }
@@ -33,7 +33,6 @@ export default function ItemList({
             overflow: 'scroll',
           }}
           renderItem={({ item: inventoryItem }) => {
-            console.log('inventoryItem.item', inventoryItem.item);
             return (
               <Button
                 onPress={() => setSelectedItem(inventoryItem)}

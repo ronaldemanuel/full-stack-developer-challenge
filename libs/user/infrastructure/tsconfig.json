@@ -4,13 +4,13 @@
   "include": [],
   "references": [
     {
+      "path": "../../shared/domain"
+    },
+    {
       "path": "../domain"
     },
     {
       "path": "../../database/infrastructure"
-    },
-    {
-      "path": "../../shared/domain"
     },
     {
       "path": "./tsconfig.lib.json"

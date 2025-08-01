@@ -9,11 +9,13 @@ import { trpc } from '@/utils/api';
 import { useQuery } from '@tanstack/react-query';
 
 interface StoreScreenProps {
-  filter: string;
+  filter: 'weapon' | 'apparel' | 'misc' | 'all' | 'consumable';
 }
 
 export default function StoreScreen({ filter }: StoreScreenProps) {
-  const itemQuery = useQuery(trpc.item.getAllItems.queryOptions({}));
+  const itemQuery = useQuery(
+    trpc.item.getAllItems.queryOptions({ type: filter }),
+  );
   const { user } = useUser();
 
   const items = itemQuery.data;

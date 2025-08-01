@@ -47,7 +47,7 @@ export default function InventoryScreen({ filter }: InventoryScreenProps) {
 
   useEffect(() => {
     if (filteredItems.length > 0) {
-      setSelectedItem(filteredItems[0]);
+      setSelectedItem({ amount: 0, item: filteredItems[0].item });
     }
   }, [filteredItems]);
 

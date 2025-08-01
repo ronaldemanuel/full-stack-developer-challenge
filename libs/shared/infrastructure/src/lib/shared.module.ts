@@ -1,4 +1,4 @@
-import type { DynamicModule } from '@nestjs/common';
+import type { DynamicModule, Type } from '@nestjs/common';
 import KeyvRedis, { createCluster } from '@keyv/redis';
 import { CacheModule } from '@nestjs/cache-manager';
 import { Global, Module } from '@nestjs/common';
@@ -65,13 +65,17 @@ const providers = [
 @Global()
 @Module({})
 export class SharedModule {
-  static forRoot(): DynamicModule {
+  static forRoot(itemModule: Type): DynamicModule {
+    const authModule = AuthModule.forBetterAuth();
     return {
       module: SharedModule,
       global: true,
       imports: [
         ...imports,
-        AuthModule.forBetterAuth(),
+        {
+          ...authModule,
+          imports: [itemModule, ...(authModule.imports as any)],
+        },
         DatabaseModule.forDrizzle(),
       ],
       providers,

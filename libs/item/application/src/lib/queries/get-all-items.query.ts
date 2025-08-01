@@ -6,10 +6,11 @@ import { Validated } from 'validated-extendable';
 import type { ItemEntity } from '@nx-ddd/item-domain';
 import { ItemRepository } from '@nx-ddd/item-domain';
 
+import type { GetAllItemsInput } from '../schemas/queries';
 import { getAllItemsInputSchema } from '../schemas/queries';
 
 export namespace GetAllItemsQuery {
-  export type Input = object;
+  export type Input = GetAllItemsInput;
   export type Output = ItemEntity[];
 
   class GetAllItemsQuery extends Validated(getAllItemsInputSchema) {}
@@ -26,7 +27,10 @@ export namespace GetAllItemsQuery {
     ) {}
 
     async execute(query: GetAllItemsQuery): Promise<Output> {
-      return await this.itemRepository.findAll();
+      if (query.type === 'all') {
+        return await this.itemRepository.findAll();
+      }
+      return await this.itemRepository.findByType(query.type);
     }
   }
 }

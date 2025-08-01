@@ -7,7 +7,9 @@ export const getUserInventoryInputSchema = z.object({
   type: z.enum(['weapon', 'apparel', 'misc', 'all', 'consumable']),
 });
 
-export const getAllItemsInputSchema = z.object({});
+export const getAllItemsInputSchema = z.object({
+  type: z.enum(['weapon', 'apparel', 'misc', 'all', 'consumable']),
+});
 
 export const getUserInventoryOutputSchema = itemPropsSchema.extend({
   amount: z.number().default(0),

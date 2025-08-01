@@ -4,10 +4,10 @@
   "include": [],
   "references": [
     {
-      "path": "../presentation"
+      "path": "../domain"
     },
     {
-      "path": "../domain"
+      "path": "../presentation"
     },
     {
       "path": "../application"

@@ -13,10 +13,8 @@ export class InMemoryItemRepository
     super();
     this.items = Object.values(ITEMS).map((el) => ItemMapper.toDomain(el));
   }
-  findIdListByType(type: string): Promise<string[]> {
-    const idList = this.items
-      .filter((item) => item.type === type)
-      .map((item) => item.id);
+  findByType(type: string): Promise<ItemEntity[]> {
+    const idList = this.items.filter((item) => item.type === type);
     return Promise.resolve(idList);
   }
 }
