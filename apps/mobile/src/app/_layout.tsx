@@ -6,7 +6,6 @@ import { DarkTheme, ThemeProvider } from '@react-navigation/native';
 import '../styles.css';
 
 import { useEffect } from 'react';
-import { StatusBar } from 'react-native';
 import { ToastProvider } from '@/components/ui/toast';
 import { useUser } from '@/modules/auth/hooks/use-user';
 import { NAV_THEME } from '@/utils/constants';

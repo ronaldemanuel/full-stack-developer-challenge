@@ -26,7 +26,7 @@ export default function Layout() {
           }}
         />
         <Drawer.Screen
-          name="weapons" // This is the name of the page and must match the url from root
+          name="weapon" // This is the name of the page and must match the url from root
           options={{
             drawerLabel: 'WEAPONS',
             title: 'INVENTORY',

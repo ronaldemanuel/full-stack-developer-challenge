@@ -19,7 +19,7 @@ export default function ItemList({
       <View
         className="w-full"
         style={{
-          height: 240,
+          height: 260,
           overflow: 'hidden',
         }}
       >
@@ -48,9 +48,23 @@ export default function ItemList({
                   className="h-6 w-6 rounded border border-white/10"
                   resizeMode="contain"
                 />
-                <Text className="text-sm font-light">{item.name}</Text>
+                <Text className="ml-3 text-sm font-light">{item.name}</Text>
+                <View className="ml-2 flex items-center gap-2">
+                  {item.equipped && (
+                    <Text className="rounded bg-white/20 px-1 py-0.5 text-xs">
+                      E
+                    </Text>
+                  )}
+                  {/* {item.quantity && (
+                    <Text className="text-xs text-gray-400">
+                      ({item.quantity})
+                    </Text>
+                  )} */}
+                </View>
               </View>
-              <Text className="text-right text-xs text-white">100</Text>
+              <Text className="text-right text-xs text-white">
+                {item.ammount}
+              </Text>
             </Button>
           )}
         />

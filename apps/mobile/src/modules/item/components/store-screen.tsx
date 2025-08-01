@@ -1,24 +1,10 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
+import { useUser } from '@/modules/auth/hooks/use-user';
+import { MoneyInfo } from '@/modules/character/money-info';
 import ItemList from '@/modules/item/components/item-list';
 import ItemStatsPanel from '@/modules/item/components/item-stats-panel';
 import { SelectedItemCategory } from '@/modules/item/components/selected-item-category';
-
-//  <View className="relative z-20 flex-row items-center justify-between border-b border-white/20 bg-black/90 p-4 md:hidden">
-//         <View style={{ width: 50 }} /> {/* Empty space */}
-//         <View className="items-center">
-//           <Text className="text-lg font-light tracking-widest text-white">
-//             GENERAL GOODS
-//           </Text>
-//           <Text className="text-xs text-gray-400">Belethor's Shop</Text>
-//         </View>
-//         <TouchableOpacity
-//           onPress={() => setShowSidebar(!showSidebar)}
-//           className="border border-white/30 bg-black/60 px-4 py-2"
-//         >
-//           <Text className="text-sm text-white">MENU</Text>
-//         </TouchableOpacity>
-//       </View>
 
 // Mock
 const storeItems = Object.values({
@@ -30,6 +16,8 @@ const storeItems = Object.values({
     defenseValue: 17,
     type: 'apparel',
     apparelType: 'helmet',
+    price: 750,
+    weight: 4,
   },
   'dragonscale-gautlets': {
     id: 'dragonscale-gautlets' as const,
@@ -39,6 +27,8 @@ const storeItems = Object.values({
     defenseValue: 12,
     type: 'apparel',
     apparelType: 'gloves',
+    price: 300,
+    weight: 3,
   },
   'dragonscale-armor': {
     id: 'dragonscale-armor' as const,
@@ -48,6 +38,8 @@ const storeItems = Object.values({
     defenseValue: 41,
     type: 'apparel',
     apparelType: 'chest',
+    price: 1500,
+    weight: 300,
   },
   'dragonscale-boots': {
     id: 'dragonscale-boots' as const,
@@ -57,6 +49,8 @@ const storeItems = Object.values({
     defenseValue: 12,
     type: 'apparel',
     apparelType: 'boots',
+    price: 300,
+    weight: 3,
   },
   'leather-helmet': {
     id: 'leather-helmet',
@@ -66,6 +60,8 @@ const storeItems = Object.values({
     defenseValue: 12,
     type: 'apparel',
     apparelType: 'helmet',
+    price: 60,
+    weight: 2,
   },
   'leather-bracers': {
     id: 'leather-bracers',
@@ -75,6 +71,8 @@ const storeItems = Object.values({
     defenseValue: 7,
     type: 'apparel',
     apparelType: 'gloves',
+    price: 25,
+    weight: 2,
   },
   'leather-armor': {
     id: 'leather-armor',
@@ -84,6 +82,8 @@ const storeItems = Object.values({
     defenseValue: 26,
     type: 'apparel',
     apparelType: 'chest',
+    price: 125,
+    weight: 3,
   },
   'leather-boots': {
     id: 'leather-boots',
@@ -93,6 +93,8 @@ const storeItems = Object.values({
     defenseValue: 7,
     type: 'apparel',
     apparelType: 'boots',
+    price: 25,
+    weight: 2,
   },
   'daedric-battleaxe': {
     id: 'daedric-battleaxe',
@@ -102,6 +104,8 @@ const storeItems = Object.values({
     damageValue: 25,
     type: 'weapon',
     weaponType: 'two-hands',
+    price: 2750,
+    weight: 27,
   },
   'ebony-sword': {
     id: 'ebony-sword',
@@ -111,6 +115,8 @@ const storeItems = Object.values({
     damageValue: 13,
     type: 'weapon',
     weaponType: 'one-hand',
+    price: 720,
+    weight: 15,
   },
   'iron-sword': {
     id: 'iron-sword',
@@ -120,6 +126,8 @@ const storeItems = Object.values({
     damageValue: 13,
     type: 'weapon',
     weaponType: 'one-hand',
+    price: 25,
+    weight: 9,
   },
   'potion-of-health': {
     id: 'potion-of-health',
@@ -129,6 +137,8 @@ const storeItems = Object.values({
     effectValue: 67,
     type: 'consumable',
     consumableType: 'hp-potion',
+    price: 67,
+    weight: 0,
   },
   'potion-of-enhanced-stamina': {
     id: 'potion-of-enhanced-stamina',
@@ -138,6 +148,8 @@ const storeItems = Object.values({
     effectValue: 341,
     type: 'consumable',
     consumableType: 'sp-potion',
+    price: 44,
+    weight: 0,
   },
   'potion-of-extra-magicka': {
     id: 'potion-of-extra-magicka',
@@ -147,6 +159,8 @@ const storeItems = Object.values({
     effectValue: 58,
     type: 'consumable',
     consumableType: 'mp-potion',
+    price: 58,
+    weight: 0,
   },
 });
 
@@ -156,6 +170,8 @@ interface StoreScreenProps {
 
 export default function StoreScreen({ filter }: StoreScreenProps) {
   const [selectedItem, setSelectedItem] = useState(storeItems[0]);
+
+  const { user } = useUser();
 
   const filteredItems =
     filter === 'all'
@@ -187,6 +203,7 @@ export default function StoreScreen({ filter }: StoreScreenProps) {
             setSelectedItem={setSelectedItem}
           />
         </View>
+        <MoneyInfo user={user} />
       </View>
     </View>
   );
