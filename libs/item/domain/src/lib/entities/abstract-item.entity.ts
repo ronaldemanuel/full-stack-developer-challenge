@@ -28,14 +28,16 @@ export abstract class ItemEntity<
   protected abstract getIdentifier(): ItemIdentifier;
 
   constructor(dataProps: T, relations: () => ItemRelations, id?: string) {
-    super(dataProps, id);
-
     const { id: identifier, ...props } = ITEMS[id!];
-    Object.assign(this.props, {
+
+    const combinedProps = {
       ...props,
       ...dataProps,
       id: id ?? identifier,
-    });
+    } as T;
+
+    super(combinedProps, id);
+
     this.$relations = relations;
   }
 
@@ -63,12 +65,16 @@ export abstract class ItemEntity<
     return this.$relations().character;
   }
 
+  set character(character: UserItemRef) {
+    this.$relations().character = character;
+  }
+
   get amount() {
     return this.$relations().inventory?.amount ?? 0;
   }
 
   use(): void {
-    this.applyEffect(this.character);
+    this.applyEffect(this.$relations().character);
   }
 
   protected abstract applyEffect(character: UserItemRef): void;

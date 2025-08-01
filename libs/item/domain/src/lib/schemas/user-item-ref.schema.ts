@@ -9,7 +9,6 @@ export const userItemRefSchema = userPropsSchema.extend({
   equippedGloves: z.string().nullish(),
   leftHand: z.string().nullish(),
   rightHand: z.string().nullish(),
-  // coins: z.number().default(0),
 });
 
 export const userItemRefPropsSchema = userItemRefSchema;

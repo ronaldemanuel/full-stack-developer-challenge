@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../item/domain"
+    },
+    {
       "path": "../../user/domain"
     },
     {

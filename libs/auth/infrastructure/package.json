@@ -48,6 +48,7 @@
     "@nx-ddd/auth-application": "workspace:*",
     "@nx-ddd/auth-domain": "workspace:*",
     "@nx-ddd/database-infrastructure": "workspace:*",
+    "@nx-ddd/item-domain": "workspace:*",
     "@t3-oss/env-nextjs": "catalog:zod3",
     "@better-auth/expo": "catalog:expo",
     "zod": "catalog:zod3",

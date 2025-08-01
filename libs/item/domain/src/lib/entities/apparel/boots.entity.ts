@@ -12,7 +12,7 @@ export class BootsEntity extends ApparelEntity {
   }
 
   protected override applyEffect(character: UserItemRef): void {
-    if (character.equippedBoots === this) {
+    if (character?.equippedBoots === this) {
       character.equippedBoots = null;
       return;
     }

@@ -14,8 +14,6 @@ export default function ItemList({
   selectedItem,
   setSelectedItem,
 }: ItemListProps) {
-  console.log('INVENTORY', inventory);
-
   return (
     <View className="w-full border-t border-white/20 bg-black/60 backdrop-blur-sm lg:w-80 lg:border-l lg:border-t-0">
       <View
@@ -59,11 +57,6 @@ export default function ItemList({
                       E
                     </Text>
                   )}
-                  {/* {item.quantity && (
-                    <Text className="text-xs text-gray-400">
-                      ({item.quantity})
-                    </Text>
-                  )} */}
                 </View>
               </View>
               <Text className="text-right text-xs text-white">

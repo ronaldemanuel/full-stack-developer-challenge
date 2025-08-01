@@ -10,7 +10,9 @@ import { ClsModule } from 'nestjs-cls';
 import type { ItemSchema } from '@nx-ddd/item-domain';
 import { DATABASE_CONNECTION_NAME } from '@nx-ddd/database-application';
 import {
+  InventoryInMemoryRepository,
   InventoryItemMapper,
+  InventoryRepository,
   ItemInMemoryRepository,
   ItemMapper,
   ItemRepository,
@@ -43,6 +45,7 @@ describe('UseItemCommand', () => {
   let useItemCommand: UseItemCommand.Handler;
   let itemRepository: ItemRepository.Repository;
   let userRepository: UserRepository.Repository;
+  let inventoryRepository: InventoryRepository.Repository;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -70,6 +73,10 @@ describe('UseItemCommand', () => {
           provide: UserRepository.TOKEN,
           useClass: UserInMemoryRepository,
         },
+        {
+          provide: InventoryRepository.TOKEN,
+          useClass: InventoryInMemoryRepository,
+        },
       ],
     }).compile();
 
@@ -81,6 +88,9 @@ describe('UseItemCommand', () => {
     );
     userRepository = moduleRef.get<UserRepository.Repository>(
       UserRepository.TOKEN,
+    );
+    inventoryRepository = moduleRef.get<InventoryRepository.Repository>(
+      InventoryRepository.TOKEN,
     );
   });
 
@@ -98,6 +108,8 @@ describe('UseItemCommand', () => {
       type: 'apparel',
       image:
         'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
+      price: 300,
+      weight: 10,
     } as ItemSchema;
     const mockItem = ItemMapper.toDomain(baseItem, mockUser);
     const mockInventoryItem = InventoryItemMapper.toDomain(
@@ -109,15 +121,17 @@ describe('UseItemCommand', () => {
     // Create spies on the user methods
     const useItemSpy = vi.spyOn(mockUser, 'useItem');
 
-    vi.spyOn(mockItem, 'commit');
+    vi.spyOn(mockUser, 'commit');
 
     vi.spyOn(userRepository, 'findById').mockResolvedValue(mockUser);
 
-    vi.spyOn(itemRepository, 'findById').mockImplementation(async () => {
-      return mockItem as any;
-    });
+    vi.spyOn(inventoryRepository, 'findByUserId').mockImplementation(
+      async () => {
+        return [mockItem] as any;
+      },
+    );
 
-    vi.spyOn(itemRepository, 'update').mockResolvedValue(undefined);
+    vi.spyOn(inventoryRepository, 'syncByUser').mockResolvedValue(undefined);
 
     const command = UseItemCommand.create(
       {
@@ -131,9 +145,9 @@ describe('UseItemCommand', () => {
 
     // Assert
     expect(userRepository.findById).toHaveBeenCalledWith(mockUser.id);
-    expect(itemRepository.findById).toHaveBeenCalledWith(mockItem.id);
+    expect(inventoryRepository.findByUserId).toHaveBeenCalledWith(mockUser.id);
     expect(useItemSpy).toHaveBeenCalledWith(mockItem.id);
-    expect(itemRepository.update).toHaveBeenCalledWith(mockItem);
-    expect(mockItem.commit).toHaveBeenCalled();
+    expect(inventoryRepository.syncByUser).toHaveBeenCalledWith(mockUser);
+    expect(mockUser.commit).toHaveBeenCalled();
   });
 });

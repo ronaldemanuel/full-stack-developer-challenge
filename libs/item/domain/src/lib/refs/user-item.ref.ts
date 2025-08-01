@@ -2,6 +2,7 @@ import {
   NotFoundError,
   RelationshipNotLoadedError,
   WatchedList,
+  ZodEntity,
 } from '@nx-ddd/shared-domain';
 import { UserEntity } from '@nx-ddd/user-domain';
 
@@ -14,6 +15,7 @@ import type { InventoryItemEntity } from '../entities/inventory-item.entity';
 import type { WeaponEntity } from '../entities/weapon/weapon.entity';
 import type { UserItemRefProps } from '../schemas/user-item-ref.schema';
 import { ItemAddedToInventoryEvent } from '../events/item-added-to-inventory.event';
+import { ItemMapper } from '../mappers';
 import { InventoryItemMapper } from '../mappers/inventory-mapper';
 
 export interface UserItemRefRelations {
@@ -110,13 +112,15 @@ export class UserItemRef extends UserEntity {
   }
 
   get coins() {
-    return this.$watchedRelations.inventory
+    const coins = this.$watchedRelations.inventory
       .getItems()
       .filter((i) => i.itemId === 'coin')
       .reduce((acc, curr) => {
         acc += curr.amount;
         return acc;
       }, 0);
+
+    return coins;
   }
 
   get weight() {
@@ -136,6 +140,8 @@ export class UserItemRef extends UserEntity {
     if (item.price > this.coins) {
       throw new Error('No enough coins');
     }
+
+    console.log(this.coins);
 
     this.removeItemFromInventory('coin', item.price);
 
@@ -187,11 +193,13 @@ export class UserItemRef extends UserEntity {
       throw new Error('Item not enough in inventory');
     }
 
-    if (inventoryItem.item.type === 'consumable') {
-      inventoryItem.amount -= 1;
-    }
+    const item = ItemMapper.toDomain(inventoryItem.item, this);
 
-    inventoryItem.item.use();
+    item.use();
+
+    if (inventoryItem.item.type === 'consumable') {
+      this.removeItemFromInventory(itemId);
+    }
   }
 
   static override cast(
@@ -225,5 +233,9 @@ export class UserItemRef extends UserEntity {
     }
 
     return casted;
+  }
+
+  override toJSON() {
+    return { ...super.toJSON(), coins: this.coins };
   }
 }

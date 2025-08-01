@@ -9,8 +9,6 @@ interface CharacterInfoProps {
 export function CharacterInfo({ user }: CharacterInfoProps) {
   const name = user?.name?.toUpperCase() ?? 'DRAGONBORN';
 
-  console.log(user);
-
   return (
     <View className="absolute bottom-0 left-0 right-0 z-20 bg-black/95 p-3 backdrop-blur-sm md:hidden">
       <View className="mb-2 flex-row items-center justify-between">

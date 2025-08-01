@@ -28,7 +28,7 @@ export function MoneyInfo({ user }: MoneyInfoProps) {
             style={{ width: 16, height: 16 }}
             resizeMode="contain"
           />
-          <Text className="text-white">{user.coins || 1234}</Text>
+          <Text className="text-white">{user.coins}</Text>
         </View>
         <Text className="text-xs text-gray-400">
           Weight: <Text className="text-white">40 / 135</Text>

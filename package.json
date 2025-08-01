@@ -145,6 +145,7 @@
     "@nestjs/cqrs": "catalog:nestjs",
     "@nestjs/microservices": "catalog:nestjs",
     "@nestjs/platform-express": "^11.0.0",
+    "@poppinss/utils": "^6.10.0",
     "@radix-ui/react-icons": "catalog:",
     "@react-email/components": "catalog:",
     "@t3-oss/env-nextjs": "catalog:zod3",

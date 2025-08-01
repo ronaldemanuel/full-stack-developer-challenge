@@ -5,6 +5,7 @@ import { betterAuth } from 'better-auth';
 import { nextCookies } from 'better-auth/next-js';
 import {
   admin,
+  customSession,
   magicLink,
   multiSession,
   oAuthProxy,
@@ -20,7 +21,10 @@ import {
   SendResetPasswordUseCase,
   SendVerificationEmailUseCase,
 } from '@nx-ddd/auth-application';
+import { UserSession } from '@nx-ddd/auth-domain';
+import { InventoryRepository } from '@nx-ddd/item-domain';
 
+import { UserSessionMapper } from '../mappers/user-session.mapper';
 import { BETTER_AUTH_DATABASE_ADAPTER_TOKEN } from './better-auth-database-adapter.factory';
 
 export const BETTER_AUTH_TOKEN = 'BETTER_AUTH';
@@ -45,6 +49,7 @@ export function initAuth(
   sendMagicLinkEmailUseCase: SendMagicLinkUseCase.UseCase,
   sendInvitationEmailUseCase: SendInvitationEmailUseCase.UseCase,
   sendOTPEmailUseCase: SendOTPEmailUseCase.UseCase,
+  inventoryRepository: InventoryRepository.Repository,
 ): ReturnType<typeof betterAuth> {
   return betterAuth({
     baseURL: config.baseUrl,
@@ -96,6 +101,7 @@ export function initAuth(
         });
       },
       requireEmailVerification: true,
+      autoSignIn: true,
     },
     socialProviders: {
       google: {
@@ -156,6 +162,13 @@ export function initAuth(
         adminUserIds: ['EXD5zjob2SD6CBWcEQ6OpLRHcyoUbnaB'],
       }),
       nextCookies(),
+      customSession(async ({ user, session }) => {
+        const coinInventoryItem =
+          await inventoryRepository.findByUserIdAndItemId(user.id, 'coin');
+        const userSession = UserSessionMapper.toEntity(user, coinInventoryItem);
+
+        return { session, user: userSession.toJSON() };
+      }),
     ],
     advanced: {
       crossSubDomainCookies: {
@@ -201,6 +214,7 @@ export const BetterAuthFactory: FactoryProvider = {
     sendMagicLinkEmailUseCase: SendMagicLinkUseCase.UseCase,
     sendInvitationEmailUseCase: SendInvitationEmailUseCase.UseCase,
     sendOTPEmailUseCase: SendOTPEmailUseCase.UseCase,
+    inventoryRepository: InventoryRepository.Repository,
   ) => {
     return initAuth(
       config,
@@ -210,6 +224,7 @@ export const BetterAuthFactory: FactoryProvider = {
       sendMagicLinkEmailUseCase,
       sendInvitationEmailUseCase,
       sendOTPEmailUseCase,
+      inventoryRepository,
     );
   },
   inject: [
@@ -220,5 +235,6 @@ export const BetterAuthFactory: FactoryProvider = {
     SendMagicLinkUseCase.UseCase,
     SendInvitationEmailUseCase.UseCase,
     SendOTPEmailUseCase.UseCase,
+    InventoryRepository.TOKEN,
   ],
 };

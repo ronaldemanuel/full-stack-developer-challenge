@@ -59,9 +59,9 @@ export namespace UseItemCommand {
 
       user.useItem(command.itemId);
 
-      await this.itemRepository.update(item);
+      await this.inventoryRepository.syncByUser(user);
 
-      item.commit();
+      user.commit();
     }
   }
 }

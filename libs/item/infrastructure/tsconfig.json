@@ -22,9 +22,6 @@
       "path": "../../database/infrastructure"
     },
     {
-      "path": "../../shared/domain"
-    },
-    {
       "path": "../../shared/infrastructure"
     },
     {

@@ -10,7 +10,7 @@ import { AppService } from './services/app.service';
 
 @Module({
   imports: [
-    SharedModule.forRoot(),
+    SharedModule.forRoot(ItemModule),
     EmailModule,
     UserModule,
     PostModule,

@@ -34,6 +34,8 @@
   },
   "dependencies": {
     "@nx-ddd/user-domain": "workspace:*",
+    "@nx-ddd/item-domain": "workspace:*",
+    "@nx-ddd/shared-domain": "workspace:*",
     "zod": "catalog:zod3",
     "@swc/helpers": "~0.5.11"
   }

@@ -2,6 +2,7 @@ import { Image, View } from 'react-native';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { useToast } from '@/components/ui/toast';
+import { useUser } from '@/modules/auth/hooks/use-user';
 import { trpc } from '@/utils/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -16,14 +17,40 @@ export default function ItemStatsPanel({
 }: ItemStatsPanelProps) {
   const queryClient = useQueryClient();
 
+  const { refetch } = useUser();
+
   const toast = useToast();
 
-  const { mutate, error } = useMutation(
+  const { mutate: addItemMutate } = useMutation(
     trpc.item.addItemToInventory.mutationOptions({
       onSuccess: async () => {
         await queryClient.invalidateQueries(
           trpc.item.getUserItems.queryFilter(),
         );
+        refetch();
+        toast.toast({
+          title: 'Success',
+          description: 'Item added',
+          variant: 'success',
+        });
+      },
+      onError: () => {
+        toast.toast({
+          title: 'Error',
+          description: 'Not enough coins',
+          variant: 'error',
+        });
+      },
+    }),
+  );
+
+  const { mutate: useItemMutate } = useMutation(
+    trpc.item.useItem.mutationOptions({
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(
+          trpc.item.getUserItems.queryFilter(),
+        );
+        refetch();
         toast.toast({
           title: 'Success',
           description: 'Item added',
@@ -110,7 +137,7 @@ export default function ItemStatsPanel({
             {panelType === 'inventory' && (
               <Button
                 onPress={() => {
-                  console.log('Usar Item');
+                  useItemMutate({ itemId: inventoryItem.item.id });
                 }}
                 className="rounded bg-white/20 px-4 py-2"
               >
@@ -127,8 +154,7 @@ export default function ItemStatsPanel({
             {panelType === 'store' && (
               <Button
                 onPress={() => {
-                  console.log('Comprar Item');
-                  mutate({ itemId: inventoryItem.item.id });
+                  addItemMutate({ itemId: inventoryItem.item.id });
                 }}
                 className="rounded bg-white/20 px-4 py-2"
               >
