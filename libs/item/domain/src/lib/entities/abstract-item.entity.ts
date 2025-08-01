@@ -2,6 +2,7 @@ import { Entity, RelationshipNotLoadedError } from '@nx-ddd/shared-domain';
 
 import type { UserItemRef } from '../refs/user-item.ref';
 import type { ItemProps } from '../schemas/item.schema';
+import type { InventoryItemEntity } from './inventory-item.entity';
 import { ITEMS } from '../constants/items';
 
 export type ItemIdentifier =
@@ -18,6 +19,7 @@ export type ItemIdentifier =
 
 export interface ItemRelations {
   character?: UserItemRef;
+  inventory?: InventoryItemEntity;
 }
 export abstract class ItemEntity<
   T extends ItemProps = ItemProps,
@@ -70,6 +72,16 @@ export abstract class ItemEntity<
 
   set character(character: UserItemRef) {
     this._character = character;
+  }
+
+  get inventory() {
+    if (!this._character) {
+      throw new RelationshipNotLoadedError(
+        'Character not loaded for this item',
+      );
+    }
+
+    return this._character;
   }
 
   use(): void {

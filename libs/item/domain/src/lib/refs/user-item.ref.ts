@@ -109,12 +109,16 @@ export class UserItemRef extends UserEntity {
     return left?.damageValue ?? right?.damageValue ?? 0;
   }
 
-  private getInventoryItem(itemId: string) {
-    return this.inventory.find((inventory) => inventory.itemId === itemId);
+  public getInventoryItem(itemId: string) {
+    return this.$watchedRelations.inventory
+      .getItems()
+      .find((item) => item.itemId === itemId);
   }
 
   public addItemToInventory(item: ItemEntity): void {
     const existingItem = this.getInventoryItem(item.id);
+
+    console.log(existingItem);
 
     if (existingItem) {
       existingItem.amount += 1;
@@ -132,21 +136,15 @@ export class UserItemRef extends UserEntity {
 
     item.character = this;
 
-    console.log(item.character);
-
     inventory.apply(new ItemAddedToInventoryEvent(item.toJSON()));
 
     this._inventory.add(inventory);
   }
 
   public removeItemFromInventory(itemId: string) {
-    const itemIndex = this.inventory.findIndex(
-      (item) => item.itemId === itemId,
-    );
-    if (itemIndex === -1) {
-      throw new NotFoundError('Item not found in user inventoryItem');
-    }
-    this.inventory.splice(itemIndex, 1);
+    const inventoryItem = this.getInventoryItem(itemId);
+
+    if (inventoryItem) this._inventory.remove(inventoryItem);
   }
 
   public useItem(itemId: string) {

@@ -5,13 +5,13 @@ import { InventoryItemEntity } from '../entities/inventory-item.entity';
 export class InventoryItemMapper {
   static toDomain(
     { amount }: UserItemProps,
-    relations: InventoryItemEntityRelations,
+    relations?: InventoryItemEntityRelations,
   ) {
     const inventoryItem = new InventoryItemEntity(
       { amount: amount ?? 0 },
       {
-        item: relations.item,
-        character: relations.character,
+        item: relations?.item,
+        character: relations?.character,
       },
     );
 

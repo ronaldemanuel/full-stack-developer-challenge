@@ -12,6 +12,5 @@ export class InMemoryItemRepository
   constructor() {
     super();
     this.items = Object.values(ITEMS).map((el) => ItemMapper.toDomain(el));
-    console.log(Object.values(ITEMS).map((el) => ItemMapper.toDomain(el)));
   }
 }

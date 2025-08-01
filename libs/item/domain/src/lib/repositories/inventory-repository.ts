@@ -3,6 +3,8 @@ import type { InventoryItemEntity } from 'src/lib/entities/inventory-item.entity
 import type { UserRepository } from '@nx-ddd/user-domain';
 import { getRepositoryToken } from '@nx-ddd/shared-domain';
 
+import type { UserItemRef } from '../refs';
+
 export namespace InventoryRepository {
   export const TOKEN = getRepositoryToken('Inventory');
 
@@ -15,10 +17,9 @@ export namespace InventoryRepository {
       itemId: string,
     ): Promise<InventoryItemEntity>;
 
-    update(
-      userId: string,
-      inventoryItems: InventoryItemEntity[],
-    ): Promise<void>;
+    update(inventoryItems: InventoryItemEntity[]): Promise<void>;
+
+    syncByUserId(user: UserItemRef): Promise<void>;
 
     findOrCreateByUserId(userId: string): Promise<InventoryItemEntity>;
   }

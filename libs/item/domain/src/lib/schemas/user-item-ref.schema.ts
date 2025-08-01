@@ -3,12 +3,12 @@ import z from 'zod';
 import { userPropsSchema } from '@nx-ddd/user-domain';
 
 export const userItemRefSchema = userPropsSchema.extend({
-  equippedHelmet: z.nullable(z.any()),
-  equippedChest: z.nullable(z.any()),
-  equippedBoots: z.nullable(z.any()),
-  equippedGloves: z.nullable(z.any()),
-  leftHand: z.nullable(z.any()),
-  rightHand: z.nullable(z.any()),
+  equippedHelmet: z.string().nullish(),
+  equippedBoots: z.string().nullish(),
+  equippedChest: z.string().nullish(),
+  equippedGloves: z.string().nullish(),
+  leftHand: z.string().nullish(),
+  rightHand: z.string().nullish(),
 });
 
 export const userItemRefPropsSchema = userItemRefSchema;
