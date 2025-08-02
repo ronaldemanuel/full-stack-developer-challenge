@@ -44,6 +44,8 @@
     }
   },
   "dependencies": {
+    "@nestjs/platform-fastify": "^11.1.5",
+    "@nx-ddd/jobs-events-presentation": "workspace:*",
     "inngest": "3.40.1",
     "nest-inngest": "1.3.2"
   }
