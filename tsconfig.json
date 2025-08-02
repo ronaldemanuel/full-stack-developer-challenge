@@ -109,10 +109,10 @@
       "path": "./apps/mobile"
     },
     {
-      "path": "./apps/inngest-worker"
+      "path": "./apps/inngest-server-e2e"
     },
     {
-      "path": "./apps/inngest-worker-e2e"
+      "path": "./apps/inngest-server"
     }
   ],
   "ts-node": {
