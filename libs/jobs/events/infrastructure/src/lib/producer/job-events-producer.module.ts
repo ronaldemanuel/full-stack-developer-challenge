@@ -1,11 +1,14 @@
+import type { DynamicModule } from '@nestjs/common';
 import type { IEventPublisher } from '@nestjs/cqrs';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ClientsModule } from '@nestjs/microservices';
 
 import type { IEvent } from '@nx-ddd/jobs-events-domain';
+import { inngest } from '@nx-ddd/jobs-events-presentation';
 
 import { SQSClientProxy } from './aws/sqs-client.proxy';
+import { HttpInngestEventPublisher } from './inngest/inngest-event-publisher';
 import { MicroserviceEventPubSubBus } from './microservice.event-publisher';
 
 @Module({})
@@ -30,6 +33,18 @@ export class JobEventsProducerModule {
           },
         ]),
       ],
+    });
+  }
+
+  static forInngest(): DynamicModule {
+    return CqrsModule.forRootAsync({
+      async useFactory(): Promise<{ eventPublisher: IEventPublisher }> {
+        const publisher = new HttpInngestEventPublisher(inngest);
+
+        return {
+          eventPublisher: publisher,
+        };
+      },
     });
   }
 }

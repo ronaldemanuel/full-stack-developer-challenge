@@ -3,6 +3,7 @@ import { ScrollView, View } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { Form, FormField, FormInput } from '@/components/ui/Form';
 import { Text } from '@/components/ui/text';
+import { useAuth } from '@/modules/auth/hooks/use-auth';
 import SkyrimButton from '@/modules/shared/components/skyrim-button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -17,6 +18,7 @@ export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 export default function ForgotPasswordScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { forgotPassword } = useAuth();
 
   const form = useForm<ForgotPasswordFormData>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -27,6 +29,8 @@ export default function ForgotPasswordScreen() {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
+
+      forgotPassword(data);
       router.push('/(auth)/email-sent');
     }, 1500);
   };

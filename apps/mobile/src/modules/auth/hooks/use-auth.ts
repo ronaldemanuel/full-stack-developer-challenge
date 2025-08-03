@@ -1,4 +1,5 @@
 import type { LoginFormData } from '@/app/(auth)';
+import type { ForgotPasswordFormData } from '@/app/(auth)/forgot-password';
 import type { SignupFormData } from '@/app/(auth)/signup-screen';
 import { useCallback } from 'react';
 import { useToast } from '@/components/ui/toast';
@@ -80,10 +81,29 @@ export function useAuth() {
     }
   }, [toast]);
 
+  const forgotPassword = useCallback(
+    async (input: ForgotPasswordFormData) => {
+      try {
+        await authClient.forgetPassword({ email: input.email });
+      } catch (err) {
+        if (err instanceof Error) {
+          console.error('Erro no reset password:', err);
+          toast.toast({
+            title: 'Error',
+            description: err.message,
+            variant: 'error',
+          });
+        }
+      }
+    },
+    [toast],
+  );
+
   return {
     loginWithEmail,
     signupWithEmail,
     loginWithGoogle,
     logout,
+    forgotPassword,
   };
 }

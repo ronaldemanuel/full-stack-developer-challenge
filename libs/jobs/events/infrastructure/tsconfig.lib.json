@@ -16,6 +16,9 @@
   "include": ["src/**/*.ts"],
   "references": [
     {
+      "path": "../../../email/application/tsconfig.lib.json"
+    },
+    {
       "path": "../../../email/infrastructure/tsconfig.lib.json"
     },
     {

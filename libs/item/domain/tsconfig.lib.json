@@ -28,13 +28,13 @@
   ],
   "references": [
     {
-      "path": "../../shared/domain/tsconfig.lib.json"
-    },
-    {
       "path": "../../jobs/events/domain/tsconfig.lib.json"
     },
     {
       "path": "../../user/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../shared/domain/tsconfig.lib.json"
     }
   ]
 }

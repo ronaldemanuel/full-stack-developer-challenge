@@ -21,5 +21,6 @@ export namespace InventoryRepository {
       itemId: string,
     ): Promise<InventoryItemEntity>;
     syncByUser(user: UserItemRef): Promise<void>;
+    insertCoins(userId: string, amount: number): Promise<void>;
   }
 }

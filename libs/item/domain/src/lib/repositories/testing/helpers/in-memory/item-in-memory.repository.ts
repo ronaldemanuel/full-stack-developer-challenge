@@ -9,6 +9,10 @@ export class ItemInMemoryRepository
   extends InMemoryRepository<ItemEntity>
   implements ItemRepository.Repository
 {
+  findByType(type: string): Promise<ItemEntity[]> {
+    throw new Error('Method not implemented.');
+  }
+
   userRepository?: UserRepository.Repository | undefined;
 
   findByUserId(userId: string): Promise<ItemEntity[]> {

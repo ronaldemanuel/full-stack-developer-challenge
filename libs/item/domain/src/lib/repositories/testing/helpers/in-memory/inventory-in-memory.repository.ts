@@ -9,6 +9,10 @@ export class InventoryInMemoryRepository
   extends InMemoryRepository<InventoryItemEntity>
   implements InventoryRepository.Repository
 {
+  insertCoins(userId: string, amount: number): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+
   findByUserIdAndType(
     userId: string,
     type: string,

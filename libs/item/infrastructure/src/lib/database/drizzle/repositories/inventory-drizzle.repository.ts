@@ -46,6 +46,29 @@ export class InventoryDrizzleRepository
     @Inject(UserRepository.TOKEN)
     public userRepository?: UserRepository.Repository,
   ) {}
+
+  async insertCoins(userId: string, amount: number): Promise<void> {
+    const inventoryItem = await this.db.query.userItem.findFirst({
+      where: and(eq(userItem.itemId, 'coin'), eq(userItem.userId, userId)),
+      with: {
+        user: this.userRepository ? true : undefined,
+      },
+    });
+
+    if (!inventoryItem) {
+      await this.tx.insert(userItem).values({ itemId: 'coin', userId, amount });
+    } else {
+      const newAmount = inventoryItem.amount
+        ? amount + inventoryItem.amount
+        : amount;
+
+      await this.tx
+        .update(userItem)
+        .set({ amount: newAmount })
+        .where(and(eq(userItem.userId, userId), eq(userItem.itemId, 'coin')));
+    }
+  }
+
   async findByUserIdAndType(
     userId: string,
     type: string,

@@ -21,3 +21,5 @@ export const eventsMap = {
     }),
   },
 } satisfies EventMap;
+
+export type EventsMap = typeof eventsMap;

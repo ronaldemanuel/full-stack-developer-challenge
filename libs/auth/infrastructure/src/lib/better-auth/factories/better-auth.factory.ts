@@ -75,15 +75,15 @@ export function initAuth(
       additionalFields: {
         hpLevel: {
           type: 'number',
-          defaultValue: 100,
+          defaultValue: 50,
         },
         spLevel: {
           type: 'number',
-          defaultValue: 100,
+          defaultValue: 30,
         },
         mpLevel: {
           type: 'number',
-          defaultValue: 100,
+          defaultValue: 40,
         },
       },
     },
@@ -176,6 +176,15 @@ export function initAuth(
       },
     },
     trustedOrigins: config.allowedOrigins,
+    databaseHooks: {
+      user: {
+        create: {
+          async after(user) {
+            await inventoryRepository.insertCoins(user.id, 2000);
+          },
+        },
+      },
+    },
   });
 }
 

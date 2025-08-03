@@ -1,8 +1,5 @@
 import type { ITEMS } from '../constants/items';
-import type {
-  ItemEntity,
-  ItemRelations,
-} from '../entities/abstract-item.entity';
+import type { ItemEntity } from '../entities/abstract-item.entity';
 import type { UserItemRef } from '../refs';
 import type { ApparelItemSchemaProps } from '../schemas/apparel.schema';
 import type { ConsumableItemProps } from '../schemas/consumable.schema';

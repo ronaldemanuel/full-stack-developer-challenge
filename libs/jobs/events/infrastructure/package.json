@@ -43,6 +43,7 @@
     "@nx-ddd/jobs-events-domain": "workspace:*",
     "@nx-ddd/jobs-events-presentation": "workspace:*",
     "@nx-ddd/email-infrastructure": "workspace:*",
+    "@nx-ddd/email-application": "workspace:*",
     "@t3-oss/env-nextjs": "catalog:zod3",
     "zod": "catalog:zod3",
     "@nestjs/microservices": "catalog:nestjs",

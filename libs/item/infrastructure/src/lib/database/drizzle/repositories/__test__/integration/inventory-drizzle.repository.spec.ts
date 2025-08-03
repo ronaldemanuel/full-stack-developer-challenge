@@ -400,4 +400,83 @@ describe('InventoryDrizzleRepository', () => {
       expect(results[0].amount).toBe(2);
     });
   });
+
+  describe('insertCoins', () => {
+    it('should insert coins if the user does not have any', async () => {
+      const user = UserEntityMockFactory();
+      const amount = 1000;
+
+      await drizzleTestDB.db.insert(userSchema).values({ ...user.toJSON() });
+
+      const beforeResults = await drizzleTestDB.db.query.userItem.findMany({
+        where: eq(userItem.userId, user.id),
+      });
+
+      await inventoryDrizzleRepository.insertCoins(user.id, amount);
+
+      const results = await drizzleTestDB.db.query.userItem.findMany({
+        where: eq(userItem.userId, user.id),
+      });
+
+      expect(beforeResults).toHaveLength(0);
+      expect(results).toHaveLength(1);
+      expect(results[0].userId).toBe(user.id);
+      expect(results[0].itemId).toBe('coin');
+      expect(results[0].amount).toBe(amount);
+    });
+
+    it('should update coins if the user already has some', async () => {
+      const user = UserEntityMockFactory();
+      const amount = 1000;
+
+      await drizzleTestDB.db.insert(userSchema).values({ ...user.toJSON() });
+      await drizzleTestDB.db
+        .insert(userItem)
+        .values({ itemId: 'coin', userId: user.id, amount });
+
+      const beforeResults = await drizzleTestDB.db.query.userItem.findMany({
+        where: eq(userItem.userId, user.id),
+      });
+
+      await inventoryDrizzleRepository.insertCoins(user.id, amount);
+
+      const results = await drizzleTestDB.db.query.userItem.findMany({
+        where: eq(userItem.userId, user.id),
+      });
+
+      expect(beforeResults).toHaveLength(1);
+      expect(beforeResults[0].amount).toBe(1000);
+      expect(results).toHaveLength(1);
+      expect(results[0].userId).toBe(user.id);
+      expect(results[0].itemId).toBe('coin');
+      expect(results[0].amount).toBe(2000);
+    });
+
+    it('should treat null amount as 0 and set amount correctly', async () => {
+      const user = UserEntityMockFactory();
+      const amount = 1000;
+
+      await drizzleTestDB.db.insert(userSchema).values({ ...user.toJSON() });
+      await drizzleTestDB.db
+        .insert(userItem)
+        .values({ itemId: 'coin', userId: user.id, amount: null });
+
+      const beforeResults = await drizzleTestDB.db.query.userItem.findMany({
+        where: eq(userItem.userId, user.id),
+      });
+
+      await inventoryDrizzleRepository.insertCoins(user.id, amount);
+
+      const results = await drizzleTestDB.db.query.userItem.findMany({
+        where: eq(userItem.userId, user.id),
+      });
+
+      expect(beforeResults).toHaveLength(1);
+      expect(beforeResults[0].amount).toBeNull();
+      expect(results).toHaveLength(1);
+      expect(results[0].userId).toBe(user.id);
+      expect(results[0].itemId).toBe('coin');
+      expect(results[0].amount).toBe(1000);
+    });
+  });
 });

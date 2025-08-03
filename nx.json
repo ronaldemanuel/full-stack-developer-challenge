@@ -63,7 +63,6 @@
       },
       "exclude": [
         "apps/events-processor-e2e/**/*",
-        "apps/inngest-worker-e2e/**/*",
         "apps/inngest-server-e2e/**/*"
       ]
     },

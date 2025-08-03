@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../../email/application"
+    },
+    {
       "path": "../../../email/infrastructure"
     },
     {

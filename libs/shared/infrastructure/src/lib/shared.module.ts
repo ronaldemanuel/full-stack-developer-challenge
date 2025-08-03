@@ -13,7 +13,7 @@ import { CacheableModule } from './cache/cacheable.module';
 import { BCryptHashService } from './hash/services/bcrypt-hash.service';
 
 const imports = [
-  JobEventsProducerModule.forAws(),
+  JobEventsProducerModule.forInngest(),
   // CqrsModule.forRoot(),
   CacheModule.registerAsync({
     isGlobal: true,
