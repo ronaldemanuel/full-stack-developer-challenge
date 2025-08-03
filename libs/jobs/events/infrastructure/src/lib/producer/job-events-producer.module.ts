@@ -13,6 +13,15 @@ import { MicroserviceEventPubSubBus } from './microservice.event-publisher';
 
 @Module({})
 export class JobEventsProducerModule {
+  static forRoot() {
+    const isAws = process.env.NEXT_APPS_PROVIDER === 'aws';
+
+    if (isAws) {
+      return this.forAws();
+    } else {
+      return this.forInngest();
+    }
+  }
   static forAws() {
     return CqrsModule.forRootAsync({
       useFactory(sqs: SQSClientProxy) {
@@ -38,7 +47,7 @@ export class JobEventsProducerModule {
 
   static forInngest(): DynamicModule {
     return CqrsModule.forRootAsync({
-      async useFactory(): Promise<{ eventPublisher: IEventPublisher }> {
+      async useFactory(): Promise<{ eventPublisher: IEventPublisher<IEvent> }> {
         const publisher = new HttpInngestEventPublisher(inngest);
 
         return {

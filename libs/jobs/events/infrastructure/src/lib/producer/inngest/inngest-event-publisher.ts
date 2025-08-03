@@ -1,30 +1,25 @@
-import type { IEvent, IEventPublisher } from '@nestjs/cqrs';
+import type { IEventPublisher } from '@nestjs/cqrs';
 import type { Inngest } from 'inngest';
 import { Injectable, Logger } from '@nestjs/common';
 
-import { EventTypes } from '@nx-ddd/jobs-events-domain';
+import type { IEvent } from '@nx-ddd/jobs-events-domain';
 
 @Injectable()
-export class HttpInngestEventPublisher implements IEventPublisher {
+export class HttpInngestEventPublisher implements IEventPublisher<IEvent> {
   private readonly logger = new Logger(HttpInngestEventPublisher.name);
 
   constructor(public readonly inngest: Inngest) {}
 
-  async publish<T extends IEvent>(event: any): Promise<void> {
+  async publish<T extends IEvent>(event: T): Promise<void> {
     try {
-      console.log(event);
-
-      const teste = await this.inngest.send({
-        name: EventTypes.SEND_EMAIL,
-        data: event.data.data,
-        id: event.id,
+      await this.inngest.send({
+        name: event.identifier,
+        data: event,
       });
 
-      console.log(teste);
-
       this.logger.debug(
-        `Inngest event published: ${event.id}`,
-        JSON.stringify(event.data.data),
+        `Inngest event published: ${event.identifier}`,
+        JSON.stringify(event),
       );
     } catch (error) {
       this.logger.error('Failed to publish event to Inngest', error);

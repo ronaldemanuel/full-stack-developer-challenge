@@ -25,6 +25,11 @@ export default function AuthLayout() {
             subtitle:
               "We've sent a password reset link to your email address. Please check your inbox and follow the instructions.",
           },
+          'confirmation-email-sent': {
+            title: 'EMAIL SENT',
+            subtitle:
+              "We've sent a email confirmation link to your email address. Please check your inbox and follow the instructions.",
+          },
         };
 
         const currentTitle = titleMap[route.name as keyof typeof titleMap];

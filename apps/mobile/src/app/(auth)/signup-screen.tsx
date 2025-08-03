@@ -43,7 +43,7 @@ export default function SignupScreen() {
     setTimeout(() => {
       signupWithEmail(data);
       setIsLoading(false);
-      router.replace('/(tabs)/inventory');
+      router.replace('/confirmation-email-sent');
     }, 1500);
   };
 
