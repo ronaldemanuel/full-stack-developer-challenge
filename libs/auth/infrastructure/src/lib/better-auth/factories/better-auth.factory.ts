@@ -21,7 +21,6 @@ import {
   SendResetPasswordUseCase,
   SendVerificationEmailUseCase,
 } from '@nx-ddd/auth-application';
-import { UserSession } from '@nx-ddd/auth-domain';
 import { InventoryRepository } from '@nx-ddd/item-domain';
 
 import { UserSessionMapper } from '../mappers/user-session.mapper';

@@ -1,14 +1,20 @@
 import { Module } from '@nestjs/common';
 import { InngestModule } from 'nest-inngest';
 
-import { inngest } from '@nx-ddd/jobs-events-presentation';
+import { EmailModule } from '@nx-ddd/email-infrastructure';
+import {
+  inngest,
+  InngestEventsController,
+} from '@nx-ddd/jobs-events-presentation';
 
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
-  imports: [InngestModule.forRoot({ inngest, path: '/api/inngest' })],
-  controllers: [AppController],
+  imports: [
+    EmailModule,
+    InngestModule.forRoot({ inngest, path: '/api/inngest' }),
+  ],
+  controllers: [InngestEventsController],
   providers: [AppService],
 })
 export class AppModule {}

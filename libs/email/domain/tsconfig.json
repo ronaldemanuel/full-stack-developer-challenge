@@ -4,9 +4,6 @@
   "include": [],
   "references": [
     {
-      "path": "../../jobs/events/domain"
-    },
-    {
       "path": "./tsconfig.lib.json"
     },
     {

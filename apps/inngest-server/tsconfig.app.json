@@ -32,6 +32,9 @@
   ],
   "references": [
     {
+      "path": "../../libs/email/infrastructure/tsconfig.lib.json"
+    },
+    {
       "path": "../../libs/jobs/events/presentation/tsconfig.lib.json"
     }
   ]

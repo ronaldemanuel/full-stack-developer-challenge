@@ -32,10 +32,12 @@ import { ReactEmailRenderService } from './services/index';
                 host: env.EMAIL_SMTP_HOST,
                 port: env.EMAIL_SMTP_PORT,
                 secure: false, // true for 465, false for other ports
-                auth: {
-                  user: env.EMAIL_SMTP_USER,
-                  pass: env.EMAIL_SMTP_PASS,
-                },
+                auth: env.EMAIL_SMTP_USER
+                  ? {
+                      user: env.EMAIL_SMTP_USER,
+                      pass: env.EMAIL_SMTP_PASS,
+                    }
+                  : undefined,
               },
             };
           case 'local':
@@ -65,6 +67,6 @@ import { ReactEmailRenderService } from './services/index';
       inject: [MailerService, EmailRenderService.TOKEN],
     },
   ],
-  exports: ['SendEventEmailHandler'],
+  exports: [SendEmailEventHandler.TOKEN],
 })
 export class EmailModule {}
