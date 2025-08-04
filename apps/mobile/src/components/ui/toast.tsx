@@ -31,9 +31,9 @@ const toastVariants = {
     progress: 'bg-destructive-foreground',
   },
   success: {
-    toast: 'bg-success',
-    text: 'text-success-foreground',
-    progress: 'bg-success-foreground',
+    toast: 'bg-green-600',
+    text: 'text-white',
+    progress: 'bg-white',
   },
   info: {
     toast: 'bg-sky-500',

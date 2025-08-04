@@ -53,7 +53,7 @@ export default function ItemStatsPanel({
         refetch();
         toast.toast({
           title: 'Success',
-          description: 'Item added',
+          description: 'Item used successfully',
           variant: 'success',
         });
       },
