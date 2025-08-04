@@ -1,16 +1,15 @@
 {
   "version": 2,
-  "buildCommand": "cd ../../ && pnpm nx run inngest-server:build",
   "builds": [
     {
-      "src": "dist/main.js",
+      "src": "src/main.ts",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/main.js",
+      "dest": "src/main.ts",
       "methods": [
         "GET",
         "POST",
@@ -20,6 +19,5 @@
         "OPTIONS"
       ]
     }
-  ],
-  "$schema": "https://openapi.vercel.sh/vercel.json"
+  ]
 }
