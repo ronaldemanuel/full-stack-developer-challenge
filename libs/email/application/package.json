@@ -1,0 +1,42 @@
+{
+  "name": "@nx-ddd/email-application",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "email-application",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/email/application/dist",
+          "main": "libs/email/application/src/index.ts",
+          "tsConfig": "libs/email/application/tsconfig.lib.json",
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nestjs-modules/mailer": "catalog:nestjs",
+    "@nx-ddd/email-domain": "workspace:*",
+    "@nestjs/cqrs": "catalog:nestjs",
+    "@nestjs/common": "catalog:nestjs",
+    "@swc/helpers": "~0.5.11"
+  }
+}

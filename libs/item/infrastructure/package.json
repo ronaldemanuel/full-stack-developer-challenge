@@ -1,0 +1,56 @@
+{
+  "name": "@nx-ddd/item-infrastructure",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "item-infrastructure",
+    "sourceRoot": "libs/item/infrastructure/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/item/infrastructure/dist",
+          "main": "libs/item/infrastructure/src/index.ts",
+          "tsConfig": "libs/item/infrastructure/tsconfig.lib.json",
+          "skipTypeCheck": true,
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nestjs/common": "catalog:nestjs",
+    "@swc/helpers": "~0.5.11",
+    "@nx-ddd/shared-domain": "workspace:*",
+    "@nx-ddd/shared-infrastructure": "workspace:*",
+    "@nx-ddd/database-infrastructure": "workspace:*",
+    "@nx-ddd/item-domain": "workspace:*",
+    "@nx-ddd/item-application": "workspace:*",
+    "@nx-ddd/item-presentation": "workspace:*",
+    "@nx-ddd/user-infrastructure": "workspace:*",
+    "@nx-ddd/user-domain": "workspace:*"
+  },
+  "devDependencies": {
+    "@nx-ddd/auth-domain": "workspace:*",
+    "@nx-ddd/database-application": "workspace:*",
+    "@nx-ddd/shared-infrastructure": "workspace:*",
+    "unplugin-swc": "^1.5.5",
+    "vite-plugin-node": "^7.0.0"
+  }
+}

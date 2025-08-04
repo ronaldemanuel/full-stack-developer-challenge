@@ -1,0 +1,56 @@
+{
+  "name": "@nx-ddd/jobs-events-infrastructure",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./env": {
+      "development": "./src/env.ts",
+      "types": "./dist/env.d.ts",
+      "import": "./dist/env.js",
+      "default": "./dist/env.js"
+    }
+  },
+  "nx": {
+    "name": "jobs-events-infrastructure",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/jobs/events/infrastructure/dist",
+          "main": "libs/jobs/events/infrastructure/src/index.ts",
+          "tsConfig": "libs/jobs/events/infrastructure/tsconfig.lib.json",
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.848.0",
+    "@nx-ddd/jobs-events-domain": "workspace:*",
+    "@nx-ddd/jobs-events-presentation": "workspace:*",
+    "@nx-ddd/email-infrastructure": "workspace:*",
+    "@nx-ddd/email-application": "workspace:*",
+    "@t3-oss/env-nextjs": "catalog:zod3",
+    "zod": "catalog:zod3",
+    "@nestjs/microservices": "catalog:nestjs",
+    "@nestjs/core": "catalog:nestjs",
+    "@nestjs/common": "catalog:nestjs",
+    "@nestjs/cqrs": "catalog:nestjs",
+    "rxjs": "catalog:",
+    "@swc/helpers": "~0.5.11"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "@nx-ddd/email-domain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "email-domain",
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/email/domain/dist",
+          "main": "libs/email/domain/src/index.ts",
+          "tsConfig": "libs/email/domain/tsconfig.lib.json",
+          "format": [
+            "esm"
+          ],
+          "esbuildOptions": {
+            "keepNames": true
+          },
+          "declarationRootDir": "libs/email/domain/src"
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nx-ddd/jobs-events-domain": "workspace:*",
+    "zod": "catalog:zod3",
+    "@nestjs-modules/mailer": "catalog:nestjs"
+  }
+}

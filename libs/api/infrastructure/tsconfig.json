@@ -1,0 +1,31 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "../../shared/presentation"
+    },
+    {
+      "path": "../../shared/infrastructure"
+    },
+    {
+      "path": "../../user/infrastructure"
+    },
+    {
+      "path": "../../item/infrastructure"
+    },
+    {
+      "path": "../../post/infrastructure"
+    },
+    {
+      "path": "../../email/infrastructure"
+    },
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}

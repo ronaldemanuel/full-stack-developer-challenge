@@ -1,0 +1,60 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "dist",
+    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "vite.config.ts",
+    "vite.config.mts",
+    "vitest.config.ts",
+    "vitest.config.mts",
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.spec.tsx",
+    "src/**/*.test.js",
+    "src/**/*.spec.js",
+    "src/**/*.test.jsx",
+    "src/**/*.spec.jsx"
+  ],
+  "references": [
+    {
+      "path": "../../shared/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../user/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../user/infrastructure/tsconfig.lib.json"
+    },
+    {
+      "path": "../presentation/tsconfig.lib.json"
+    },
+    {
+      "path": "../application/tsconfig.lib.json"
+    },
+    {
+      "path": "../domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../database/infrastructure/tsconfig.lib.json"
+    },
+    {
+      "path": "../../shared/infrastructure/tsconfig.lib.json"
+    },
+    {
+      "path": "../../database/application/tsconfig.lib.json"
+    },
+    {
+      "path": "../../auth/domain/tsconfig.lib.json"
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+import {
+  NotFoundError,
+  RelationshipNotLoadedError,
+  WatchedList,
+} from '@nx-ddd/shared-domain';
+import { UserEntity } from '@nx-ddd/user-domain';
+
+import type { ItemEntity } from '../entities/abstract-item.entity';
+import type { InventoryItemEntity } from '../entities/inventory-item.entity';
+import type { UserItemRefProps } from '../schemas/user-item-ref.schema';
+import { ItemAddedToInventoryEvent } from '../events/item-added-to-inventory.event';
+import { ItemMapper } from '../mappers';
+import { InventoryItemMapper } from '../mappers/inventory-mapper';
+
+export interface UserItemRefRelations {
+  inventory: InventoryItemEntity[];
+}
+
+export interface UserItemRefWatchedRelations {
+  inventory: WatchedList<InventoryItemEntity>;
+}
+
+// @ts-expect-error: Expect error because of the override of the cast method
+export class UserItemRef extends UserEntity {
+  private _inventory: WatchedList<InventoryItemEntity>;
+
+  private $relations: () => UserItemRefRelations;
+
+  public get $watchedRelations(): UserItemRefWatchedRelations {
+    return {
+      inventory: this._inventory,
+    };
+  }
+
+  protected override props: UserItemRefProps;
+
+  constructor(
+    props: UserItemRefProps,
+    relations: () => UserItemRefRelations,
+    id?: string,
+  ) {
+    super(props, id);
+    this.props = props;
+    this.$relations = relations.bind(this);
+    this._inventory = new WatchedList<InventoryItemEntity>(
+      this.$relations().inventory,
+    );
+  }
+
+  get equippedHelmet(): string | null | undefined {
+    return this.props.equippedHelmet;
+  }
+
+  set equippedHelmet(value: string | null) {
+    this.props.equippedHelmet = value;
+  }
+
+  get equippedBoots(): string | null | undefined {
+    return this.props.equippedBoots;
+  }
+
+  set equippedBoots(value: string | null) {
+    this.props.equippedBoots = value;
+  }
+
+  get equippedChest(): string | null | undefined {
+    return this.props.equippedChest;
+  }
+
+  set equippedChest(value: string | null) {
+    this.props.equippedChest = value;
+  }
+
+  get equippedGloves(): string | null | undefined {
+    return this.props.equippedGloves;
+  }
+
+  set equippedGloves(value: string | null) {
+    this.props.equippedGloves = value;
+  }
+
+  get leftHand(): string | null | undefined {
+    return this.props.leftHand;
+  }
+
+  set leftHand(value: string | null) {
+    this.props.leftHand = value;
+  }
+
+  get rightHand(): string | null | undefined {
+    return this.props.rightHand;
+  }
+
+  set rightHand(value: string | null) {
+    this.props.rightHand = value;
+  }
+
+  get inventory(): InventoryItemEntity[] {
+    const inventoryItem = this._inventory.getItems();
+
+    if (inventoryItem === undefined) {
+      throw new RelationshipNotLoadedError('Inventory not Loaded');
+    } else {
+      return inventoryItem;
+    }
+  }
+
+  set inventory(newInventory: InventoryItemEntity[]) {
+    const inventoryItem = this.$relations().inventory;
+
+    if (inventoryItem) {
+      this.inventory = [...this.inventory, ...newInventory];
+    } else {
+      this.inventory = newInventory;
+    }
+  }
+
+  get coins() {
+    const coins = this.$watchedRelations.inventory
+      .getItems()
+      .filter((i) => i.itemId === 'coin')
+      .reduce((acc, curr) => {
+        acc += curr.amount;
+        return acc;
+      }, 0);
+
+    return coins;
+  }
+
+  get weight() {
+    return this.inventory.reduce((acc, curr) => {
+      acc += curr.item.weight * curr.amount;
+      return acc;
+    }, 0);
+  }
+
+  public getInventoryItem(itemId: string) {
+    return this.$watchedRelations.inventory
+      .getItems()
+      .find((item) => item.itemId === itemId);
+  }
+
+  public addItemToInventory(item: ItemEntity): void {
+    if (item.price > this.coins) {
+      throw new Error('No enough coins');
+    }
+
+    this.removeItemFromInventory('coin', item.price);
+
+    const existingItem = this.getInventoryItem(item.id);
+
+    if (existingItem) {
+      existingItem.amount += 1;
+      return;
+    }
+
+    const inventory = InventoryItemMapper.toDomain(
+      {
+        amount: 1,
+      },
+      {
+        item,
+        character: this,
+      },
+    );
+
+    inventory.apply(new ItemAddedToInventoryEvent(item.toJSON()));
+
+    this.$watchedRelations.inventory.add(inventory);
+  }
+
+  public removeItemFromInventory(itemId: string, amount?: number) {
+    const inventoryItem = this.getInventoryItem(itemId);
+
+    if (!inventoryItem) {
+      throw new NotFoundError('Item not found in user inventory');
+    }
+
+    if (inventoryItem.amount > 1) {
+      inventoryItem.amount -= amount ?? 1;
+      return;
+    }
+
+    this.$watchedRelations.inventory.remove(inventoryItem);
+  }
+
+  public useItem(itemId: string) {
+    const inventoryItem = this.getInventoryItem(itemId);
+
+    if (!inventoryItem) {
+      throw new NotFoundError('Inventory item not found');
+    }
+
+    if (inventoryItem.amount === 0) {
+      throw new Error('Item not enough in inventory');
+    }
+
+    const item = ItemMapper.toDomain(inventoryItem.item, this);
+
+    item.use();
+  }
+
+  static override cast(
+    user: UserEntity,
+    relations: () => UserItemRefRelations = () => {
+      return { inventory: [] };
+    },
+    id?: string,
+  ): UserItemRef {
+    if (user instanceof UserItemRef) {
+      return user;
+    }
+
+    const casted = super.cast<
+      UserItemRefProps,
+      UserEntity,
+      UserItemRef,
+      [() => UserItemRefRelations, id?: string]
+    >(user, (user as UserItemRef).$relations || relations, id);
+
+    const inventory: InventoryItemEntity[] = [];
+    try {
+      const probablyRelations = (user as UserItemRef).$relations();
+      casted.$relations = () => probablyRelations;
+    } catch {
+      casted.$relations = () => {
+        return {
+          inventory: inventory,
+        };
+      };
+    }
+
+    return casted;
+  }
+
+  override toJSON() {
+    return { ...super.toJSON(), coins: this.coins };
+  }
+}

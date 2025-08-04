@@ -1,0 +1,43 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "../../user/infrastructure"
+    },
+    {
+      "path": "../../user/domain"
+    },
+    {
+      "path": "../../shared/domain"
+    },
+    {
+      "path": "../presentation"
+    },
+    {
+      "path": "../domain"
+    },
+    {
+      "path": "../application"
+    },
+    {
+      "path": "../../database/infrastructure"
+    },
+    {
+      "path": "../../shared/infrastructure"
+    },
+    {
+      "path": "../../database/application"
+    },
+    {
+      "path": "../../auth/domain"
+    },
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}

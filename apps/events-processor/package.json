@@ -1,0 +1,89 @@
+{
+  "name": "@nx-ddd/events-processor",
+  "version": "0.1.0",
+  "private": true,
+  "nx": {
+    "name": "events-processor",
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "platform": "node",
+          "outputPath": "apps/events-processor/dist",
+          "format": [
+            "cjs"
+          ],
+          "bundle": true,
+          "thirdParty": true,
+          "main": "apps/events-processor/src/main.ts",
+          "tsConfig": "apps/events-processor/tsconfig.app.json",
+          "assets": [
+            "apps/events-processor/src/assets"
+          ],
+          "esbuildOptions": {
+            "sourcemap": true,
+            "outExtension": {
+              ".js": ".js"
+            }
+          },
+          "external": [
+            "amqp-connection-manager",
+            "ioredis",
+            "nats",
+            "kafkajs",
+            "mqtt",
+            "class-transformer",
+            "amqplib",
+            "class-validator",
+            "@nestjs/websockets",
+            "@nestjs/platform-express"
+          ]
+        },
+        "configurations": {
+          "development": {
+            "minify": false
+          },
+          "production": {
+            "esbuildOptions": {
+              "sourcemap": false,
+              "outExtension": {
+                ".js": ".js"
+              }
+            },
+            "minify": true
+          }
+        }
+      },
+      "serve": {
+        "continuous": true,
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "events-processor:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "events-processor:build:development"
+          },
+          "production": {
+            "buildTarget": "events-processor:build:production"
+          }
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nx-ddd/jobs-events-infrastructure": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.152"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "@nx-ddd/user-domain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "user-domain",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/user/domain/dist",
+          "main": "libs/user/domain/src/index.ts",
+          "tsConfig": "libs/user/domain/tsconfig.lib.json",
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nx-ddd/shared-domain": "workspace:*",
+    "@swc/helpers": "~0.5.11",
+    "zod": "catalog:zod3",
+    "@anatine/zod-mock": "catalog:zod3"
+  }
+}

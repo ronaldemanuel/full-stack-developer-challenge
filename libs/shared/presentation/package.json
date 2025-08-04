@@ -1,0 +1,47 @@
+{
+  "name": "@nx-ddd/shared-presentation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "shared-presentation",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/shared/presentation/dist",
+          "main": "libs/shared/presentation/src/index.ts",
+          "tsConfig": "libs/shared/presentation/tsconfig.lib.json",
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nx-ddd/auth-domain": "workspace:*",
+    "@nx-ddd/user-domain": "workspace:*",
+    "@nestjs/common": "catalog:nestjs",
+    "@trpc/server": "catalog:trpc",
+    "@nestjs/core": "catalog:nestjs",
+    "trpc-to-openapi": "catalog:trpc",
+    "superjson": "catalog:trpc",
+    "zod": "catalog:zod3",
+    "reflect-metadata": "0.2.2",
+    "@swc/helpers": "~0.5.11"
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "name": "@nx-ddd/database-infrastructure",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./drizzle/schema": {
+      "development": "./src/drizzle/schema.ts",
+      "types": "./dist/drizzle/schema.d.ts",
+      "import": "./dist/drizzle/schema.js",
+      "default": "./dist/drizzle/schema.js"
+    },
+    "./drizzle/operators": {
+      "development": "./src/drizzle/operators.ts",
+      "types": "./dist/drizzle/operators.d.ts",
+      "import": "./dist/drizzle/operators.js",
+      "default": "./dist/drizzle/operators.js"
+    }
+  },
+  "nx": {
+    "name": "database-infrastructure",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/database/infrastructure/dist",
+          "main": "libs/database/infrastructure/src/index.ts",
+          "tsConfig": "libs/database/infrastructure/tsconfig.lib.json",
+          "stripLeadingPaths": true
+        }
+      },
+      "reset": {
+        "executor": "nx:run-commands",
+        "defaultConfiguration": "local",
+        "configurations": {
+          "staging": {
+            "command": "sst shell --target Drizzle --stage staging drizzle-kit push"
+          },
+          "dev": {
+            "command": "sst shell --target Drizzle --stage development drizzle-kit push"
+          },
+          "local": {
+            "command": "drizzle-kit push"
+          }
+        },
+        "options": {
+          "cwd": "libs/database/infrastructure"
+        }
+      },
+      "push": {
+        "executor": "nx:run-commands",
+        "defaultConfiguration": "local",
+        "configurations": {
+          "staging": {
+            "command": "sst shell --target Drizzle --stage staging drizzle-kit push"
+          },
+          "dev": {
+            "command": "sst shell --target Drizzle --stage development drizzle-kit push"
+          },
+          "local": {
+            "command": "drizzle-kit push"
+          }
+        },
+        "options": {
+          "cwd": "libs/database/infrastructure"
+        }
+      },
+      "migrate": {
+        "executor": "nx:run-commands",
+        "defaultConfiguration": "local",
+        "configurations": {
+          "production": {
+            "command": "sst shell --target Drizzle --stage production drizzle-kit migrate"
+          },
+          "staging": {
+            "command": "sst shell --target Drizzle --stage staging drizzle-kit migrate"
+          },
+          "dev": {
+            "command": "sst shell --target Drizzle --stage development drizzle-kit migrate"
+          },
+          "local": {
+            "command": "drizzle-kit migrate"
+          }
+        },
+        "options": {
+          "cwd": "libs/database/infrastructure"
+        }
+      },
+      "studio": {
+        "executor": "nx:run-commands",
+        "defaultConfiguration": "local",
+        "configurations": {
+          "staging": {
+            "command": "sst shell --target Drizzle --stage staging drizzle-kit studio"
+          },
+          "dev": {
+            "command": "sst shell --target Drizzle --stage development drizzle-kit studio"
+          },
+          "local": {
+            "command": "drizzle-kit studio"
+          }
+        },
+        "options": {
+          "cwd": "libs/database/infrastructure"
+        }
+      },
+      "generate": {
+        "executor": "nx:run-commands",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "command": "drizzle-kit generate",
+          "cwd": "libs/database/infrastructure"
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "drizzle-orm": "catalog:drizzle",
+    "drizzle-seed": "catalog:drizzle",
+    "@nestjs-cls/transactional-adapter-drizzle-orm": "catalog:nestjs",
+    "@nestjs-cls/transactional": "catalog:nestjs",
+    "@nestjs/common": "catalog:nestjs",
+    "@nx-ddd/database-application": "workspace:*",
+    "pg": "catalog:drizzle",
+    "@swc/helpers": "~0.5.11",
+    "testcontainers": "catalog:drizzle",
+    "@testcontainers/postgresql": "catalog:drizzle",
+    "@vercel/postgres": "catalog:drizzle",
+    "drizzle-kit": "catalog:drizzle",
+    "nestjs-cls": "catalog:nestjs",
+    "drizzle-zod": "catalog:drizzle"
+  }
+}
