@@ -7,7 +7,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 import { ClsModule } from 'nestjs-cls';
 
-import type { ItemSchema } from '@nx-ddd/item-domain';
+import type { ItemSchema, UserItemRef } from '@nx-ddd/item-domain';
 import { DATABASE_CONNECTION_NAME } from '@nx-ddd/database-application';
 import {
   InventoryInMemoryRepository,
@@ -46,6 +46,7 @@ describe('UseItemCommand', () => {
   let itemRepository: ItemRepository.Repository;
   let userRepository: UserRepository.Repository;
   let inventoryRepository: InventoryRepository.Repository;
+  let mockUser: UserItemRef;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -92,6 +93,8 @@ describe('UseItemCommand', () => {
     inventoryRepository = moduleRef.get<InventoryRepository.Repository>(
       InventoryRepository.TOKEN,
     );
+
+    mockUser = UserItemRefFactory();
   });
 
   it('should be defined', () => {
@@ -100,8 +103,6 @@ describe('UseItemCommand', () => {
 
   it('should use item', async () => {
     // Arrange
-    const mockUser = UserItemRefFactory(undefined);
-
     const baseItem: ItemSchema = {
       id: 'dragonscale-boots',
       name: 'Dragon Boots',
@@ -149,5 +150,41 @@ describe('UseItemCommand', () => {
     expect(useItemSpy).toHaveBeenCalledWith(mockItem.id);
     expect(inventoryRepository.syncByUser).toHaveBeenCalledWith(mockUser);
     expect(mockUser.commit).toHaveBeenCalled();
+  });
+
+  it('should return a erro with the user does not have the item on inventory', async () => {
+    const baseItem: ItemSchema = {
+      id: 'dragonscale-boots',
+      name: 'Dragon Boots',
+      type: 'apparel',
+      image:
+        'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
+      price: 300,
+      weight: 10,
+    } as ItemSchema;
+    const mockItem = ItemMapper.toDomain(baseItem, mockUser);
+
+    const command = UseItemCommand.create(
+      {
+        itemId: mockItem.id,
+      },
+      mockUser,
+    );
+
+    vi.spyOn(mockUser, 'commit');
+
+    vi.spyOn(userRepository, 'findById').mockResolvedValue(mockUser);
+
+    vi.spyOn(inventoryRepository, 'findByUserId').mockImplementation(
+      async () => {
+        return [mockItem] as any;
+      },
+    );
+
+    vi.spyOn(inventoryRepository, 'syncByUser').mockResolvedValue(undefined);
+
+    expect(async () => {
+      await useItemCommand.execute(command);
+    }).rejects.toThrow('Inventory item not found');
   });
 });
