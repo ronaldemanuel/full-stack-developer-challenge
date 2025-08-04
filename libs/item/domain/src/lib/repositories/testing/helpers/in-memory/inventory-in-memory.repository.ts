@@ -10,7 +10,7 @@ export class InventoryInMemoryRepository
   implements InventoryRepository.Repository
 {
   insertCoins(userId: string, amount: number): Promise<void> {
-    throw new Error('Method not implemented.');
+    return Promise.resolve();
   }
 
   findByUserIdAndType(
