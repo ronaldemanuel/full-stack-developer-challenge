@@ -4,7 +4,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/dist/index.js"
+      "destination": "/dist/main.js"
     }
   ],
   "$schema": "https://openapi.vercel.sh/vercel.json",
