@@ -1,12 +1,7 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 
-import type {
-  InventoryItemEntity,
-  ItemEntity,
-  ItemSchema,
-  UserItemRef,
-} from '@nx-ddd/item-domain';
+import type { ItemEntity, ItemSchema, UserItemRef } from '@nx-ddd/item-domain';
 import {
   ItemInMemoryRepository,
   ItemMapper,

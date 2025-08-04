@@ -43,7 +43,7 @@ class StubAdapter implements TransactionalAdapter<any, any, any> {
 
 describe('UseItemCommand', () => {
   let useItemCommand: UseItemCommand.Handler;
-  let itemRepository: ItemRepository.Repository;
+  // let itemRepository: ItemRepository.Repository;
   let userRepository: UserRepository.Repository;
   let inventoryRepository: InventoryRepository.Repository;
   let mockUser: UserItemRef;
@@ -84,9 +84,9 @@ describe('UseItemCommand', () => {
     useItemCommand = moduleRef.get<UseItemCommand.Handler>(
       UseItemCommand.Handler,
     );
-    itemRepository = moduleRef.get<ItemRepository.Repository>(
-      ItemRepository.TOKEN,
-    );
+    // itemRepository = moduleRef.get<ItemRepository.Repository>(
+    //   ItemRepository.TOKEN,
+    // );
     userRepository = moduleRef.get<UserRepository.Repository>(
       UserRepository.TOKEN,
     );
