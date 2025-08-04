@@ -221,7 +221,7 @@ describe('InventoryDrizzleRepository', () => {
 
       vi.spyOn(
         character.$watchedRelations.inventory,
-        'getNewItems',
+        'getItems',
       ).mockReturnValue([inventoryItem]);
       vi.spyOn(
         character.$watchedRelations.inventory,
@@ -334,7 +334,7 @@ describe('InventoryDrizzleRepository', () => {
 
       vi.spyOn(
         character.$watchedRelations.inventory,
-        'getNewItems',
+        'getItems',
       ).mockReturnValue([inventoryItemToCreate]);
       vi.spyOn(
         character.$watchedRelations.inventory,

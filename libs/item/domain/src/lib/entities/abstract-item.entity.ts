@@ -1,4 +1,4 @@
-import { Entity, RelationshipNotLoadedError } from '@nx-ddd/shared-domain';
+import { Entity } from '@nx-ddd/shared-domain';
 
 import type { UserItemRef } from '../refs/user-item.ref';
 import type { ItemProps } from '../schemas/item.schema';

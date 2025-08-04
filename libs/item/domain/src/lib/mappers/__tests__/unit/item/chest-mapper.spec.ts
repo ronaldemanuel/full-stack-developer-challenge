@@ -1,6 +1,6 @@
 import type { UserItemRef } from '../../../../refs/user-item.ref';
 import type { ApparelItemSchemaProps } from '../../../../schemas/apparel.schema';
-import ChestEntity from '../../../../entities/apparel/chest.entity';
+import { ChestEntity } from '../../../../entities/apparel/chest.entity';
 import { UserItemRefFactory } from '../../../../entities/factories/user-item-ref.factory';
 import { ItemMapper } from '../../../item.mapper';
 
@@ -38,7 +38,7 @@ describe('ChestEntity - ItemMapper', () => {
     expect(item).toBeInstanceOf(ChestEntity);
 
     if (item instanceof ChestEntity) {
-      expect(() => item.character).toThrow('This item has no character');
+      expect(item.character).toBeUndefined();
     }
   });
 

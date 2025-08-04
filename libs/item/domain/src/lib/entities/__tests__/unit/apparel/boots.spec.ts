@@ -1,11 +1,12 @@
 import type { UserItemRef } from '../../../../refs/user-item.ref';
 import type { ApparelItemSchemaProps } from '../../../../schemas/apparel.schema';
+import type { BootsEntity } from '../../../apparel/boots.entity';
 import { ItemMapper } from '../../../../mappers/item.mapper';
 import { UserItemRefFactory } from '../../../factories/user-item-ref.factory';
 
 describe('BootsEntity', () => {
   let character: UserItemRef;
-  let boots: ReturnType<typeof ItemMapper.toDomain>;
+  let boots: BootsEntity;
 
   const baseItem: ApparelItemSchemaProps = {
     id: 'dragonscale-boots',
@@ -21,13 +22,13 @@ describe('BootsEntity', () => {
 
   beforeEach(() => {
     character = UserItemRefFactory({}, {}, 'user-123');
-    boots = ItemMapper.toDomain(baseItem, character);
+    boots = ItemMapper.toDomain(baseItem, character) as BootsEntity;
   });
 
   it('should equip the boots if no boots is currently equipped', () => {
     boots.use();
 
-    expect(character.equippedBoots).toBe(boots);
+    expect(character.equippedBoots).toBe(boots.id);
   });
 
   it('should replace the currently equipped boots with a new one', () => {
@@ -43,19 +44,19 @@ describe('BootsEntity', () => {
 
     // Equip the first boots
     boots.use();
-    expect(character.equippedBoots).toBe(boots);
+    expect(character.equippedBoots).toBe(boots.id);
 
     // Equip a different boots
 
     const newBoots = ItemMapper.toDomain(newBootsProps, character);
     newBoots.use();
-    expect(character.equippedBoots).toBe(newBoots);
+    expect(character.equippedBoots).toBe(newBoots.id);
   });
 
   it('should unequip the boots if it is already equipped', () => {
     // Equip
     boots.use();
-    expect(character.equippedBoots).toBe(boots);
+    expect(character.equippedBoots).toBe(boots.id);
 
     // Unequip
     boots.use();

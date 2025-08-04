@@ -7,10 +7,16 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 import { ClsModule } from 'nestjs-cls';
 
-import type { ItemSchema } from '@nx-ddd/item-domain';
+import type {
+  ConsumableItemProps,
+  InventoryItemEntity,
+  ItemSchema,
+  UserItemRef,
+} from '@nx-ddd/item-domain';
 import { DATABASE_CONNECTION_NAME } from '@nx-ddd/database-application';
 import {
   InventoryInMemoryRepository,
+  InventoryItemMapper,
   InventoryRepository,
   ItemInMemoryRepository,
   ItemMapper,
@@ -44,6 +50,8 @@ describe('UseItemCommand', () => {
   let itemRepository: ItemRepository.Repository;
   let userRepository: UserRepository.Repository;
   let inventoryRepository: InventoryRepository.Repository;
+  let coinInventoryItem: InventoryItemEntity;
+  let mockUser: UserItemRef;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -91,6 +99,24 @@ describe('UseItemCommand', () => {
     inventoryRepository = moduleRef.get<InventoryRepository.Repository>(
       InventoryRepository.TOKEN,
     );
+
+    const baseCoin: ConsumableItemProps = {
+      id: 'coin',
+      name: 'Coin',
+      image:
+        'https://static.wikia.nocookie.net/elderscrolls/images/5/55/Septim_Skyrim.png/revision/latest?cb=20120311100037',
+      type: 'misc',
+      price: 0,
+      weight: 0.1,
+    } as ConsumableItemProps;
+
+    const coin = ItemMapper.toDomain(baseCoin);
+    coinInventoryItem = InventoryItemMapper.toDomain(
+      { amount: 1000 },
+      { item: coin },
+    );
+
+    mockUser = UserItemRefFactory({}, { inventory: [coinInventoryItem] });
   });
 
   it('should be defined', () => {
@@ -99,7 +125,6 @@ describe('UseItemCommand', () => {
 
   it('should add item to inventory', async () => {
     // Arrange
-    const mockUser = UserItemRefFactory();
 
     const baseItem: ItemSchema = {
       id: 'dragonscale-boots',
@@ -123,6 +148,10 @@ describe('UseItemCommand', () => {
 
     vi.spyOn(inventoryRepository, 'syncByUser').mockResolvedValue(undefined);
 
+    vi.spyOn(inventoryRepository, 'findByUserId').mockResolvedValue([
+      coinInventoryItem,
+    ]);
+
     const command = AddItemToInventoryCommand.create(
       {
         itemId: mockItem.id,
@@ -136,8 +165,57 @@ describe('UseItemCommand', () => {
     // Assert
     expect(userRepository.findById).toHaveBeenCalledWith(mockUser.id);
     expect(itemRepository.findById).toHaveBeenCalledWith(mockItem.id);
+    expect(inventoryRepository.findByUserId).toHaveBeenCalledWith(mockUser.id);
     expect(useItemSpy).toHaveBeenCalledWith(mockItem);
     expect(inventoryRepository.syncByUser).toHaveBeenCalledWith(mockUser);
     expect(mockItem.commit).toHaveBeenCalled();
+    expect(mockUser.inventory).toHaveLength(2);
+  });
+
+  it('should not add item if it no enough coins', async () => {
+    // Arrange
+
+    const baseItem: ItemSchema = {
+      id: 'dragonscale-boots',
+      name: 'Dragon Boots',
+      type: 'apparel',
+      image:
+        'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
+      price: 2000,
+    } as ItemSchema;
+    const mockItem = ItemMapper.toDomain(baseItem);
+    const mockInventoryItem = InventoryItemMapper.toDomain(
+      { amount: 1 },
+      { character: mockUser, item: mockItem },
+    );
+
+    const mockInventory = [mockInventoryItem, coinInventoryItem];
+
+    // Create spies on the user methods
+    vi.spyOn(mockItem, 'commit');
+
+    vi.spyOn(userRepository, 'findById').mockResolvedValue(mockUser);
+
+    vi.spyOn(itemRepository, 'findById').mockImplementation(async () => {
+      return mockItem as any;
+    });
+
+    vi.spyOn(inventoryRepository, 'syncByUser').mockResolvedValue(undefined);
+
+    vi.spyOn(inventoryRepository, 'findByUserId').mockResolvedValue(
+      mockInventory,
+    );
+
+    const command = AddItemToInventoryCommand.create(
+      {
+        itemId: mockItem.id,
+      },
+      mockUser,
+    );
+
+    // Assert
+    expect(async () => {
+      await addItemToInventoryCommand.execute(command);
+    }).rejects.toThrow('No enough coins');
   });
 });

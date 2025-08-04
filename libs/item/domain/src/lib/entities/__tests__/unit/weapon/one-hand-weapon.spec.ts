@@ -1,11 +1,12 @@
 import type { UserItemRef } from '../../../../refs/user-item.ref';
 import type { WeaponItemProps } from '../../../../schemas/weapon.schema';
+import type { OneHandedWeaponEntity } from '../../../weapon/one-handed-weapon.entity';
 import { ItemMapper } from '../../../../mappers/item.mapper';
 import { UserItemRefFactory } from '../../../factories/user-item-ref.factory';
 
 describe('OneHandedWeaponEntity', () => {
   let character: UserItemRef;
-  let weapon: ReturnType<typeof ItemMapper.toDomain>;
+  let weapon: OneHandedWeaponEntity;
 
   const baseItem: WeaponItemProps = {
     id: 'ebony-sword',
@@ -19,17 +20,17 @@ describe('OneHandedWeaponEntity', () => {
 
   beforeEach(() => {
     character = UserItemRefFactory({}, {}, 'user-123');
-    weapon = ItemMapper.toDomain(baseItem, character);
+    weapon = ItemMapper.toDomain(baseItem, character) as OneHandedWeaponEntity;
   });
   it('should equip the weapon in the left hand if left hand is free', () => {
     weapon.use();
 
-    expect(character.leftHand).toBe(weapon);
+    expect(character.leftHand).toBe(weapon.id);
     expect(character.rightHand).toBeNull();
   });
 
   it('should unequip the weapon if already equipped in the left hand', () => {
-    character.leftHand = weapon;
+    character.leftHand = weapon.id;
 
     weapon.use();
 
@@ -37,7 +38,7 @@ describe('OneHandedWeaponEntity', () => {
   });
 
   it('should move existing leftHand weapon to rightHand and equip new one in leftHand', () => {
-    const baseItem = {
+    const baseItem: OneHandedWeaponEntity = {
       id: 'iron-sword',
       name: 'Iron Sword',
       image:
@@ -45,7 +46,7 @@ describe('OneHandedWeaponEntity', () => {
       damageValue: 13,
       type: 'weapon',
       weaponType: 'one-hand',
-    };
+    } as OneHandedWeaponEntity;
 
     const newWeapon = ItemMapper.toDomain(baseItem, character);
 
@@ -53,18 +54,18 @@ describe('OneHandedWeaponEntity', () => {
 
     newWeapon.use();
 
-    expect(character.leftHand).toBe(newWeapon);
-    expect(character.rightHand).toBe(weapon);
+    expect(character.leftHand).toBe(newWeapon.id);
+    expect(character.rightHand).toBe(weapon.id);
   });
 
   it('should return true for equipped if weapon is in left hand', () => {
-    character.leftHand = weapon;
+    character.leftHand = weapon.id;
 
     expect(weapon.equipped).toBe(true);
   });
 
   it('should return true for equipped if weapon is in right hand', () => {
-    character.rightHand = weapon;
+    character.rightHand = weapon.id;
 
     expect(weapon.equipped).toBe(true);
   });

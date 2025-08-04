@@ -1,6 +1,6 @@
 import type { UserItemRef } from '../../../../refs/user-item.ref';
 import type { ApparelItemSchemaProps } from '../../../../schemas/apparel.schema';
-import HelmetEntity from '../../../../entities/apparel/helmet.entity';
+import { HelmetEntity } from '../../../../entities/apparel/helmet.entity';
 import { UserItemRefFactory } from '../../../../entities/factories/user-item-ref.factory';
 import { ItemMapper } from '../../../item.mapper';
 
@@ -15,6 +15,8 @@ describe('Helmet Item Mapper', () => {
       'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
     defenseValue: 31,
     apparelType: 'helmet',
+    price: 12,
+    weight: 12,
   } as ApparelItemSchemaProps;
 
   it('should correctly map to HelmetEntity with character data', () => {
@@ -48,7 +50,7 @@ describe('Helmet Item Mapper', () => {
     expect(item).toBeInstanceOf(HelmetEntity);
 
     if (item instanceof HelmetEntity) {
-      expect(() => item.character).toThrow('This item has no character');
+      expect(item.character).toBeUndefined();
     }
   });
 

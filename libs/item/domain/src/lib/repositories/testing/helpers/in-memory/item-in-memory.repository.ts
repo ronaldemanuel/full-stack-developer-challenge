@@ -10,7 +10,8 @@ export class ItemInMemoryRepository
   implements ItemRepository.Repository
 {
   findByType(type: string): Promise<ItemEntity[]> {
-    throw new Error('Method not implemented.');
+    const filteredList = this.items.filter((item) => item.type === type);
+    return Promise.resolve(filteredList);
   }
 
   userRepository?: UserRepository.Repository | undefined;

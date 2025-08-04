@@ -59,4 +59,9 @@ export class InventoryItemEntity extends Entity<UserItemProps> {
     }
     return item;
   }
+
+  override equals(entity: InventoryItemEntity): boolean {
+    const initialEquals = super.equals(entity);
+    return initialEquals && this.amount === entity.amount;
+  }
 }
