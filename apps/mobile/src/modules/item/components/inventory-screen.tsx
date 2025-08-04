@@ -34,22 +34,13 @@ export default function InventoryScreen({ filter }: InventoryScreenProps) {
     },
   });
 
-  const filteredItems = useMemo(() => {
-    if (!inventoryItems) return [];
-
-    const result =
-      filter === 'all'
-        ? inventoryItems
-        : inventoryItems.filter((inventory) => inventory.item.type === filter);
-
-    return result;
-  }, [inventoryItems, filter]);
+  console.log(inventoryItems);
 
   useEffect(() => {
-    if (filteredItems.length > 0) {
-      setSelectedItem(filteredItems[0]);
+    if (inventoryItems && inventoryItems.length > 0) {
+      setSelectedItem(inventoryItems[0]);
     }
-  }, [filteredItems]);
+  }, [inventoryItems]);
 
   const { width } = Dimensions.get('window');
 
@@ -91,7 +82,7 @@ export default function InventoryScreen({ filter }: InventoryScreenProps) {
 
               {/* Item list */}
               <ItemList
-                inventory={filteredItems}
+                inventory={inventoryItems || []}
                 selectedItem={selectedItem}
                 setSelectedItem={setSelectedItem}
               />

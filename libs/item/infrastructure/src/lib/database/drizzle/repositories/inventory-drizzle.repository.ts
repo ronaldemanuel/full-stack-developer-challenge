@@ -130,8 +130,6 @@ export class InventoryDrizzleRepository
     const currentItems = user.$watchedRelations.inventory.getItems();
 
     if (this.userRepository) {
-      console.log('user', user.toJSON());
-
       await this.syncUser(user);
     }
 
