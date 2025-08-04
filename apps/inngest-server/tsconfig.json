@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "../../libs/email/infrastructure"
+    },
+    {
+      "path": "../../libs/jobs/events/presentation"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
+}

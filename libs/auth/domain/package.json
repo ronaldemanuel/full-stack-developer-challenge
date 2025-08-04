@@ -1,0 +1,42 @@
+{
+  "name": "@nx-ddd/auth-domain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "auth-domain",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/auth/domain/dist",
+          "main": "libs/auth/domain/src/index.ts",
+          "tsConfig": "libs/auth/domain/tsconfig.lib.json",
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nx-ddd/user-domain": "workspace:*",
+    "@nx-ddd/item-domain": "workspace:*",
+    "@nx-ddd/shared-domain": "workspace:*",
+    "zod": "catalog:zod3",
+    "@swc/helpers": "~0.5.11"
+  }
+}

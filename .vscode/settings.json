@@ -1,0 +1,52 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[typescript,typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.runtime": "node",
+  "editor.formatOnSave": true,
+  "eslint.rules.customizations": [
+    {
+      "rule": "*",
+      "severity": "warn"
+    }
+  ],
+  "eslint.workingDirectories": [
+    {
+      "pattern": "apps/*/"
+    },
+    {
+      "pattern": "libs/*/"
+    },
+    {
+      "pattern": "tools/*/"
+    }
+  ],
+  "prettier.ignorePath": ".gitignore",
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+    ["([^\\s]*)ClassName", "([^\\s]*)"]
+  ],
+  "tailwindCSS.experimental.configFile": "./tooling/tailwind/web.ts",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "next/router.d.ts",
+    "next/dist/client/router.d.ts"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "conventionalCommits.scopes": ["tsup", "tooling", "lint"],
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "cSpell.words": ["Desu", "HANDAKUON"],
+  "material-icon-theme.folders.associations": {
+    "infrastructure": "app",
+    "neo4j": "graphql",
+    "graphdb": "graphql"
+  },
+  "eslint.validate": ["json"]
+}

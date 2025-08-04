@@ -1,0 +1,44 @@
+{
+  "name": "@nx-ddd/auth-application",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "auth-application",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/auth/application/dist",
+          "main": "libs/auth/application/src/index.ts",
+          "tsConfig": "libs/auth/application/tsconfig.lib.json",
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nx-ddd/auth-domain": "workspace:*",
+    "@nx-ddd/shared-application": "workspace:*",
+    "@nx-ddd/email-domain": "workspace:*",
+    "@nestjs/common": "catalog:nestjs",
+    "@nestjs/core": "catalog:nestjs",
+    "@nestjs/cqrs": "catalog:nestjs",
+    "@swc/helpers": "~0.5.11"
+  }
+}

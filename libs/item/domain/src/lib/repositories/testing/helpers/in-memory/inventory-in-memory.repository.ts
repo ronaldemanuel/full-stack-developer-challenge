@@ -1,0 +1,51 @@
+import type { InventoryItemEntity } from 'src/lib/entities';
+import type { UserItemRef } from 'src/lib/refs';
+import type { InventoryRepository } from 'src/lib/repositories/inventory-repository';
+
+import type { UserRepository } from '@nx-ddd/user-domain';
+import { InMemoryRepository } from '@nx-ddd/shared-domain';
+
+export class InventoryInMemoryRepository
+  extends InMemoryRepository<InventoryItemEntity>
+  implements InventoryRepository.Repository
+{
+  insertCoins(userId: string, amount: number): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+
+  findByUserIdAndType(
+    userId: string,
+    type: string,
+  ): Promise<InventoryItemEntity[]> {
+    const items = this.items.filter(
+      (i) => i.item.type === type && i.characterId === userId,
+    );
+
+    return Promise.resolve(items);
+  }
+
+  findByUserIdAndItemId(
+    userId: string,
+    itemId: string,
+  ): Promise<InventoryItemEntity> {
+    const item = this.items.find(
+      (item) => item.characterId === userId && item.itemId === itemId,
+    );
+
+    if (!item) {
+      throw new Error(`Item ${itemId} not found for user ${userId}`);
+    }
+
+    return Promise.resolve(item);
+  }
+  syncByUser(user: UserItemRef): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+  userRepository?: UserRepository.Repository | undefined;
+
+  findByUserId(userId: string): Promise<InventoryItemEntity[]> {
+    const items = this.items.filter((item) => item.characterId === userId);
+
+    return Promise.resolve(items);
+  }
+}

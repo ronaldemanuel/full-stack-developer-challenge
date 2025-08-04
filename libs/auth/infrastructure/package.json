@@ -1,0 +1,60 @@
+{
+  "name": "@nx-ddd/auth-infrastructure",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./env": {
+      "development": "./src/env.ts",
+      "types": "./dist/env.d.ts",
+      "import": "./dist/env.js",
+      "default": "./dist/env.js"
+    }
+  },
+  "nx": {
+    "name": "auth-infrastructure",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/auth/infrastructure/dist",
+          "main": "libs/auth/infrastructure/src/index.ts",
+          "tsConfig": "libs/auth/infrastructure/tsconfig.lib.json",
+          "stripLeadingPaths": true
+        }
+      },
+      "generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "pnpm dlx @better-auth/cli@latest generate --config libs/auth/infrastructure/src/lib/auth.ts --output libs/database/infrastructure/src/drizzle/schema/auth-schema.ts -y"
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nx-ddd/auth-application": "workspace:*",
+    "@nx-ddd/auth-domain": "workspace:*",
+    "@nx-ddd/database-infrastructure": "workspace:*",
+    "@nx-ddd/item-domain": "workspace:*",
+    "@t3-oss/env-nextjs": "catalog:zod3",
+    "@better-auth/expo": "catalog:expo",
+    "zod": "catalog:zod3",
+    "@nestjs/common": "catalog:nestjs",
+    "better-auth": "catalog:auth",
+    "@swc/helpers": "~0.5.11",
+    "@nx-ddd/user-domain": "workspace:*"
+  }
+}

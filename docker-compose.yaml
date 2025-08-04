@@ -1,0 +1,68 @@
+name: 'nx-ddd'
+services:
+  pgsql:
+    image: 'postgres:16'
+    container_name: nx_ddd_pgsql
+    ports:
+      - '${DB_PORT:-5432}:5432'
+    environment:
+      PGPASSWORD: '${DB_PASS:-secret}'
+      POSTGRES_DB: '${DB_NAME:-default}'
+      POSTGRES_USER: '${DB_USER?:err}'
+      POSTGRES_PASSWORD: '${DB_PASS:-secret}'
+    volumes:
+      - 'sailpgsql:/var/lib/postgresql/data'
+    networks:
+      - sail
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'pg_isready',
+          '-q',
+          '-d',
+          '${DB_NAME:-default}',
+          '-U',
+          '${DB_USER}',
+        ]
+      retries: 3
+      timeout: 5s
+  pg_proxy:
+    image: ghcr.io/neondatabase/wsproxy:latest
+    environment:
+      APPEND_PORT: 'nx_ddd_pgsql:5432'
+      ALLOW_ADDR_REGEX: '.*'
+      LOG_TRAFFIC: 'true'
+    ports:
+      - '${DB_PROXY_PORT:-54330}:80'
+    networks:
+      - sail
+    depends_on:
+      - pgsql
+  mailhog:
+    image: 'mailhog/mailhog:latest'
+    container_name: nx_ddd_mailhog
+    ports:
+      - '${MAILHOG_PORT:-1025}:1025'
+      - '${MAILHOG_DASHBOARD_PORT:-8025}:8025'
+    networks:
+      - sail
+  redis:
+    image: 'redis:6-alpine'
+    container_name: nx_ddd_redis
+    ports:
+      - '${REDIS_PORT:-6379}:6379'
+    volumes:
+      - 'sailredis:/data'
+    networks:
+      - sail
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      retries: 3
+      timeout: 5s
+networks:
+  sail:
+    driver: bridge
+volumes:
+  sailpgsql:
+  sailredis:

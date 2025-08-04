@@ -1,0 +1,53 @@
+{
+  "name": "@nx-ddd/shared-infrastructure",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "shared-infrastructure",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/shared/infrastructure/dist",
+          "main": "libs/shared/infrastructure/src/index.ts",
+          "tsConfig": "libs/shared/infrastructure/tsconfig.lib.json",
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@keyv/redis": "catalog:",
+    "@nx-ddd/auth-domain": "workspace:*",
+    "@nx-ddd/auth-infrastructure": "workspace:*",
+    "@nx-ddd/database-infrastructure": "workspace:*",
+    "@nx-ddd/jobs-events-infrastructure": "workspace:*",
+    "@nx-ddd/shared-application": "workspace:*",
+    "@nx-ddd/shared-domain": "workspace:*",
+    "@nx-ddd/shared-presentation": "workspace:*",
+    "bcryptjs": "catalog:",
+    "cacheable": "catalog:",
+    "keyv": "catalog:",
+    "@nestjs/common": "catalog:nestjs",
+    "cache-manager": "catalog:",
+    "@nestjs/cache-manager": "catalog:nestjs",
+    "@swc/helpers": "~0.5.11",
+    "@trpc/server": "catalog:trpc"
+  }
+}

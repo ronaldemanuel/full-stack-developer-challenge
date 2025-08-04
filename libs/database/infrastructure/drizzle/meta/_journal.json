@@ -1,0 +1,76 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1753139634182,
+      "tag": "20250721231354_past_shaman",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1753221519937,
+      "tag": "20250722215839_glamorous_liz_osborn",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1753450877731,
+      "tag": "20250725134117_safe_sentry",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1753451110856,
+      "tag": "20250725134510_yielding_venus",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1753644112785,
+      "tag": "20250727192152_familiar_prima",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1753748741092,
+      "tag": "20250729002541_dusty_serpent_society",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1753752792575,
+      "tag": "20250729013312_serious_captain_flint",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1753976898147,
+      "tag": "20250731154818_legal_shooting_star",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1754001294278,
+      "tag": "20250731223454_nappy_star_brand",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1754066076819,
+      "tag": "20250801163436_flimsy_power_man",
+      "breakpoints": true
+    }
+  ]
+}

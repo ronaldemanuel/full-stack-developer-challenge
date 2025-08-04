@@ -1,0 +1,28 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "../../user/domain"
+    },
+    {
+      "path": "../../item/domain"
+    },
+    {
+      "path": "../../database/infrastructure"
+    },
+    {
+      "path": "../domain"
+    },
+    {
+      "path": "../application"
+    },
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}

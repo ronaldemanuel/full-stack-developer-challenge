@@ -1,0 +1,40 @@
+{
+  "name": "@nx-ddd/ui-utils",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "ui-utils",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/ui/utils/dist",
+          "main": "libs/ui/utils/src/index.ts",
+          "tsConfig": "libs/ui/utils/tsconfig.lib.json",
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "class-variance-authority": "catalog:",
+    "tailwind-merge": "catalog:tailwind3",
+    "@swc/helpers": "~0.5.11"
+  }
+}

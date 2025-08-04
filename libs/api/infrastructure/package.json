@@ -1,0 +1,47 @@
+{
+  "name": "@nx-ddd/api-infrastructure",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "api-infrastructure",
+    "targets": {
+      "build": {
+        "executor": "@nx/js:swc",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "options": {
+          "outputPath": "libs/api/infrastructure/dist",
+          "main": "libs/api/infrastructure/src/index.ts",
+          "tsConfig": "libs/api/infrastructure/tsconfig.lib.json",
+          "stripLeadingPaths": true
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nestjs/common": "catalog:nestjs",
+    "@nestjs/core": "catalog:nestjs",
+    "@nx-ddd/email-infrastructure": "workspace:*",
+    "@nx-ddd/post-infrastructure": "workspace:*",
+    "@nx-ddd/item-infrastructure": "workspace:*",
+    "@nx-ddd/user-infrastructure": "workspace:*",
+    "@nx-ddd/shared-infrastructure": "workspace:*",
+    "@nx-ddd/shared-presentation": "workspace:*",
+    "@swc/helpers": "~0.5.11",
+    "@trpc/server": "catalog:trpc"
+  }
+}

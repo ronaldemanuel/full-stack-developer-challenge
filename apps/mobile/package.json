@@ -1,0 +1,91 @@
+{
+  "name": "@nx-ddd/mobile",
+  "version": "0.1.0",
+  "private": true,
+  "nx": {
+    "name": "mobile"
+  },
+  "dependencies": {
+    "@better-auth/expo": "catalog:expo",
+    "@expo/metro-config": "catalog:expo",
+    "@hookform/resolvers": "^5.2.1",
+    "@legendapp/list": "catalog:react-native",
+    "@react-navigation/drawer": "^7.5.5",
+    "@rn-primitives/accordion": "^1.2.0",
+    "@rn-primitives/alert-dialog": "^1.2.0",
+    "@rn-primitives/aspect-ratio": "^1.2.0",
+    "@rn-primitives/avatar": "^1.2.0",
+    "@rn-primitives/checkbox": "^1.2.0",
+    "@rn-primitives/collapsible": "^1.2.0",
+    "@rn-primitives/context-menu": "^1.2.0",
+    "@rn-primitives/dialog": "^1.2.0",
+    "@rn-primitives/dropdown-menu": "^1.2.0",
+    "@rn-primitives/hover-card": "^1.2.0",
+    "@rn-primitives/label": "^1.2.0",
+    "@rn-primitives/menubar": "^1.2.0",
+    "@rn-primitives/navigation-menu": "^1.2.0",
+    "@rn-primitives/popover": "^1.2.0",
+    "@rn-primitives/progress": "^1.2.0",
+    "@rn-primitives/radio-group": "^1.2.0",
+    "@rn-primitives/select": "^1.2.0",
+    "@rn-primitives/separator": "^1.2.0",
+    "@rn-primitives/slot": "^1.2.0",
+    "@rn-primitives/switch": "^1.2.0",
+    "@rn-primitives/table": "^1.2.0",
+    "@rn-primitives/tabs": "^1.2.0",
+    "@rn-primitives/toggle": "^1.2.0",
+    "@rn-primitives/toggle-group": "^1.2.0",
+    "@rn-primitives/tooltip": "^1.2.0",
+    "@shopify/flash-list": "1.7.6",
+    "@tanstack/react-query": "catalog:",
+    "@trpc/client": "catalog:trpc",
+    "@trpc/server": "catalog:trpc",
+    "@trpc/tanstack-react-query": "catalog:trpc",
+    "better-auth": "catalog:auth",
+    "class-transformer": "^0.5.1",
+    "class-variance-authority": "catalog:",
+    "clsx": "catalog:",
+    "expo": "catalog:expo",
+    "expo-constants": "catalog:expo",
+    "expo-dev-client": "catalog:expo",
+    "expo-linking": "catalog:expo",
+    "expo-router": "catalog:expo",
+    "expo-secure-store": "catalog:expo",
+    "expo-splash-screen": "catalog:expo",
+    "expo-status-bar": "catalog:expo",
+    "expo-system-ui": "catalog:expo",
+    "expo-web-browser": "catalog:expo",
+    "lucide-react-native": "^0.534.0",
+    "nativewind": "catalog:react-native",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19",
+    "react-hook-form": "catalog:",
+    "react-native": "catalog:react-native",
+    "react-native-gesture-handler": "~2.24.0",
+    "react-native-paper": "^5.14.5",
+    "react-native-reanimated": "~3.17.5",
+    "react-native-safe-area-context": "catalog:react-native",
+    "react-native-screens": "catalog:react-native",
+    "react-native-svg": "15.11.2",
+    "superjson": "catalog:trpc",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "catalog:",
+    "zod": "^4.0.13"
+  },
+  "devDependencies": {
+    "@nx-ddd/api-infrastructure": "workspace:*",
+    "@nx-ddd/shared-domain": "workspace:*",
+    "@nx-ddd/tailwind": "workspace:*"
+  },
+  "scripts": {
+    "android": "expo run:android",
+    "ios": "expo run:ios"
+  },
+  "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "listUnknownPackages": false
+      }
+    }
+  }
+}

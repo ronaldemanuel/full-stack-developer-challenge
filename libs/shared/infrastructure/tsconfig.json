@@ -1,0 +1,34 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "../domain"
+    },
+    {
+      "path": "../presentation"
+    },
+    {
+      "path": "../application"
+    },
+    {
+      "path": "../../jobs/events/infrastructure"
+    },
+    {
+      "path": "../../database/infrastructure"
+    },
+    {
+      "path": "../../auth/infrastructure"
+    },
+    {
+      "path": "../../auth/domain"
+    },
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}
