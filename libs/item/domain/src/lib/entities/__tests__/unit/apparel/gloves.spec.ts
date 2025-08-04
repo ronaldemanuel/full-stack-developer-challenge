@@ -1,11 +1,12 @@
 import type { UserItemRef } from '../../../../refs/user-item.ref';
 import type { ApparelItemSchemaProps } from '../../../../schemas/apparel.schema';
+import type { GlovesEntity } from '../../../apparel/gloves.entity';
 import { ItemMapper } from '../../../../mappers/item.mapper';
 import { UserItemRefFactory } from '../../../factories/user-item-ref.factory';
 
 describe('GlovesEntity', () => {
   let character: UserItemRef;
-  let gloves: ReturnType<typeof ItemMapper.toDomain>;
+  let gloves: GlovesEntity;
 
   const baseItem: ApparelItemSchemaProps = {
     id: 'dragonscale-gautlets',
@@ -21,13 +22,13 @@ describe('GlovesEntity', () => {
 
   beforeEach(() => {
     character = UserItemRefFactory({}, {}, 'user-123');
-    gloves = ItemMapper.toDomain(baseItem, character);
+    gloves = ItemMapper.toDomain(baseItem, character) as GlovesEntity;
   });
 
   it('should equip the gloves if no gloves is currently equipped', () => {
     gloves.use();
 
-    expect(character.equippedGloves).toBe(gloves);
+    expect(character.equippedGloves).toBe(gloves.id);
   });
 
   it('should replace the currently equipped gloves with a new one', () => {
@@ -45,19 +46,19 @@ describe('GlovesEntity', () => {
 
     // Equip the first gloves
     gloves.use();
-    expect(character.equippedGloves).toBe(gloves);
+    expect(character.equippedGloves).toBe(gloves.id);
 
     // Equip a different gloves
 
     const newGloves = ItemMapper.toDomain(newGlovesProps, character);
     newGloves.use();
-    expect(character.equippedGloves).toBe(newGloves);
+    expect(character.equippedGloves).toBe(newGloves.id);
   });
 
   it('should unequip the gloves if it is already equipped', () => {
     // Equip
     gloves.use();
-    expect(character.equippedGloves).toBe(gloves);
+    expect(character.equippedGloves).toBe(gloves.id);
 
     // Unequip
     gloves.use();

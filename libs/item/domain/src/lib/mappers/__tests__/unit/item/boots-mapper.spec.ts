@@ -1,6 +1,6 @@
 import type { UserItemRef } from '../../../../refs/user-item.ref';
 import type { ApparelItemSchemaProps } from '../../../../schemas/apparel.schema';
-import BootsEntity from '../../../../entities/apparel/boots.entity';
+import { BootsEntity } from '../../../../entities/apparel/boots.entity';
 import { UserItemRefFactory } from '../../../../entities/factories/user-item-ref.factory';
 import { ItemMapper } from '../../../item.mapper';
 
@@ -38,7 +38,7 @@ describe('BootsEntity - ItemMapper', () => {
     expect(item).toBeInstanceOf(BootsEntity);
 
     if (item instanceof BootsEntity) {
-      expect(() => item.character).toThrow('This item has no character');
+      expect(item.character).toBeUndefined();
     }
   });
 
