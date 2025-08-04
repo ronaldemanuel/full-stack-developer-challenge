@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm nx run inngest-server:build",
+  "buildCommand": "cd ../../ && pnpm nx run inngest-server:build",
   "rewrites": [
     {
       "source": "/(.*)",
