@@ -1,6 +1,11 @@
 {
   "version": 2,
   "buildCommand": "cd ../../ && pnpm nx run inngest-server:build",
+  "functions": {
+    "main.js": {
+      "includeFiles": "dist/**/*"
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",
