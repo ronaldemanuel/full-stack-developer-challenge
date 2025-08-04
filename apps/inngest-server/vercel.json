@@ -4,8 +4,9 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "apps/inngest-server/dist/index.js"
+      "destination": "/dist/index.js"
     }
   ],
-  "$schema": "https://openapi.vercel.sh/vercel.json"
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "dist"
 }
