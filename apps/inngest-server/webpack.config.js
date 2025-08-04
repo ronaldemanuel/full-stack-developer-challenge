@@ -10,6 +10,7 @@ module.exports = {
       target: 'node',
       compiler: 'tsc',
       main: './src/index.ts',
+      outputFileName: 'index.js',
       tsConfig: './tsconfig.app.json',
       assets: ['./src/assets'],
       optimization: false,
