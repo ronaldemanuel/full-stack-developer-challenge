@@ -15,7 +15,7 @@ export class SpPotionEntity extends ConsumableEntity {
       throw new Error('Item cannot be used: SP is full');
     }
     character.spLevel =
-      spLevel + this.effectValue < 100 ? this.effectValue : 100;
+      spLevel + this.effectValue < 100 ? this.effectValue + spLevel : 100;
 
     this.removeItem(character);
   }

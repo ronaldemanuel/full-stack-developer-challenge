@@ -16,7 +16,7 @@ export class HpPotionEntity extends ConsumableEntity {
     }
 
     character.hpLevel =
-      hpLevel + this.effectValue < 100 ? this.effectValue : 100;
+      hpLevel + this.effectValue < 100 ? this.effectValue + hpLevel : 100;
 
     this.removeItem(character);
   }

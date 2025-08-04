@@ -197,6 +197,17 @@ export const ITEMS: Record<
     price: 0,
     weight: 0.1,
   },
+  'potion-of-minor-stamina': {
+    id: 'potion-of-minor-stamina',
+    name: 'Potion of Minor Stamina',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/4/48/Potion_of_Minor_Stamina.png/revision/latest?cb=20131216184139',
+    type: 'consumable',
+    price: 20,
+    weight: 0,
+    consumableType: 'sp-potion',
+    effectValue: 25,
+  },
 } satisfies Record<
   string,
   ItemSchema | ApparelItemSchemaProps | WeaponItemProps | ConsumableItemProps

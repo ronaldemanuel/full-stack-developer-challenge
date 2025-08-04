@@ -16,7 +16,7 @@ export class MpPotionEntity extends ConsumableEntity {
     }
 
     character.mpLevel =
-      mpLevel + this.effectValue < 100 ? this.effectValue : 100;
+      mpLevel + this.effectValue < 100 ? this.effectValue + mpLevel : 100;
 
     this.removeItem(character);
   }
