@@ -11,17 +11,14 @@ export function useAuth() {
 
   const loginWithEmail = useCallback(
     async (input: LoginFormData) => {
-      try {
-        await authClient.signIn.email(input);
-      } catch (err) {
-        if (err instanceof Error) {
-          console.error('Erro no login com Email:', err);
-          toast.toast({
-            title: 'Error',
-            description: err.message,
-            variant: 'error',
-          });
-        }
+      const response = await authClient.signIn.email(input);
+      if (response.data === null) {
+        console.error('Erro no login com Email:', input.email);
+        toast.toast({
+          title: 'Fail to login',
+          description: response.error.message,
+          variant: 'error',
+        });
       }
     },
     [toast],
@@ -29,71 +26,61 @@ export function useAuth() {
 
   const signupWithEmail = useCallback(
     async (input: SignupFormData) => {
-      try {
-        await authClient.signUp.email(input);
+      const response = await authClient.signUp.email(input);
 
-        await loginWithEmail({ email: input.email, password: input.password });
-      } catch (err) {
-        if (err instanceof Error) {
-          console.error('Erro no signup com Email:', err);
-          toast.toast({
-            title: 'Error',
-            description: err.message,
-            variant: 'error',
-          });
-        }
+      if (response.data === null) {
+        console.error('Erro no signup com Email:', input.email);
+        toast.toast({
+          title: 'Fail',
+          description: response.error.message,
+          variant: 'error',
+        });
       }
     },
     [loginWithEmail, toast],
   );
 
   const loginWithGoogle = useCallback(async () => {
-    try {
-      await authClient.signIn.social({
-        provider: 'google',
-        callbackURL: '/',
+    const response = await authClient.signIn.social({
+      provider: 'google',
+      callbackURL: '/',
+    });
+
+    if (response.data === null) {
+      console.error('Erro no login com Google');
+      toast.toast({
+        title: 'Fail',
+        description: response.error.message,
+        variant: 'error',
       });
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error('Erro no login com Google:', err);
-        toast.toast({
-          title: 'Error',
-          description: err.message,
-          variant: 'error',
-        });
-      }
     }
   }, [toast]);
 
   const logout = useCallback(async () => {
-    try {
-      await authClient.signOut();
-      await queryClient.invalidateQueries();
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error('Erro no logout:', err);
-        toast.toast({
-          title: 'Error',
-          description: err.message,
-          variant: 'error',
-        });
-      }
+    const response = await authClient.signOut();
+    await queryClient.invalidateQueries();
+
+    if (response.data === null) {
+      console.error('Erro no logout');
+      toast.toast({
+        title: 'Error',
+        description: response.error.message,
+        variant: 'error',
+      });
     }
   }, [toast]);
 
   const forgotPassword = useCallback(
     async (input: ForgotPasswordFormData) => {
-      try {
-        await authClient.forgetPassword({ email: input.email });
-      } catch (err) {
-        if (err instanceof Error) {
-          console.error('Erro no reset password:', err);
-          toast.toast({
-            title: 'Error',
-            description: err.message,
-            variant: 'error',
-          });
-        }
+      const response = await authClient.forgetPassword({ email: input.email });
+
+      if (response.data === null) {
+        console.error('Erro no reset password do email: ', input.email);
+        toast.toast({
+          title: 'Error',
+          description: response.error.message,
+          variant: 'error',
+        });
       }
     },
     [toast],

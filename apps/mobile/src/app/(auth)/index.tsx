@@ -31,8 +31,8 @@ export default function LoginScreen() {
     setIsLoading(true);
     setTimeout(() => {
       loginWithEmail(data);
-      setIsLoading(false);
       router.replace('/(tabs)/inventory');
+      setIsLoading(false);
     }, 1500);
   };
 
