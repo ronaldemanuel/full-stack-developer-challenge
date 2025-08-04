@@ -1,3 +1,4 @@
+import { Propagation } from '@nestjs-cls/transactional';
 import { Inject, Injectable } from '@nestjs/common';
 
 import type { DrizzleDB, DrizzleTX } from '@nx-ddd/database-infrastructure';
@@ -7,6 +8,7 @@ import type {
   InventoryRepository,
   UserItemRef,
 } from '@nx-ddd/item-domain';
+import { Transactional } from '@nx-ddd/database-application';
 import {
   InjectDrizzle,
   InjectDrizzleTransaction,
@@ -15,7 +17,7 @@ import {
   and,
   eq,
   gt,
-  inArray,
+  not,
 } from '@nx-ddd/database-infrastructure/drizzle/operators';
 import {
   userItem,
@@ -125,37 +127,32 @@ export class InventoryDrizzleRepository
 
   async syncByUser(user: UserItemRef): Promise<void> {
     const itemsToDelete = user.$watchedRelations.inventory.getRemovedItems();
-    const itemsToCreate = user.$watchedRelations.inventory.getNewItems();
     const currentItems = user.$watchedRelations.inventory.getItems();
 
-    const itemsToUpdate = currentItems.filter((item) => {
-      const isNew = itemsToCreate.some(
-        (newItem) => newItem.itemId === item.itemId,
-      );
-      const isRemoved = itemsToDelete.some(
-        (removedItem) => removedItem.itemId === item.itemId,
-      );
-      if (isNew || isRemoved) return false;
-
-      return item;
-    });
-
     if (this.userRepository) {
-      await this.tx
-        .update(userTable)
-        .set(user.toJSON())
-        .where(eq(userTable.id, user.id));
+      console.log('user', user.toJSON());
+
+      await this.syncUser(user);
     }
 
     await Promise.all(
       [
-        itemsToCreate.map(async (item) => {
+        currentItems.map(async (item) => {
           try {
-            await this.tx.insert(userItem).values({
-              itemId: item.itemId,
-              userId: item.characterId,
-              amount: item.amount,
-            });
+            await this.tx
+              .insert(userItem)
+              .values({
+                itemId: item.itemId,
+                userId: item.characterId,
+                amount: item.amount,
+              })
+              .onConflictDoUpdate({
+                set: {
+                  amount: item.amount,
+                },
+                target: [userItem.userId, userItem.itemId],
+                setWhere: not(eq(userItem.amount, item.amount)),
+              });
           } catch (error) {
             console.error(error);
           }
@@ -174,23 +171,16 @@ export class InventoryDrizzleRepository
             console.error(error);
           }
         }),
-        itemsToUpdate.map(async (item) => {
-          try {
-            await this.tx
-              .update(userItem)
-              .set({ amount: item.amount })
-              .where(
-                and(
-                  eq(userItem.itemId, item.itemId),
-                  eq(userItem.userId, user.id),
-                ),
-              );
-          } catch (error) {
-            console.error(error);
-          }
-        }),
       ].flat(),
     );
+  }
+
+  @Transactional(Propagation.RequiresNew)
+  private async syncUser(user: UserItemRef) {
+    await this.tx
+      .update(userTable)
+      .set(user.toJSON())
+      .where(eq(userTable.id, user.id));
   }
 
   async findByUserIdAndItemId(

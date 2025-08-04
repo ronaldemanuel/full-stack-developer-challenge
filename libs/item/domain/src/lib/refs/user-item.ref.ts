@@ -141,7 +141,7 @@ export class UserItemRef extends UserEntity {
   }
 
   public addItemToInventory(item: ItemEntity): void {
-    if (item.price > this.coins) {
+    if (+item.price > +this.coins) {
       throw new Error('No enough coins');
     }
 
