@@ -3,7 +3,7 @@ import { z } from 'zod/v4';
 
 export const env = createEnv({
   server: {
-    APP_QUEUE_URL: z.string().min(1),
+    APP_QUEUE_URL: z.string().min(1).optional(),
   },
   experimental__runtimeEnv: {},
   skipValidation:

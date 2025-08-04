@@ -34,7 +34,7 @@ export class SQSClientProxy extends ClientProxy {
     const [namespace, eventName] = packet.pattern.split('/');
     this.logger.log(`Dispatching event: ${eventName} to queue: ${namespace}`);
     const queueMap: Record<EventQueues, string> = {
-      'app-queue': env.APP_QUEUE_URL,
+      'app-queue': env.APP_QUEUE_URL || '',
     };
 
     if (!queueMap[namespace as keyof typeof queueMap]) {
