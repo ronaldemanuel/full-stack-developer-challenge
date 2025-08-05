@@ -107,12 +107,6 @@
     },
     {
       "path": "./apps/mobile"
-    },
-    {
-      "path": "./apps/inngest-server-e2e"
-    },
-    {
-      "path": "./apps/inngest-server"
     }
   ],
   "ts-node": {
