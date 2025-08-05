@@ -34,7 +34,7 @@ export default function LoginScreen() {
     setIsLoading(true);
     await loginWithEmail(data);
     await refetch();
-    router.replace('/(tabs)/inventory');
+    router.replace('/');
     setIsLoading(false);
   };
 

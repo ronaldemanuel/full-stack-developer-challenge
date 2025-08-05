@@ -2,6 +2,7 @@ import type { LoginFormData } from '@/app/(auth)';
 import type { ForgotPasswordFormData } from '@/app/(auth)/forgot-password';
 import type { SignupFormData } from '@/app/(auth)/signup-screen';
 import { useCallback } from 'react';
+import * as Linking from 'expo-linking';
 import { useToast } from '@/components/ui/toast';
 import { queryClient } from '@/utils/api';
 import { authClient } from '@/utils/auth';
@@ -46,6 +47,7 @@ export function useAuth() {
   const loginWithGoogle = useCallback(async () => {
     const response = await authClient.signIn.social({
       provider: 'google',
+      callbackURL: Linking.createURL('/(tabs)/inventory'),
     });
 
     if (response.data === null) {
