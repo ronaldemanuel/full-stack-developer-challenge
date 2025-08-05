@@ -1,5 +1,4 @@
-import type { UserItemRef } from 'src/lib/refs/user-item.ref';
-
+import type { UserItemRef } from '../../refs/user-item.ref';
 import type { ItemIdentifier } from '../abstract-item.entity';
 import { ApparelEntity } from './apparel.entity';
 

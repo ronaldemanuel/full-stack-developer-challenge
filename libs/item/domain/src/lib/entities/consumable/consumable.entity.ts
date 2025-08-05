@@ -1,6 +1,5 @@
-import type { UserItemRef } from 'src/lib/refs/user-item.ref';
-import type { ConsumableItemProps } from 'src/lib/schemas/consumable.schema';
-
+import type { UserItemRef } from '../../refs/user-item.ref';
+import type { ConsumableItemProps } from '../../schemas/consumable.schema';
 import { ItemEntity } from '../abstract-item.entity';
 
 export abstract class ConsumableEntity<

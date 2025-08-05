@@ -1,5 +1,4 @@
-import type { WeaponItemProps } from 'src/lib/schemas/weapon.schema';
-
+import type { WeaponItemProps } from '../../schemas/weapon.schema';
 import { WearableItemsEntity } from '../wearable-items.entity';
 
 export abstract class WeaponEntity<

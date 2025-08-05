@@ -1,8 +1,7 @@
-import type { UserItemRefRelations } from 'src/lib/refs/user-item.ref';
-import type { UserItemRefProps } from 'src/lib/schemas/user-item-ref.schema';
-
 import { UserEntityMockFactory } from '@nx-ddd/user-domain';
 
+import type { UserItemRefRelations } from '../../refs/user-item.ref';
+import type { UserItemRefProps } from '../../schemas/user-item-ref.schema';
 import { UserItemRef } from '../../refs/user-item.ref';
 
 export function UserItemRefFactory(

@@ -1,9 +1,9 @@
-import type { InventoryItemEntity } from 'src/lib/entities';
-import type { UserItemRef } from 'src/lib/refs';
-import type { InventoryRepository } from 'src/lib/repositories/inventory-repository';
-
 import type { UserRepository } from '@nx-ddd/user-domain';
 import { InMemoryRepository } from '@nx-ddd/shared-domain';
+
+import type { InventoryItemEntity } from '../../../../entities';
+import type { UserItemRef } from '../../../../refs';
+import type { InventoryRepository } from '../../../../repositories/inventory-repository';
 
 export class InventoryInMemoryRepository
   extends InMemoryRepository<InventoryItemEntity>
