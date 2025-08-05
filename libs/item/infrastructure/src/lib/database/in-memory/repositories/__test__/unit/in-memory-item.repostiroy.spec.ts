@@ -56,6 +56,7 @@ describe('InMemoryItemRepository', () => {
         'silver-ingot': MiscItemEntity,
         'coin': MiscItemEntity,
         'potion-of-minor-stamina': SpPotionEntity,
+        'trollsbane': TwoHandedWeaponEntity,
       };
 
       items.forEach((item) => {
@@ -85,7 +86,7 @@ describe('InMemoryItemRepository', () => {
   describe('findIdListType', () => {
     it('should return the items matching the given type', async () => {
       const result = await repository.findByType('weapon');
-      expect(result).toHaveLength(3);
+      expect(result).toHaveLength(4);
       expect(result.map((item) => item.id)).toEqual(
         expect.arrayContaining(['iron-sword', 'ebony-sword']),
       );

@@ -51,6 +51,7 @@ export class ItemMapper {
       'silver-ingot': MiscItemEntity,
       'coin': MiscItemEntity,
       'potion-of-minor-stamina': SpPotionEntity,
+      'trollsbane': TwoHandedWeaponEntity,
     };
 
     const ItemClass =
