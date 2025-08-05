@@ -1,8 +1,7 @@
-import type { InventoryItemEntity } from 'src/lib/entities/inventory-item.entity';
-
 import type { UserRepository } from '@nx-ddd/user-domain';
 import { getRepositoryToken } from '@nx-ddd/shared-domain';
 
+import type { InventoryItemEntity } from '../entities/inventory-item.entity';
 import type { UserItemRef } from '../refs';
 
 export namespace InventoryRepository {

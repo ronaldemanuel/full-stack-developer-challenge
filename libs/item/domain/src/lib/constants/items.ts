@@ -88,7 +88,7 @@ export const ITEMS: Record<
     id: 'leather-boots',
     name: 'Leather Boots',
     image:
-      'https://static.wikia.nocookie.net/elderscrolls/images/e/e2/Leather_Armor_%28Armor_Piece%29.png/revision/latest?cb=20180219152808',
+      'https://static.wikia.nocookie.net/elderscrolls/images/6/65/Leather_Boots_%28Skyrim%29.png/revision/latest?cb=20180219153834',
     defenseValue: 7,
     type: 'apparel',
     apparelType: 'boots',
@@ -207,6 +207,17 @@ export const ITEMS: Record<
     weight: 0,
     consumableType: 'sp-potion',
     effectValue: 25,
+  },
+  'trollsbane': {
+    id: 'trollsbane',
+    name: 'Trollsbane',
+    image:
+      'https://static.wikia.nocookie.net/elderscrolls/images/1/1a/SteelWarhammer_SK.png/revision/latest?cb=20121012192841',
+    type: 'weapon',
+    price: 60,
+    weight: 25,
+    weaponType: 'two-hands',
+    effectValue: 20,
   },
 } satisfies Record<
   string,

@@ -1,8 +1,8 @@
-import type { UserItemRef } from 'src/lib/refs/user-item.ref';
 import type z from 'zod';
 
 import { ZodEntity } from '@nx-ddd/shared-domain';
 
+import type { UserItemRef } from '../../refs/user-item.ref';
 import type { ItemIdentifier } from '../abstract-item.entity';
 import { apparelItemPropsSchema } from '../../schemas/apparel.schema';
 import { ApparelEntity } from './apparel.entity';

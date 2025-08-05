@@ -17,7 +17,6 @@
   },
   "nx": {
     "name": "item-domain",
-    "sourceRoot": "libs/item/domain/src",
     "targets": {
       "build": {
         "executor": "@nx/js:swc",
@@ -28,7 +27,6 @@
           "outputPath": "libs/item/domain/dist",
           "main": "libs/item/domain/src/index.ts",
           "tsConfig": "libs/item/domain/tsconfig.lib.json",
-          "skipTypeCheck": true,
           "stripLeadingPaths": true
         }
       }

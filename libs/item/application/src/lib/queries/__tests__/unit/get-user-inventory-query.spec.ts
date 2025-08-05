@@ -1,7 +1,7 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 
-import type { ItemSchema } from '@nx-ddd/item-domain';
+import type { ItemEntity, ItemSchema, UserItemRef } from '@nx-ddd/item-domain';
 import {
   InventoryInMemoryRepository,
   InventoryItemMapper,
@@ -15,6 +15,13 @@ import { GetUserInventoryQuery } from '../../get-user-inventory.query';
 describe('GetUserInventoryQuery', () => {
   let getUserInventoryQuery: GetUserInventoryQuery.Handler;
   let inventoryRepository: InventoryRepository.Repository;
+
+  let mockUser: UserItemRef;
+
+  let mockItem1: ItemEntity;
+  let mockItem2: ItemEntity;
+
+  // let mockItems: ItemEntity[];
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -35,70 +42,113 @@ describe('GetUserInventoryQuery', () => {
     inventoryRepository = moduleRef.get<InventoryRepository.Repository>(
       InventoryRepository.TOKEN,
     );
+
+    // Arrange
+    mockUser = UserItemRefFactory();
+
+    const baseItem1: ItemSchema = {
+      id: 'dragonscale-boots',
+      name: 'Dragon Boots',
+      type: 'apparel',
+      image:
+        'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
+      price: 12,
+      weight: 12,
+    } as ItemSchema;
+
+    const baseItem2: ItemSchema = {
+      id: 'potion-of-health',
+      name: 'Potion of Health',
+      image:
+        'https://static.wikia.nocookie.net/elderscrolls/images/3/32/TESV_HealthPotion.png/revision/latest?cb=20131209201729',
+      effectValue: 67,
+      type: 'consumable',
+      consumableType: 'hp-potion',
+      price: 67,
+      weight: 0,
+    } as ItemSchema;
+
+    mockItem1 = ItemMapper.toDomain(baseItem1, mockUser);
+    mockItem2 = ItemMapper.toDomain(baseItem2, mockUser);
+    // mockItems = [mockItem1, mockItem2];
   });
 
   it('should be defined', () => {
     expect(getUserInventoryQuery).toBeDefined();
   });
 
-  it('should return a user items list', async () => {
-    // Arrange
-    const mockUser = UserItemRefFactory();
-
-    const baseItem: ItemSchema = {
-      id: 'dragonscale-boots',
-      name: 'Dragon Boots',
-      type: 'apparel',
-      image:
-        'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
-    } as ItemSchema;
-
-    const baseItem2: ItemSchema = {
-      id: 'leather-armor',
-      name: 'Leather Armor',
-      image:
-        'https://static.wikia.nocookie.net/elderscrolls/images/e/e2/Leather_Armor_%28Armor_Piece%29.png/revision/latest?cb=20180219152808',
-
-      type: 'apparel',
-    } as ItemSchema;
-
-    const mockItem1 = ItemMapper.toDomain(baseItem, mockUser);
-    const mockItem2 = ItemMapper.toDomain(baseItem2, mockUser);
-
-    const inventoryItemProps1 = {
-      itemId: mockItem1.id,
-      userId: mockUser.id,
-      amount: 5,
-    };
-
-    const inventoryItemProps2 = {
-      itemId: mockItem2.id,
-      userId: mockUser.id,
-      amount: 2,
-    };
-
-    const inventoryItem1 = InventoryItemMapper.toDomain(inventoryItemProps1, {
-      item: mockItem1,
-    });
-    const inventoryItem2 = InventoryItemMapper.toDomain(inventoryItemProps2, {
-      item: mockItem2,
-    });
+  it('should return he all user items list when the filter is all', async () => {
+    const inventoryItem1 = InventoryItemMapper.toDomain(
+      { amount: 2 },
+      {
+        item: mockItem1,
+      },
+    );
+    const inventoryItem2 = InventoryItemMapper.toDomain(
+      { amount: 1 },
+      {
+        item: mockItem2,
+      },
+    );
 
     const mockInventory = [inventoryItem1, inventoryItem2];
-    const mockItems = [mockItem1, mockItem2];
 
-    vi.spyOn(inventoryRepository, 'findByUserId').mockReturnValue(
+    mockUser.$watchedRelations.inventory.add(inventoryItem1);
+    mockUser.$watchedRelations.inventory.add(inventoryItem2);
+
+    vi.spyOn(inventoryRepository, 'findByUserIdAndType').mockReturnValue(
       Promise.resolve(mockInventory as any),
     );
 
-    const query = GetUserInventoryQuery.create(mockUser.toJSON());
+    const type = 'all';
+
+    const query = GetUserInventoryQuery.create({
+      type,
+      userId: mockUser.id,
+    });
 
     // Act
     const result = await getUserInventoryQuery.execute(query);
 
     // Assert
-    expect(inventoryRepository.findByUserId).toHaveBeenCalled();
-    expect(inventoryRepository.findByUserId).toHaveBeenCalledWith(mockUser.id);
-    expect(result).toEqual(mockItems);
+    expect(inventoryRepository.findByUserIdAndType).toHaveBeenCalled();
+    expect(inventoryRepository.findByUserIdAndType).toHaveBeenCalledWith(
+      mockUser.id,
+      type,
+    );
+    expect(result).toHaveLength(2);
+  });
+
+  it('should return the filtered user items list', async () => {
+    const inventoryItem1 = InventoryItemMapper.toDomain(
+      { amount: 2 },
+      {
+        item: mockItem1,
+      },
+    );
+
+    mockUser.$watchedRelations.inventory.add(inventoryItem1);
+    vi.spyOn(inventoryRepository, 'findByUserIdAndType').mockReturnValue(
+      Promise.resolve([inventoryItem1] as any),
+    );
+
+    const type = 'apparel';
+
+    const query = GetUserInventoryQuery.create({
+      type,
+      userId: mockUser.id,
+    });
+
+    // Act
+    const result = await getUserInventoryQuery.execute(query);
+
+    // Assert
+    expect(inventoryRepository.findByUserIdAndType).toHaveBeenCalled();
+    expect(inventoryRepository.findByUserIdAndType).toHaveBeenCalledWith(
+      mockUser.id,
+      type,
+    );
+    expect(result).toHaveLength(1);
+    expect(result[0].itemId).toEqual(mockItem1.id);
   });
 });

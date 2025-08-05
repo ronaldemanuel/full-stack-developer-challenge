@@ -1,12 +1,13 @@
 // LoginScreen.tsx (React Native version using tailwindcss-react-native, shadcn/ui, zod, RHF)
 
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 import { Link, router } from 'expo-router';
 import { Button } from '@/components/ui/button';
 import { Form, FormField, FormInput } from '@/components/ui/Form';
 import { Text } from '@/components/ui/text';
 import { useAuth } from '@/modules/auth/hooks/use-auth';
+import { useUser } from '@/modules/auth/hooks/use-user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -20,20 +21,20 @@ export type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginScreen() {
   const [isLoading, setIsLoading] = useState(false);
-  const { loginWithEmail } = useAuth();
+  const { loginWithEmail, loginWithGoogle } = useAuth();
+  const { refetch } = useUser();
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' },
   });
 
-  const onSubmit = (data: LoginFormData) => {
+  const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
-    setTimeout(() => {
-      loginWithEmail(data);
-      router.replace('/(tabs)/inventory');
-      setIsLoading(false);
-    }, 1500);
+    await loginWithEmail(data);
+    await refetch();
+    router.replace('/(tabs)/inventory');
+    setIsLoading(false);
   };
 
   return (
@@ -91,6 +92,26 @@ export default function LoginScreen() {
           <Text>{isLoading ? 'AUTHENTICATING...' : 'SIGN IN'}</Text>
         </Button>
       </Form>
+
+      <View className="mb-4 flex-row items-center">
+        <View className="h-px flex-1 bg-gray-700" />
+        <Text className="mx-3 text-sm text-gray-400">or</Text>
+        <View className="h-px flex-1 bg-gray-700" />
+      </View>
+
+      {/* Google Sign-In Button */}
+      <Button
+        variant="outline"
+        className="mb-4 flex-row items-center justify-center py-3"
+        onPress={loginWithGoogle}
+      >
+        <Image
+          source={require('../../../assets/google-icone-symbole-png-logo-noir.png')}
+          className="mr-2 h-5 w-5"
+          resizeMode="contain"
+        />
+        <Text className="text-white">Sign in with Google</Text>
+      </Button>
 
       {/* Signup Link */}
       <View className="items-center border-t border-white/20 pt-4">

@@ -1,8 +1,7 @@
-import type { ItemEntity } from 'src/lib/entities/abstract-item.entity';
-
 import type { UserRepository } from '@nx-ddd/user-domain';
 import { InMemoryRepository } from '@nx-ddd/shared-domain';
 
+import type { ItemEntity } from '../../../../entities/abstract-item.entity';
 import type { ItemRepository } from '../../../item.repository';
 
 export class ItemInMemoryRepository
@@ -10,7 +9,8 @@ export class ItemInMemoryRepository
   implements ItemRepository.Repository
 {
   findByType(type: string): Promise<ItemEntity[]> {
-    throw new Error('Method not implemented.');
+    const filteredList = this.items.filter((item) => item.type === type);
+    return Promise.resolve(filteredList);
   }
 
   userRepository?: UserRepository.Repository | undefined;

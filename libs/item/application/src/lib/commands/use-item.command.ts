@@ -4,11 +4,7 @@ import { CommandHandler, EventPublisher } from '@nestjs/cqrs';
 import { Validated } from 'validated-extendable';
 
 import { Transactional } from '@nx-ddd/database-application';
-import {
-  InventoryRepository,
-  ItemRepository,
-  UserItemRef,
-} from '@nx-ddd/item-domain';
+import { InventoryRepository, UserItemRef } from '@nx-ddd/item-domain';
 import { UserRepository } from '@nx-ddd/user-domain';
 
 import type { UseItemInput } from '../schemas/commands';
@@ -34,8 +30,6 @@ export namespace UseItemCommand {
   @CommandHandler(UseItemCommand)
   export class Handler implements ICommandHandler<UseItemCommand, Output> {
     constructor(
-      @Inject(ItemRepository.TOKEN)
-      private readonly itemRepository: ItemRepository.Repository,
       @Inject(EventPublisher)
       private readonly eventPublisher: EventPublisher,
       @Inject(UserRepository.TOKEN)

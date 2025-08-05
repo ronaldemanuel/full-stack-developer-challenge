@@ -14,6 +14,10 @@ import {
   DatabaseService,
 } from '@nx-ddd/database-infrastructure';
 import { setupDrizzleTestDB } from '@nx-ddd/database-infrastructure/drizzle/operators';
+import {
+  InventoryInMemoryRepository,
+  InventoryRepository,
+} from '@nx-ddd/item-domain';
 import { UserEntityMockFactory } from '@nx-ddd/user-domain';
 
 import type { BetterAuthConfig } from '../../../factories/better-auth.factory';
@@ -61,6 +65,10 @@ describe('AuthWithBetterAuthService', () => {
         {
           provide: AuthService.TOKEN,
           useClass: AuthWithBetterAuthService, // Use the service directly
+        },
+        {
+          provide: InventoryRepository.TOKEN,
+          useClass: InventoryInMemoryRepository,
         },
       ], // Add
     }).compile();

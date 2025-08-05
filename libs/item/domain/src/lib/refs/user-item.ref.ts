@@ -8,7 +8,6 @@ import { UserEntity } from '@nx-ddd/user-domain';
 import type { ItemEntity } from '../entities/abstract-item.entity';
 import type { InventoryItemEntity } from '../entities/inventory-item.entity';
 import type { UserItemRefProps } from '../schemas/user-item-ref.schema';
-import { ItemAddedToInventoryEvent } from '../events/item-added-to-inventory.event';
 import { ItemMapper } from '../mappers';
 import { InventoryItemMapper } from '../mappers/inventory-mapper';
 
@@ -141,7 +140,7 @@ export class UserItemRef extends UserEntity {
   }
 
   public addItemToInventory(item: ItemEntity): void {
-    if (item.price > this.coins) {
+    if (+item.price > +this.coins) {
       throw new Error('No enough coins');
     }
 
@@ -163,8 +162,6 @@ export class UserItemRef extends UserEntity {
         character: this,
       },
     );
-
-    inventory.apply(new ItemAddedToInventoryEvent(item.toJSON()));
 
     this.$watchedRelations.inventory.add(inventory);
   }

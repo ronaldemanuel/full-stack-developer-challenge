@@ -1,6 +1,6 @@
 import type { UserItemRef } from '../../../../refs/user-item.ref';
 import type { ApparelItemSchemaProps } from '../../../../schemas/apparel.schema';
-import GlovesEntity from '../../../../entities/apparel/gloves.entity';
+import { GlovesEntity } from '../../../../entities/apparel/gloves.entity';
 import { UserItemRefFactory } from '../../../../entities/factories/user-item-ref.factory';
 import { ItemMapper } from '../../../item.mapper';
 
@@ -14,6 +14,8 @@ describe('GlovesEntity - ItemMapper', () => {
     image: 'https://example.com/dragon-gloves.png',
     apparelType: 'gloves',
     defenseValue: 12,
+    weight: 12,
+    price: 12,
   } as ApparelItemSchemaProps;
 
   it('should correctly map to GlovesEntity with character data', () => {
@@ -37,7 +39,7 @@ describe('GlovesEntity - ItemMapper', () => {
     expect(item).toBeInstanceOf(GlovesEntity);
 
     if (item instanceof GlovesEntity) {
-      expect(() => item.character).toThrow('This item has no character');
+      expect(item.character).toBeUndefined();
     }
   });
 

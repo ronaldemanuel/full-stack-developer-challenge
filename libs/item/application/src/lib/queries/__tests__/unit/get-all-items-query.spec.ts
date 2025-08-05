@@ -1,7 +1,7 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
 
-import type { ItemSchema } from '@nx-ddd/item-domain';
+import type { ItemEntity, ItemSchema, UserItemRef } from '@nx-ddd/item-domain';
 import {
   ItemInMemoryRepository,
   ItemMapper,
@@ -14,6 +14,12 @@ import { GetAllItemsQuery } from '../../get-all-items.query';
 describe('GetAllItemsQuery', () => {
   let getAllItemsQuery: GetAllItemsQuery.Handler;
   let itemRepository: ItemRepository.Repository;
+  let mockUser: UserItemRef;
+
+  let mockItem1: ItemEntity;
+  let mockItem2: ItemEntity;
+
+  let mockItems: ItemEntity[];
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -34,42 +40,47 @@ describe('GetAllItemsQuery', () => {
     itemRepository = moduleRef.get<ItemRepository.Repository>(
       ItemRepository.TOKEN,
     );
+
+    // Arrange
+    mockUser = UserItemRefFactory();
+
+    const baseItem1: ItemSchema = {
+      id: 'dragonscale-boots',
+      name: 'Dragon Boots',
+      type: 'apparel',
+      image:
+        'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
+      price: 12,
+      weight: 12,
+    } as ItemSchema;
+
+    const baseItem2: ItemSchema = {
+      id: 'potion-of-health',
+      name: 'Potion of Health',
+      image:
+        'https://static.wikia.nocookie.net/elderscrolls/images/3/32/TESV_HealthPotion.png/revision/latest?cb=20131209201729',
+      effectValue: 67,
+      type: 'consumable',
+      consumableType: 'hp-potion',
+      price: 67,
+      weight: 0,
+    } as ItemSchema;
+
+    mockItem1 = ItemMapper.toDomain(baseItem1, mockUser);
+    mockItem2 = ItemMapper.toDomain(baseItem2, mockUser);
+    mockItems = [mockItem1, mockItem2];
   });
 
   it('should be defined', () => {
     expect(getAllItemsQuery).toBeDefined();
   });
 
-  it('should return a user items list', async () => {
-    // Arrange
-    const mockUser = UserItemRefFactory();
-
-    const baseItem: ItemSchema = {
-      id: 'dragonscale-boots',
-      name: 'Dragon Boots',
-      type: 'apparel',
-      image:
-        'https://static.wikia.nocookie.net/elderscrolls/images/f/fb/Dragonscale_Helmet.png/revision/latest?cb=20170829115636',
-    } as ItemSchema;
-
-    const baseItem2: ItemSchema = {
-      id: 'leather-armor',
-      name: 'Leather Armor',
-      image:
-        'https://static.wikia.nocookie.net/elderscrolls/images/e/e2/Leather_Armor_%28Armor_Piece%29.png/revision/latest?cb=20180219152808',
-
-      type: 'apparel',
-    } as ItemSchema;
-
-    const mockItem1 = ItemMapper.toDomain(baseItem, mockUser);
-    const mockItem2 = ItemMapper.toDomain(baseItem2, mockUser);
-    const mockItems = [mockItem1, mockItem2];
-
+  it('should return the all items list when the filter is all ', async () => {
     vi.spyOn(itemRepository, 'findAll').mockReturnValue(
       Promise.resolve(mockItems as any),
     );
 
-    const query = GetAllItemsQuery.create({});
+    const query = GetAllItemsQuery.create({ type: 'all' });
 
     // Act
     const result = await getAllItemsQuery.execute(query);
@@ -78,5 +89,23 @@ describe('GetAllItemsQuery', () => {
     expect(itemRepository.findAll).toHaveBeenCalled();
     expect(itemRepository.findAll).toHaveBeenCalledWith();
     expect(result).toEqual(mockItems);
+  });
+
+  it('should return the filtered items list', async () => {
+    vi.spyOn(itemRepository, 'findByType').mockReturnValue(
+      Promise.resolve([mockItem1] as any),
+    );
+
+    const type = 'apparel';
+
+    const query = GetAllItemsQuery.create({ type });
+
+    // Act
+    const result = await getAllItemsQuery.execute(query);
+
+    // Assert
+    expect(itemRepository.findByType).toHaveBeenCalled();
+    expect(itemRepository.findByType).toHaveBeenCalledWith(type);
+    expect(result).toEqual([mockItem1]);
   });
 });

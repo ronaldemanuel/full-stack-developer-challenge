@@ -14,6 +14,7 @@ import {
   TwoHandedWeaponEntity,
 } from '@nx-ddd/item-domain';
 
+import { MiscItemEntity } from '../../../../../../../../domain/src/lib/entities/misc.entity';
 import { InMemoryItemRepository } from '../../in-memory-item.repository';
 
 describe('InMemoryItemRepository', () => {
@@ -50,6 +51,12 @@ describe('InMemoryItemRepository', () => {
         'potion-of-health': HpPotionEntity,
         'potion-of-enhanced-stamina': SpPotionEntity,
         'potion-of-extra-magicka': MpPotionEntity,
+        'dragon-bone': MiscItemEntity,
+        'diamond': MiscItemEntity,
+        'silver-ingot': MiscItemEntity,
+        'coin': MiscItemEntity,
+        'potion-of-minor-stamina': SpPotionEntity,
+        'trollsbane': TwoHandedWeaponEntity,
       };
 
       items.forEach((item) => {
@@ -76,18 +83,17 @@ describe('InMemoryItemRepository', () => {
     });
   });
 
-  describe('findIdListByType', () => {
-    it('should return IDs of items matching the given type', async () => {
-      const result = await repository.findIdListByType('weapon');
-      expect(result).toEqual([
-        'daedric-battleaxe',
-        'ebony-sword',
-        'iron-sword',
-      ]);
+  describe('findIdListType', () => {
+    it('should return the items matching the given type', async () => {
+      const result = await repository.findByType('weapon');
+      expect(result).toHaveLength(4);
+      expect(result.map((item) => item.id)).toEqual(
+        expect.arrayContaining(['iron-sword', 'ebony-sword']),
+      );
     });
 
     it('should return an empty array if no items match the type', async () => {
-      const result = await repository.findIdListByType('ring');
+      const result = await repository.findByType('ring');
       expect(result).toEqual([]);
     });
   });

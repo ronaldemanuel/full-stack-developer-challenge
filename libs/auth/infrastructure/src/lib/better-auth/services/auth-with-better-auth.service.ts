@@ -6,6 +6,7 @@ import type {
   AuthService,
   Session,
 } from '@nx-ddd/auth-domain';
+import type { User } from '@nx-ddd/user-domain';
 import { UserEntity } from '@nx-ddd/user-domain';
 
 import type { BetterAuth } from '../factories/better-auth.factory';
@@ -47,7 +48,7 @@ export class AuthWithBetterAuthService implements AuthService.Service {
         headers,
         returnHeaders: true,
       });
-      return new UserEntity(data.response.user, data.response.user.id);
+      return new UserEntity(data.response.user as User, data.response.user.id);
     } else {
       // const data = await this.betterAuth.api.signInSocial({
       //   body: {
@@ -84,7 +85,9 @@ export class AuthWithBetterAuthService implements AuthService.Service {
   }
 
   getDeviceSessionsList(headers: Headers): Promise<Session[]> {
-    return this.betterAuth.api.listDeviceSessions({ headers });
+    return this.betterAuth.api.listDeviceSessions({ headers }) as Promise<
+      Session[]
+    >;
   }
 
   async getFirstOrganizationSlug(headers: Headers): Promise<string | null> {

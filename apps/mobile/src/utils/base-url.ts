@@ -17,7 +17,7 @@ export const getBaseUrl = () => {
   const localhost = debuggerHost?.split(':')[0];
 
   if (!localhost) {
-    return 'http://localhost:3000';
+    return 'https://skyrim.ronaldemanuel.com.br';
   }
   return `http://${localhost}:3000`;
 };

@@ -1,11 +1,12 @@
 import type { UserItemRef } from '../../../../refs/user-item.ref';
 import type { ApparelItemSchemaProps } from '../../../../schemas/apparel.schema';
+import type { ChestEntity } from '../../../apparel/chest.entity';
 import { ItemMapper } from '../../../../mappers/item.mapper';
 import { UserItemRefFactory } from '../../../factories/user-item-ref.factory';
 
 describe('ChestEntity', () => {
   let character: UserItemRef;
-  let chest: ReturnType<typeof ItemMapper.toDomain>;
+  let chest: ChestEntity;
 
   const baseItem: ApparelItemSchemaProps = {
     id: 'dragonscale-armor',
@@ -21,13 +22,13 @@ describe('ChestEntity', () => {
 
   beforeEach(() => {
     character = UserItemRefFactory({}, {}, 'user-123');
-    chest = ItemMapper.toDomain(baseItem, character);
+    chest = ItemMapper.toDomain(baseItem, character) as ChestEntity;
   });
 
   it('should equip the chest if no chest is currently equipped', () => {
     chest.use();
 
-    expect(character.equippedChest).toBe(chest);
+    expect(character.equippedChest).toBe(chest.id);
   });
 
   it('should replace the currently equipped chest with a new one', () => {
@@ -43,19 +44,19 @@ describe('ChestEntity', () => {
 
     // Equip the first chest
     chest.use();
-    expect(character.equippedChest).toBe(chest);
+    expect(character.equippedChest).toBe(chest.id);
 
     // Equip a different chest
 
     const newChest = ItemMapper.toDomain(newChestProps, character);
     newChest.use();
-    expect(character.equippedChest).toBe(newChest);
+    expect(character.equippedChest).toBe(newChest.id);
   });
 
   it('should unequip the chest if it is already equipped', () => {
     // Equip
     chest.use();
-    expect(character.equippedChest).toBe(chest);
+    expect(character.equippedChest).toBe(chest.id);
 
     // Unequip
     chest.use();
