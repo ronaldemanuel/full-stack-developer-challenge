@@ -25,9 +25,9 @@
           "{options.outputPath}"
         ],
         "options": {
-          "outputPath": "libs/post/presentation/dist",
-          "main": "libs/post/presentation/src/index.ts",
-          "tsConfig": "libs/post/presentation/tsconfig.lib.json",
+          "outputPath": "libs/item/presentation/dist",
+          "main": "libs/item/presentation/src/index.ts",
+          "tsConfig": "libs/item/presentation/tsconfig.lib.json",
           "stripLeadingPaths": true
         }
       }
