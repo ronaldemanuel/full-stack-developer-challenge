@@ -1,12 +1,14 @@
 // LoginScreen.tsx (React Native version using tailwindcss-react-native, shadcn/ui, zod, RHF)
 
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 import { Link, router } from 'expo-router';
 import { Button } from '@/components/ui/button';
 import { Form, FormField, FormInput } from '@/components/ui/Form';
 import { Text } from '@/components/ui/text';
 import { useAuth } from '@/modules/auth/hooks/use-auth';
+import { useUser } from '@/modules/auth/hooks/use-user';
+import SkyrimButton from '@/modules/shared/components/skyrim-button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -20,20 +22,20 @@ export type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginScreen() {
   const [isLoading, setIsLoading] = useState(false);
-  const { loginWithEmail } = useAuth();
+  const { loginWithEmail, loginWithGoogle } = useAuth();
+  const { refetch } = useUser();
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' },
   });
 
-  const onSubmit = (data: LoginFormData) => {
+  const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
-    setTimeout(() => {
-      loginWithEmail(data);
-      router.replace('/(tabs)/inventory');
-      setIsLoading(false);
-    }, 1500);
+    await loginWithEmail(data);
+    await refetch();
+    router.replace('/');
+    setIsLoading(false);
   };
 
   return (
@@ -92,8 +94,41 @@ export default function LoginScreen() {
         </Button>
       </Form>
 
+      <View className="mb-4 flex-row items-center">
+        <View
+          className={'h-px flex-1'}
+          style={{ backgroundColor: '#27272A' }}
+        />
+        <Text className="mx-3 text-sm text-gray-400">or</Text>
+        <View
+          className="h-px flex-1 bg-gray-700"
+          style={{ backgroundColor: '#27272A' }}
+        />
+      </View>
+
+      {/* Google Sign-In Button */}
+      <SkyrimButton
+        children={
+          isLoading ? (
+            'AUTHENTICATING...'
+          ) : (
+            <View className="flex-row">
+              <Image
+                source={require('../../../assets/google-white-icon.png')}
+                className="mr-2 h-5 w-5 text-white"
+                resizeMode="contain"
+              />
+              <Text className="ml-1">SIGN IN WITH GOOGLE</Text>
+            </View>
+          )
+        }
+        onPress={loginWithGoogle}
+        disabled={isLoading}
+        className="w-full border-0 py-4 text-lg"
+      />
+
       {/* Signup Link */}
-      <View className="items-center border-t border-white/20 pt-4">
+      <View className="mt-2 items-center pt-4">
         <Text className="mb-2 text-sm text-gray-400">
           Don't have an account?
         </Text>

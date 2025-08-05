@@ -13,12 +13,10 @@ interface StoreScreenProps {
 }
 
 export default function StoreScreen({ filter }: StoreScreenProps) {
-  const itemQuery = useQuery(
+  const { data: items } = useQuery(
     trpc.item.getAllItems.queryOptions({ type: filter }),
   );
   const { user } = useUser();
-
-  const items = itemQuery.data;
 
   const [selectedItem, setSelectedItem] = useState({
     amount: 0,

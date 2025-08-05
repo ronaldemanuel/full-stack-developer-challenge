@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, Image, View } from 'react-native';
 import { useUser } from '@/modules/auth/hooks/use-user';
 import { CharacterInfo } from '@/modules/character/character-info';
@@ -34,13 +34,15 @@ export default function InventoryScreen({ filter }: InventoryScreenProps) {
     },
   });
 
-  console.log(inventoryItems);
-
   useEffect(() => {
-    if (inventoryItems && inventoryItems.length > 0) {
+    if (
+      inventoryItems &&
+      inventoryItems.length > 0 &&
+      selectedItem.item.id === ''
+    ) {
       setSelectedItem(inventoryItems[0]);
     }
-  }, [inventoryItems]);
+  }, [inventoryItems, selectedItem.item.id]);
 
   const { width } = Dimensions.get('window');
 

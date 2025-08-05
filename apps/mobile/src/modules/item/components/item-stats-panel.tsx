@@ -1,9 +1,10 @@
-import { Image, View } from 'react-native';
+import { ActivityIndicator, Image, View } from 'react-native';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { useToast } from '@/components/ui/toast';
 import { useUser } from '@/modules/auth/hooks/use-user';
 import { trpc } from '@/utils/api';
+import { NAV_THEME } from '@/utils/constants';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export interface ItemStatsPanelProps {
@@ -21,13 +22,13 @@ export default function ItemStatsPanel({
 
   const toast = useToast();
 
-  const { mutate: addItemMutate } = useMutation(
+  const { mutate: addItemMutate, isPending: addItemsPending } = useMutation(
     trpc.item.addItemToInventory.mutationOptions({
       onSuccess: async () => {
         await queryClient.invalidateQueries(
           trpc.item.getUserItems.queryFilter(),
         );
-        refetch();
+        await refetch();
         toast.toast({
           title: 'Success',
           description: 'Item added',
@@ -44,13 +45,13 @@ export default function ItemStatsPanel({
     }),
   );
 
-  const { mutate: useItemMutate } = useMutation(
+  const { mutate: useItemMutate, isPending: useItemsPending } = useMutation(
     trpc.item.useItem.mutationOptions({
       onSuccess: async () => {
         await queryClient.invalidateQueries(
           trpc.item.getUserItems.queryFilter(),
         );
-        refetch();
+        await refetch();
         toast.toast({
           title: 'Success',
           description: 'Item used successfully',
@@ -66,6 +67,8 @@ export default function ItemStatsPanel({
       },
     }),
   );
+
+  const isPending = useItemsPending || addItemsPending;
 
   return (
     <View className="mt-3 flex-1 items-center justify-center p-4">
@@ -147,15 +150,20 @@ export default function ItemStatsPanel({
                   useItemMutate({ itemId: inventoryItem.item.id });
                 }}
                 className="rounded bg-white/20 px-4 py-2"
+                disabled={isPending}
               >
-                <Text className="text-white">
-                  {inventoryItem.item.type === 'consumable' ||
-                  inventoryItem.item.type === 'misc'
-                    ? 'Use'
-                    : inventoryItem.item.equipped
-                      ? 'Unequip'
-                      : 'Equip'}
-                </Text>
+                {isPending ? (
+                  <ActivityIndicator color={NAV_THEME.dark.primary} />
+                ) : (
+                  <Text className="text-white">
+                    {inventoryItem.item.type === 'consumable' ||
+                    inventoryItem.item.type === 'misc'
+                      ? 'Use'
+                      : inventoryItem.item.equipped
+                        ? 'Unequip'
+                        : 'Equip'}
+                  </Text>
+                )}
               </Button>
             )}
             {panelType === 'store' && (
@@ -164,18 +172,23 @@ export default function ItemStatsPanel({
                   addItemMutate({ itemId: inventoryItem.item.id });
                 }}
                 className="rounded bg-white/20 px-4 py-2"
+                disabled={isPending}
               >
-                <View className="flex-row items-center gap-1">
-                  <Text className="mr-1 text-white">BUY</Text>
-                  <Text className="mr-1 text-white">
-                    {inventoryItem.item.price}
-                  </Text>
-                  <Image
-                    source={require('../../../../assets/Septim_Skyrim.png')}
-                    style={{ width: 16, height: 16 }}
-                    resizeMode="contain"
-                  />
-                </View>
+                {isPending ? (
+                  <ActivityIndicator color={NAV_THEME.dark.primary} />
+                ) : (
+                  <View className="flex-row items-center gap-1">
+                    <Text className="mr-1 text-white">BUY</Text>
+                    <Text className="mr-1 text-white">
+                      {inventoryItem.item.price}
+                    </Text>
+                    <Image
+                      source={require('../../../../assets/Septim_Skyrim.png')}
+                      style={{ width: 16, height: 16 }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                )}
               </Button>
             )}
           </View>
