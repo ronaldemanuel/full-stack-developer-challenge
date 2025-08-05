@@ -8,7 +8,7 @@ import { SqsStrategy } from './sqs.strategy';
 export async function bootstrapSqs(): Promise<SqsStrategy> {
   const strategy = new SqsStrategy();
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    JobEventsConsumerModule,
+    JobEventsConsumerModule.forAws(),
     {
       strategy,
     },

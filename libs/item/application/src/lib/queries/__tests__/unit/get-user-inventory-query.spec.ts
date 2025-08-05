@@ -21,7 +21,7 @@ describe('GetUserInventoryQuery', () => {
   let mockItem1: ItemEntity;
   let mockItem2: ItemEntity;
 
-  let mockItems: ItemEntity[];
+  // let mockItems: ItemEntity[];
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -70,7 +70,7 @@ describe('GetUserInventoryQuery', () => {
 
     mockItem1 = ItemMapper.toDomain(baseItem1, mockUser);
     mockItem2 = ItemMapper.toDomain(baseItem2, mockUser);
-    mockItems = [mockItem1, mockItem2];
+    // mockItems = [mockItem1, mockItem2];
   });
 
   it('should be defined', () => {

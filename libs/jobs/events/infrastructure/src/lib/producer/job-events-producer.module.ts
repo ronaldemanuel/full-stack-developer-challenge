@@ -19,7 +19,7 @@ export class JobEventsProducerModule {
     if (isAws) {
       return this.forAws();
     } else {
-      return this.forInngest();
+      return this.forVercel();
     }
   }
   static forAws() {
@@ -45,7 +45,7 @@ export class JobEventsProducerModule {
     });
   }
 
-  static forInngest(): DynamicModule {
+  static forVercel(): DynamicModule {
     return CqrsModule.forRootAsync({
       async useFactory(): Promise<{ eventPublisher: IEventPublisher<IEvent> }> {
         const publisher = new HttpInngestEventPublisher(inngest);
