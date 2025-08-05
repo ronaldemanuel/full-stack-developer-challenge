@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormField, FormInput } from '@/components/ui/Form';
 import { Text } from '@/components/ui/text';
 import { useAuth } from '@/modules/auth/hooks/use-auth';
+import { useUser } from '@/modules/auth/hooks/use-user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -21,19 +22,19 @@ export type LoginFormData = z.infer<typeof loginSchema>;
 export default function LoginScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const { loginWithEmail } = useAuth();
+  const { refetch } = useUser();
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' },
   });
 
-  const onSubmit = (data: LoginFormData) => {
+  const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
-    setTimeout(() => {
-      loginWithEmail(data);
-      router.replace('/(tabs)/inventory');
-      setIsLoading(false);
-    }, 1500);
+    loginWithEmail(data);
+    await refetch();
+    router.replace('/(tabs)/inventory');
+    setIsLoading(false);
   };
 
   return (

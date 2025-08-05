@@ -27,7 +27,7 @@ export default function ItemStatsPanel({
         await queryClient.invalidateQueries(
           trpc.item.getUserItems.queryFilter(),
         );
-        refetch();
+        await refetch();
         toast.toast({
           title: 'Success',
           description: 'Item added',
@@ -50,7 +50,7 @@ export default function ItemStatsPanel({
         await queryClient.invalidateQueries(
           trpc.item.getUserItems.queryFilter(),
         );
-        refetch();
+        await refetch();
         toast.toast({
           title: 'Success',
           description: 'Item used successfully',
