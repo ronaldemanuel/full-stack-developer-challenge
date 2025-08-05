@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, Image, View } from 'react-native';
 import { useUser } from '@/modules/auth/hooks/use-user';
 import { CharacterInfo } from '@/modules/character/character-info';

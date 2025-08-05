@@ -6,8 +6,11 @@ import { useToast } from '@/components/ui/toast';
 import { queryClient } from '@/utils/api';
 import { authClient } from '@/utils/auth';
 
+import { useUser } from './use-user';
+
 export function useAuth() {
   const toast = useToast();
+  const { refetch } = useUser();
 
   const loginWithEmail = useCallback(
     async (input: LoginFormData) => {
@@ -37,7 +40,7 @@ export function useAuth() {
         });
       }
     },
-    [loginWithEmail, toast],
+    [toast],
   );
 
   const loginWithGoogle = useCallback(async () => {
@@ -54,7 +57,8 @@ export function useAuth() {
         variant: 'error',
       });
     }
-  }, [toast]);
+    await refetch();
+  }, [refetch, toast]);
 
   const logout = useCallback(async () => {
     const response = await authClient.signOut();
