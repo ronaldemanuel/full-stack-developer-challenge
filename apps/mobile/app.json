@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "expo",
-    "slug": "expo",
+    "name": "skyrim-inventory",
+    "slug": "skyrim-inventory",
     "scheme": "expo",
     "version": "0.1.0",
     "orientation": "portrait",
@@ -43,10 +43,16 @@
           "image": "./assets/skyrim-logo.png",
           "dark": {
             "backgroundColor": "#18181B",
-            "image": "/assets/skyrim-logo.png"
+            "image": "./assets/skyrim-logo.png"
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ae9224da-ebe1-4581-971a-d527d23f5b34"
+      }
+    }
   }
 }
