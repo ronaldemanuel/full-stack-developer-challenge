@@ -51,7 +51,7 @@ export default function SignupScreen() {
     <KeyboardAvoidingView
       className="w-full"
       contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
-      behavior={Platform.OS === 'android' ? 'position' : 'padding'}
+      behavior={'position'}
     >
       <Form {...form}>
         <View className="gap-4">
