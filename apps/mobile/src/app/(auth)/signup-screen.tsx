@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import { Link, router } from 'expo-router';
+import { Button } from '@/components/ui/button';
 import { Form, FormField, FormInput } from '@/components/ui/Form';
 import { Text } from '@/components/ui/text';
 import { useAuth } from '@/modules/auth/hooks/use-auth';
-import SkyrimButton from '@/modules/shared/components/skyrim-button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -117,12 +117,17 @@ export default function SignupScreen() {
               />
             )}
           />
-          <SkyrimButton
-            children={isLoading ? 'CREATING ACCOUNT...' : 'CREATE ACCOUNT'}
+          <Button
             disabled={isLoading}
             onPress={form.handleSubmit(onSubmit)}
             className="mt-4 py-4 text-lg"
-          />
+          >
+            {isLoading ? (
+              <Text>CREATING ACCOUNT...</Text>
+            ) : (
+              <Text>CREATE ACCOUNT</Text>
+            )}
+          </Button>
         </View>
       </Form>
 
