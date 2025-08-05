@@ -31,7 +31,7 @@ export default function LoginScreen() {
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
-    loginWithEmail(data);
+    await loginWithEmail(data);
     await refetch();
     router.replace('/(tabs)/inventory');
     setIsLoading(false);

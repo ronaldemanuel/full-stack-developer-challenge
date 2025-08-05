@@ -28,7 +28,11 @@ export const useUser = <
 >(
   overrides: TOverrides = {} as TOverrides,
 ) => {
-  const { data: session, refetch } = useQuery({
+  const {
+    data: session,
+    refetch,
+    isFetching,
+  } = useQuery({
     ...useSessionQueryOptions,
     ...overrides,
   });
@@ -37,5 +41,6 @@ export const useUser = <
     user: session?.user,
     loggedIn: session?.user,
     refetch,
+    isFetching,
   };
 };

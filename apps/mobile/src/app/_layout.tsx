@@ -1,16 +1,17 @@
 import type { Theme } from '@react-navigation/native';
 import { Stack } from 'expo-router';
-import { queryClient } from '@/utils/api';
+import { queryClient, trpc } from '@/utils/api';
 import { DarkTheme, ThemeProvider } from '@react-navigation/native';
 
 import '../styles.css';
 
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
 import { ToastProvider } from '@/components/ui/toast';
 import { useUser } from '@/modules/auth/hooks/use-user';
 import { NAV_THEME } from '@/utils/constants';
 import { useColorScheme } from '@/utils/useColorScheme';
-import { QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 
 // This is the main layout of the app
 // It wraps your pages with the providers they need
@@ -20,14 +21,38 @@ const DARK_THEME: Theme = {
   colors: NAV_THEME.dark,
 };
 
+SplashScreen.preventAutoHideAsync();
+
 function RootLayout() {
-  const { loggedIn } = useUser();
+  const { loggedIn, isFetching } = useUser();
+  const [appReady, setAppReady] = useState(false);
+  const queryClient = useQueryClient();
 
   const { setColorScheme } = useColorScheme();
 
+  const preFetchData = useCallback(async () => {
+    const { queryKey, queryFn } = trpc.item.getUserItems.queryOptions({
+      type: 'all',
+    });
+
+    await queryClient.prefetchQuery({ queryKey, queryFn });
+
+    await SplashScreen.hideAsync().then(() => {
+      setAppReady(true);
+    });
+  }, [queryClient]);
+
+  useEffect(() => {
+    if (!isFetching) {
+      preFetchData();
+    }
+  }, [isFetching, preFetchData]);
+
   useEffect(() => {
     setColorScheme('dark');
-  }, []);
+  }, [setColorScheme]);
+
+  if (!appReady) return null;
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
