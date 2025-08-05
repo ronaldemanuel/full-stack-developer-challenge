@@ -46,7 +46,6 @@ export function useAuth() {
   const loginWithGoogle = useCallback(async () => {
     const response = await authClient.signIn.social({
       provider: 'google',
-      callbackURL: '/',
     });
 
     if (response.data === null) {

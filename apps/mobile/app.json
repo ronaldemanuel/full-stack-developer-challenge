@@ -17,7 +17,7 @@
       "supportsTablet": true,
       "icon": {
         "light": "./assets/skyrim-logo-icon.png",
-        "dark": "/assets/skyrim-logo-icon.png"
+        "dark": "./assets/skyrim-logo-icon.png"
       }
     },
     "android": {
