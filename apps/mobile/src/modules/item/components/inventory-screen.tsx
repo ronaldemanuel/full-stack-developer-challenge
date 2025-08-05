@@ -34,13 +34,15 @@ export default function InventoryScreen({ filter }: InventoryScreenProps) {
     },
   });
 
-  console.log(inventoryItems);
-
   useEffect(() => {
-    if (inventoryItems && inventoryItems.length > 0) {
+    if (
+      inventoryItems &&
+      inventoryItems.length > 0 &&
+      selectedItem.item.id === ''
+    ) {
       setSelectedItem(inventoryItems[0]);
     }
-  }, [inventoryItems]);
+  }, [inventoryItems, selectedItem.item.id]);
 
   const { width } = Dimensions.get('window');
 
