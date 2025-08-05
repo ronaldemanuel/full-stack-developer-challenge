@@ -31,16 +31,18 @@ function RootLayout() {
   const { setColorScheme } = useColorScheme();
 
   const preFetchData = useCallback(async () => {
-    const { queryKey, queryFn } = trpc.item.getUserItems.queryOptions({
-      type: 'all',
-    });
+    if (loggedIn) {
+      const { queryKey, queryFn } = trpc.item.getUserItems.queryOptions({
+        type: 'all',
+      });
 
-    await queryClient.prefetchQuery({ queryKey, queryFn });
+      await queryClient.prefetchQuery({ queryKey, queryFn });
+    }
 
     await SplashScreen.hideAsync().then(() => {
       setAppReady(true);
     });
-  }, [queryClient]);
+  }, [loggedIn, queryClient]);
 
   useEffect(() => {
     if (!isFetching) {
