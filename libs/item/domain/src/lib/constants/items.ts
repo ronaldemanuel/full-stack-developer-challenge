@@ -217,7 +217,7 @@ export const ITEMS: Record<
     price: 60,
     weight: 25,
     weaponType: 'two-hands',
-    effectValue: 20,
+    damageValue: 20,
   },
 } satisfies Record<
   string,
