@@ -9,7 +9,10 @@
         "continuous": true,
         "options": {
           "cwd": "apps/web",
-          "command": "next dev --turbo"
+          "command": "next dev --turbo",
+          "env": {
+            "NODE_OPTIONS": "--inspect"
+          }
         },
         "syncGenerators": [
           "@nx/js:typescript-sync"
