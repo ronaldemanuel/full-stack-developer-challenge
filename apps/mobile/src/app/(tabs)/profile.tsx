@@ -199,7 +199,7 @@ export default function Profile() {
             <Text className="mb-1 text-sm text-gray-400">
               Need to change your email?
             </Text>
-            <Link href={}>
+            <Link href={'/'}>
               <Text className="text-sm text-white underline">
                 Contact Support
               </Text>
