@@ -3,6 +3,7 @@ import { Tabs } from 'expo-router/tabs';
 import { LogOut } from '@/lib/icons/LogOut';
 import { Package } from '@/lib/icons/Package';
 import { Store } from '@/lib/icons/Store';
+import { UserRoundPen } from '@/lib/icons/UserRoundPen';
 import { useAuth } from '@/modules/auth/hooks/use-auth';
 import { cn } from '@/utils/react-native-reusables';
 
@@ -54,6 +55,14 @@ export default function TabLayout() {
         options={{
           title: 'STORE',
           tabBarIcon: (props) => <Store {...props} />,
+        }}
+      />
+
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'PROFILE',
+          tabBarIcon: (props) => <UserRoundPen {...props} />,
         }}
       />
 

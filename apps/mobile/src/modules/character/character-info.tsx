@@ -1,4 +1,7 @@
 import { Text, View } from 'react-native';
+import { Link } from 'expo-router';
+import { UserRoundPen } from '@/lib/icons/UserRoundPen';
+import { NAV_THEME } from '@/utils/constants';
 import { cn } from '@/utils/react-native-reusables';
 
 interface CharacterInfoProps {
@@ -12,8 +15,11 @@ export function CharacterInfo({ user }: CharacterInfoProps) {
   return (
     <View className="absolute bottom-0 left-0 right-0 z-20 bg-black/95 p-3 backdrop-blur-sm md:hidden">
       <View className="mb-2 flex-row items-center justify-between">
-        <View>
-          <Text className="text-base font-light text-white">{name}</Text>
+        <View className="flex-1 flex-row items-center">
+          <Text className="mr-3 text-base font-light text-white">{name}</Text>
+          <Link href={'/(tabs)/profile'}>
+            <UserRoundPen color={NAV_THEME.dark.text} size={16} />
+          </Link>
         </View>
       </View>
 
