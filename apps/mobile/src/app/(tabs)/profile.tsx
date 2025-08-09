@@ -4,7 +4,6 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -16,8 +15,6 @@ import { Camera } from '@/lib/icons/Camera';
 import { Upload } from '@/lib/icons/Upload';
 import { X } from '@/lib/icons/X';
 import { useUser } from '@/modules/auth/hooks/use-user';
-import SkyrimButton from '@/modules/shared/components/skyrim-button';
-import { NAV_THEME } from '@/utils/constants';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
