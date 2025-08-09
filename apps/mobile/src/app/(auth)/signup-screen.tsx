@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, View } from 'react-native';
+import { KeyboardAvoidingView, View } from 'react-native';
 import { Link, router } from 'expo-router';
 import { Button } from '@/components/ui/button';
 import { Form, FormField, FormInput } from '@/components/ui/Form';
