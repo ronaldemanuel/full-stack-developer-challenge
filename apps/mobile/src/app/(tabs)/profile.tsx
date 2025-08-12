@@ -120,7 +120,7 @@ export default function Profile() {
             </Button>
           </View>
 
-          <Text className="text-center text-xs text-gray-500">
+          <Text className="mt-1 text-center text-xs text-gray-500">
             Supported formats: JPG, PNG, GIF
           </Text>
 
